@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wilkyjams Dev · Admin</title>
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="admin-body">
+
+    <div class="admin-layout">
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="admin-mobile-head"><div class="admin-logo">JP · Admin</div><button class="admin-menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" onclick="toggleAdminMenu()"><i class="fas fa-bars"></i></button></div>
+            <div class="admin-logo admin-desktop-logo">JP · Admin</div>
+            <nav class="admin-nav" id="adminNav">
+                <a href="dashboard.html" class="active" title="Resumen" aria-label="Resumen"><i class="fas fa-chart-pie"></i> Resumen</a>
+                <a href="#panelAnalitica" title="Analítica" aria-label="Analítica" onclick="scrollToPanel(event,'panelAnalitica')"><i class="fas fa-chart-line"></i> Analítica</a>
+                <a href="#productos" title="Productos" aria-label="Productos" onclick="scrollToPanel(event,'panelProductos')"><i class="fas fa-box"></i> Productos</a>
+                <a href="#contenido" title="Contenido" aria-label="Contenido" onclick="scrollToPanel(event,'panelContenido')"><i class="fas fa-pen-to-square"></i> Contenido</a>
+                <a href="#configuracion" title="Configuración" aria-label="Configuración" onclick="scrollToPanel(event,'panelConfiguracion')"><i class="fas fa-sliders-h"></i> Configuración</a>
+                <a href="#proyectos" title="Proyectos" aria-label="Proyectos" onclick="scrollToPanel(event,'panelProyectos')"><i class="fas fa-layer-group"></i> Proyectos</a>
+                <a href="#servicios" title="Servicios" aria-label="Servicios" onclick="scrollToPanel(event,'panelServicios')"><i class="fas fa-briefcase"></i> Servicios</a>
+                <a href="#pedidos" title="Pedidos" aria-label="Pedidos" onclick="scrollToPanel(event,'panelPedidos')"><i class="fas fa-receipt"></i> Pedidos</a>
+                <a href="#mensajes" title="Mensajes" aria-label="Mensajes" onclick="scrollToPanel(event,'panelMensajes')"><i class="fas fa-envelope"></i> Mensajes</a>
+                <a href="/" title="Ver sitio" aria-label="Ver sitio"><i class="fas fa-arrow-left"></i> Ver sitio</a>
+            </nav>
+            <button class="admin-logout" title="Cerrar sesión" aria-label="Cerrar sesión" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
+        </aside>
+
+        <!-- ===== CONTENIDO PRINCIPAL ===== -->
+        <main class="admin-main">
+            <div class="admin-topbar">
+                <div class="admin-topbar-left">
+                    <button class="admin-nav-toggle" id="adminDesktopMenu" type="button" aria-label="Contraer navegación" title="Contraer navegación">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1>Resumen general</h1>
+                        <span class="admin-breadcrumb"><i class="fas fa-house"></i> Panel privado · Wilkyjams Dev</span>
+                    </div>
+                </div>
+                <div class="admin-topbar-tools">
+                    <div class="admin-search">
+                        <i class="fas fa-search"></i>
+                        <input id="adminGlobalSearch" type="search" placeholder="Buscar en el panel…" autocomplete="off" aria-label="Buscar en el panel">
+                        <kbd>⌘ K</kbd>
+                    </div>
+                    <button class="admin-icon-btn" id="adminThemeToggle" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="admin-popover-wrap">
+                        <button class="admin-icon-btn has-badge" id="adminNotificationsBtn" type="button" aria-label="Notificaciones" aria-expanded="false" title="Notificaciones">
+                            <i class="fas fa-bell"></i><span class="admin-notification-badge" id="adminNotificationBadge">0</span>
+                        </button>
+                        <div class="admin-popover notification-menu" id="adminNotificationMenu" hidden>
+                            <div class="popover-head"><div><strong>Notificaciones</strong><small>Actividad reciente</small></div><button type="button" id="markNotificationsRead">Marcar como leídas</button></div>
+                            <div id="adminNotificationsList" class="popover-list"><div class="popover-empty"><i class="fas fa-check-circle"></i><span>Todo está al día.</span></div></div>
+                        </div>
+                    </div>
+                    <div class="admin-popover-wrap">
+                        <button class="admin-profile-trigger" id="adminProfileBtn" type="button" aria-expanded="false" aria-label="Abrir perfil">
+                            <span class="avatar-sm">JP</span><span class="admin-profile-copy"><strong>Jamsle Porcena</strong><small>Administrador</small></span><i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="admin-popover profile-menu" id="adminProfileMenu" hidden>
+                            <div class="profile-card"><span class="avatar-lg">JP</span><div><strong>Jamsle Porcena</strong><small id="adminProfileEmail">Administrador</small></div></div>
+                            <div class="popover-divider"></div>
+                            <a href="../" class="popover-action"><i class="fas fa-arrow-up-right-from-square"></i> Ver sitio público</a>
+                            <button type="button" class="popover-action danger" id="adminProfileLogout"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== STATS ===== -->
+            <div class="stats-row">
+                <div class="admin-stat-card">
+                    <div class="stat-top">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span class="stat-change">—</span>
+                    </div>
+                    <div class="stat-value">$0.00</div>
+                    <div class="stat-label">Ventas registradas</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-top">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="stat-change">—</span>
+                    </div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Pedidos totales</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-top">
+                        <i class="fas fa-users"></i>
+                        <span class="stat-change">—</span>
+                    </div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Visitas al sitio</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-top">
+                        <i class="fas fa-envelope"></i>
+                        <span class="stat-change down">—</span>
+                    </div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Mensajes sin responder</div>
+                </div>
+            </div>
+
+            <!-- ===== EDITOR DE CONTENIDO ===== -->
+            <div class="admin-panel" id="panelContenido">
+                <div class="panel-title">
+                    <div><h3>Editor de contenido</h3><span class="admin-panel-subtitle">Edita textos de cada página sin tocar HTML, CSS ni el diseño.</span></div>
+                    <button type="button" class="btn-admin-add" id="loadContentEditorBtn"><i class="fas fa-pen-to-square"></i> Cargar contenido</button>
+                </div>
+                <div class="cms-content-editor" id="contentEditor">
+                    <div class="cms-settings-note"><i class="fas fa-shield-halved"></i><span>Los cambios se guardan como sobrescrituras de contenido en Supabase. La estructura, estilos, animaciones y componentes permanecen intactos.</span></div>
+                    <div class="settings-grid">
+                        <label>Página<select id="contentPage"><option value="index.html">Inicio</option><option value="sobre-mi.html">Sobre mí</option><option value="servicios.html">Servicios</option><option value="contacto.html">Contacto</option><option value="tienda.html">Tienda</option><option value="privacy.html">Privacidad</option><option value="terms.html">Términos</option><option value="cookies.html">Cookies</option><option value="help.html">Centro de ayuda</option></select></label>
+                        <label>Idioma<select id="contentLang"><option value="es">Español</option><option value="en">English</option><option value="fr">Français</option></select></label>
+                    </div>
+                    <div id="contentEditorFields" class="cms-grid cms-grid-2"></div>
+                </div>
+            </div>
+
+            <!-- ===== CONFIGURACIÓN DEL SITIO ===== -->
+            <div class="admin-panel" id="panelConfiguracion">
+                <div class="panel-title">
+                    <h3>Contenido general del sitio</h3>
+                    <button type="submit" form="siteSettingsForm" class="btn-admin-add" id="saveSettingsBtn"><i class="fas fa-save"></i> Guardar cambios</button>
+                </div>
+                <form id="siteSettingsForm" class="admin-settings-form">
+                    <div class="settings-grid">
+                        <label>Nombre<input name="site_name" maxlength="100"></label>
+                        <label>Profesión / cargo<input name="site_role" maxlength="160"></label>
+                        <label>WhatsApp<input name="whatsapp" maxlength="30" inputmode="tel"></label>
+                        <label>Teléfono<input name="phone" maxlength="30" inputmode="tel"></label>
+                        <label>Email<input name="email" type="email" maxlength="180"></label>
+                    </div>
+                    <label>Descripción ES<textarea name="description_es" maxlength="1000"></textarea></label>
+                    <label>Description EN<textarea name="description_en" maxlength="1000"></textarea></label>
+                    <label>Description FR<textarea name="description_fr" maxlength="1000"></textarea></label>
+                    <div class="settings-grid">
+                        <label>LinkedIn<input name="linkedin" type="url" maxlength="300"></label>
+                        <label>GitHub<input name="github" type="url" maxlength="300"></label>
+                        <label>Behance<input name="behance" type="url" maxlength="300"></label>
+                        <label>YouTube<input name="youtube" type="url" maxlength="300" placeholder="https://www.youtube.com/@tu-canal"></label>
+                    </div>
+                    <div class="cms-settings-note"><i class="fas fa-circle-info"></i><span>Usa URLs HTTPS para las redes sociales e imagen. Los cambios se sincronizan con el sitio público mediante Supabase.</span></div>
+                    <label>Imagen de perfil (URL)<input name="profile_image" type="url" maxlength="500"></label>
+                </form>
+                <p class="admin-panel-note">Estos datos se guardan en Supabase y se aplican al sitio público sin modificar su diseño.</p>
+            </div>
+
+            <!-- ===== ANALÍTICA ===== -->
+            <div class="admin-panel" id="panelAnalitica">
+                <div class="panel-title">
+                    <div><h3>Actividad del sitio</h3><span class="admin-panel-subtitle">Visitas únicas por sesión · últimas páginas</span></div>
+                    <span class="analytics-live-status" id="analyticsLiveStatus"><i></i> Conectando…</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+                    <div class="admin-card" style="padding:18px">
+                        <strong id="uniqueSessionsValue" style="font-size:28px">0</strong>
+                        <div style="opacity:.7;margin-top:4px">Sesiones registradas</div>
+                    </div>
+                    <div class="admin-card" style="padding:18px">
+                        <strong id="todayVisitsValue" style="font-size:28px">0</strong>
+                        <div style="opacity:.7;margin-top:4px">Visitas de hoy</div>
+                    </div>
+                </div>
+                <div style="overflow:auto;margin-top:18px">
+                    <table class="admin-table">
+                        <thead><tr><th>Página</th><th>Visitas</th><th>Última visita</th></tr></thead>
+                        <tbody id="topPagesTableBody"><tr><td colspan="3">Cargando…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ===== PRODUCTOS ===== -->
+            <div class="admin-panel" id="panelProductos">
+                <div class="panel-title">
+                    <h3>Productos de la tienda</h3>
+                    <button class="btn-admin-add" id="newProductBtn"><i class="fas fa-plus"></i> Nuevo producto</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Estado</th><th>Acciones</th></tr>
+                    </thead>
+                    <tbody id="productsTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- ===== PROYECTOS ===== -->
+            <div class="admin-panel" id="panelProyectos">
+                <div class="panel-title">
+                    <h3>Proyectos del portafolio</h3>
+                    <button class="btn-admin-add" id="newProjectBtn"><i class="fas fa-plus"></i> Nuevo proyecto</button>
+                </div>
+                <table class="admin-table"><thead><tr><th>Proyecto</th><th>Slug</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="projectsTableBody"></tbody></table>
+            </div>
+
+            <!-- ===== SERVICIOS ===== -->
+            <div class="admin-panel" id="panelServicios">
+                <div class="panel-title">
+                    <h3>Servicios y planes</h3>
+                    <button class="btn-admin-add" id="newServiceBtn"><i class="fas fa-plus"></i> Nuevo servicio</button>
+                </div>
+                <table class="admin-table"><thead><tr><th>Servicio</th><th>Precio</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="servicesTableBody"></tbody></table>
+            </div>
+
+            <!-- ===== PEDIDOS ===== -->
+            <div class="admin-panel" id="panelPedidos">
+                <div class="panel-title">
+                    <div><h3>Pedidos recientes</h3><span class="admin-panel-subtitle">Gestiona el estado de las solicitudes recibidas.</span></div>
+                    <button type="button" class="btn-admin-add btn-admin-ghost" id="refreshOrdersBtn"><i class="fas fa-rotate"></i> Actualizar</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Cliente</th><th>Producto</th><th>Total</th><th>Estado</th><th>Fecha</th></tr>
+                    </thead>
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- ===== MENSAJES ===== -->
+            <div class="admin-panel" id="panelMensajes">
+                <div class="panel-title">
+                    <div><h3>Mensajes de contacto</h3><span class="admin-panel-subtitle">Consulta y organiza las conversaciones del sitio.</span></div>
+                    <button type="button" class="btn-admin-add btn-admin-ghost" id="refreshMessagesBtn"><i class="fas fa-rotate"></i> Actualizar</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Nombre</th><th>Asunto</th><th>Correo</th><th>Estado</th><th>Fecha</th></tr>
+                    </thead>
+                    <tbody id="messagesTableBody"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabase-client.js"></script>
+    <script src="admin.js"></script>
+    <script src="admin-ui.js"></script>
+    <script>
+        window.toggleAdminMenu = function () {
+            const sidebar = document.getElementById('adminSidebar');
+            const toggle = document.querySelector('.admin-menu-toggle');
+            if (!sidebar) return;
+            const open = sidebar.classList.toggle('is-open');
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', String(open));
+                toggle.innerHTML = open ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+            }
+        };
+
+        document.addEventListener('click', (event) => {
+            const sidebar = document.getElementById('adminSidebar');
+            if (!sidebar || !sidebar.classList.contains('is-open')) return;
+            if (event.target.closest('.admin-nav a')) {
+                sidebar.classList.remove('is-open');
+                const toggle = document.querySelector('.admin-menu-toggle');
+                if (toggle) {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
