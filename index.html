@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Diseño web, UI/UX y marketing digital de Jamsle Porcena. Portafolio de proyectos, servicios y soluciones digitales." data-i18n-meta="page.description.home" />
+    <meta name="theme-color" content="#0b0f19" />
+    <title>Wilkyjams Dev · Experiencias Digitales</title>
+
+    <!-- Fuentes e iconos (CDN) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- AOS (Animate On Scroll) - CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <!-- CSS principal (archivo local) -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ===== NAVEGACIÓN ===== -->
+    <nav>
+        <div class="container">
+            <div class="logo" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'});">JP</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
+                <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
+                <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
+                <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
+                <li><a href="#projects" data-i18n="nav.projects">Proyectos</a></li>
+                <li><a href="contacto.html" class="btn-outline" data-i18n="nav.contact">Contáctame</a></li>
+                <li>
+                    <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                </li>
+                <!-- Selector de idioma -->
+                <li>
+                    <div class="lang-selector">
+                        <button class="active" data-lang="es">ES</button>
+                        <button data-lang="en">EN</button>
+                        <button data-lang="fr">FR</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <div class="subtitle">
+                    <i class="fas fa-code"></i> <span data-i18n="hero.subtitle" data-site-setting="site_role">Web Design · Marketing Digital</span>
+                </div>
+                <h1><span data-i18n="hero.greeting">Hola, soy</span> <br><span class="highlight" data-i18n="hero.name" data-site-setting="site_name">Jamsle Porcena</span></h1>
+                <p data-i18n="hero.description" data-site-setting="description">
+                    Diseñador web y especialista en marketing digital apasionado por transformar ideas en identidades digitales sólidas. Combino diseño, tecnología e IA para hacer crecer tu marca.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn-primary">
+                        <i class="fas fa-arrow-right"></i> <span data-i18n="hero.btn_projects">Ver proyectos</span>
+                    </a>
+                    <a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                        <i class="fas fa-paper-plane"></i> <span data-i18n="hero.btn_contact">Hablemos</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span>+3</span>
+                        <p data-i18n="hero.stat_years">Años de experiencia</p>
+                    </div>
+                    <div class="stat">
+                        <span>+20</span>
+                        <p data-i18n="hero.stat_projects">Proyectos realizados</p>
+                    </div>
+                    <div class="stat">
+                        <span>5</span>
+                        <p data-i18n="hero.stat_certs">Certificaciones</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+                <div class="avatar-wrapper">
+                    <div class="avatar-inner"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOBRE MÍ ===== -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label" data-i18n="about.label">Conóceme</span>
+                <h2 data-i18n="about.title">Diseño + Estrategia = Impacto</h2>
+                <p data-i18n="about.subtitle">Mi enfoque va más allá de lo estético: construyo experiencias digitales que conectan y generan resultados.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-text" data-aos="fade-right">
+                    <h3 data-i18n="about.heading">Apasionado por la creación digital</h3>
+                    <p data-i18n="about.p1">
+                        Soy un creador digital con experiencia en diseño web (UI/UX), optimización SEO y marketing basado en datos. 
+                        Ayudo a empresas y emprendedores a construir una identidad digital fuerte, funcional y memorable.
+                    </p>
+                    <p>
+                        <i class="fas fa-bolt" style="color: var(--accent-2); margin-right: 6px;"></i> 
+                        <strong data-i18n="about.specialty_label">Especialidad:</strong> 
+                        <span data-i18n="about.specialty_text">Landing pages optimizadas, CMS (WordPress/Webflow), investigación UX y edición con IA.</span>
+                    </p>
+                    <div class="lang-list">
+                        <span><strong data-i18n="about.lang_fr">Francés</strong> · <span data-i18n="about.lang_fr_level">Nativo</span></span>
+                        <span><strong data-i18n="about.lang_ht">Creole</strong> · <span data-i18n="about.lang_ht_level">Nativo</span></span>
+                        <span><strong data-i18n="about.lang_es">Español</strong> · <span data-i18n="about.lang_es_level">Fluido</span></span>
+                        <span><strong data-i18n="about.lang_en">Inglés</strong> · <span data-i18n="about.lang_en_level">Intermedio-Avanzado</span></span>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <span style="background: var(--bg-card); padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border-color); font-size: 0.9rem;">
+                            <i class="fas fa-briefcase" style="color: var(--accent-2);"></i> <span data-i18n="about.experience">Freelance · JamsLab Studio (2023-2025)</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="about-certs" data-aos="fade-left">
+                    <div class="cert-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4 data-i18n="cert.website_title">Website Design</h4>
+                        <p data-i18n="cert.website_org">HP LIFE · 2024</p>
+                    </div>
+                    <div class="cert-item">
+                        <i class="fas fa-robot"></i>
+                        <h4 data-i18n="cert.ai_title">AI Technology for Business</h4>
+                        <p data-i18n="cert.ai_org">HP LIFE · 2024</p>
+                    </div>
+                    <div class="cert-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <h4 data-i18n="cert.canva_title">Canva Design</h4>
+                        <p data-i18n="cert.canva_org">Canva · 2024</p>
+                    </div>
+                    <div class="cert-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h4 data-i18n="cert.dm_title">Digital Marketing</h4>
+                        <p data-i18n="cert.dm_org">HubSpot Academy · 2025</p>
+                    </div>
+                    <div class="cert-item" style="grid-column: span 2;">
+                        <i class="fas fa-database"></i>
+                        <h4 data-i18n="cert.data_title">Data Analytics</h4>
+                        <p data-i18n="cert.data_org">Databricks / Simplilearn · 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HABILIDADES ===== -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label" data-i18n="skills.label">Experiencia técnica</span>
+                <h2 data-i18n="skills.title">Mis herramientas</h2>
+                <p data-i18n="skills.subtitle">Desde diseño y desarrollo hasta estrategia digital y análisis de datos.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="50"><i class="fab fa-html5"></i><h4>HTML5</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-css3-alt"></i><h4>CSS3</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="150"><i class="fab fa-js"></i><h4>JavaScript</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-mobile-alt"></i><h4 data-i18n="skill.responsive">Responsive Design</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="250"><i class="fas fa-pencil-ruler"></i><h4>UI/UX Design</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="300"><i class="fab fa-figma"></i><h4>Figma</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="350"><i class="fas fa-code"></i><h4>VS Code</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="400"><i class="fab fa-wordpress"></i><h4>WordPress</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="450"><i class="fas fa-globe"></i><h4>Webflow</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="500"><i class="fas fa-search"></i><h4>SEO</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="550"><i class="fas fa-users"></i><h4 data-i18n="skill.ux">UX Research</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="600"><i class="fas fa-rocket"></i><h4 data-i18n="skill.landing">Landing Pages</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="650"><i class="fas fa-database"></i><h4 data-i18n="skill.cms">CMS Management</h4></div>
+                <div class="skill-card" data-aos="zoom-in" data-aos-delay="700"><i class="fas fa-brain"></i><h4 data-i18n="skill.ai">IA & Edición</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROYECTOS ===== -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label" data-i18n="projects.label">Portafolio</span>
+                <h2 data-i18n="projects.title">Proyectos destacados</h2>
+                <p data-i18n="projects.subtitle">Casos de éxito donde el diseño y la estrategia digital marcaron la diferencia.</p>
+            </div>
+            <div class="projects-grid">
+                <!-- Proyecto 1: Santo Sabor -->
+                <div class="project-card" data-aos="flip-up" data-aos-delay="100">
+                    <div class="project-thumb">
+                        <img src="https://i.postimg.cc/L8SRG0y4/IMZ78TX4X6W5w.png" alt="Santo Sabor - Rediseño de identidad" />
+                    </div>
+                    <div class="project-body">
+                        <div class="tags"><span>Figma</span><span>Webflow</span><span>HTML5</span><span>CSS3</span><span>AI</span></div>
+                        <h3 data-i18n="proj1.title">Santo Sabor · Rediseño de identidad</h3>
+                        <p data-i18n="proj1.desc">Rediseño de identidad digital para marca local. Experiencia web moderna, funcional y visualmente impactante. Rol: UI/UX Designer & Web Developer.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj1.result">+40% tiempo de permanencia · mejora en conversión</span></div>
+                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2025</div>
+                    </div>
+                </div>
+                <!-- Proyecto 2: StudyFlow AI -->
+                <div class="project-card" data-aos="flip-up" data-aos-delay="200">
+                    <div class="project-thumb">
+                        <img src="https://i.postimg.cc/K8bFCs9L/Study-Flow-AI.png" alt="StudyFlow AI - App educativa" />
+                    </div>
+                    <div class="project-body">
+                        <div class="tags"><span>AI</span><span>UI/UX</span><span>Product Design</span></div>
+                        <h3 data-i18n="proj2.title">StudyFlow AI · App educativa</h3>
+                        <p data-i18n="proj2.desc">Aplicación educativa impulsada por IA para hacer el aprendizaje más organizado, intuitivo y personalizado. Arquitectura de información, UI/UX y prototipado.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj2.result">Aprendizaje personalizado con IA</span></div>
+                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
+                    </div>
+                </div>
+                <!-- Proyecto 3: Burger King -->
+                <div class="project-card" data-aos="flip-up" data-aos-delay="300">
+                    <div class="project-thumb">
+                        <img src="https://i.postimg.cc/4xGZjF8x/IMGy-Zk1U6B1cw.png" alt="Burger King - Rediseño conceptual" />
+                    </div>
+                    <div class="project-body">
+                        <div class="tags"><span>Figma</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+                        <h3 data-i18n="proj3.title">Burger King · Rediseño conceptual</h3>
+                        <p data-i18n="proj3.desc">Rediseño conceptual de interfaz web para Burger King, enfocado en experiencia moderna, visualmente atractiva y centrada en productos.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj3.result">Experiencia moderna y atractiva</span></div>
+                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIOS ===== -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label" data-i18n="testimonials.label">Opiniones</span>
+                <h2 data-i18n="testimonials.title">Lo que dicen mis clientes</h2>
+                <p data-i18n="testimonials.subtitle">Personas y empresas que han confiado en mí para potenciar su presencia digital.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-quote-left"></i>
+                    <p data-i18n="testimonial1.text">"Jamsle transformó por completo nuestra web. El diseño es impecable y nuestras ventas online se dispararon. Muy profesional y atento a cada detalle."</p>
+                    <div class="client">
+                        <div class="avatar">M</div>
+                        <div class="info">
+                            <h4 data-i18n="testimonial1.name">María Gómez</h4>
+                            <span data-i18n="testimonial1.role">Directora de EcoGreen</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-quote-left"></i>
+                    <p data-i18n="testimonial2.text">"Excelente trabajo en el rediseño de nuestro spa. El nuevo sitio es moderno, rápido y ha aumentado las reservas de forma significativa. Muy recomendable."</p>
+                    <div class="client">
+                        <div class="avatar">C</div>
+                        <div class="info">
+                            <h4 data-i18n="testimonial2.name">Carlos Pérez</h4>
+                            <span data-i18n="testimonial2.role">Gerente de Bella Vista Spa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-quote-left"></i>
+                    <p data-i18n="testimonial3.text">"La estrategia SEO de Jamsle llevó nuestro blog al primer lugar en Google. El tráfico orgánico creció más de un 120% en pocos meses. Un verdadero experto."</p>
+                    <div class="client">
+                        <div class="avatar">L</div>
+                        <div class="info">
+                            <h4 data-i18n="testimonial3.name">Laura Díaz</h4>
+                            <span data-i18n="testimonial3.role">Fundadora de TechLab RD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CERTIFICACIONES (extra) ===== -->
+    <section id="certs" style="padding-top: 0;">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label" data-i18n="certs.label">Formación continua</span>
+                <h2 data-i18n="certs.title">Certificaciones</h2>
+            </div>
+            <div class="certs-grid">
+                <div class="cert-item" data-aos="zoom-in" data-aos-delay="50"><i class="fas fa-laptop-code"></i><h4 data-i18n="cert.website_title">Website Design Fundamentals</h4><p data-i18n="cert.website_org">HP LIFE · 2024</p></div>
+                <div class="cert-item" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-microchip"></i><h4 data-i18n="cert.ai_title">AI Technology for Business</h4><p data-i18n="cert.ai_org">HP LIFE · 2024</p></div>
+                <div class="cert-item" data-aos="zoom-in" data-aos-delay="150"><i class="fas fa-palette"></i><h4 data-i18n="cert.canva_title">Canva Design Certificate</h4><p data-i18n="cert.canva_org">Canva · 2024</p></div>
+                <div class="cert-item" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-bullhorn"></i><h4 data-i18n="cert.dm_title">Digital Marketing</h4><p data-i18n="cert.dm_org">HubSpot Academy · 2025</p></div>
+                <div class="cert-item" style="grid-column: span 2;" data-aos="zoom-in" data-aos-delay="250"><i class="fas fa-chart-pie"></i><h4 data-i18n="cert.data_title">Data Analytics</h4><p data-i18n="cert.data_org">Databricks · Simplilearn · 2025</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label" data-i18n="contact.label">Conectemos</span>
+                <h2 data-i18n="contact.title">¿Hablamos de tu próximo proyecto?</h2>
+                <p data-i18n="contact.subtitle">Estoy a un mensaje de distancia. Cuéntame tu idea y la hacemos realidad.</p>
+            </div>
+            <div class="contact-wrapper" data-aos="flip-up">
+                <div class="contact-info">
+                    <h3 data-i18n="contact.info_title">Información de contacto</h3>
+                    <p data-i18n="contact.info_desc">Puedes escribirme por cualquiera de estos medios o a través de mis redes profesionales.</p>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+18099995904" data-site-setting="phone-link">+1 (809) 999-59-04</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:porcenatjamsle07@gmail.com" data-site-setting="email-link">porcenatjamsle07@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-briefcase"></i>
+                        <a href="https://www.fiverr.com/s/xLZLbj0" >Fiverr · JamsLab Studio</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="github" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="behance" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.fiverr.com/s/xLZLbj0" target="_blank" rel="noopener noreferrer" aria-label="Fiverr"><i class="fas fa-star"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactFormHome">
+                    <input type="text" name="name" placeholder="Nombre completo" required data-i18n-placeholder="contact.form_name" />
+                    <input type="email" name="email" placeholder="Correo electrónico" required data-i18n-placeholder="contact.form_email" />
+                    <input type="text" name="subject" placeholder="Asunto" data-i18n-placeholder="contact.form_subject" />
+                    <textarea name="message" placeholder="Cuéntame sobre tu proyecto..." required data-i18n-placeholder="contact.form_message"></textarea>
+                    <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> <span data-i18n="contact.form_submit">Enviar mensaje</span></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">JP</div>
+                    <p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p>
+                </div>
+                <div>
+                    <h5 data-i18n="footer.navigation">Navegación</h5>
+                    <ul>
+                        <li><a href="index.html#hero" data-i18n="nav.home">Inicio</a></li>
+                        <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
+                        <li><a href="index.html#projects" data-i18n="nav.projects">Proyectos</a></li>
+                        <li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 data-i18n="footer.services">Servicios</h5>
+                    <ul>
+                        <li><a href="servicios.html" data-i18n="footer.web_design">Diseño web</a></li>
+                        <li><a href="servicios.html" data-i18n="footer.digital_marketing">Marketing digital</a></li>
+                        <li><a href="tienda.html" data-i18n="footer.store">Tienda de productos</a></li>
+                        <li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li>
+                        <li><a href="terms.html" data-i18n="footer.terms">Términos</a></li>
+                        <li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li>
+                        <li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 data-i18n="footer.contact">Contacto</h5>
+                    <ul>
+                        <li><a href="tel:+18099995904" data-site-setting="phone-link">+1 (809) 999-59-04</a></li>
+                        <li><a href="mailto:porcenatjamsle07@gmail.com" data-site-setting="email-link">porcenatjamsle07@gmail.com</a></li>
+                        <li><a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 <span>Jamsle Porcena</span> · <span data-i18n="footer.tagline">Diseño web & Marketing Digital</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== CARRITO LATERAL ===== -->
+    <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-bag"></i> <span data-i18n="cart.title">Tu carrito</span></h3>
+            <button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItemsWrap"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span data-i18n="cart.total">Total</span>
+                <span id="cartTotalValue">$0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="Cart.checkoutViaWhatsApp()">
+                <i class="fab fa-whatsapp"></i> <span data-i18n="cart.checkout">Finalizar por WhatsApp</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="common.js"></script>
+    <script src="cms-content.js"></script>
+<script>
+const homeContact = document.getElementById('contactFormHome');
+if (homeContact) homeContact.addEventListener('submit', async e => { e.preventDefault(); const f=new FormData(homeContact); const {error}=await portfolioSupabase.from('contact_messages').insert({name:f.get('name'),email:f.get('email'),subject:f.get('subject'),message:f.get('message')}); if(error){alert('No se pudo enviar el mensaje. Inténtalo de nuevo.');return;} homeContact.reset(); alert('Mensaje enviado correctamente.'); });
+</script>
+</body>
+</html>
