@@ -118,6 +118,8 @@
     }
 
     function initGlobalSearch() {
+        const wrapper = $('.admin-search');
+        const icon = wrapper?.querySelector('.fa-search');
         const input = $('#adminGlobalSearch');
         if (!input || input.dataset.initialized === 'true') return;
         input.dataset.initialized = 'true';
@@ -151,6 +153,13 @@
                 if (normalized && match) panelMatches += 1;
             });
 
+            // También permite encontrar las secciones desde el nombre del menú lateral.
+            $$('#adminNav a[data-admin-section]').forEach(link => {
+                const match = !normalized || getText(link).includes(normalized);
+                link.classList.toggle('search-match', Boolean(normalized && match));
+                if (normalized && match) panelMatches += 1;
+            });
+
             return { normalized, rowMatches, panelMatches };
         };
 
@@ -164,20 +173,36 @@
 
             const panels = $$('.admin-panel');
             const rows = $$('.admin-table tbody tr');
+            const navLinks = $$('#adminNav a[data-admin-section]');
             const matchedRow = rows.find(row => !row.hidden && getText(row).includes(normalized));
             const matchedPanel = matchedRow?.closest('.admin-panel') || panels.find(panel => getText(panel).includes(normalized));
+            const matchedNav = navLinks.find(link => getText(link).includes(normalized));
+            const targetPanel = matchedPanel || (matchedNav?.dataset.adminSection ? document.getElementById(matchedNav.dataset.adminSection) : null);
 
-            if (!matchedPanel) {
+            if (!targetPanel && !matchedNav) {
                 adminSearchNotice(`No se encontraron resultados para “${input.value.trim()}”.`, 'info');
                 return;
             }
 
             panels.forEach(panel => panel.classList.remove('search-focus'));
-            matchedPanel.classList.add('search-focus');
-            matchedPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            window.setTimeout(() => matchedPanel.classList.remove('search-focus'), 1600);
+            navLinks.forEach(link => link.classList.remove('search-focus'));
 
-            const title = matchedPanel.querySelector('.panel-title h3, h3, h2')?.textContent?.trim() || 'el panel';
+            // Los paneles que no son la sección activa están ocultos por setAdminSection().
+            // Primero activamos la sección encontrada y después hacemos scroll.
+            if (targetPanel?.id && typeof window.setAdminSection === 'function' && window.__adminSections?.[targetPanel.id]) {
+                window.setAdminSection(targetPanel.id);
+            } else if (matchedNav?.dataset.adminSection && typeof window.setAdminSection === 'function') {
+                window.setAdminSection(matchedNav.dataset.adminSection);
+            }
+
+            const focusTarget = targetPanel || matchedNav;
+            focusTarget?.classList.add('search-focus');
+            focusTarget?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.setTimeout(() => focusTarget?.classList.remove('search-focus'), 1600);
+
+            const title = targetPanel?.querySelector('.panel-title h3, h3, h2')?.textContent?.trim()
+                || matchedNav?.textContent?.trim()
+                || 'el panel';
             adminSearchNotice(`Resultado encontrado en ${title}.`, 'success');
         };
 
@@ -192,6 +217,23 @@
                 event.preventDefault();
                 clearSearch();
                 input.blur();
+            }
+        });
+
+        // El icono de búsqueda ahora es funcional: al pulsarlo enfoca el campo.
+        wrapper?.addEventListener('click', event => {
+            if (event.target.closest('kbd')) return;
+            input.focus();
+            input.select();
+        });
+        icon?.setAttribute('role', 'button');
+        icon?.setAttribute('tabindex', '0');
+        icon?.setAttribute('aria-label', 'Buscar');
+        icon?.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                input.focus();
+                input.select();
             }
         });
 

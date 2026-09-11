@@ -155,7 +155,22 @@
                         <label>YouTube<input name="youtube" type="url" maxlength="300" placeholder="https://www.youtube.com/@tu-canal"></label>
                     </div>
                     <div class="cms-settings-note"><i class="fas fa-circle-info"></i><span>Usa URLs HTTPS para las redes sociales e imagen. Los cambios se sincronizan con el sitio público mediante Supabase.</span></div>
-                    <label>Imagen de perfil (URL)<input name="profile_image" type="url" maxlength="500"></label>
+                    <div class="admin-social-manager" id="adminSocialManager"><div class="admin-profile-editor-head"><div><strong><i class="fas fa-share-nodes"></i> Redes sociales e iconos</strong><small>Activa, desactiva, reordena y cambia icono, enlace, tamaño y ubicación de cada red.</small></div><button type="button" class="btn-admin-add btn-admin-ghost" id="addSocialNetworkBtn"><i class="fas fa-plus"></i> Añadir red</button></div><div id="socialManagerList"></div></div>
+                    <div class="admin-profile-editor">
+                        <div class="admin-profile-editor-head"><div><strong><i class="fas fa-user-pen"></i> Perfil y foto</strong><small>Edita tu identidad pública y el encuadre de la foto sin tocar el código.</small></div></div>
+                        <div class="settings-grid">
+                            <label>Nombre público<input name="site_name" maxlength="100"></label>
+                            <label>Profesión / cargo<input name="site_role" maxlength="160"></label>
+                        </div>
+                        <div class="settings-grid profile-photo-controls">
+                            <label>Imagen de perfil (URL)<input name="profile_image" type="url" maxlength="500" placeholder="https://..."></label>
+                            <label>Subir foto<input id="profileImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"></label>
+                            <label>Zoom<input name="profile_zoom" id="profileZoom" type="range" min="100" max="180" step="1" value="100"></label>
+                            <label>Posición horizontal<input name="profile_position_x" id="profilePositionX" type="range" min="0" max="100" step="1" value="50"></label>
+                            <label>Posición vertical<input name="profile_position_y" id="profilePositionY" type="range" min="0" max="100" step="1" value="50"></label>
+                        </div>
+                        <div class="profile-editor-preview"><div class="profile-preview-avatar" id="profileEditorPreview" role="img" aria-label="Vista previa de la foto de perfil"></div><div><strong>Vista previa</strong><small>Los controles de zoom y posición se aplican a la foto principal.</small></div></div>
+                    </div>
                     <div class="admin-sound-settings">
                         <div class="admin-sound-head"><div><strong><i class="fas fa-volume-high"></i> Notificaciones sonoras</strong><small>Elige el sonido que escuchará el panel cuando llegue una visita, mensaje o pedido nuevo.</small></div><label class="cms-switch compact"><input id="adminSoundEnabled" type="checkbox" checked><span class="cms-switch-ui"></span><span>Sonido activo</span></label></div>
                         <div class="settings-grid admin-sound-grid">
@@ -189,6 +204,10 @@
                         <thead><tr><th>Página</th><th>Visitas</th><th>Última visita</th></tr></thead>
                         <tbody id="topPagesTableBody"><tr><td colspan="3">Cargando…</td></tr></tbody>
                     </table>
+                </div>
+                <div class="analytics-visitors-block">
+                    <div class="panel-title"><div><h3>Visitantes recientes</h3><span class="admin-panel-subtitle">Sesión, entrada, dispositivo, navegador y origen. No se recopilan datos personales innecesarios.</span></div><button type="button" class="btn-admin-add btn-admin-ghost" id="refreshVisitorsBtn"><i class="fas fa-rotate"></i> Actualizar</button></div>
+                    <div style="overflow:auto"><table class="admin-table"><thead><tr><th>Entrada</th><th>Página</th><th>Origen</th><th>Dispositivo</th><th>Idioma / zona</th><th>Sesión</th></tr></thead><tbody id="visitorsTableBody"><tr><td colspan="6">Cargando…</td></tr></tbody></table></div>
                 </div>
             </div>
 
