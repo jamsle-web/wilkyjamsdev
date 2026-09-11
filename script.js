@@ -538,17 +538,3 @@ const _oldSetLanguage=setLanguage; setLanguage=function(lang){_oldSetLanguage(la
 Object.assign(translations.es,{"page.title.privacy":"Privacidad · Jamsle Porcena","page.title.terms":"Términos · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centro de ayuda · Jamsle Porcena","page.description.privacy":"Política de privacidad de Jamsle Porcena.","page.description.terms":"Términos de uso de Jamsle Porcena.","page.description.cookies":"Política de cookies de Jamsle Porcena.","page.description.help":"Centro de ayuda de Jamsle Porcena."});
 Object.assign(translations.en,{"page.title.privacy":"Privacy · Jamsle Porcena","page.title.terms":"Terms · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Help Center · Jamsle Porcena","page.description.privacy":"Jamsle Porcena privacy policy.","page.description.terms":"Jamsle Porcena terms of use.","page.description.cookies":"Jamsle Porcena cookie policy.","page.description.help":"Jamsle Porcena help center."});
 Object.assign(translations.fr,{"page.title.privacy":"Confidentialité · Jamsle Porcena","page.title.terms":"Conditions · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centre d’aide · Jamsle Porcena","page.description.privacy":"Politique de confidentialité de Jamsle Porcena.","page.description.terms":"Conditions d’utilisation de Jamsle Porcena.","page.description.cookies":"Politique relative aux cookies de Jamsle Porcena.","page.description.help":"Centre d’aide de Jamsle Porcena."});
-
-
-/* V14.5 — perfil editable y fallback local */
-window.applyProfileSettings = function(settings={}) {
-    const image=settings.profile_image||'';
-    const zoom=Math.max(100,Math.min(180,Number(settings.profile_zoom)||100));
-    const x=Math.max(0,Math.min(100,Number(settings.profile_position_x)||50));
-    const y=Math.max(0,Math.min(100,Number(settings.profile_position_y)||50));
-    document.querySelectorAll('.avatar-inner:not(.about-avatar-inner), [data-site-setting="profile_image"]').forEach(el=>{
-        if(el.classList.contains('avatar-inner')) { if(image) el.style.backgroundImage=`url("${image.replace(/"/g,'%22')}")`; el.style.backgroundSize=`${zoom}%`; el.style.backgroundPosition=`${x}% ${y}%`; }
-        else if(el.tagName==='IMG' && image) el.src=image;
-    });
-};
-try { const cached=JSON.parse(localStorage.getItem('wilkyjams_v145_settings')||'null'); if(cached) window.applyProfileSettings(cached); } catch {}

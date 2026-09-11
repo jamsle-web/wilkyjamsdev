@@ -3,28 +3,24 @@ const db = window.portfolioSupabase;
 const esc = (value = '') => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const money = (value, currency = 'USD') => new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(Number(value || 0));
 
-const LOCAL_CACHE_PREFIX='wilkyjams_v145_';
-function localCacheSet(key,value){try{localStorage.setItem(LOCAL_CACHE_PREFIX+key,JSON.stringify(value));}catch{}}
-function localCacheGet(key,fallback=null){try{const raw=localStorage.getItem(LOCAL_CACHE_PREFIX+key);return raw?JSON.parse(raw):fallback;}catch{return fallback;}}
-
 function adminNotify(message, type='info') {
     if (typeof window.jpNotify === 'function') return window.jpNotify(message, type);
     const existing = document.getElementById('adminLocalToast');
     existing?.remove();
     const toast = document.createElement('div');
     toast.id = 'adminLocalToast';
-    toast.className = `admin-local-toast ${type === 'error' ? 'is-error' : type === 'success' ? 'is-success' : ''}`;
-    toast.innerHTML = `<i class="fas ${type === 'error' ? 'fa-circle-exclamation' : type === 'success' ? 'fa-circle-check' : 'fa-circle-info'}"></i><span>${esc(message)}</span>`;
+    toast.className = `admin-local-toast ${type === 'error' ? 'is-error' : type === 'success' ? 'is-success' : 'is-info'}`;
+    const icon = type === 'error' ? 'fa-circle-xmark' : type === 'success' ? 'fa-circle-check' : 'fa-circle-info';
+    toast.innerHTML = `<i class="fas ${icon}"></i><span>${esc(message)}</span>`;
     document.body.appendChild(toast);
     requestAnimationFrame(() => toast.classList.add('is-visible'));
-    window.setTimeout(() => { toast.classList.remove('is-visible'); window.setTimeout(() => toast.remove(), 250); }, 3600);
+    window.setTimeout(() => { toast.classList.remove('is-visible'); window.setTimeout(() => toast.remove(), 220); }, 3600);
     console[type === 'error' ? 'error' : 'log'](message);
 }
 function adminConfirm(message) {
     if (typeof window.jpConfirm === 'function') return window.jpConfirm(message);
     return Promise.resolve(window.confirm(message));
 }
-window.jpNotify = adminNotify;
 
 async function uploadMedia(file, folder = 'uploads') {
     if (!file || !file.size) return '';
@@ -80,17 +76,6 @@ async function loadStats() {
     await loadAnalytics();
 }
 
-async function loadVisitors(){
-    const body=document.getElementById('visitorsTableBody'); if(!body)return;
-    try{
-        const {data,error}=await db.from('site_events').select('page,session_id,created_at,user_agent,metadata,event_type').eq('event_type','page_view').order('created_at',{ascending:false}).limit(80);
-        if(error)throw error;
-        const rows=data||[]; const seen=new Set(); const visitors=[];
-        for(const r of rows){const sid=r.session_id||`${r.created_at}-${r.page}`;if(seen.has(sid))continue;seen.add(sid);const m=r.metadata||{};const ua=r.user_agent||'';const device=/Mobi|Android|iPhone|iPad/i.test(ua)?'Móvil':'Desktop';const browser=/Edg/i.test(ua)?'Edge':/Chrome/i.test(ua)?'Chrome':/Firefox/i.test(ua)?'Firefox':/Safari/i.test(ua)?'Safari':'Otro';const host=m.host||'';const ref=m.referrer||'';const source=host?host.replace(/^www\./,''):(ref?ref:'Directo');visitors.push({r,m,device,browser,source});if(visitors.length>=40)break;}
-        body.innerHTML=visitors.length?visitors.map(v=>`<tr><td>${new Date(v.r.created_at).toLocaleString('es-DO')}</td><td>${esc(v.r.page||'/')}</td><td title="${esc(v.m.referrer||'')}">${esc(v.source)}</td><td>${v.device} · ${v.browser}</td><td>${esc(v.m.language||'es')} · ${esc(v.m.timezone||'')}</td><td>${esc(v.r.session_id||'—').slice(0,14)}</td></tr>`).join(''):'<tr><td colspan="6">Todavía no hay visitantes registrados.</td></tr>';
-    }catch(error){body.innerHTML=`<tr><td colspan="6">${esc(error.message||'No se pudieron cargar los visitantes.')}</td></tr>`;}
-}
-
 async function loadAnalytics() {
     const body = document.getElementById('topPagesTableBody');
     const sessionsEl = document.getElementById('uniqueSessionsValue');
@@ -99,7 +84,7 @@ async function loadAnalytics() {
     if (!body && !sessionsEl && !todayEl) return;
 
     const { data, error } = await db.from('site_events')
-        .select('page,session_id,created_at,metadata,user_agent')
+        .select('page,session_id,created_at')
         .eq('event_type', 'page_view')
         .order('created_at', { ascending: false })
         .limit(2000);
@@ -129,9 +114,7 @@ async function loadAnalytics() {
     const top = [...pages.entries()].sort((a,b) => b[1].count - a[1].count).slice(0, 10);
     body.innerHTML = top.length ? top.map(([page, item]) => `<tr><td>${esc(page)}</td><td>${item.count}</td><td>${new Date(item.last).toLocaleString('es-DO')}</td></tr>`).join('') : '<tr><td colspan="3">Todavía no hay visitas registradas.</td></tr>';
     if (liveEl) liveEl.textContent = 'En tiempo real';
-    await loadVisitors();
 }
-
 
 function initRealtimeDashboard() {
     if (!db || !db.channel) return;
@@ -166,11 +149,9 @@ function initRealtimeDashboard() {
 async function loadProducts() {
     const body = document.getElementById('productsTableBody');
     if (!body) return;
-    let data=[], error=null;
-    try { const result=await db.from('products').select('*').order('sort_order', { ascending: true }).order('created_at', { ascending: false }); data=result.data||[]; error=result.error; } catch(e){ error=e; }
-    if (error) { const cached=localCacheGet('products',[]); if(cached.length){data=cached;} else { body.innerHTML = `<tr><td colspan="5">${esc(error.message)}</td></tr>`; return; } }
+    const { data, error } = await db.from('products').select('*').order('sort_order', { ascending: true }).order('created_at', { ascending: false });
+    if (error) { body.innerHTML = `<tr><td colspan="5">${esc(error.message)}</td></tr>`; return; }
     if (!data.length) { body.innerHTML = '<tr><td colspan="5">No hay productos todavía.</td></tr>'; return; }
-    localCacheSet('products', data);
     body.innerHTML = data.map(p => `<tr>
         <td><div class="prod-cell">${p.image_url ? `<img src="${esc(p.image_url)}" alt="${esc(p.name_es)}">` : ''}<span>${esc(p.name_es)}</span></div></td>
         <td>${esc(p.category || p.slug || '—')}</td><td>${money(p.price, p.currency)}</td>
@@ -211,7 +192,7 @@ function productForm(product = {}) {
         field('fas fa-link','URL de imagen (opcional)','image_url',product.image_url||'','url','maxlength="500"'),
         `<label class="cms-switch"><input name="active" type="checkbox" ${product.active!==false?'checked':''}><span class="cms-switch-ui"></span><span><strong>Publicado en la tienda</strong><small>El producto será visible para los visitantes.</small></span></label>`
     ], async fd => {
-        try { const file=fd.get('image_file'); let imageUrl=String(fd.get('image_url')||'').trim(); if(file&&file.size) imageUrl=await uploadMedia(file,'products'); const payload=Object.fromEntries(fd.entries()); delete payload.image_file; payload.image_url=imageUrl||null; payload.price=Number(payload.price||0); payload.stock=Number(payload.stock||0); payload.old_price=fd.get('old_price')?Number(fd.get('old_price')):null; payload.sort_order=Number(fd.get('sort_order')||0); payload.active=fd.has('active'); payload.currency='USD'; if(!payload.category) payload.category='web'; payload.details={es:{includes:String(fd.get('detail_includes_es')||''),time:String(fd.get('detail_time_es')||''),format:String(fd.get('detail_format_es')||''),revisions:String(fd.get('detail_revisions_es')||''),availability:String(fd.get('detail_availability_es')||'')},en:{includes:String(fd.get('detail_includes_en')||''),time:String(fd.get('detail_time_en')||''),format:String(fd.get('detail_format_en')||'')},fr:{includes:String(fd.get('detail_includes_fr')||''),time:String(fd.get('detail_time_fr')||''),format:String(fd.get('detail_format_fr')||'')}}; ['detail_includes_es','detail_time_es','detail_format_es','detail_revisions_es','detail_availability_es','detail_includes_en','detail_time_en','detail_format_en','detail_includes_fr','detail_time_fr','detail_format_fr'].forEach(key=>delete payload[key]); const q=product.id?db.from('products').update({...payload,updated_at:new Date().toISOString()}).eq('id',product.id):db.from('products').insert(payload); const {error}=await q; if(error)throw error; document.getElementById('cmsGenericModal')?.remove(); await loadProducts(); adminNotify(product.id?'Producto actualizado correctamente.':'Producto agregado correctamente.','success'); } catch(error){ adminNotify(error.message||'No se pudo guardar el producto.','error'); }
+        try { const file=fd.get('image_file'); let imageUrl=String(fd.get('image_url')||'').trim(); if(file&&file.size) imageUrl=await uploadMedia(file,'products'); const payload=Object.fromEntries(fd.entries()); delete payload.image_file; ['detail_includes_es','detail_time_es','detail_format_es','detail_revisions_es','detail_availability_es','detail_includes_en','detail_time_en','detail_format_en','detail_revisions_en','detail_availability_en','detail_includes_fr','detail_time_fr','detail_format_fr','detail_revisions_fr','detail_availability_fr'].forEach(key=>delete payload[key]); payload.image_url=imageUrl||null; payload.price=Number(payload.price||0); payload.stock=Number(payload.stock||0); payload.old_price=fd.get('old_price')?Number(fd.get('old_price')):null; payload.sort_order=Number(fd.get('sort_order')||0); payload.active=fd.has('active'); payload.currency='USD'; if(!payload.category) payload.category='web'; payload.details={es:{includes:String(fd.get('detail_includes_es')||''),time:String(fd.get('detail_time_es')||''),format:String(fd.get('detail_format_es')||''),revisions:String(fd.get('detail_revisions_es')||''),availability:String(fd.get('detail_availability_es')||'')},en:{includes:String(fd.get('detail_includes_en')||''),time:String(fd.get('detail_time_en')||''),format:String(fd.get('detail_format_en')||'')},fr:{includes:String(fd.get('detail_includes_fr')||''),time:String(fd.get('detail_time_fr')||''),format:String(fd.get('detail_format_fr')||'')}}; const q=product.id?db.from('products').update(payload).eq('id',product.id):db.from('products').insert(payload); const {error}=await q; if(error)throw error; document.getElementById('cmsGenericModal')?.remove(); await loadProducts(); adminNotify(product.id?'Producto actualizado correctamente.':'Producto agregado correctamente.','success'); } catch(error){ adminNotify(error?.message||'No se pudo guardar el producto.','error'); }
     });
 }
 
@@ -240,9 +221,8 @@ async function loadOrders() {
 async function updateOrderStatus(id, status) {
     const allowed=['pending','confirmed','processing','completed','cancelled']; if(!allowed.includes(status))return;
     const {error}=await db.from('orders').update({status,updated_at:new Date().toISOString()}).eq('id',id);
-    if(error){adminNotify(error.message,'error');await loadOrders();return;}
+    if(error){adminNotify(error.message);await loadOrders();return;}
     await loadStats();
-    adminNotify('Estado del pedido actualizado correctamente.','success');
 }
 
 async function loadMessages() {
@@ -254,7 +234,7 @@ async function loadMessages() {
         return `<tr><td>${esc(m.name)}</td><td>${esc(m.subject || '—')}</td><td>${esc(m.email)}</td><td><select class="admin-inline-select" aria-label="Estado del mensaje" onchange="updateMessageStatus('${m.id}',this.value)">${Object.entries(labels).map(([k,v])=>`<option value="${k}" ${k===status?'selected':''}>${v}</option>`).join('')}</select></td><td>${new Date(m.created_at).toLocaleDateString('es-DO')}</td></tr>`;
     }).join('') : '<tr><td colspan="5">No hay mensajes todavía.</td></tr>';
 }
-async function updateMessageStatus(id,status){const allowed=['new','read','replied','archived'];if(!allowed.includes(status))return;const {error}=await db.from('contact_messages').update({status}).eq('id',id);if(error){adminNotify(error.message,'error');await loadMessages();return;}await loadStats();adminNotify('Estado del mensaje actualizado correctamente.','success');}
+async function updateMessageStatus(id,status){const allowed=['new','read','replied','archived'];if(!allowed.includes(status))return;const {error}=await db.from('contact_messages').update({status}).eq('id',id);if(error){adminNotify(error.message);await loadMessages();return;}await loadStats();}
 
 window.updateOrderStatus=updateOrderStatus;
 window.updateMessageStatus=updateMessageStatus;
@@ -269,10 +249,8 @@ window.newProduct = () => productForm();
 async function loadTestimonials() {
     const body = document.getElementById('testimonialsTableBody'); if (!body) return;
     body.innerHTML = '<tr><td colspan="5">Cargando opiniones…</td></tr>';
-    let data=[],error=null;
-    try { const result=await db.from('testimonials').select('*').order('sort_order').order('created_at',{ascending:false}); data=result.data||[]; error=result.error; } catch(e){ error=e; }
-    if (error) { data=localCacheGet('testimonials',[]); if(!data.length) return body.innerHTML = `<tr><td colspan="5">${esc(error.message)}</td></tr>`; }
-    localCacheSet('testimonials',data);
+    const { data, error } = await db.from('testimonials').select('*').order('sort_order').order('created_at',{ascending:false});
+    if (error) return body.innerHTML = `<tr><td colspan="5">${esc(error.message)}</td></tr>`;
     body.innerHTML = data?.length ? data.map(t => `<tr><td><strong>${esc(t.name_es)}</strong></td><td>${esc(t.role_es || '—')}</td><td>${'★'.repeat(Number(t.rating || 5))}</td><td><span class="status-pill ${t.active?'active':'pending'}">${t.active?'Visible':'Oculta'}</span></td><td><div class="table-actions"><button onclick="editTestimonial('${t.id}')" title="Editar" aria-label="Editar"><i class="fas fa-pen"></i></button><button onclick="toggleTestimonial('${t.id}',${!t.active})" title="${t.active?'Ocultar':'Mostrar'}" aria-label="${t.active?'Ocultar':'Mostrar'}"><i class="fas fa-${t.active?'eye-slash':'eye'}"></i></button><button class="danger" onclick="deleteTestimonial('${t.id}')" title="Eliminar" aria-label="Eliminar"><i class="fas fa-trash"></i></button></div></td></tr>`).join('') : '<tr><td colspan="5">No hay opiniones todavía. Añade la primera desde aquí.</td></tr>';
 }
 
@@ -299,23 +277,20 @@ function testimonialForm(testimonial={}) {
             const { error } = await q; if (error) throw error;
             document.getElementById('cmsGenericModal')?.remove();
             await loadTestimonials();
-            adminNotify(testimonial.id?'Opinión actualizada correctamente.':'Opinión agregada correctamente.','success');
         } catch(error) { adminNotify(error.message || 'No se pudo guardar la opinión.','error'); }
     });
 }
 async function editTestimonial(id){const {data,error}=await db.from('testimonials').select('*').eq('id',id).single();if(error)return adminNotify(error.message,'error');testimonialForm(data)}
-async function toggleTestimonial(id,active){const {error}=await db.from('testimonials').update({active,updated_at:new Date().toISOString()}).eq('id',id);if(error)return adminNotify(error.message,'error');await loadTestimonials();adminNotify('Opinión guardada/actualizada correctamente.','success')}
-async function deleteTestimonial(id){if(!(await adminConfirm('¿Eliminar esta opinión? Esta acción no se puede deshacer.')))return;const {error}=await db.from('testimonials').delete().eq('id',id);if(error)return adminNotify(error.message,'error');await loadTestimonials();adminNotify('Opinión eliminada correctamente.','success')}
+async function toggleTestimonial(id,active){const {error}=await db.from('testimonials').update({active,updated_at:new Date().toISOString()}).eq('id',id);if(error)return adminNotify(error.message,'error');await loadTestimonials()}
+async function deleteTestimonial(id){if(!(await adminConfirm('¿Eliminar esta opinión? Esta acción no se puede deshacer.')))return;const {error}=await db.from('testimonials').delete().eq('id',id);if(error)return adminNotify(error.message,'error');await loadTestimonials()}
 window.editTestimonial=editTestimonial; window.toggleTestimonial=toggleTestimonial; window.deleteTestimonial=deleteTestimonial; window.newTestimonial=()=>testimonialForm();
 
 
 
 async function loadProjects() {
     const body = document.getElementById('projectsTableBody'); if (!body) return;
-    let data=[], error=null;
-    try { const result=await db.from('projects').select('*').order('sort_order').order('created_at', {ascending:false}); data=result.data||[]; error=result.error; } catch(e){ error=e; }
-    if (error) { data=localCacheGet('projects',[]); if(!data.length) return body.innerHTML = `<tr><td colspan="4">${esc(error.message)}</td></tr>`; }
-    localCacheSet('projects',data);
+    const { data, error } = await db.from('projects').select('*').order('sort_order').order('created_at', {ascending:false});
+    if (error) return body.innerHTML = `<tr><td colspan="4">${esc(error.message)}</td></tr>`;
     body.innerHTML = data.length ? data.map(p => `<tr><td>${esc(p.title_es)}</td><td>${esc(p.slug)}</td><td><span class="status-pill ${p.published?'active':'pending'}">${p.published?'Publicado':'Oculto'}</span></td><td><div class="table-actions"><button onclick="editProject('${p.id}')"><i class="fas fa-pen"></i></button><button class="danger" onclick="deleteProject('${p.id}')"><i class="fas fa-trash"></i></button></div></td></tr>`).join('') : '<tr><td colspan="4">No hay proyectos. Puedes añadirlos desde aquí.</td></tr>';
 }
 function projectForm(project={}) {
@@ -326,30 +301,147 @@ function projectForm(project={}) {
         imageUploadField('image_file','projects',v('image_url')),
         field('fas fa-image','URL de imagen (opcional)','image_url',v('image_url'),'url'),
         `<div class="cms-grid cms-grid-2">${field('fas fa-sort','Orden','sort_order',project.sort_order??0,'number','min="0" step="1"')}<div class="cms-check-group"><label class="cms-switch"><input name="featured" type="checkbox" ${project.featured?'checked':''}><span class="cms-switch-ui"></span><span><strong>Destacado</strong><small>Aparece como proyecto destacado.</small></span></label><label class="cms-switch"><input name="published" type="checkbox" ${project.published!==false?'checked':''}><span class="cms-switch-ui"></span><span><strong>Publicado</strong><small>Visible en el portfolio público.</small></span></label></div></div>`
-    ], async fd=>{ try { const file=fd.get('image_file'); let imageUrl=String(fd.get('image_url')||'').trim(); if(file&&file.size) imageUrl=await uploadMedia(file,'projects'); const payload=Object.fromEntries(fd.entries()); delete payload.image_file; payload.image_url=imageUrl||null; payload.tags=String(fd.get('tags')||'').split(',').map(x=>x.trim()).filter(Boolean); payload.sort_order=Number(fd.get('sort_order')||0); payload.featured=fd.has('featured'); payload.published=fd.has('published'); const q=project.id?db.from('projects').update(payload).eq('id',project.id):db.from('projects').insert(payload); const {error}=await q;if(error)throw error;document.getElementById('cmsGenericModal')?.remove();await loadProjects(); adminNotify(project.id?'Proyecto actualizado correctamente.':'Proyecto agregado correctamente.','success'); } catch(error){adminNotify(error.message||'No se pudo guardar el proyecto.','error');} });
+    ], async fd=>{ try { const file=fd.get('image_file'); let imageUrl=String(fd.get('image_url')||'').trim(); if(file&&file.size) imageUrl=await uploadMedia(file,'projects'); const payload=Object.fromEntries(fd.entries()); delete payload.image_file; payload.image_url=imageUrl||null; payload.tags=String(fd.get('tags')||'').split(',').map(x=>x.trim()).filter(Boolean); payload.sort_order=Number(fd.get('sort_order')||0); payload.featured=fd.has('featured'); payload.published=fd.has('published'); const q=project.id?db.from('projects').update(payload).eq('id',project.id):db.from('projects').insert(payload); const {error}=await q;if(error)throw error;document.getElementById('cmsGenericModal')?.remove();await loadProjects(); } catch(error){adminNotify(error.message||'No se pudo guardar el proyecto.');} });
 }
 async function editProject(id){const {data,error}=await db.from('projects').select('*').eq('id',id).single();if(error)return adminNotify(error.message);projectForm(data)}
-async function deleteProject(id){if(!(await adminConfirm('¿Eliminar este proyecto? Esta acción no se puede deshacer.')))return;const {error}=await db.from('projects').delete().eq('id',id);if(error)return adminNotify(error.message,'error');await loadProjects();adminNotify('Proyecto eliminado correctamente.','success')}
+async function deleteProject(id){if(!(await adminConfirm('¿Eliminar este proyecto? Esta acción no se puede deshacer.')))return;const {error}=await db.from('projects').delete().eq('id',id);if(error)return adminNotify(error.message);await loadProjects()}
 
 async function loadServices() {
     const body=document.getElementById('servicesTableBody'); if(!body)return;
-    let data=[],error=null;
-    try { const result=await db.from('services').select('*').order('sort_order').order('created_at',{ascending:false}); data=result.data||[]; error=result.error; } catch(e){ error=e; }
-    if(error){const cached=localCacheGet('services',[]);if(cached.length)data=cached;else return body.innerHTML=`<tr><td colspan="4">${esc(error.message)}</td></tr>`;}
-    localCacheSet('services',data||[]);
+    const {data,error}=await db.from('services').select('*').order('sort_order').order('created_at',{ascending:false});
+    if(error)return body.innerHTML=`<tr><td colspan="4">${esc(error.message)}</td></tr>`;
     body.innerHTML=data.length?data.map(s=>`<tr><td>${esc(s.title_es)}</td><td>${money(s.price,s.currency)}</td><td><span class="status-pill ${s.published?'active':'pending'}">${s.published?'Publicado':'Oculto'}</span></td><td><div class="table-actions"><button onclick="editService('${s.id}')" title="Editar" aria-label="Editar"><i class="fas fa-pen"></i></button><button class="danger" onclick="deleteService('${s.id}')" title="Eliminar" aria-label="Eliminar"><i class="fas fa-trash"></i></button></div></td></tr>`).join(''):'<tr><td colspan="4">No hay servicios. Puedes añadirlos desde aquí.</td></tr>';
 }
 function serviceForm(service={}){const v=k=>service[k]||''; return cmsModal(service.id?'Editar servicio':'Nuevo servicio',[
     `<div class="cms-section"><div class="cms-section-title"><i class="fas fa-language"></i><span>Contenido multilingüe</span></div><div class="cms-grid cms-grid-3">${field('fas fa-flag','Título · Español','title_es',v('title_es'),'text','required')}${field('fas fa-flag-usa','Title · English','title_en',v('title_en'))}${field('fas fa-language','Titre · Français','title_fr',v('title_fr'))}</div><div class="cms-grid cms-grid-3">${area('fas fa-align-left','Descripción · Español','description_es',v('description_es'))}${area('fas fa-align-left','Description · English','description_en',v('description_en'))}${area('fas fa-align-left','Description · Français','description_fr',v('description_fr'))}</div></div>`,
     `<div class="cms-section"><div class="cms-section-title"><i class="fas fa-sliders"></i><span>Configuración</span></div><div class="cms-grid cms-grid-2">${field('fas fa-link','Slug','slug',v('slug'),'text','required')}${field('fas fa-icons','Icono Font Awesome','icon',v('icon')||'fas fa-globe')}</div><div class="cms-grid cms-grid-3">${field('fas fa-dollar-sign','Precio','price',service.price??0,'number','min="0" step="0.01" required')}${field('fas fa-coins','Moneda','currency',v('currency')||'USD','text','maxlength="3"')}${field('fas fa-sort','Orden','sort_order',service.sort_order??0,'number','min="0" step="1"')}</div></div>`,
     `<label class="cms-switch"><input name="published" type="checkbox" ${service.published!==false?'checked':''}><span class="cms-switch-ui"></span><span><strong>Publicado</strong><small>Visible en la sección de servicios.</small></span></label>`
-],async fd=>{try{const payload=Object.fromEntries(fd.entries());payload.price=Number(fd.get('price')||0);payload.sort_order=Number(fd.get('sort_order')||0);payload.published=fd.has('published');payload.currency=String(payload.currency||'USD').toUpperCase().slice(0,3);const q=service.id?db.from('services').update(payload).eq('id',service.id):db.from('services').insert(payload);const {error}=await q;if(error)throw error;document.getElementById('cmsGenericModal')?.remove();await loadServices();adminNotify(service.id?'Servicio actualizado correctamente.':'Servicio agregado correctamente.','success')}catch(error){adminNotify(error.message||'No se pudo guardar el servicio.','error')}})}
+],async fd=>{try{const payload=Object.fromEntries(fd.entries());payload.price=Number(fd.get('price')||0);payload.sort_order=Number(fd.get('sort_order')||0);payload.published=fd.has('published');payload.currency=String(payload.currency||'USD').toUpperCase().slice(0,3);const q=service.id?db.from('services').update(payload).eq('id',service.id):db.from('services').insert(payload);const {error}=await q;if(error)throw error;document.getElementById('cmsGenericModal')?.remove();await loadServices()}catch(error){adminNotify(error.message||'No se pudo guardar el servicio.')}})}
 async function editService(id){const {data,error}=await db.from('services').select('*').eq('id',id).single();if(error)return adminNotify(error.message);serviceForm(data)}
-async function deleteService(id){if(!(await adminConfirm('¿Eliminar este servicio? Esta acción no se puede deshacer.')))return;const {error}=await db.from('services').delete().eq('id',id);if(error)return adminNotify(error.message,'error');await loadServices();adminNotify('Servicio eliminado correctamente.','success')}
+async function deleteService(id){if(!(await adminConfirm('¿Eliminar este servicio? Esta acción no se puede deshacer.')))return;const {error}=await db.from('services').delete().eq('id',id);if(error)return adminNotify(error.message);await loadServices()}
 
 window.editProject=editProject; window.deleteProject=deleteProject; window.editService=editService; window.deleteService=deleteService;
 
 
+
+const ADMIN_PROFILE_DEFAULTS = {
+    name: 'Jamsle Porcena',
+    role: 'Administrador',
+    bio: 'Administrador de WilkyJamsDev',
+    image: '../images/admin-profile-head.jpg',
+    zoom: 0,
+    position_x: 50,
+    position_y: 30,
+    linkedin: '',
+    github: 'https://github.com/jamsle-web',
+    behance: '',
+    youtube: ''
+};
+
+function adminProfileLocalKey() { return 'wilkyjams_admin_profile_v1'; }
+function readAdminProfileLocal() {
+    try { return JSON.parse(localStorage.getItem(adminProfileLocalKey()) || '{}'); } catch { return {}; }
+}
+function writeAdminProfileLocal(profile) {
+    try { localStorage.setItem(adminProfileLocalKey(), JSON.stringify(profile)); } catch {}
+}
+function applyAdminProfile(profile) {
+    const data = { ...ADMIN_PROFILE_DEFAULTS, ...profile };
+    document.querySelectorAll('.admin-profile-copy strong, [data-admin-profile="name"]').forEach(el => el.textContent = data.name || ADMIN_PROFILE_DEFAULTS.name);
+    document.querySelectorAll('.admin-profile-copy small, [data-admin-profile="role"]').forEach(el => el.textContent = data.role || ADMIN_PROFILE_DEFAULTS.role);
+    document.querySelectorAll('.admin-profile-photo img, [data-admin-profile="image"]').forEach(img => {
+        if (data.image) img.src = data.image;
+        img.style.objectPosition = `${Number(data.position_x ?? 50)}% ${Number(data.position_y ?? 30)}%`;
+        img.style.transformOrigin = `${Number(data.position_x ?? 50)}% ${Number(data.position_y ?? 30)}%`;
+        img.style.transform = `scale(${1 + Math.max(0, Number(data.zoom || 0)) / 100})`;
+    });
+}
+
+async function loadAdminProfile() {
+    const form = document.getElementById('adminProfileForm');
+    const local = { ...ADMIN_PROFILE_DEFAULTS, ...readAdminProfileLocal() };
+    if (!form) { applyAdminProfile(local); return; }
+    let values = local;
+    if (db) {
+        const { data } = await db.from('site_settings').select('key,value').in('key', [
+            'admin_profile_name','admin_profile_role','admin_profile_bio','admin_profile_image',
+            'admin_profile_zoom','admin_profile_position_x','admin_profile_position_y',
+            'admin_profile_linkedin','admin_profile_github','admin_profile_behance','admin_profile_youtube'
+        ]);
+        if (data?.length) {
+            const map = {}; data.forEach(row => { map[row.key] = typeof row.value === 'object' && row.value !== null && 'value' in row.value ? row.value.value : row.value; });
+            values = { ...values,
+                name: map.admin_profile_name ?? values.name, role: map.admin_profile_role ?? values.role, bio: map.admin_profile_bio ?? values.bio,
+                image: map.admin_profile_image ?? values.image, zoom: Number(map.admin_profile_zoom ?? values.zoom),
+                position_x: Number(map.admin_profile_position_x ?? values.position_x), position_y: Number(map.admin_profile_position_y ?? values.position_y),
+                linkedin: map.admin_profile_linkedin ?? values.linkedin, github: map.admin_profile_github ?? values.github,
+                behance: map.admin_profile_behance ?? values.behance, youtube: map.admin_profile_youtube ?? values.youtube
+            };
+        }
+    }
+    Object.entries(values).forEach(([key, value]) => { const field = form.elements.namedItem(key); if (field) field.value = value ?? ''; });
+    updateAdminProfilePreview(values);
+    applyAdminProfile(values);
+    writeAdminProfileLocal(values);
+}
+
+function updateAdminProfilePreview(values = {}) {
+    const form = document.getElementById('adminProfileForm');
+    const data = { ...ADMIN_PROFILE_DEFAULTS, ...values };
+    if (form) {
+        ['name','role','bio','image','zoom','position_x','position_y','linkedin','github','behance','youtube'].forEach(key => {
+            const field = form.elements.namedItem(key); if (field && values[key] !== undefined) field.value = values[key];
+        });
+    }
+    const preview = document.getElementById('adminProfilePreviewImage');
+    if (preview) {
+        preview.src = data.image || ADMIN_PROFILE_DEFAULTS.image;
+        preview.style.objectPosition = `${Number(data.position_x ?? 50)}% ${Number(data.position_y ?? 30)}%`;
+        preview.style.transformOrigin = `${Number(data.position_x ?? 50)}% ${Number(data.position_y ?? 30)}%`;
+        preview.style.transform = `scale(${1 + Math.max(0, Number(data.zoom || 0)) / 100})`;
+    }
+    ['linkedin','github','behance','youtube'].forEach(key => {
+        const link = document.querySelector(`[data-admin-social="${key}"]`);
+        const value = String(data[key] || '').trim();
+        if (link) { link.href = value || '#'; link.hidden = !/^https:\/\//i.test(value); }
+    });
+    const zoomValue = document.getElementById('adminProfileZoomValue'); if (zoomValue) zoomValue.textContent = `${Math.max(0, Number(data.zoom || 0))}%`;
+    const zoom = document.getElementById('adminProfileZoom'); if (zoom) zoom.value = Math.max(0, Math.min(100, Number(data.zoom || 0)));
+    const x = document.getElementById('adminProfilePositionX'); if (x) x.value = Math.max(0, Math.min(100, Number(data.position_x ?? 50)));
+    const y = document.getElementById('adminProfilePositionY'); if (y) y.value = Math.max(0, Math.min(100, Number(data.position_y ?? 30)));
+}
+
+async function saveAdminProfile() {
+    const form = document.getElementById('adminProfileForm'); if (!form) return;
+    const button = document.getElementById('saveAdminProfileBtn');
+    const fd = new FormData(form);
+    let image = String(fd.get('image') || '').trim() || ADMIN_PROFILE_DEFAULTS.image;
+    const imageFile = fd.get('image_file');
+    if (imageFile && imageFile.size) image = await uploadMedia(imageFile, 'admin-profile');
+    const data = {
+        name: String(fd.get('name') || '').trim() || ADMIN_PROFILE_DEFAULTS.name,
+        role: String(fd.get('role') || '').trim() || ADMIN_PROFILE_DEFAULTS.role,
+        bio: String(fd.get('bio') || '').trim(), image,
+        zoom: Math.max(0, Math.min(100, Number(fd.get('zoom') || 0))), position_x: Math.max(0, Math.min(100, Number(fd.get('position_x') || 50))), position_y: Math.max(0, Math.min(100, Number(fd.get('position_y') || 30))),
+        linkedin: String(fd.get('linkedin') || '').trim(), github: String(fd.get('github') || '').trim(), behance: String(fd.get('behance') || '').trim(), youtube: String(fd.get('youtube') || '').trim()
+    };
+    for (const key of ['image','linkedin','github','behance','youtube']) if (data[key] && data[key] !== ADMIN_PROFILE_DEFAULTS.image && !/^https:\/\//i.test(data[key])) throw new Error(`La URL de ${key} debe comenzar por https://`);
+    writeAdminProfileLocal(data); applyAdminProfile(data); updateAdminProfilePreview(data);
+    if (button) button.disabled = true;
+    try {
+        if (!db) throw new Error('El almacenamiento no está disponible. Los cambios quedaron guardados localmente en este navegador.');
+        const rows = Object.entries({
+            admin_profile_name:data.name, admin_profile_role:data.role, admin_profile_bio:data.bio, admin_profile_image:data.image,
+            admin_profile_zoom:String(data.zoom), admin_profile_position_x:String(data.position_x), admin_profile_position_y:String(data.position_y),
+            admin_profile_linkedin:data.linkedin, admin_profile_github:data.github, admin_profile_behance:data.behance, admin_profile_youtube:data.youtube
+        }).map(([key,value]) => ({ key, value, updated_at:new Date().toISOString() }));
+        const { error } = await db.from('site_settings').upsert(rows, { onConflict:'key' });
+        if (error) throw error;
+        adminNotify('Perfil del administrador actualizado correctamente.','success');
+    } catch (error) {
+        adminNotify(`${error?.message || 'No se pudo sincronizar el perfil.'} Los datos locales siguen disponibles.`,'error');
+    } finally { if (button) button.disabled = false; }
+}
 
 const SETTINGS_DEFAULTS = {
     site_name: 'Jamsle Porcena',
@@ -365,67 +457,25 @@ const SETTINGS_DEFAULTS = {
     behance: '',
     youtube: '',
     profile_image: '',
-    profile_zoom: '100',
-    profile_position_x: '50',
-    profile_position_y: '50',
-    social_config: '',
 };
 
 async function loadSettings() {
     const form = document.getElementById('siteSettingsForm');
     if (!form) return;
-    const values = { ...SETTINGS_DEFAULTS, ...(localCacheGet('settings',{}) || {}) };
-    try {
-        const { data, error } = await db.from('site_settings').select('key,value');
-        if (!error) (data || []).forEach(row => {
-            if (Object.prototype.hasOwnProperty.call(values, row.key)) {
-                const v=typeof row.value==='object' && row.value!==null && 'value' in row.value ? row.value.value : row.value;
-                values[row.key]=v;
-            }
-        });
-    } catch {}
-    Object.entries(values).forEach(([key, value]) => { const field = form.elements.namedItem(key); if (field) field.value = value ?? ''; });
-    initProfileEditor(values);
-    const socialSeed=values.social_config || JSON.stringify(SOCIAL_DEFAULTS.map(item=>({...item,url:values[item.key]||item.url||'',active:Boolean(values[item.key]||item.active)})));
-    initSocialManager(socialSeed);
+    const { data, error } = await db.from('site_settings').select('key,value');
+    if (error) return adminNotify(error.message);
+    const values = { ...SETTINGS_DEFAULTS };
+    (data || []).forEach(row => {
+        if (Object.prototype.hasOwnProperty.call(values, row.key)) {
+            values[row.key] = typeof row.value === 'object' && row.value !== null && 'value' in row.value ? row.value.value : row.value;
+        }
+    });
+    Object.entries(values).forEach(([key, value]) => {
+        const field = form.elements.namedItem(key);
+        if (field) field.value = value ?? '';
+    });
 }
 
-function profileStyle(image, zoom, x, y){ return image ? `background-image:url("${String(image).replace(/"/g,'%22')}");background-size:${Number(zoom)||100}%;background-position:${Number(x)||50}% ${Number(y)||50}%;` : ''; }
-function initProfileEditor(values){
-    const preview=document.getElementById('profileEditorPreview'); if(!preview)return;
-    const image=values.profile_image||'';
-    const apply=()=>{ const form=document.getElementById('siteSettingsForm'); const v=n=>form?.elements.namedItem(n)?.value; const img=image||v('profile_image'); const zoom=v('profile_zoom')||100, x=v('profile_position_x')||50, y=v('profile_position_y')||50; preview.style.cssText=profileStyle(img,zoom,x,y); document.querySelectorAll('.admin-profile-photo img').forEach(el=>{if(img)el.src=img;el.style.objectPosition=`${x}% ${y}%`;el.style.transform=`scale(${Number(zoom)/100})`;}); };
-    ['profile_image','profile_zoom','profile_position_x','profile_position_y'].forEach(id=>document.getElementById(id)?.addEventListener('input',apply));
-    document.getElementById('profileImageFile')?.addEventListener('change',e=>{ const f=e.target.files?.[0]; if(!f)return; const url=URL.createObjectURL(f); preview.style.cssText=profileStyle(url,document.getElementById('profileZoom')?.value||100,document.getElementById('profilePositionX')?.value||50,document.getElementById('profilePositionY')?.value||50); });
-    apply();
-}
-const SOCIAL_DEFAULTS=[
-    {key:'linkedin',label:'LinkedIn',icon:'fab fa-linkedin-in',url:'',active:false,size:48,location:'all'},
-    {key:'github',label:'GitHub',icon:'fab fa-github',url:'https://github.com/jamsle-web',active:true,size:48,location:'all'},
-    {key:'behance',label:'Behance',icon:'fab fa-behance',url:'',active:false,size:48,location:'all'},
-    {key:'youtube',label:'YouTube',icon:'fab fa-youtube',url:'',active:false,size:48,location:'all'},
-    {key:'instagram',label:'Instagram',icon:'fab fa-instagram',url:'',active:false,size:48,location:'all'},
-    {key:'facebook',label:'Facebook',icon:'fab fa-facebook-f',url:'',active:false,size:48,location:'all'},
-    {key:'tiktok',label:'TikTok',icon:'fab fa-tiktok',url:'',active:false,size:48,location:'all'},
-    {key:'fiverr',label:'Fiverr',icon:'fas fa-star',url:'https://www.fiverr.com/s/xLZLbj0',active:true,size:48,location:'all'}
-];
-function getSocialList(raw){try{const list=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(list)&&list.length)return list;}catch{}return SOCIAL_DEFAULTS.map(x=>({...x}));}
-function initSocialManager(raw){const wrap=document.getElementById('socialManagerList');if(!wrap)return;const list=getSocialList(raw);wrap.innerHTML=list.map((s,i)=>`<div class="social-manager-row" data-social-row data-key="${esc(s.key)}"><span class="social-drag"><i class="fas fa-grip-vertical"></i></span><input data-social-label value="${esc(s.label||'')}" placeholder="Nombre">const SOCIAL_DEFAULTS=[
-    {key:'linkedin',label:'LinkedIn',icon:'fab fa-linkedin-in',url:'',active:false,size:48,location:'all'},
-    {key:'github',label:'GitHub',icon:'fab fa-github',url:'https://github.com/jamsle-web',active:true,size:48,location:'all'},
-    {key:'behance',label:'Behance',icon:'fab fa-behance',url:'',active:false,size:48,location:'all'},
-    {key:'youtube',label:'YouTube',icon:'fab fa-youtube',url:'',active:false,size:48,location:'all'},
-    {key:'instagram',label:'Instagram',icon:'fab fa-instagram',url:'',active:false,size:48,location:'all'},
-    {key:'facebook',label:'Facebook',icon:'fab fa-facebook-f',url:'',active:false,size:48,location:'all'},
-    {key:'tiktok',label:'TikTok',icon:'fab fa-tiktok',url:'',active:false,size:48,location:'all'},
-    {key:'fiverr',label:'Fiverr',icon:'fas fa-star',url:'https://www.fiverr.com/s/xLZLbj0',active:true,size:48,location:'all'}
-];</div>`).join('');
-    wrap.querySelectorAll('[data-social-remove]').forEach(btn=>btn.addEventListener('click',()=>btn.closest('[data-social-row]')?.remove()));
-    wrap.querySelectorAll('[data-social-up]').forEach(btn=>btn.addEventListener('click',()=>{const row=btn.closest('[data-social-row]');if(row?.previousElementSibling)row.parentElement.insertBefore(row,row.previousElementSibling);}));
-    wrap.querySelectorAll('[data-social-down]').forEach(btn=>btn.addEventListener('click',()=>{const row=btn.closest('[data-social-row]');if(row?.nextElementSibling)row.parentElement.insertBefore(row,row.nextElementSibling.nextSibling);}));
-}
-function collectSocialManager(){return [...document.querySelectorAll('[data-social-row]')].map(row=>({key:row.dataset.key||`custom_${Date.now()}`,label:row.querySelector('[data-social-label]')?.value?.trim()||'Red',icon:row.querySelector('[data-social-icon]')?.value?.trim()||'fas fa-link',url:row.querySelector('[data-social-url]')?.value?.trim()||'',size:Math.max(24,Math.min(96,Number(row.querySelector('[data-social-size]')?.value||48))),location:row.querySelector('[data-social-location]')?.value||'all',active:!!row.querySelector('[data-social-active]')?.checked}));}
-function addSocialNetwork(){const wrap=document.getElementById('socialManagerList');if(!wrap)return;const n=document.createElement('div');n.className='social-manager-row';n.dataset.socialRow='';n.dataset.key=`custom_${Date.now()}`;n.innerHTML='<span class="social-drag"><i class="fas fa-grip-vertical"></i></span><input data-social-label value="Nueva red" placeholder="Nombre"><input data-social-icon value="fas fa-link" placeholder="fas fa-link"><input data-social-url type="url" placeholder="https://..."><input data-social-size type="number" min="24" max="96" step="1" value="48"><select data-social-location><option value="all">Todas</option><option value="contact">Contacto</option></select><label class="cms-switch compact"><input data-social-active type="checkbox" checked><span class="cms-switch-ui"></span><span>Visible</span></label><button type="button" class="table-action danger" data-social-remove aria-label="Eliminar"><i class="fas fa-trash"></i></button>';n.querySelector('[data-social-remove]').onclick=()=>n.remove();wrap.appendChild(n);n.querySelector('[data-social-label]')?.focus();}
 async function saveSettings() {
     const form = document.getElementById('siteSettingsForm');
     if (!form) return;
@@ -435,23 +485,15 @@ async function saveSettings() {
         if (data[key] && !/^https:\/\//i.test(data[key])) throw new Error(`La URL de ${key} debe comenzar por https://`);
     }
     if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) throw new Error('Introduce un correo electrónico válido.');
-    const file=document.getElementById('profileImageFile')?.files?.[0];
     if (button) button.disabled = true;
     try {
-        if(file?.size) data.profile_image=await uploadMedia(file,'profile');
-        const socialList=collectSocialManager();
-        data.social_config=JSON.stringify(socialList);
-        const clean={...data}; delete clean.profileImageFile;
-        localCacheSet('settings',clean);
-        for (const [key, value] of Object.entries(clean)) {
-            const { error } = await db.from('site_settings').upsert({ key, value: String(value ?? '').trim(), updated_at: new Date().toISOString() }, { onConflict: 'key' });
+        for (const [key, value] of Object.entries(data)) {
+            const { error } = await db.from('site_settings').upsert({ key, value: String(value).trim(), updated_at: new Date().toISOString() }, { onConflict: 'key' });
             if (error) throw error;
         }
-        adminNotify('Configuración, perfil y redes guardados correctamente.','success');
-        await loadSettings();
+        adminNotify('Configuración guardada correctamente.');
     } catch (error) {
-        localCacheSet('settings',data);
-        adminNotify(error.message || 'No se pudo guardar la configuración. Los cambios quedaron guardados localmente.','error');
+        adminNotify(error.message || 'No se pudo guardar la configuración.');
     } finally { if (button) button.disabled = false; }
 }
 document.addEventListener('DOMContentLoaded', async () => {
@@ -462,19 +504,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('loadContentEditorBtn')?.addEventListener('click', loadContentEditor);
     document.getElementById('contentPage')?.addEventListener('change', loadContentEditor);
     document.getElementById('contentLang')?.addEventListener('change', loadContentEditor);
-    ["profile_zoom","profile_position_x","profile_position_y","social_config"].forEach(name=>{if(!document.querySelector(`[name="${name}"]`)){const i=document.createElement("input");i.type="hidden";i.name=name;document.getElementById("siteSettingsForm")?.appendChild(i);}});
-    document.getElementById("addSocialNetworkBtn")?.addEventListener("click",addSocialNetwork);
-    document.getElementById("loadContentEditorBtn")?.click();
+    document.getElementById('loadContentEditorBtn')?.click();
     document.getElementById('newProductBtn')?.addEventListener('click', newProduct);
     document.getElementById('newProjectBtn')?.addEventListener('click',()=>projectForm());
     document.getElementById('newTestimonialBtn')?.addEventListener('click',()=>testimonialForm());
     document.getElementById('newServiceBtn')?.addEventListener('click',()=>serviceForm());
     document.getElementById('refreshOrdersBtn')?.addEventListener('click', loadOrders);
-    document.getElementById('refreshVisitorsBtn')?.addEventListener('click', loadVisitors);
     document.getElementById('refreshMessagesBtn')?.addEventListener('click', loadMessages);
-    await Promise.all([loadStats(), loadProducts(), loadOrders(), loadMessages(), loadProjects(), loadServices(), loadTestimonials(), loadSettings()]);
+    await Promise.all([loadStats(), loadProducts(), loadOrders(), loadMessages(), loadProjects(), loadServices(), loadTestimonials(), loadSettings(), loadAdminProfile()]);
     initRealtimeDashboard();
-    document.getElementById('siteSettingsForm')?.addEventListener('submit', async (event) => { event.preventDefault(); try { await saveSettings(); } catch (e) { adminNotify(e.message); } });
+    document.getElementById('siteSettingsForm')?.addEventListener('submit', async (event) => { event.preventDefault(); try { await saveSettings(); } catch (e) { adminNotify(e.message,'error'); } });
+    document.getElementById('adminProfileForm')?.addEventListener('submit', async (event) => { event.preventDefault(); try { await saveAdminProfile(); } catch (e) { adminNotify(e.message,'error'); } });
+    document.getElementById('adminProfileForm')?.addEventListener('input', event => {
+        const form = event.currentTarget;
+        const values = Object.fromEntries(new FormData(form).entries());
+        values.zoom = Number(values.zoom || 0); values.position_x = Number(values.position_x || 50); values.position_y = Number(values.position_y || 30);
+        updateAdminProfilePreview(values);
+    });
+    document.getElementById('adminProfileForm')?.querySelector('input[name="image_file"]')?.addEventListener('change', event => {
+        const file = event.target.files?.[0]; if (!file) return;
+        if (file.size > 5 * 1024 * 1024) { adminNotify('La imagen supera el límite de 5 MB.','error'); event.target.value=''; return; }
+        const url = URL.createObjectURL(file); const preview = document.getElementById('adminProfilePreviewImage'); if (preview) preview.src = url;
+    });
+    document.getElementById('adminProfileZoomMinus')?.addEventListener('click', () => { const input=document.getElementById('adminProfileZoom'); input.value=Math.max(0,Number(input.value||0)-1); input.dispatchEvent(new Event('input',{bubbles:true})); });
+    document.getElementById('adminProfileZoomPlus')?.addEventListener('click', () => { const input=document.getElementById('adminProfileZoom'); input.value=Math.min(100,Number(input.value||0)+1); input.dispatchEvent(new Event('input',{bubbles:true})); });
 });
 
 
@@ -483,8 +536,8 @@ const CONTENT_OVERRIDE_KEY = 'content_overrides';
 let contentOverrides = {};
 
 async function loadContentOverrides() {
-    let data,error; try { ({data,error}=await db.from('site_settings').select('value').eq('key', CONTENT_OVERRIDE_KEY).maybeSingle()); } catch(e){ error=e; }
-    if (error) return localCacheGet('content_overrides',{});
+    const { data, error } = await db.from('site_settings').select('value').eq('key', CONTENT_OVERRIDE_KEY).maybeSingle();
+    if (error) throw error;
     const raw = data?.value;
     if (!raw) return {};
     try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return {}; }
@@ -543,17 +596,14 @@ async function loadContentEditor() {
             contentOverrides[page] = contentOverrides[page] || {};
             contentOverrides[page][language] = values;
             const { error } = await db.from('site_settings').upsert({ key: CONTENT_OVERRIDE_KEY, value: contentOverrides, updated_at: new Date().toISOString() }, { onConflict: 'key' });
-            if (error) { localCacheSet('content_overrides',contentOverrides); return adminNotify(error.message,'error'); }
-            localCacheSet('content_overrides',contentOverrides);
-            adminNotify('Contenido guardado correctamente y sincronizado.','success');
+            if (error) return adminNotify(error.message);
+            adminNotify('Contenido guardado. Recarga el sitio público para ver los cambios.');
         };
         document.getElementById('resetContentOverrides').onclick = async () => {
             if (!(await adminConfirm('¿Restablecer los textos personalizados de esta página e idioma?'))) return;
             if (contentOverrides[page]) delete contentOverrides[page][language];
             const { error } = await db.from('site_settings').upsert({ key: CONTENT_OVERRIDE_KEY, value: contentOverrides, updated_at: new Date().toISOString() }, { onConflict: 'key' });
-            if (error) return adminNotify(error.message,'error');
-            localCacheSet('content_overrides',contentOverrides);
-            adminNotify('Contenido restablecido correctamente.','success');
+            if (error) return adminNotify(error.message);
             await loadContentEditor();
         };
     } catch (error) {

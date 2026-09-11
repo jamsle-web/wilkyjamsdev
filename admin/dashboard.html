@@ -25,6 +25,7 @@
                 <a href="#panelProductos" data-admin-section="panelProductos" title="Productos" aria-label="Productos"><i class="fas fa-box"></i> Productos</a>
                 <a href="#panelContenido" data-admin-section="panelContenido" title="Contenido" aria-label="Contenido"><i class="fas fa-pen-to-square"></i> Contenido</a>
                 <a href="#panelConfiguracion" data-admin-section="panelConfiguracion" title="Configuración" aria-label="Configuración"><i class="fas fa-sliders-h"></i> Configuración</a>
+                <a href="#panelPerfilAdmin" data-admin-section="panelPerfilAdmin" title="Mi perfil de administrador" aria-label="Mi perfil de administrador"><i class="fas fa-user-gear"></i> Mi perfil</a>
                 <a href="#panelTestimonios" data-admin-section="panelTestimonios" title="Opiniones" aria-label="Opiniones"><i class="fas fa-star"></i> Opiniones</a>
                 <a href="#panelProyectos" data-admin-section="panelProyectos" title="Proyectos" aria-label="Proyectos"><i class="fas fa-layer-group"></i> Proyectos</a>
                 <a href="#panelServicios" data-admin-section="panelServicios" title="Servicios" aria-label="Servicios"><i class="fas fa-briefcase"></i> Servicios</a>
@@ -70,7 +71,7 @@
                             <span class="avatar-sm admin-profile-photo"><img src="../images/admin-profile-head.jpg" alt="Jamsle Porcena"></span><span class="admin-profile-copy"><strong>Jamsle Porcena</strong><small>Administrador</small></span><i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="admin-popover profile-menu" id="adminProfileMenu" hidden>
-                            <div class="profile-card"><span class="avatar-lg admin-profile-photo"><img src="../images/admin-profile-head.jpg" alt="Jamsle Porcena"></span><div><strong>Jamsle Porcena</strong><small id="adminProfileEmail">Administrador</small></div></div>
+                            <button type="button" class="profile-card profile-card-button" id="adminProfileOpenEditor"><span class="avatar-lg admin-profile-photo"><img src="../images/admin-profile-head.jpg" alt="Jamsle Porcena"></span><div><strong data-admin-profile="name">Jamsle Porcena</strong><small id="adminProfileEmail" data-admin-profile="role">Administrador</small></div><i class="fas fa-pen"></i></button>
                             <div class="popover-divider"></div>
                             <a href="../" class="popover-action"><i class="fas fa-arrow-up-right-from-square"></i> Ver sitio público</a>
                             <button type="button" class="popover-action danger" id="adminProfileLogout"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
@@ -155,22 +156,7 @@
                         <label>YouTube<input name="youtube" type="url" maxlength="300" placeholder="https://www.youtube.com/@tu-canal"></label>
                     </div>
                     <div class="cms-settings-note"><i class="fas fa-circle-info"></i><span>Usa URLs HTTPS para las redes sociales e imagen. Los cambios se sincronizan con el sitio público mediante Supabase.</span></div>
-                    <div class="admin-social-manager" id="adminSocialManager"><div class="admin-profile-editor-head"><div><strong><i class="fas fa-share-nodes"></i> Redes sociales e iconos</strong><small>Activa, desactiva, reordena y cambia icono, enlace, tamaño y ubicación de cada red.</small></div><button type="button" class="btn-admin-add btn-admin-ghost" id="addSocialNetworkBtn"><i class="fas fa-plus"></i> Añadir red</button></div><div id="socialManagerList"></div></div>
-                    <div class="admin-profile-editor">
-                        <div class="admin-profile-editor-head"><div><strong><i class="fas fa-user-pen"></i> Perfil y foto</strong><small>Edita tu identidad pública y el encuadre de la foto sin tocar el código.</small></div></div>
-                        <div class="settings-grid">
-                            <label>Nombre público<input name="site_name" maxlength="100"></label>
-                            <label>Profesión / cargo<input name="site_role" maxlength="160"></label>
-                        </div>
-                        <div class="settings-grid profile-photo-controls">
-                            <label>Imagen de perfil (URL)<input name="profile_image" type="url" maxlength="500" placeholder="https://..."></label>
-                            <label>Subir foto<input id="profileImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"></label>
-                            <label>Zoom<input name="profile_zoom" id="profileZoom" type="range" min="100" max="180" step="1" value="100"></label>
-                            <label>Posición horizontal<input name="profile_position_x" id="profilePositionX" type="range" min="0" max="100" step="1" value="50"></label>
-                            <label>Posición vertical<input name="profile_position_y" id="profilePositionY" type="range" min="0" max="100" step="1" value="50"></label>
-                        </div>
-                        <div class="profile-editor-preview"><div class="profile-preview-avatar" id="profileEditorPreview" role="img" aria-label="Vista previa de la foto de perfil"></div><div><strong>Vista previa</strong><small>Los controles de zoom y posición se aplican a la foto principal.</small></div></div>
-                    </div>
+                    <label>Imagen de perfil (URL)<input name="profile_image" type="url" maxlength="500"></label>
                     <div class="admin-sound-settings">
                         <div class="admin-sound-head"><div><strong><i class="fas fa-volume-high"></i> Notificaciones sonoras</strong><small>Elige el sonido que escuchará el panel cuando llegue una visita, mensaje o pedido nuevo.</small></div><label class="cms-switch compact"><input id="adminSoundEnabled" type="checkbox" checked><span class="cms-switch-ui"></span><span>Sonido activo</span></label></div>
                         <div class="settings-grid admin-sound-grid">
@@ -181,6 +167,45 @@
                     </div>
                 </form>
                 <p class="admin-panel-note">Estos datos se guardan en Supabase y se aplican al sitio público sin modificar su diseño.</p>
+            </div>
+
+            <!-- ===== PERFIL DEL ADMINISTRADOR ===== -->
+            <div class="admin-panel" id="panelPerfilAdmin">
+                <div class="panel-title">
+                    <div><h3>Mi perfil de administrador</h3><span class="admin-panel-subtitle">Este perfil pertenece exclusivamente al panel Admin. No modifica el perfil público del inicio.</span></div>
+                    <button type="submit" form="adminProfileForm" class="btn-admin-add" id="saveAdminProfileBtn"><i class="fas fa-save"></i> Guardar cambios</button>
+                </div>
+                <form id="adminProfileForm" class="admin-profile-editor-form">
+                    <div class="admin-profile-editor-grid">
+                        <div class="admin-profile-crop-card">
+                            <div class="admin-profile-crop-preview" id="adminProfileCropPreview"><img id="adminProfilePreviewImage" src="../images/admin-profile-head.jpg" alt="Vista previa del perfil"></div>
+                            <div class="admin-profile-crop-controls">
+                                <div class="admin-profile-control-head"><strong>Zoom</strong><span id="adminProfileZoomValue">0%</span></div>
+                                <div class="admin-profile-zoom-row"><button type="button" class="cms-btn cms-btn-secondary" id="adminProfileZoomMinus" aria-label="Reducir zoom" title="Reducir zoom"><i class="fas fa-minus"></i></button><input id="adminProfileZoom" name="zoom" type="range" min="0" max="100" step="1" value="0" aria-label="Zoom de foto"><button type="button" class="cms-btn cms-btn-secondary" id="adminProfileZoomPlus" aria-label="Aumentar zoom" title="Aumentar zoom"><i class="fas fa-plus"></i></button></div>
+                                <div class="admin-profile-position-grid"><label>Horizontal<input id="adminProfilePositionX" name="position_x" type="range" min="0" max="100" step="1" value="50"></label><label>Vertical<input id="adminProfilePositionY" name="position_y" type="range" min="0" max="100" step="1" value="30"></label></div>
+                                <small>Zoom empieza en 0 y llega hasta 100. Usa los controles para mostrar más o menos de tu foto y ajustar el encuadre.</small>
+                            </div>
+                        </div>
+                        <div class="admin-profile-fields">
+                            <label>Nombre<input name="name" maxlength="120" value="Jamsle Porcena"></label>
+                            <label>Rol en Admin<input name="role" maxlength="160" value="Administrador"></label>
+                            <label>Biografía<textarea name="bio" maxlength="600" rows="4">Administrador de WilkyJamsDev</textarea></label>
+                            <label>Subir nueva foto<input name="image_file" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"></label>
+                            <label>URL de foto<input name="image" type="url" maxlength="500" value="../images/admin-profile-head.jpg"></label>
+                            <div class="cms-settings-note"><i class="fas fa-lock"></i><span>La foto y estos datos son del perfil del administrador. No sustituyen ni modifican el perfil público del sitio.</span></div>
+                        </div>
+                    </div>
+                    <div class="admin-profile-socials">
+                        <div class="cms-section-title"><i class="fas fa-share-nodes"></i><span>Perfiles y enlaces</span></div>
+                        <div class="settings-grid">
+                            <label><i class="fab fa-linkedin"></i> LinkedIn<input name="linkedin" type="url" maxlength="300" placeholder="https://www.linkedin.com/in/..." ></label>
+                            <label><i class="fab fa-github"></i> GitHub<input name="github" type="url" maxlength="300" value="https://github.com/jamsle-web"></label>
+                            <label><i class="fab fa-behance"></i> Behance<input name="behance" type="url" maxlength="300"></label>
+                            <label><i class="fab fa-youtube"></i> YouTube<input name="youtube" type="url" maxlength="300"></label>
+                        </div>
+                        <div class="admin-profile-social-preview" aria-label="Perfiles sociales"><a data-admin-social="linkedin" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a><a data-admin-social="github" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a><a data-admin-social="behance" target="_blank" rel="noopener noreferrer" title="Behance"><i class="fab fa-behance"></i></a><a data-admin-social="youtube" target="_blank" rel="noopener noreferrer" title="YouTube"><i class="fab fa-youtube"></i></a></div>
+                    </div>
+                </form>
             </div>
 
             <!-- ===== ANALÍTICA ===== -->
@@ -204,10 +229,6 @@
                         <thead><tr><th>Página</th><th>Visitas</th><th>Última visita</th></tr></thead>
                         <tbody id="topPagesTableBody"><tr><td colspan="3">Cargando…</td></tr></tbody>
                     </table>
-                </div>
-                <div class="analytics-visitors-block">
-                    <div class="panel-title"><div><h3>Visitantes recientes</h3><span class="admin-panel-subtitle">Sesión, entrada, dispositivo, navegador y origen. No se recopilan datos personales innecesarios.</span></div><button type="button" class="btn-admin-add btn-admin-ghost" id="refreshVisitorsBtn"><i class="fas fa-rotate"></i> Actualizar</button></div>
-                    <div style="overflow:auto"><table class="admin-table"><thead><tr><th>Entrada</th><th>Página</th><th>Origen</th><th>Dispositivo</th><th>Idioma / zona</th><th>Sesión</th></tr></thead><tbody id="visitorsTableBody"><tr><td colspan="6">Cargando…</td></tr></tbody></table></div>
                 </div>
             </div>
 

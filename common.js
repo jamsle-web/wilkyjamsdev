@@ -34,10 +34,6 @@ async function trackSiteEvent(eventType, metadata = {}) {
             language: document.documentElement.lang || 'es',
             referrer: document.referrer ? document.referrer.slice(0, 500) : null,
             viewport: `${window.innerWidth}x${window.innerHeight}`,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-            host: location.host,
-            source: document.referrer ? (() => { try { return new URL(document.referrer).host; } catch { return 'referrer'; } })() : 'direct',
-            platform: navigator.platform || '',
             ...metadata
         };
 
@@ -55,8 +51,6 @@ async function trackSiteEvent(eventType, metadata = {}) {
 }
 
 window.trackSiteEvent = trackSiteEvent;
-try { if (!sessionStorage.getItem('jp_session_started')) { sessionStorage.setItem('jp_session_started','1'); trackSiteEvent('session_start'); } } catch {}
-window.addEventListener('pagehide',()=>{ try { if(navigator.sendBeacon) { /* page_view data remains server-side; no PII is sent here */ } } catch {} });
 
 
 /* ----- TRANSICIÓN GLOBAL ENTRE PÁGINAS + ACCESO PRIVADO ----- */

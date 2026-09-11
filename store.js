@@ -266,20 +266,16 @@ function escapeHTML(value) {
 }
 
 async function loadStoreProducts() {
-    try { const cached=JSON.parse(localStorage.getItem('wilkyjams_v145_products')||'null'); if(Array.isArray(cached)&&cached.length) window.PRODUCTS=cached; } catch {}
-    if (!window.portfolioSupabase) { window.PRODUCTS = window.PRODUCTS?.length ? window.PRODUCTS : PRODUCTS_FALLBACK; return; }
+    if (!window.portfolioSupabase) { window.PRODUCTS = PRODUCTS_FALLBACK; return; }
     const { data, error } = await portfolioSupabase.from('products').select('*').eq('active', true).order('sort_order').order('created_at', { ascending: false });
-    if (error || !data?.length) { window.PRODUCTS = window.PRODUCTS?.length ? window.PRODUCTS : PRODUCTS_FALLBACK; return; }
+    if (error || !data?.length) { window.PRODUCTS = PRODUCTS_FALLBACK; return; }
     window.PRODUCTS = data.map(p => ({
         id: p.id, name_es: p.name_es || '', name_en: p.name_en || '', name_fr: p.name_fr || '',
         description_es: p.description_es || '', description_en: p.description_en || '', description_fr: p.description_fr || '',
         category: p.category || 'all', categoryLabel: p.category || 'all', details: p.details || {},
         price: Number(p.price || 0), oldPrice: p.old_price ? Number(p.old_price) : null, image: p.image_url || ''
     }));
-    try { localStorage.setItem('wilkyjams_v145_products', JSON.stringify(window.PRODUCTS)); } catch {}
 }
-
-if (window.portfolioSupabase?.channel) { try { window.portfolioSupabase.channel('wilkyjams-public-products-live').on('postgres_changes',{event:'*',schema:'public',table:'products'},async()=>{await loadStoreProducts();renderProducts(currentStoreFilter,document.getElementById('storeSearch')?.value||'');}).subscribe(); } catch {} }
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadStoreProducts();

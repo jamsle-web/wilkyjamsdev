@@ -1,7 +1,6 @@
 /* Dynamic public content for WilkyJamsDev Portfolio. Static HTML remains as fallback. */
 (function () {
     const db = window.portfolioSupabase;
-    const cacheGet=(key,fallback=null)=>{try{const r=localStorage.getItem('wilkyjams_v145_'+key);return r?JSON.parse(r):fallback;}catch{return fallback;}};
     const esc = (v='') => String(v).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
     const safeUrl = (value='') => { try { const u = new URL(value, location.href); return ['http:','https:'].includes(u.protocol) ? u.href : ''; } catch { return ''; } };
     const lang = () => (typeof currentLang !== 'undefined' ? currentLang : (localStorage.getItem('jp_lang') || 'es'));
@@ -10,11 +9,9 @@
 
     async function loadProjects() {
         const grid = document.querySelector('#projects .projects-grid');
-        if (!grid) return;
-        let data=null, error=null;
-        if (db) { try { const result=await db.from('projects').select('*').eq('published', true).order('sort_order').order('created_at', {ascending:false}); data=result.data; error=result.error; } catch(e){ error=e; } }
-        if (error || !data?.length) data=cacheGet('projects',[]);
-        if (!data?.length) return;
+        if (!grid || !db) return;
+        const { data, error } = await db.from('projects').select('*').eq('published', true).order('sort_order').order('created_at', {ascending:false});
+        if (error || !data?.length) return;
         grid.innerHTML = data.map((p, i) => {
             const image = safeUrl(p.image_url);
             const projectUrl = safeUrl(p.project_url);
@@ -47,11 +44,9 @@
 
     async function loadServices() {
         const grid = document.querySelector('#pricing .pricing-grid');
-        if (!grid) return;
-        let data=null, error=null;
-        if (db) { try { const result=await db.from('services').select('*').eq('published', true).order('sort_order').order('created_at',{ascending:false}); data=result.data; error=result.error; } catch(e){ error=e; } }
-        if (error || !data?.length) data=cacheGet('services',[]);
-        if (!data?.length) return;
+        if (!grid || !db) return;
+        const { data, error } = await db.from('services').select('*').eq('published', true).order('sort_order').order('created_at',{ascending:false});
+        if (error || !data?.length) return;
         grid.innerHTML = data.map((s,i) => {
             const name = pick(s,'title');
             const price = new Intl.NumberFormat('en-US',{style:'currency',currency:s.currency||'USD'}).format(Number(s.price||0));
@@ -69,11 +64,9 @@
 
     async function loadTestimonials() {
         const grid = document.querySelector('#testimonials .testimonials-grid');
-        if (!grid) return;
-        let data=null, error=null;
-        if (db) { try { const result=await db.from('testimonials').select('*').eq('active', true).order('sort_order').order('created_at',{ascending:false}); data=result.data; error=result.error; } catch(e){ error=e; } }
-        if (error || !data?.length) data=cacheGet('testimonials',[]);
-        if (!data?.length) return;
+        if (!grid || !db) return;
+        const { data, error } = await db.from('testimonials').select('*').eq('active', true).order('sort_order').order('created_at',{ascending:false});
+        if (error || !data?.length) return;
         grid.innerHTML = data.map((t,i) => {
             const name = pick(t,'name'); const role = pick(t,'role'); const text = pick(t,'text');
             const initial = esc((name || '?').trim().charAt(0).toUpperCase());
@@ -89,12 +82,9 @@
     }
 
     async function loadSiteSettings() {
-        let data=[];
-        if (db) { try { const result=await db.from('site_settings').select('key,value'); if(!result.error) data=result.data||[]; } catch {} }
-        const cached=cacheGet('settings',{});
-        Object.entries(cached||{}).forEach(([key,value])=>{ if(!data.some(r=>r.key===key)) data.push({key,value}); });
-        const cachedOverrides=cacheGet('content_overrides',null);
-        if(cachedOverrides && !data.some(r=>r.key==='content_overrides')) data.push({key:'content_overrides',value:cachedOverrides});
+        if (!db) return;
+        const { data, error } = await db.from('site_settings').select('key,value');
+        if (error || !data) return;
         const settings = {};
         data.forEach(row => { settings[row.key] = row.value; });
 
@@ -168,15 +158,6 @@
         document.querySelectorAll('[data-site-setting="profile_image"]').forEach(el => {
             if (image) { el.src = image; el.hidden = false; }
         });
-        if (typeof window.applyProfileSettings === 'function') window.applyProfileSettings(settings);
-        try {
-            const socialRaw = settings.social_config;
-            const socials = typeof socialRaw === 'string' ? JSON.parse(socialRaw) : socialRaw;
-            if (Array.isArray(socials)) document.querySelectorAll('.social-links').forEach(container => {
-                const area=container.closest('[data-social-area]')?.dataset.socialArea||'all';
-                container.innerHTML = socials.filter(item => item && item.active && safeUrl(item.url) && (item.location==='all' || item.location===area)).map(item => { const size=Math.max(24,Math.min(96,Number(item.size)||48)); return `<a href="${esc(safeUrl(item.url))}" target="_blank" rel="noopener noreferrer" aria-label="${esc(item.label||'Red social')}" style="width:${size}px;height:${size}px;font-size:${Math.max(12,Math.round(size*.42))}px"><i class="${esc(item.icon||'fas fa-link')}"></i></a>`; }).join('');
-            });
-        } catch {}
 
         const overrideRow = data.find(row => row.key === 'content_overrides');
         if (overrideRow) {
@@ -189,16 +170,6 @@
 
     async function refresh() { await Promise.all([loadProjects(), loadServices(), loadTestimonials(), loadSiteSettings()]); }
     window.portfolioCMS = { refresh, loadProjects, loadServices, loadTestimonials, loadSiteSettings };
-    if (db?.channel) {
-        try {
-            db.channel('wilkyjams-public-cms-live')
-              .on('postgres_changes',{event:'*',schema:'public',table:'site_settings'},()=>refresh())
-              .on('postgres_changes',{event:'*',schema:'public',table:'projects'},()=>loadProjects())
-              .on('postgres_changes',{event:'*',schema:'public',table:'services'},()=>loadServices())
-              .on('postgres_changes',{event:'*',schema:'public',table:'testimonials'},()=>loadTestimonials())
-              .subscribe();
-        } catch {}
-    }
     document.addEventListener('DOMContentLoaded', refresh);
     window.addEventListener('jp-language-changed', refresh);
 })();
