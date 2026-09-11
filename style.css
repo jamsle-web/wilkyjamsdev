@@ -1397,8 +1397,7 @@ footer span {
 }
 
 .cart-drawer.open {
-    right: 0;
-}
+  right:-100vw; }
 
 .cart-drawer .cart-header {
     display: flex;
