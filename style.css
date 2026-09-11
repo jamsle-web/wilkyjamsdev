@@ -932,11 +932,7 @@ footer span {
         grid-template-columns: 1fr;
     }
 }
-    .cart-drawer {
-        width: min(320px, 82vw) !important;
-        max-width: 320px !important;
-        right: 0 !important;
-    }
+   
 @media (max-width: 480px) {
     .hero-content h1 {
         font-size: 2.2rem;
