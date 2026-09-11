@@ -2354,9 +2354,11 @@ body.admin-body {
     .page-hero h1 {
         font-size: 2.2rem;
     }
-    .cart-drawer {
-        max-width: 100%;
-    }
+   .cart-drawer {
+    width: 72vw;
+    max-width: 320px;
+    right: 0;
+}
     #contact .contact-channels {
         margin-bottom: 40px;
     }
