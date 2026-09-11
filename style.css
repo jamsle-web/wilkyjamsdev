@@ -3884,7 +3884,11 @@ button, input, select, textarea { max-width:100%; font:inherit; }
     .store-card .store-price { text-align:left; }
     .btn-add-cart { width:100%; }
 
-    .cart-drawer { width:100vw; max-width:100vw; right:0; }
+    .cart-drawer {
+    width: min(88vw, 380px);
+    max-width: 380px;
+    right: 0;
+}
     .cart-line { gap:10px; }
     .cart-line img { width:58px; height:58px; flex:0 0 58px; }
 
