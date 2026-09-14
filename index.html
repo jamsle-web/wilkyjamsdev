@@ -419,5 +419,7 @@
 const homeContact = document.getElementById('contactFormHome');
 if (homeContact) homeContact.addEventListener('submit', async e => { e.preventDefault(); const f=new FormData(homeContact); const {error}=await portfolioSupabase.from('contact_messages').insert({name:f.get('name'),email:f.get('email'),subject:f.get('subject'),message:f.get('message')}); if(error){alert('No se pudo enviar el mensaje. Inténtalo de nuevo.');return;} homeContact.reset(); alert('Mensaje enviado correctamente.'); });
 </script>
+    <!-- Vercel Web Analytics -->
+    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </body>
 </html>
