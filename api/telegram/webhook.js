@@ -708,10 +708,27 @@ Selecciona un servicio para conocer más:`,
       });
     }
 
-    if (text === "/quote") {
-      await sendMessage(
-        chatId,
-        `💰 SOLICITUD DE COTIZACIÓN
+   if (text === "/quote") {
+  const user = message.from || {};
+
+  await saveQuoteSession({
+    telegram_chat_id: chatId,
+    telegram_user_id: user.id || null,
+    telegram_username: user.username || null,
+    telegram_first_name: user.first_name || null,
+    telegram_last_name: user.last_name || null,
+    step: 1,
+    service: null,
+    project_description: null,
+    budget: null,
+    deadline: null,
+    contact_info: null,
+    updated_at: new Date().toISOString(),
+  });
+
+  await sendMessage(
+    chatId,
+    `💰 SOLICITUD DE COTIZACIÓN
 
 Vamos a preparar tu solicitud.
 
@@ -720,19 +737,19 @@ Paso 1 de 5
 ¿Qué servicio necesitas?
 
 ✍️ Escribe el servicio que necesitas.`,
-        {
-          reply_markup: {
-            force_reply: true,
-            input_field_placeholder: "Escribe el servicio...",
-          },
-        }
-      );
-
-      return res.status(200).json({
-        ok: true,
-        handled: "quote_start",
-      });
+    {
+      reply_markup: {
+        force_reply: true,
+        input_field_placeholder: "Escribe el servicio...",
+      },
     }
+  );
+
+  return res.status(200).json({
+    ok: true,
+    handled: "quote_start",
+  });
+}
 
     if (text === "/projects") {
       await sendMessage(
