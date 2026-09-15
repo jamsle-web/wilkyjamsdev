@@ -857,32 +857,83 @@ También puedes utilizar los botones del menú principal.`
 
     // STEP 2 — PROJECT DESCRIPTION
 
-    if (repliedTo.includes("Paso 1 de 5")) {
-      await sendMessage(
-        chatId,
-        `✅ Servicio recibido.
+   if (repliedTo.includes("Paso 1 de 5")) {
+  const session = await getQuoteSession(chatId);
+
+  if (!session) {
+    await sendMessage(
+      chatId,
+      `⚠️ No encontré una solicitud activa.
+
+Escribe /quote para comenzar una nueva cotización.`
+    );
+
+    return res.status(200).json({
+      ok: true,
+      handled: "quote_session_missing",
+    });
+  }
+
+  const service = text.trim();
+
+  if (!service) {
+    await sendMessage(
+      chatId,
+      `⚠️ Por favor, escribe el servicio que necesitas.
+
+Ejemplo:
+Desarrollo Web`
+    );
+
+    return res.status(200).json({
+      ok: true,
+      handled: "quote_step1_empty",
+    });
+  }
+
+  await saveQuoteSession({
+    telegram_chat_id: chatId,
+    telegram_user_id: message.from?.id || session.telegram_user_id || null,
+    telegram_username:
+      message.from?.username || session.telegram_username || null,
+    telegram_first_name:
+      message.from?.first_name || session.telegram_first_name || null,
+    telegram_last_name:
+      message.from?.last_name || session.telegram_last_name || null,
+    step: 2,
+    service: service,
+    project_description: null,
+    budget: null,
+    deadline: null,
+    contact_info: null,
+    updated_at: new Date().toISOString(),
+  });
+
+  await sendMessage(
+    chatId,
+    `✅ Servicio registrado: ${service}
 
 Paso 2 de 5
 
-Cuéntame brevemente qué necesitas realizar.
+Ahora cuéntame brevemente sobre tu proyecto.
 
-Ejemplo:
-"Necesito una página web para mi negocio de ropa con catálogo y formulario de contacto."
+¿Qué necesitas exactamente?
+¿Qué quieres crear, mejorar o solucionar?
 
-✍️ Describe tu proyecto.`,
-        {
-          reply_markup: {
-            force_reply: true,
-            input_field_placeholder: "Describe tu proyecto...",
-          },
-        }
-      );
-
-      return res.status(200).json({
-        ok: true,
-        handled: "quote_step_2",
-      });
+✍️ Escribe una descripción de tu proyecto.`,
+    {
+      reply_markup: {
+        force_reply: true,
+        input_field_placeholder: "Describe tu proyecto...",
+      },
     }
+  );
+
+  return res.status(200).json({
+    ok: true,
+    handled: "quote_step1",
+  });
+}
 
     // STEP 3 — BUDGET
 
