@@ -1,5 +1,8 @@
 const BOT_NAME = "WilkyJamsDev";
 const WEBSITE_URL = "https://wilkyjamsdev.vercel.app/";
+const SUPABASE_URL = process.env.supabase_url;
+const SUPABASE_SERVICE_ROLE_KEY =
+  process.env.supabase_service_role_key;
 
 export default async function handler(req, res) {
   // =========================================================
@@ -83,7 +86,39 @@ export default async function handler(req, res) {
         callback_query_id: callbackQueryId,
       });
     }
+async function saveQuoteRequest(data) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    console.error("Supabase environment variables are missing");
+    return null;
+  }
 
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/telegram_quote_requests`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_SERVICE_ROLE_KEY,
+        "Authorization": `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        "Prefer": "return=representation",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  const result = await response.text();
+
+  if (!response.ok) {
+    console.error("Supabase save error:", result);
+    return null;
+  }
+
+  try {
+    return JSON.parse(result);
+  } catch {
+    return result;
+  }
+}
     // =======================================================
     // INLINE MENU
     // =======================================================
