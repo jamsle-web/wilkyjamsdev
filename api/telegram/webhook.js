@@ -5,7 +5,7 @@ export default async function handler(req, res) {
       ok: true,
       service: "WilkyJamsDev Telegram Bot",
       status: "online",
-      tokenConfigured: Boolean(process.env.TELEGRAM_BOT_TOKEN),
+      tokenConfigured: Boolean(process.env.telegram_bot_token),
     });
   }
 
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const token = process.env.TELEGRAM_BOT_TOKEN;
+   const token = process.env.telegram_bot_token;
 
     if (!token) {
       console.error("TELEGRAM_BOT_TOKEN is missing");
