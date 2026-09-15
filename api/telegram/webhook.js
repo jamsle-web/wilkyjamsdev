@@ -119,6 +119,97 @@ async function saveQuoteRequest(data) {
     return result;
   }
 }
+    async function saveQuoteSession(data) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    console.error("Supabase environment variables are missing");
+    return null;
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/telegram_quote_sessions`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_SERVICE_ROLE_KEY,
+        "Authorization": `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        "Prefer": "resolution=merge-duplicates,return=representation",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  const result = await response.text();
+
+  if (!response.ok) {
+    console.error("Supabase session save error:", result);
+    return null;
+  }
+
+  try {
+    return JSON.parse(result);
+  } catch {
+    return result;
+  }
+}
+
+async function getQuoteSession(chatId) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    console.error("Supabase environment variables are missing");
+    return null;
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/telegram_quote_sessions?telegram_chat_id=eq.${encodeURIComponent(chatId)}&limit=1`,
+    {
+      method: "GET",
+      headers: {
+        "apikey": SUPABASE_SERVICE_ROLE_KEY,
+        "Authorization": `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      },
+    }
+  );
+
+  const result = await response.text();
+
+  if (!response.ok) {
+    console.error("Supabase session read error:", result);
+    return null;
+  }
+
+  try {
+    const data = JSON.parse(result);
+    return data[0] || null;
+  } catch {
+    return null;
+  }
+}
+
+async function deleteQuoteSession(chatId) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    console.error("Supabase environment variables are missing");
+    return false;
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/telegram_quote_sessions?telegram_chat_id=eq.${encodeURIComponent(chatId)}`,
+    {
+      method: "DELETE",
+      headers: {
+        "apikey": SUPABASE_SERVICE_ROLE_KEY,
+        "Authorization": `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const result = await response.text();
+    console.error("Supabase session delete error:", result);
+    return false;
+  }
+
+  return true;
+}
     // =======================================================
     // INLINE MENU
     // =======================================================
@@ -369,9 +460,26 @@ Incluye:
       // -------------------------------
 
       if (callbackData === "quote") {
-        await sendMessage(
-          chatId,
-          `💰 SOLICITUD DE COTIZACIÓN
+      const user = callback.from || {};
+
+await saveQuoteSession({
+  telegram_chat_id: chatId,
+  telegram_user_id: user.id || null,
+  telegram_username: user.username || null,
+  telegram_first_name: user.first_name || null,
+  telegram_last_name: user.last_name || null,
+  step: 1,
+  service: null,
+  project_description: null,
+  budget: null,
+  deadline: null,
+  contact_info: null,
+  updated_at: new Date().toISOString(),
+});
+
+await sendMessage(
+  chatId,
+  `💰 SOLICITUD DE COTIZACIÓN
 
 Perfecto. Voy a ayudarte a preparar tu solicitud.
 
@@ -389,14 +497,13 @@ Ejemplos:
 • Soluciones con IA
 
 ✍️ Escribe el servicio que necesitas.`,
-          {
-            reply_markup: {
-              force_reply: true,
-              input_field_placeholder: "Escribe el servicio...",
-            },
-          }
-        );
-
+  {
+    reply_markup: {
+      force_reply: true,
+      input_field_placeholder: "Escribe el servicio...",
+    },
+  }
+);
         return res.status(200).json({
           ok: true,
           handled: "quote_start",
