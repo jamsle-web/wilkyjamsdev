@@ -296,6 +296,96 @@ const translations = {
         "contact.form_message": "Parlez-moi de votre projet...",
         "contact.form_submit": "Envoyer le message",
         "footer.tagline": "Web Design & Marketing Digital"
+    },
+    pt: {
+        "nav.home": "Início",
+        "nav.about": "Sobre mim",
+        "nav.skills": "Habilidades",
+        "nav.services": "Serviços",
+        "nav.store": "Loja",
+        "nav.projects": "Projetos",
+        "nav.testimonials": "Depoimentos",
+        "nav.contact": "Fale comigo",
+        "hero.subtitle": "Web Design · Marketing Digital",
+        "hero.greeting": "Olá, eu sou",
+        "hero.name": "Jamsle Porcena",
+        "hero.description": "Designer web e especialista em marketing digital apaixonado por transformar ideias em identidades digitais sólidas. Combino design, tecnologia e IA para fazer crescer a sua marca.",
+        "hero.btn_projects": "Ver projetos",
+        "hero.btn_contact": "Vamos conversar",
+        "hero.stat_years": "Anos de experiência",
+        "hero.stat_projects": "Projetos realizados",
+        "hero.stat_certs": "Certificações",
+        "about.label": "Conheça-me",
+        "about.title": "Design + Estratégia = Impacto",
+        "about.subtitle": "Minha abordagem vai além do estético: construo experiências digitais que conectam e geram resultados.",
+        "about.heading": "Apaixonado pela criação digital",
+        "about.p1": "Sou um criador digital com experiência em design web (UI/UX), otimização SEO e marketing baseado em dados. Ajudo empresas e empreendedores a construir uma identidade digital forte, funcional e memorável.",
+        "about.specialty_label": "Especialidade:",
+        "about.specialty_text": "Landing pages otimizadas, CMS (WordPress/Webflow), pesquisa UX e edição com IA.",
+        "about.lang_fr": "Francês",
+        "about.lang_fr_level": "Nativo",
+        "about.lang_ht": "Crioulo",
+        "about.lang_ht_level": "Nativo",
+        "about.lang_es": "Espanhol",
+        "about.lang_es_level": "Fluente",
+        "about.lang_en": "Inglês",
+        "about.lang_en_level": "Intermediário-Avançado",
+        "about.experience": "Freelance · JamsLab Studio (2023-2025)",
+        "cert.website_title": "Website Design",
+        "cert.website_org": "HP LIFE · 2024",
+        "cert.ai_title": "AI Technology for Business",
+        "cert.ai_org": "HP LIFE · 2024",
+        "cert.canva_title": "Canva Design",
+        "cert.canva_org": "Canva · 2024",
+        "cert.dm_title": "Digital Marketing",
+        "cert.dm_org": "HubSpot Academy · 2025",
+        "cert.data_title": "Data Analytics",
+        "cert.data_org": "Databricks / Simplilearn · 2025",
+        "skills.label": "Experiência técnica",
+        "skills.title": "Minhas ferramentas",
+        "skills.subtitle": "Do design e desenvolvimento à estratégia digital e análise de dados.",
+        "skill.responsive": "Design Responsivo",
+        "skill.ux": "Pesquisa UX",
+        "skill.landing": "Landing Pages",
+        "skill.cms": "Gestão de CMS",
+        "skill.ai": "IA & Edição",
+        "projects.label": "Portfólio",
+        "projects.title": "Projetos em destaque",
+        "projects.subtitle": "Casos de sucesso onde o design e a estratégia digital fizeram a diferença.",
+        "proj1.title": "Santo Sabor · Redesign de identidade",
+        "proj1.desc": "Redesign de identidade digital para marca local. Experiência web moderna, funcional e visualmente impactante. Função: UI/UX Designer & Web Developer.",
+        "proj1.result": "+40% de tempo de permanência · melhoria na conversão",
+        "proj2.title": "StudyFlow AI · App educacional",
+        "proj2.desc": "Aplicativo educacional impulsionado por IA para tornar o aprendizado mais organizado, intuitivo e personalizado. Arquitetura de informação, UI/UX e prototipagem.",
+        "proj2.result": "Aprendizado personalizado com IA",
+        "proj3.title": "Burger King · Redesign conceitual",
+        "proj3.desc": "Redesign conceitual de interface web para o Burger King, focado em uma experiência moderna, visualmente atraente e centrada em produtos.",
+        "proj3.result": "Experiência moderna e atraente",
+        "testimonials.label": "Depoimentos",
+        "testimonials.title": "O que dizem meus clientes",
+        "testimonials.subtitle": "Pessoas e empresas que confiaram em mim para impulsionar sua presença digital.",
+        "testimonial1.text": "\"Jamsle transformou completamente nosso site. O design é impecável e nossas vendas online dispararam. Muito profissional e atento a cada detalhe.\"",
+        "testimonial1.name": "María Gómez",
+        "testimonial1.role": "Diretora da EcoGreen",
+        "testimonial2.text": "\"Excelente trabalho no redesign do nosso spa. O novo site é moderno, rápido e aumentou significativamente as reservas. Altamente recomendado.\"",
+        "testimonial2.name": "Carlos Pérez",
+        "testimonial2.role": "Gerente do Bella Vista Spa",
+        "testimonial3.text": "\"A estratégia de SEO da Jamsle levou nosso blog ao topo do Google. O tráfego orgânico cresceu mais de 120% em poucos meses. Um verdadeiro especialista.\"",
+        "testimonial3.name": "Laura Díaz",
+        "testimonial3.role": "Fundadora da TechLab RD",
+        "certs.label": "Formação contínua",
+        "certs.title": "Certificações",
+        "contact.label": "Vamos conectar",
+        "contact.title": "Vamos falar sobre o seu próximo projeto?",
+        "contact.subtitle": "Estou a uma mensagem de distância. Conte-me a sua ideia e vamos torná-la realidade.",
+        "contact.info_title": "Informações de contato",
+        "contact.info_desc": "Você pode me escrever por qualquer um destes meios ou através das minhas redes profissionais.",
+        "contact.form_name": "Nome completo",
+        "contact.form_email": "E-mail",
+        "contact.form_subject": "Assunto",
+        "contact.form_message": "Conte-me sobre o seu projeto...",
+        "contact.form_submit": "Enviar mensagem",
+        "footer.tagline": "Design web & Marketing Digital"
     }
 };
 
@@ -331,6 +421,75 @@ Object.assign(translations.fr, {
     "footer.description":"Design web, marketing numérique et produits numériques prêts à faire grandir votre marque.", "footer.navigation":"Navigation", "footer.services":"Services", "footer.contact":"Contact", "footer.web_design":"Design web", "footer.digital_marketing":"Marketing numérique", "footer.store":"Boutique de produits", "footer.whatsapp":"WhatsApp"
 });
 
+Object.assign(translations.pt, {
+    "nav.contact_short": "Contato",
+    "services.hero_label": "Serviços",
+    "services.hero_title_prefix": "Soluções digitais sob medida para a sua ",
+    "services.hero_title_highlight": "marca",
+    "services.hero_title": "Soluções digitais sob medida para a sua marca",
+    "services.hero_desc": "Design web, marketing digital e estratégia de marca em pacotes claros, ou feitos completamente sob medida para você.",
+    "services.plans_label": "Planos",
+    "services.plans_title": "Escolha o pacote ideal para você",
+    "services.plans_desc": "Preços de referência em dólares (USD). Cada projeto é ajustado conforme escopo, prazos e conteúdo.",
+    "services.request": "Solicitar",
+    "services.popular": "Mais escolhido",
+    "services.custom_prefix": "Precisa de algo diferente?",
+    "services.custom_link": "Conte-me sobre seu projeto",
+    "services.custom_suffix": "e montamos uma proposta sob medida.",
+    "services.process_label": "Como trabalhamos",
+    "services.process_title": "Da ideia ao lançamento",
+    "services.process_desc": "Um processo simples e transparente, pensado para que você saiba sempre em qual etapa está seu projeto.",
+    "services.cta_title": "Pronto para começar seu projeto?",
+    "services.cta_desc": "Escreva para mim e conversemos sobre como levar sua marca ao próximo nível.",
+    "services.view": "Ver serviços",
+    "aboutpage.hero_label": "Minha história",
+    "aboutpage.hero_title_prefix": "Por trás de cada design existe uma ",
+    "aboutpage.hero_title_highlight": "história",
+    "aboutpage.hero_title": "Por trás de cada design existe uma história",
+    "aboutpage.hero_desc": "Sou Jamsle Porcena: designer web, especialista em marketing digital e, acima de tudo, alguém apaixonado por ajudar marcas a encontrar sua voz digital.",
+    "aboutpage.bio_title": "Do Caribe ao mundo digital",
+    "aboutpage.values_label": "Como trabalho",
+    "aboutpage.values_title": "Os valores por trás de cada projeto",
+    "aboutpage.timeline_label": "Trajetória",
+    "aboutpage.timeline_title": "Meu caminho até hoje",
+    "aboutpage.cta_title": "Vamos conectar?",
+    "aboutpage.cta_desc": "Adoraria conhecer seu projeto e ver como posso ajudar a torná-lo realidade.",
+    "contactpage.hero_label": "Vamos conectar",
+    "contactpage.hero_title_prefix": "Vamos falar sobre o seu ",
+    "contactpage.hero_title_highlight": "próximo projeto",
+    "contactpage.hero_title": "Vamos falar sobre o seu próximo projeto",
+    "contactpage.hero_desc": "Escolha o canal que preferir. Normalmente respondo em menos de 24 horas.",
+    "contactpage.form_title": "Conte-me sobre seu projeto",
+    "contactpage.form_desc": "Quanto mais detalhes você me der, mais rápido poderei preparar uma proposta ajustada ao que você precisa.",
+    "contactpage.faq_label": "Perguntas frequentes",
+    "contactpage.faq_title": "Antes de me escrever",
+    "contactpage.modal_title": "Mensagem pronta para enviar!",
+    "contactpage.close": "Fechar",
+    "store.hero_label": "Loja digital",
+    "store.hero_title_prefix": "Produtos digitais ",
+    "store.hero_title_highlight": "prontos para usar",
+    "store.hero_title": "Produtos digitais prontos para usar",
+    "store.hero_desc": "Logos, sites, landing pages, apps, flyers, cartões de visita e sessões de fotos — tudo o que sua marca precisa, em um só lugar.",
+    "store.all": "Todos",
+    "store.logos": "Logos",
+    "store.web": "Sites",
+    "store.landing": "Landing Pages",
+    "store.apps": "Apps",
+    "store.flyers": "Flyers",
+    "store.business_cards": "Cartões de visita",
+    "store.photo": "Fotografia",
+    "store.how_title": "Como funciona a compra?",
+    "store.how_desc": "Adicione os produtos que precisa ao carrinho e finalize seu pedido pelo WhatsApp. Coordenamos o pagamento pelo canal acordado e entregamos o arquivo ou projeto após a confirmação.",
+    "footer.description": "Design web, marketing digital e produtos digitais prontos para fazer crescer sua marca.",
+    "footer.navigation": "Navegação",
+    "footer.services": "Serviços",
+    "footer.contact": "Contato",
+    "footer.web_design": "Design web",
+    "footer.digital_marketing": "Marketing digital",
+    "footer.store": "Loja de produtos",
+    "footer.whatsapp": "WhatsApp"
+});
+
 
 Object.assign(translations.es, {
  "plans.per_project":"/ proyecto", "plans.landing.title":"Landing Page", "plans.landing.desc":"Ideal para lanzar un producto, servicio o campaña específica.", "plans.landing.f1":"Diseño de 1 página (una sola sección larga)", "plans.landing.f2":"Responsive (móvil, tablet, escritorio)", "plans.landing.f3":"Formulario de contacto", "plans.landing.f4":"Optimización SEO básica", "plans.landing.f5":"Panel de administración",
@@ -362,6 +521,75 @@ Object.assign(translations.fr, {
  "timeline.2023.title":"Débuts en freelance", "timeline.2023.desc":"J'ai commencé à prendre mes premiers projets de design web et de marketing numérique, en fondant ce qui est aujourd'hui JamsLab Studio.", "timeline.2024.title":"Certifications en design et IA", "timeline.2024.desc":"J'ai obtenu des certifications en Website Design, AI Technology for Business et Canva Design, élargissant mes outils de travail.", "timeline.2025.title":"Spécialisation marketing et données", "timeline.2025.desc":"J'ai ajouté Digital Marketing (HubSpot Academy) et Data Analytics (Databricks/Simplilearn) pour prendre des décisions de design basées sur des données réelles.", "timeline.2026.title":"Du portfolio au studio numérique", "timeline.2026.desc":"JamsLab Studio devient un espace complet dédié au design, au marketing et aux produits numériques prêts à l'emploi.",
  "contactpage.whatsapp":"WhatsApp", "contactpage.email":"E-mail", "contactpage.call":"Appel", "contactpage.fiverr":"Fiverr", "faq.1.q":"Combien de temps prend un projet de site web ?", "faq.1.a":"Cela dépend du périmètre : une landing page prend généralement 5 à 7 jours, tandis qu'un site complet peut prendre 2 à 4 semaines.", "faq.2.q":"Comment fonctionnent les paiements ?", "faq.2.a":"Je demande un acompte de 50 % pour commencer et les 50 % restants à la livraison. Les produits de la boutique sont coordonnés via WhatsApp pour organiser le paiement et la livraison.", "faq.3.q":"Proposez-vous un support après la livraison ?", "faq.3.a":"Oui. Les forfaits Site Web Complet et Marque + Marketing incluent un support après lancement ; je propose également une maintenance mensuelle séparée.", "faq.4.q":"Puis-je demander un projet qui n'est pas dans les forfaits ?", "faq.4.a":"Bien sûr. Les forfaits sont un guide de référence — présentez-moi votre idée et nous préparerons une proposition 100 % sur mesure.", "faq.5.q":"Travaillez-vous avec des clients hors de République dominicaine ?", "faq.5.a":"Oui. Je travaille à distance avec des clients partout dans le monde, par visioconférence, WhatsApp ou e-mail.", "budget.1":"Budget : moins de 200 $", "budget.2":"Budget : 200 $ - 500 $", "budget.3":"Budget : 500 $ - 1 000 $", "budget.4":"Budget : plus de 1 000 $"
 });
+Object.assign(translations.pt, {
+ "plans.per_project":"/ projeto",
+ "plans.landing.title":"Landing Page",
+ "plans.landing.desc":"Ideal para lançar um produto, serviço ou campanha específica.",
+ "plans.landing.f1":"Design de 1 página (uma única seção longa)",
+ "plans.landing.f2":"Responsivo (celular, tablet, desktop)",
+ "plans.landing.f3":"Formulário de contato",
+ "plans.landing.f4":"Otimização SEO básica",
+ "plans.landing.f5":"Painel de administração",
+ "plans.full.title":"Site Completo",
+ "plans.full.desc":"Um site multipágina para apresentar seu negócio de forma profissional.",
+ "plans.full.f1":"Até 5 páginas (Início, Sobre, Serviços, Contato...)",
+ "plans.full.f2":"Design 100% personalizado",
+ "plans.full.f3":"Responsivo + animações",
+ "plans.full.f4":"SEO on-page + Google Analytics",
+ "plans.full.f5":"1 mês de suporte pós-lançamento",
+ "plans.brand.title":"Marca + Marketing",
+ "plans.brand.desc":"Identidade visual, site e estratégia de conteúdo para escalar sua marca.",
+ "plans.brand.f1":"Tudo do plano Site Completo",
+ "plans.brand.f2":"Design de logo + manual da marca",
+ "plans.brand.f3":"Plano de conteúdo para redes (1 mês)",
+ "plans.brand.f4":"Estratégia SEO avançada",
+ "plans.brand.f5":"Reunião mensal de acompanhamento",
+ "process.1.title":"Descoberta",
+ "process.1.desc":"Conversamos sobre sua marca, objetivos, referências e público para entender o que você realmente precisa.",
+ "process.2.title":"Proposta e design",
+ "process.2.desc":"Apresento uma proposta clara de escopo, prazos e investimento, e começamos com o design visual.",
+ "process.3.title":"Desenvolvimento",
+ "process.3.desc":"Construo o site ou a peça de marketing, com revisões junto a você em cada etapa chave.",
+ "process.4.title":"Lançamento e suporte",
+ "process.4.desc":"Publicamos seu projeto e te acompanho no período posterior para ajustes e dúvidas.",
+ "aboutpage.bio1":"Cresci entre culturas —francesa, haitiana e dominicana— e essa mistura faz parte de como entendo o design: como uma ponte entre o que uma marca quer dizer e como as pessoas realmente percebem.",
+ "aboutpage.bio2":"Comecei programando páginas simples por curiosidade, e com o tempo essa curiosidade se tornou uma carreira focada em design web (UI/UX), otimização SEO e marketing baseado em dados.",
+ "aboutpage.bio3":"Fora da tela, continuo aprendendo constantemente: cada certificação, cada projeto e cada cliente me ensina algo novo que levo para o próximo trabalho.",
+ "values.communication.title":"Comunicação clara",
+ "values.communication.desc":"Sem jargões desnecessários: explico cada decisão de design em uma linguagem que você entende.",
+ "values.results.title":"Resultados, não apenas estética",
+ "values.results.desc":"Cada design busca um objetivo mensurável: mais conversões, mais tempo no site, mais vendas.",
+ "values.delivery.title":"Entrega pontual",
+ "values.delivery.desc":"Os prazos acordados são cumpridos. Se algo mudar, aviso com antecedência.",
+ "values.detail.title":"Cuidado com o detalhe",
+ "values.detail.desc":"Os pequenos detalhes —espaçamentos, cores, microtextos— são os que fazem a diferença.",
+ "timeline.2023.title":"Inícios como freelancer",
+ "timeline.2023.desc":"Comecei a pegar meus primeiros projetos de design web e marketing digital, fundando o que hoje é o JamsLab Studio.",
+ "timeline.2024.title":"Certificações em design e IA",
+ "timeline.2024.desc":"Completei certificações em Website Design, AI Technology for Business e Canva Design, ampliando minhas ferramentas de trabalho.",
+ "timeline.2025.title":"Especialização em marketing e dados",
+ "timeline.2025.desc":"Adicionei Digital Marketing (HubSpot Academy) e Data Analytics (Databricks/Simplilearn) para tomar decisões de design baseadas em dados reais.",
+ "timeline.2026.title":"De portfólio a estúdio digital",
+ "timeline.2026.desc":"O JamsLab Studio se torna um espaço completo: serviços de design, marketing e uma loja de produtos digitais prontos para usar.",
+ "contactpage.whatsapp":"WhatsApp",
+ "contactpage.email":"E-mail",
+ "contactpage.call":"Chamada",
+ "contactpage.fiverr":"Fiverr",
+ "faq.1.q":"Quanto tempo leva um projeto de site?",
+ "faq.1.a":"Depende do escopo: uma landing page geralmente leva de 5 a 7 dias, enquanto um site completo pode levar de 2 a 4 semanas.",
+ "faq.2.q":"Como funcionam os pagamentos?",
+ "faq.2.a":"Trabalho com um adiantamento de 50% para iniciar e os 50% restantes na entrega. Os produtos da loja são coordenados pelo WhatsApp para gerenciar o pagamento e a entrega.",
+ "faq.3.q":"Você oferece suporte após a entrega?",
+ "faq.3.a":"Sim. Os planos Site Completo e Marca + Marketing incluem suporte pós-lançamento; também ofereço manutenção mensal separadamente.",
+ "faq.4.q":"Posso pedir um projeto que não está nos planos?",
+ "faq.4.a":"Claro. Os planos são uma referência — conte-me sua ideia e montamos uma proposta 100% sob medida.",
+ "faq.5.q":"Você trabalha com clientes fora da República Dominicana?",
+ "faq.5.a":"Sim, trabalho remotamente com clientes em qualquer lugar do mundo, coordenando por videochamada, WhatsApp ou e-mail.",
+ "budget.1":"Orçamento: menos de $200",
+ "budget.2":"Orçamento: $200 - $500",
+ "budget.3":"Orçamento: $500 - $1,000",
+ "budget.4":"Orçamento: mais de $1,000"
+});
 
 Object.assign(translations.es, {
  "store.add":"Agregar", "store.details":"Ver detalles", "store.added":"Agregado", "cms.view_project":"Ver proyecto", "cart.title":"Tu carrito", "cart.total":"Total", "cart.checkout":"Finalizar por WhatsApp", "footer.privacy":"Privacidad", "footer.terms":"Términos", "footer.cookies":"Cookies", "footer.help":"Centro de ayuda", "cart.empty":"Tu carrito está vacío.", "cart.empty_hint":"Explora la tienda y agrega tus productos favoritos.", "cart.item_remove":"Eliminar", "contact.project_type":"¿Qué tipo de proyecto es?", "contactpage.modal_desc":"El mensaje se guarda de forma segura y puedes continuar enviándolo directamente por WhatsApp con un clic."
@@ -371,6 +599,9 @@ Object.assign(translations.en, {
 });
 Object.assign(translations.fr, {
  "store.add":"Ajouter", "store.details":"Voir les détails", "store.added":"Ajouté", "cms.view_project":"Voir le projet", "cart.title":"Votre panier", "cart.total":"Total", "cart.checkout":"Finaliser via WhatsApp", "footer.privacy":"Confidentialité", "footer.terms":"Conditions", "footer.cookies":"Cookies", "footer.help":"Centre d’aide", "cart.empty":"Votre panier est vide.", "cart.empty_hint":"Explorez la boutique et ajoutez vos produits préférés.", "cart.item_remove":"Supprimer", "contact.project_type":"Quel type de projet est-ce ?", "contactpage.modal_desc":"Votre message est enregistré en toute sécurité et vous pouvez continuer en l'envoyant directement via WhatsApp en un clic."
+});
+Object.assign(translations.pt, {
+ "store.add":"Adicionar", "store.details":"Ver detalhes", "store.added":"Adicionado", "cms.view_project":"Ver projeto", "cart.title":"Seu carrinho", "cart.total":"Total", "cart.checkout":"Finalizar pelo WhatsApp", "footer.privacy":"Privacidade", "footer.terms":"Termos", "footer.cookies":"Cookies", "footer.help":"Central de ajuda", "cart.empty":"Seu carrinho está vazio.", "cart.empty_hint":"Explore a loja e adicione seus produtos favoritos.", "cart.item_remove":"Remover", "contact.project_type":"Que tipo de projeto é?", "contactpage.modal_desc":"A mensagem é salva de forma segura e você pode continuar enviando-a diretamente pelo WhatsApp com um clique."
 });
 
 Object.assign(translations.es, {
@@ -383,18 +614,24 @@ Object.assign(translations.en, {
 Object.assign(translations.fr, {
  "page.title.home":"Jamsle Porcena · Portfolio Web & Marketing", "page.title.services":"Services · Jamsle Porcena", "page.title.about":"À propos · Jamsle Porcena", "page.title.contact":"Contact · Jamsle Porcena", "page.title.store":"Boutique · Produits numériques · Jamsle Porcena", "footer.tagline":"· Design web & Marketing numérique"
 });
+Object.assign(translations.pt, {
+ "page.title.home":"Jamsle Porcena · Portfólio Web & Marketing", "page.title.services":"Serviços · Jamsle Porcena", "page.title.about":"Sobre mim · Jamsle Porcena", "page.title.contact":"Contato · Jamsle Porcena", "page.title.store":"Loja · Produtos Digitais · Jamsle Porcena", "footer.tagline":"· Design web & Marketing Digital"
+});
 
 Object.assign(translations.es, {"contactpage.send_whatsapp":"Enviar por WhatsApp","services.whatsapp":"Hablemos por WhatsApp"});
 Object.assign(translations.en, {"contactpage.send_whatsapp":"Send via WhatsApp","services.whatsapp":"Talk on WhatsApp"});
 Object.assign(translations.fr, {"contactpage.send_whatsapp":"Envoyer par WhatsApp","services.whatsapp":"Parler sur WhatsApp"});
+Object.assign(translations.pt, {"contactpage.send_whatsapp":"Enviar pelo WhatsApp","services.whatsapp":"Vamos falar pelo WhatsApp"});
 
 Object.assign(translations.es,{"services.contact_link":"Ir a Contacto"});
 Object.assign(translations.en,{"services.contact_link":"Go to Contact"});
 Object.assign(translations.fr,{"services.contact_link":"Aller au contact"});
+Object.assign(translations.pt,{"services.contact_link":"Ir para Contato"});
 
 Object.assign(translations.es,{"contact.error":"No se pudo enviar el mensaje. Inténtalo de nuevo."});
 Object.assign(translations.en,{"contact.error":"The message could not be sent. Please try again."});
 Object.assign(translations.fr,{"contact.error":"Le message n'a pas pu être envoyé. Veuillez réessayer."});
+Object.assign(translations.pt,{"contact.error":"Não foi possível enviar a mensagem. Tente novamente."});
 
 function jpT(key, fallback = key) {
     return (translations[currentLang] && translations[currentLang][key]) || (translations.es[key]) || fallback;
@@ -424,6 +661,13 @@ Object.assign(translations.fr, {
     "page.description.about": "Découvrez Jamsle Porcena, designer web et spécialiste du marketing digital, de l’UI/UX et de l’IA.",
     "page.description.contact": "Contactez Jamsle Porcena pour vos projets de design web, UI/UX, développement et marketing digital.",
     "page.description.store": "Boutique de produits et ressources numériques de Jamsle Porcena."
+});
+Object.assign(translations.pt, {
+    "page.description.home": "Design web, UI/UX e marketing digital de Jamsle Porcena. Portfólio de projetos, serviços e soluções digitais.",
+    "page.description.services": "Serviços de design web, UI/UX, desenvolvimento, SEO e marketing digital de Jamsle Porcena.",
+    "page.description.about": "Conheça Jamsle Porcena, designer web e especialista em marketing digital, UI/UX e inteligência artificial.",
+    "page.description.contact": "Entre em contato com Jamsle Porcena para projetos de design web, UI/UX, desenvolvimento e marketing digital.",
+    "page.description.store": "Loja de produtos e recursos digitais de Jamsle Porcena."
 });
 
 function setLanguage(lang) {
@@ -504,15 +748,21 @@ window.LEGAL_CONTENT = {
     'terms.html':{title:"Conditions d'utilisation · Jamsle Porcena",desc:"Conditions générales d'utilisation du site et de commande de services."},
     'cookies.html':{title:'Politique relative aux cookies · Jamsle Porcena',desc:'Utilisation du stockage local et de technologies similaires.'},
     'help.html':{title:"Centre d'aide · Jamsle Porcena",desc:'Aide pour trouver les services, projets, boutique et contact.'}
+  },
+  pt:{
+    'privacy.html':{title:'Política de privacidade · Jamsle Porcena',desc:'Informações sobre os dados coletados e como são utilizados.'},
+    'terms.html':{title:'Termos de uso · Jamsle Porcena',desc:'Condições gerais para o uso do site e contratação de serviços.'},
+    'cookies.html':{title:'Política de cookies · Jamsle Porcena',desc:'Como este site utiliza armazenamento local e tecnologias similares.'},
+    'help.html':{title:'Central de ajuda · Jamsle Porcena',desc:'Ajuda para encontrar serviços, projetos, loja e contato.'}
   }
 };
 window.applyLegalLanguage = function(){
  const file=location.pathname.split('/').pop(); const lang=(typeof currentLang!=='undefined'?currentLang:(localStorage.getItem('jp_lang')||'es'));
  if(!window.LEGAL_CONTENT[lang]?.[file]) return;
  const data=window.LEGAL_CONTENT[lang][file]; document.title=data.title; const meta=document.querySelector('meta[name="description"]'); if(meta)meta.content=data.desc;
- const nav={es:['Inicio','Sobre mí','Servicios','Tienda','Contacto'],en:['Home','About','Services','Store','Contact'],fr:['Accueil','À propos','Services','Boutique','Contact']};
+ const nav={es:['Inicio','Sobre mí','Servicios','Tienda','Contacto'],en:['Home','About','Services','Store','Contact'],fr:['Accueil','À propos','Services','Boutique','Contact'],pt:['Início','Sobre mim','Serviços','Loja','Contato']};
  document.querySelectorAll('.nav-links a').forEach((a,i)=>{if(nav[lang]?.[i])a.textContent=nav[lang][i];});
- const footNav=lang==='fr'?['Accueil','À propos','Services','Boutique de produits','Confidentialité','Conditions','Cookies','Centre d’aide']:lang==='en'?['Home','About','Services','Store products','Privacy','Terms','Cookies','Help Center']:['Inicio','Sobre mí','Servicios','Tienda de productos','Privacidad','Términos','Cookies','Centro de ayuda'];
+ const footNav=lang==='fr'?['Accueil','À propos','Services','Boutique de produits','Confidentialité','Conditions','Cookies','Centre d’aide']:lang==='en'?['Home','About','Services','Store products','Privacy','Terms','Cookies','Help Center']:lang==='pt'?['Início','Sobre mim','Serviços','Loja de produtos','Privacidade','Termos','Cookies','Central de ajuda']:['Inicio','Sobre mí','Servicios','Tienda de productos','Privacidad','Términos','Cookies','Centro de ayuda'];
  document.querySelectorAll('footer ul a').forEach((a,i)=>{if(footNav[i])a.textContent=footNav[i];});
  const legal={
   es:{privacy:['Política de privacidad','Responsable del sitio: Jamsle Porcena','Contacto: porcenatjamsle07@gmail.com · +1 (809) 999-59-04','Datos que podemos recibir','Cuando envías un formulario podemos recibir tu nombre, correo, asunto, tipo de proyecto, presupuesto y mensaje. Cuando realizas un pedido podemos recibir los datos necesarios para gestionar la solicitud y los productos seleccionados.','Finalidad','Usamos estos datos para responder consultas, gestionar pedidos, prestar servicios, mejorar el sitio y mantener registros operativos.','Analítica','El sitio registra eventos técnicos de navegación mediante un identificador de sesión generado en el navegador. No se almacena la dirección IP en nuestra tabla de analítica.','Servicios externos','El sitio puede utilizar Supabase para almacenamiento y WhatsApp para comunicación cuando el visitante elige ese canal. Cada servicio procesa información conforme a sus propias políticas.','Conservación y derechos','Conservamos la información durante el tiempo razonablemente necesario para atender la relación o cumplir obligaciones aplicables. Puedes solicitar acceso, corrección o eliminación escribiendo al correo de contacto.'],
@@ -526,15 +776,20 @@ window.applyLegalLanguage = function(){
   fr:{privacy:['Politique de confidentialité','Responsable du site : Jamsle Porcena','Contact : porcenatjamsle07@gmail.com · +1 (809) 999-59-04','Données que nous pouvons recevoir','Lorsque vous envoyez un formulaire, nous pouvons recevoir votre nom, e-mail, sujet, type de projet, budget et message. Lors d’une commande, nous pouvons recevoir les informations nécessaires à son traitement et aux produits sélectionnés.','Finalité','Nous utilisons ces données pour répondre aux demandes, gérer les commandes, fournir les services, améliorer le site et conserver les registres opérationnels.','Analytique','Le site enregistre des événements techniques de navigation avec un identifiant de session généré dans le navigateur. L’adresse IP n’est pas stockée dans la table analytique.','Services externes','Le site peut utiliser Supabase pour la base de données et WhatsApp lorsque le visiteur choisit ce canal. Chaque service applique ses propres règles.','Conservation et droits','Nous conservons les informations pendant la durée raisonnablement nécessaire. Vous pouvez demander l’accès, la correction ou la suppression via l’adresse de contact.'],
   terms:["Conditions d’utilisation",'Utilisation du site','Le contenu du site présente les services, projets et produits de Jamsle Porcena. Toute utilisation frauduleuse ou atteinte aux droits de tiers est interdite.','Services','Le périmètre, le prix, les délais, les révisions et les livrables sont convenus avec le client avant le début du travail. Le texte du site ne remplace pas un devis ou contrat spécifique.','Produits et paiements','Les produits de la boutique peuvent être demandés via WhatsApp pour coordonner la commande et le paiement. Une commande est confirmée après vérification du paiement ou des conditions convenues.','Propriété intellectuelle','Les éléments du portfolio et les contenus originaux du site ne peuvent être copiés, revendus ou réutilisés sans autorisation, sauf ressources tierces soumises à leurs licences.','Contact','Pour toute question, utilisez Contact ou le canal WhatsApp indiqué sur le site.'],
   cookies:['Politique relative aux cookies','Le site privilégie les technologies essentielles à son fonctionnement.','Stockage local','Le panier et la préférence de langue peuvent être conservés dans le stockage local du navigateur.','Cookies tiers','Des ressources externes comme les polices, icônes ou contenus intégrés peuvent appliquer leurs propres technologies. Le site ne les utilise pas pour créer ses propres profils publicitaires.','Préférences','Vous pouvez supprimer le stockage local et les cookies dans les réglages de votre navigateur. Certaines fonctions peuvent alors être réinitialisées.'],
-  help:["Centre d’aide",'Que recherchez-vous ?','Services','Consultez les forfaits, les prix et les moyens de demander un projet.','Boutique','Explorez les produits numériques, ajoutez-les au panier et continuez via WhatsApp.','Contact','Envoyez une demande ou démarrez une conversation directe.','Navigation','Utilisez le menu du site pour trouver rapidement chaque section.','Commandes','Le panier permet de préparer votre commande et de continuer via WhatsApp pour coordonner le paiement.','Vous ne trouvez pas quelque chose ?','Écrivez-moi et je vous aiderai à trouver la bonne information.']}
+  help:["Centre d’aide",'Que recherchez-vous ?','Services','Consultez les forfaits, les prix et les moyens de demander un projet.','Boutique','Explorez les produits numériques, ajoutez-les au panier et continuez via WhatsApp.','Contact','Envoyez une demande ou démarrez une conversation directe.','Navigation','Utilisez le menu du site pour trouver rapidement chaque section.','Commandes','Le panier permet de préparer votre commande et de continuer via WhatsApp pour coordonner le paiement.','Vous ne trouvez pas quelque chose ?','Écrivez-moi et je vous aiderai à trouver la bonne information.']},
+  pt:{privacy:['Política de Privacidade','Operador do site: Jamsle Porcena','Contato: porcenatjamsle07@gmail.com · +1 (809) 999-59-04','Dados que podemos receber','Quando você envia um formulário, podemos receber seu nome, e-mail, assunto, tipo de projeto, orçamento e mensagem. Quando você faz um pedido, podemos receber as informações necessárias para gerenciar a solicitação e os produtos selecionados.','Finalidade','Usamos esses dados para responder a consultas, gerenciar pedidos, prestar serviços, melhorar o site e manter registros operacionais.','Análise','O site registra eventos técnicos de navegação usando um identificador de sessão gerado pelo navegador. A tabela de análise não armazena o endereço IP.','Serviços externos','O site pode usar o Supabase para banco de dados e o WhatsApp para comunicação quando os visitantes escolhem esse canal. Cada serviço segue suas próprias políticas.','Retenção e direitos','Mantemos as informações pelo tempo razoavelmente necessário para gerenciar o relacionamento ou cumprir obrigações aplicáveis. Você pode solicitar acesso, correção ou exclusão entrando em contato conosco.'],
+  terms:['Termos de Uso','Uso do site','O conteúdo do site é fornecido para explicar os serviços, projetos e produtos da Jamsle Porcena. O uso fraudulento ou a violação de direitos de terceiros é proibido.','Serviços','Escopo, preço, prazos, revisões e entregáveis são acordados com o cliente antes do início do trabalho. O texto do site não substitui uma proposta ou contrato específico.','Produtos e pagamentos','Os produtos da loja podem ser solicitados pelo WhatsApp para coordenar o pedido e o pagamento. Um pedido é confirmado após a verificação do pagamento ou das condições acordadas.','Propriedade intelectual','Os elementos do portfólio e os materiais originais do site não podem ser copiados, revendidos ou reutilizados sem autorização, exceto recursos de terceiros sob suas próprias licenças.','Contato','Para dúvidas sobre um pedido ou serviço, use o Contato ou o canal do WhatsApp mostrado no site.'],
+  cookies:['Política de Cookies','Este site prioriza tecnologias essenciais necessárias para suas funções.','Armazenamento local','O carrinho e a preferência de idioma podem ser armazenados no armazenamento local do navegador para que o carrinho e o idioma persistam entre as páginas.','Cookies de terceiros','Recursos externos, como fontes, ícones ou conteúdo incorporado, podem aplicar suas próprias tecnologias. O site não os usa para criar seus próprios perfis de publicidade.','Preferências','Você pode limpar o armazenamento local e os cookies nas configurações do navegador. Algumas funções, como o carrinho ou o idioma salvo, podem ser redefinidas.'],
+  help:['Central de Ajuda','O que você está procurando?','Serviços','Veja planos, preços e maneiras de solicitar um projeto.','Loja','Explore produtos digitais, adicione-os ao carrinho e continue pelo WhatsApp.','Contato','Envie uma consulta ou inicie uma conversa direta.','Navegação','Use o menu do site para encontrar rapidamente cada seção.','Pedidos','O carrinho permite preparar seu pedido e continuar pelo WhatsApp para coordenar o pagamento.','Não consegue encontrar algo?','Envie-me uma mensagem e eu ajudarei você a encontrar as informações corretas.']}
  };
  const arr=legal[lang]?.[file]; if(!arr) return;
  const main=document.querySelector('main .section-header'); if(!main) return;
- if(file==='privacy.html'||file==='terms.html'||file==='cookies.html'){main.innerHTML=arr.map((v,i)=>i===0?`<h1>${v}</h1>`:i%2===1?`<p>${v}</p>`:`<h2>${v}</h2>`).join('')+`<p><em>${lang==='fr'?'Cette page fournit des informations générales et ne remplace pas un avis juridique.':lang==='en'?'This page is general information and does not replace legal advice.':'Esta página es información general y no sustituye asesoramiento jurídico.'}</em></p>`;}
- else {main.innerHTML=`<h1>${arr[0]}</h1><p>${arr[1]}</p><div class="values-grid"><div class="value-card"><i class="fas fa-briefcase"></i><h3>${arr[2]}</h3><p>${arr[3]}</p><a class="btn-secondary" href="servicios.html">${lang==='fr'?'Voir les services':lang==='en'?'View services':'Ver servicios'}</a></div><div class="value-card"><i class="fas fa-store"></i><h3>${arr[4]}</h3><p>${arr[5]}</p><a class="btn-secondary" href="tienda.html">${lang==='fr'?'Ouvrir la boutique':lang==='en'?'Open store':'Abrir tienda'}</a></div><div class="value-card"><i class="fas fa-envelope"></i><h3>${arr[6]}</h3><p>${arr[7]}</p><a class="btn-secondary" href="contacto.html">${lang==='fr'?'Contacter':lang==='en'?'Contact':'Contactar'}</a></div><div class="value-card"><i class="fas fa-robot"></i><h3>${arr[8]}</h3><p>${arr[9]}</p></div></div><h2>${arr[10]}</h2><p>${arr[11]}</p><h2>${arr[12]}</h2><p>${arr[13]}</p>`;}
+ if(file==='privacy.html'||file==='terms.html'||file==='cookies.html'){main.innerHTML=arr.map((v,i)=>i===0?`<h1>${v}</h1>`:i%2===1?`<p>${v}</p>`:`<h2>${v}</h2>`).join('')+`<p><em>${lang==='fr'?'Cette page fournit des informations générales et ne remplace pas un avis juridique.':lang==='en'?'This page is general information and does not replace legal advice.':lang==='pt'?'Esta página fornece informações gerais e não substitui aconselhamento jurídico.':'Esta página es información general y no sustituye asesoramiento jurídico.'}</em></p>`;}
+ else {main.innerHTML=`<h1>${arr[0]}</h1><p>${arr[1]}</p><div class="values-grid"><div class="value-card"><i class="fas fa-briefcase"></i><h3>${arr[2]}</h3><p>${arr[3]}</p><a class="btn-secondary" href="servicios.html">${lang==='fr'?'Voir les services':lang==='en'?'View services':lang==='pt'?'Ver serviços':'Ver servicios'}</a></div><div class="value-card"><i class="fas fa-store"></i><h3>${arr[4]}</h3><p>${arr[5]}</p><a class="btn-secondary" href="tienda.html">${lang==='fr'?'Ouvrir la boutique':lang==='en'?'Open store':lang==='pt'?'Abrir loja':'Abrir tienda'}</a></div><div class="value-card"><i class="fas fa-envelope"></i><h3>${arr[6]}</h3><p>${arr[7]}</p><a class="btn-secondary" href="contacto.html">${lang==='fr'?'Contacter':lang==='en'?'Contact':lang==='pt'?'Contatar':'Contactar'}</a></div><div class="value-card"><i class="fas fa-robot"></i><h3>${arr[8]}</h3><p>${arr[9]}</p></div></div><h2>${arr[10]}</h2><p>${arr[11]}</p><h2>${arr[12]}</h2><p>${arr[13]}</p>`;}
 };
 const _oldSetLanguage=setLanguage; setLanguage=function(lang){_oldSetLanguage(lang); window.applyLegalLanguage?.();};
 
 Object.assign(translations.es,{"page.title.privacy":"Privacidad · Jamsle Porcena","page.title.terms":"Términos · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centro de ayuda · Jamsle Porcena","page.description.privacy":"Política de privacidad de Jamsle Porcena.","page.description.terms":"Términos de uso de Jamsle Porcena.","page.description.cookies":"Política de cookies de Jamsle Porcena.","page.description.help":"Centro de ayuda de Jamsle Porcena."});
 Object.assign(translations.en,{"page.title.privacy":"Privacy · Jamsle Porcena","page.title.terms":"Terms · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Help Center · Jamsle Porcena","page.description.privacy":"Jamsle Porcena privacy policy.","page.description.terms":"Jamsle Porcena terms of use.","page.description.cookies":"Jamsle Porcena cookie policy.","page.description.help":"Jamsle Porcena help center."});
 Object.assign(translations.fr,{"page.title.privacy":"Confidentialité · Jamsle Porcena","page.title.terms":"Conditions · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centre d’aide · Jamsle Porcena","page.description.privacy":"Politique de confidentialité de Jamsle Porcena.","page.description.terms":"Conditions d’utilisation de Jamsle Porcena.","page.description.cookies":"Politique relative aux cookies de Jamsle Porcena.","page.description.help":"Centre d’aide de Jamsle Porcena."});
+Object.assign(translations.pt,{"page.title.privacy":"Privacidade · Jamsle Porcena","page.title.terms":"Termos · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Central de Ajuda · Jamsle Porcena","page.description.privacy":"Política de privacidade de Jamsle Porcena.","page.description.terms":"Termos de uso de Jamsle Porcena.","page.description.cookies":"Política de cookies de Jamsle Porcena.","page.description.help":"Central de ajuda de Jamsle Porcena."});
