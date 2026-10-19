@@ -4063,3 +4063,40 @@ body.admin-body .admin-profile-fields{display:grid;gap:14px}.admin-profile-field
 body.admin-body .admin-profile-socials{display:grid;gap:15px;padding-top:5px}.admin-profile-social-preview{display:flex;gap:10px;flex-wrap:wrap}.admin-profile-social-preview a{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.035);color:#b7c0d2;transition:.18s ease}.admin-profile-social-preview a:hover{transform:translateY(-2px);color:#fff;border-color:rgba(139,92,246,.45);background:rgba(139,92,246,.12)}.admin-profile-social-preview a[hidden]{display:none}
 body.admin-body .admin-profile-socials .settings-grid label i{margin-right:6px}
 @media(max-width:800px){body.admin-body .admin-profile-editor-grid{grid-template-columns:1fr}body.admin-body .admin-profile-crop-preview{width:min(100%,280px)}}
+/* ==========================================
+   AJUSTE DE ESPACIADO: CONTACTO (INFO vs FORMULARIO)
+   ========================================== */
+
+/* 1. Darle un poco más de "aire" a la línea que separa los iconos del formulario */
+#contact .contact-info .social-links,
+#channels .contact-info .social-links {
+    margin-top: 20px;
+    padding-top: 24px; /* Más espacio arriba de los iconos */
+    margin-bottom: 40px; /* Separación extra por si acaso */
+}
+
+/* 2. Alinear verticalmente el formulario y darle aire arriba */
+#contact .contact-form,
+#channels .contact-form {
+    padding-top: 10px; /* Empuja el formulario un poquito hacia abajo para que alinee con el texto */
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Un mini-espacio extra entre cada campo */
+}
+
+/* 3. Asegurar que los campos del formulario no se vean tan juntos */
+#contact .contact-form input,
+#channels .contact-form input,
+#contact .contact-form select,
+#channels .contact-form select,
+#contact .contact-form textarea,
+#channels .contact-form textarea {
+    margin-bottom: 20px; /* Espacio uniforme entre inputs */
+}
+
+/* 4. En pantallas grandes, asegurar que las dos columnas estén bien centradas */
+#contact .contact-wrapper,
+#channels .contact-wrapper {
+    align-items: start; /* Alinea el formulario arriba en lugar de centrarlo */
+    gap: 60px; /* Más separación entre la izquierda (info) y la derecha (formulario) */
+}
