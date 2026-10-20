@@ -18,7 +18,7 @@ window.applyContentOverrides = function () {
     const values = overrides?.[file]?.[lang] || {};
     Object.entries(values).forEach(([key, value]) => {
         document.querySelectorAll(`[data-i18n="${CSS.escape(key)}"]`).forEach(el => {
-            el.textContent = String(value ?? '');
+            el.innerHTML = String(value ?? '');
         });
         document.querySelectorAll(`[data-i18n-placeholder="${CSS.escape(key)}"]`).forEach(el => {
             el.setAttribute('placeholder', String(value ?? ''));
@@ -693,7 +693,7 @@ function setLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         const value = jpT(key);
-        if (value && value !== key) el.textContent = value;
+        if (value && value !== key) el.innerHTML = value; // CAMBIO CLAVE AQUI
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.dataset.i18nPlaceholder;
