@@ -67,16 +67,42 @@ nav .container {
     align-items: center;
 }
 
+/* NUEVO LOGO CON TEXTO */
 .logo {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
+    letter-spacing: -0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo-icon {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.6rem;
+}
+
+.logo-text {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.5px;
+}
+
+/* Logo en el footer (solo el JP) */
+.footer-grid .footer-brand .logo {
     font-size: 1.6rem;
     background: var(--accent-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -0.5px;
-    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 12px;
 }
 
 .nav-links {
@@ -238,12 +264,11 @@ nav .container {
     background-clip: text;
 }
 
-/* NUEVO SUBTÍTULO MEJORADO */
 .hero-content .subtitle {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(6, 182, 212, 0.1); /* Fondo cyan sutil */
+    background: rgba(6, 182, 212, 0.1); 
     color: var(--accent-2);
     padding: 6px 18px;
     border-radius: 30px;
@@ -259,7 +284,6 @@ nav .container {
     font-size: 1rem;
 }
 
-/* NUEVO PÁRRAFO MEJORADO */
 .hero-content p {
     font-size: 1.15rem;
     color: var(--text-secondary);
@@ -268,12 +292,11 @@ nav .container {
     line-height: 1.8;
 }
 
-/* NUEVOS BOTONES MEJORADOS */
 .hero-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    margin-bottom: 48px; /* Separa los botones de las estadísticas */
+    margin-bottom: 48px; 
 }
 
 .btn-primary {
@@ -293,7 +316,7 @@ nav .container {
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(6, 182, 212, 0.4); /* Brillo cyan al pasar el ratón */
+    box-shadow: 0 12px 35px rgba(6, 182, 212, 0.4);
 }
 
 .btn-secondary {
@@ -319,7 +342,7 @@ nav .container {
 .hero-stats {
     display: flex;
     gap: 40px;
-    margin-top: 0px; /* Ajustado ya que los botones ahora tienen margen inferior */
+    margin-top: 0px;
 }
 
 .hero-stats .stat span {
@@ -338,14 +361,13 @@ nav .container {
     margin-top: 2px;
 }
 
-/* NUEVA FOTO CON HALO */
 .hero-image .avatar-wrapper {
     width: 380px;
     height: 380px;
     border-radius: 50%;
     background: var(--accent-gradient);
     padding: 4px;
-    box-shadow: 0 0 80px rgba(6, 182, 212, 0.3); /* Halo de luz azul/cyan */
+    box-shadow: 0 0 80px rgba(6, 182, 212, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -365,12 +387,10 @@ nav .container {
     transition: var(--transition);
 }
 
-/* Foto exclusiva de la sección "Mi historia": conserva el círculo y muestra el retrato de cuerpo medio sin alterar la foto de Inicio. */
 #bio .hero-image .about-avatar-inner {
     background-image: url('./assets/images/wilkyjams-story.png');
     background-size: cover;
     background-repeat: no-repeat;
-    /* Reencuadra el retrato hacia arriba para conservar la cabeza y los brazos dentro del círculo. */
     background-position: center 20%;
 }
 
@@ -864,6 +884,13 @@ footer span {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+    .logo-icon {
+        font-size: 1.4rem;
     }
 
     .nav-links {
@@ -4063,6 +4090,7 @@ body.admin-body .admin-profile-fields{display:grid;gap:14px}.admin-profile-field
 body.admin-body .admin-profile-socials{display:grid;gap:15px;padding-top:5px}.admin-profile-social-preview{display:flex;gap:10px;flex-wrap:wrap}.admin-profile-social-preview a{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.035);color:#b7c0d2;transition:.18s ease}.admin-profile-social-preview a:hover{transform:translateY(-2px);color:#fff;border-color:rgba(139,92,246,.45);background:rgba(139,92,246,.12)}.admin-profile-social-preview a[hidden]{display:none}
 body.admin-body .admin-profile-socials .settings-grid label i{margin-right:6px}
 @media(max-width:800px){body.admin-body .admin-profile-editor-grid{grid-template-columns:1fr}body.admin-body .admin-profile-crop-preview{width:min(100%,280px)}}
+
 /* ==========================================
    AJUSTE DE ESPACIADO: CONTACTO (INFO vs FORMULARIO)
    ========================================== */
@@ -4100,6 +4128,7 @@ body.admin-body .admin-profile-socials .settings-grid label i{margin-right:6px}
     align-items: start; /* Alinea el formulario arriba en lugar de centrarlo */
     gap: 60px; /* Más separación entre la izquierda (info) y la derecha (formulario) */
 }
+
 /* ============================================================
    MEJORAS VISUALES DEL ADMIN (V15)
    ============================================================ */
