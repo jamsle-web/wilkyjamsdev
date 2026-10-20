@@ -4184,3 +4184,216 @@ body.admin-body .admin-profile-socials .settings-grid label i{margin-right:6px}
 .admin-panel {
     overflow-x: auto;
 }
+/* ============================================================
+   V16 — PROYECTOS: FILTROS, BOTONES DEMO, DESTACADO, IMÁGENES
+   Solo añade estilos nuevos. No modifica lo existente.
+   ============================================================ */
+
+/* ----- FILTROS DE CATEGORÍA (Proyectos) ----- */
+#projects .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
+#projects .filter-tabs button {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#projects .filter-tabs button:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-1);
+}
+
+#projects .filter-tabs button.active {
+    background: var(--accent-gradient);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+/* ----- TARJETAS OCULTAS AL FILTRAR ----- */
+#projects .project-card.hidden {
+    display: none;
+}
+
+/* ----- IMÁGENES MÁS GRANDES Y VISUALES ----- */
+#projects .project-thumb {
+    height: 240px; /* antes 200px, ahora más visual */
+    position: relative;
+}
+
+#projects .project-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+#projects .project-card:hover .project-thumb img {
+    transform: scale(1.06);
+}
+
+/* ----- BOTÓN "VER DEMO" ----- */
+#projects .project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+}
+
+#projects .project-year {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+#projects .btn-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--accent-gradient);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 9px 16px;
+    border-radius: 30px;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.25);
+}
+
+#projects .btn-demo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.35);
+}
+
+#projects .btn-demo i {
+    font-size: 0.75rem;
+}
+
+/* ----- PROYECTO DESTACADO (Aetheris) ----- */
+#projects .project-card.featured {
+    border: 2px solid transparent;
+    background:
+        linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+        linear-gradient(135deg, #7c3aed, #06b6d4, #7c3aed) border-box;
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.25), 0 0 60px rgba(6, 182, 212, 0.12);
+    position: relative;
+    overflow: visible;
+}
+
+#projects .project-card.featured::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(var(--radius) + 2px);
+    background: linear-gradient(135deg, #7c3aed, #06b6d4, #7c3aed);
+    background-size: 300% 300%;
+    animation: featuredGlow 4s ease infinite;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(12px);
+}
+
+@keyframes featuredGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+#projects .project-card.featured:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 40px rgba(124, 58, 237, 0.4), 0 0 80px rgba(6, 182, 212, 0.2);
+}
+
+/* ----- ETIQUETA "PROYECTO ESTRELLA" ----- */
+#projects .featured-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 7px 14px;
+    border-radius: 30px;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+    animation: badgePulse 2.5s ease-in-out infinite;
+}
+
+#projects .featured-badge i {
+    font-size: 0.7rem;
+    color: #fbbf24;
+    filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.6));
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ----- RESPONSIVE PARA FILTROS Y BOTONES ----- */
+@media (max-width: 768px) {
+    #projects .filter-tabs {
+        gap: 8px;
+        margin-bottom: 34px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding: 2px 2px 10px;
+        scrollbar-width: none;
+    }
+
+    #projects .filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    #projects .filter-tabs button {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 9px 16px;
+    }
+
+    #projects .project-thumb {
+        height: 200px;
+    }
+
+    #projects .project-footer {
+        flex-wrap: wrap;
+    }
+
+    #projects .btn-demo {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+    }
+
+    #projects .featured-badge {
+        font-size: 0.65rem;
+        padding: 6px 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    #projects .project-thumb {
+        height: 180px;
+    }
+}
