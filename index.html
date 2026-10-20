@@ -91,7 +91,11 @@
                 <div class="subtitle">
                     <i class="fas fa-code"></i> <span data-i18n="hero.subtitle" data-site-setting="site_role">Web Design · Marketing Digital</span>
                 </div>
-                <h1><span data-i18n="hero.greeting">Hola, soy</span> <br><span class="highlight" data-i18n="hero.name" data-site-setting="site_name">Jamsle Porcena</span></h1>
+                <!-- H1 MODIFICADO PARA EL EFECTO DE ESCRITURA -->
+                <h1 id="hero-title-container">
+                    <span data-i18n="hero.greeting">Hola, soy</span> <br>
+                    <span class="highlight" id="typewriter-text" data-i18n="hero.name" data-site-setting="site_name">Jamsle Porcena</span>
+                </h1>
                 <p data-i18n="hero.description" data-site-setting="description">
                     Diseñador web y especialista en marketing digital apasionado por transformar ideas en identidades digitales sólidas. Combino diseño, tecnología e IA para hacer crecer tu marca.
                 </p>
@@ -523,6 +527,39 @@
 const homeContact = document.getElementById('contactFormHome');
 if (homeContact) homeContact.addEventListener('submit', async e => { e.preventDefault(); const f=new FormData(homeContact); const {error}=await portfolioSupabase.from('contact_messages').insert({name:f.get('name'),email:f.get('email'),subject:f.get('subject'),message:f.get('message')}); if(error){alert('No se pudo enviar el mensaje. Inténtalo de nuevo.');return;} homeContact.reset(); alert('Mensaje enviado correctamente.'); });
 </script>
+
+<!-- ===== SCRIPT DEL EFECTO DE MÁQUINA DE ESCRIBIR ===== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const textElement = document.getElementById('typewriter-text');
+        if (!textElement) return;
+        
+        // Obtenemos el texto que el sistema de traducción puso (o el que está por defecto)
+        const fullText = textElement.textContent.trim();
+        textElement.textContent = ''; // Lo vaciamos para empezar a escribir
+        textElement.style.borderRight = '3px solid #06b6d4'; // Cursor parpadeante
+        textElement.style.paddingRight = '4px';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < fullText.length) {
+                textElement.textContent += fullText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80); // 80ms = velocidad de escritura (puedes cambiarlo)
+            } else {
+                // Cuando termina, quitamos el cursor después de un momento
+                setTimeout(() => {
+                    textElement.style.borderRight = 'none';
+                }, 2000);
+            }
+        }
+        
+        // Empezamos después de 500ms para que la página cargue y se vea la foto
+        setTimeout(typeWriter, 500);
+    });
+</script>
+<!-- =================================================== -->
+
     <!-- Vercel Web Analytics -->
     <script defer src="https://vercel-insights.com/v1/script.js"></script>
 </body>
