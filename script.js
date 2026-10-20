@@ -629,17 +629,17 @@ Object.assign(translations.pt, {
 });
 
 Object.assign(translations.es, {
- "page.title.home":"Jamsle Porcena · Portafolio Web & Marketing", "page.title.services":"Servicios · Jamsle Porcena", "page.title.about":"Sobre mí · Jamsle Porcena", "page.title.contact":"Contacto · Jamsle Porcena", "page.title.store":"Tienda · Productos Digitales · Jamsle Porcena",
+ "page.title.home":"Wilkyjams Dev · Diseño Web & Marketing Digital", "page.title.services":"Servicios · Wilkyjams Dev", "page.title.about":"Sobre mí · Wilkyjams Dev", "page.title.contact":"Contacto · Wilkyjams Dev", "page.title.store":"Tienda · Productos Digitales · Wilkyjams Dev",
  "footer.tagline":"· Diseño web & Marketing Digital"
 });
 Object.assign(translations.en, {
- "page.title.home":"Jamsle Porcena · Web & Marketing Portfolio", "page.title.services":"Services · Jamsle Porcena", "page.title.about":"About me · Jamsle Porcena", "page.title.contact":"Contact · Jamsle Porcena", "page.title.store":"Store · Digital Products · Jamsle Porcena", "footer.tagline":"· Web Design & Digital Marketing"
+ "page.title.home":"Wilkyjams Dev · Web Design & Digital Marketing", "page.title.services":"Services · Wilkyjams Dev", "page.title.about":"About me · Wilkyjams Dev", "page.title.contact":"Contact · Wilkyjams Dev", "page.title.store":"Store · Digital Products · Wilkyjams Dev", "footer.tagline":"· Web Design & Digital Marketing"
 });
 Object.assign(translations.fr, {
- "page.title.home":"Jamsle Porcena · Portfolio Web & Marketing", "page.title.services":"Services · Jamsle Porcena", "page.title.about":"À propos · Jamsle Porcena", "page.title.contact":"Contact · Jamsle Porcena", "page.title.store":"Boutique · Produits numériques · Jamsle Porcena", "footer.tagline":"· Design web & Marketing numérique"
+ "page.title.home":"Wilkyjams Dev · Design Web & Marketing Digital", "page.title.services":"Services · Wilkyjams Dev", "page.title.about":"À propos · Wilkyjams Dev", "page.title.contact":"Contact · Wilkyjams Dev", "page.title.store":"Boutique · Produits numériques · Wilkyjams Dev", "footer.tagline":"· Design web & Marketing numérique"
 });
 Object.assign(translations.pt, {
- "page.title.home":"Jamsle Porcena · Portfólio Web & Marketing", "page.title.services":"Serviços · Jamsle Porcena", "page.title.about":"Sobre mim · Jamsle Porcena", "page.title.contact":"Contato · Jamsle Porcena", "page.title.store":"Loja · Produtos Digitais · Jamsle Porcena", "footer.tagline":"· Design web & Marketing Digital"
+ "page.title.home":"Wilkyjams Dev · Design Web & Marketing Digital", "page.title.services":"Serviços · Wilkyjams Dev", "page.title.about":"Sobre mim · Wilkyjams Dev", "page.title.contact":"Contato · Wilkyjams Dev", "page.title.store":"Loja · Produtos Digitais · Wilkyjams Dev", "footer.tagline":"· Design web & Marketing Digital"
 });
 
 Object.assign(translations.es, {"contactpage.send_whatsapp":"Enviar por WhatsApp","services.whatsapp":"Hablemos por WhatsApp"});
