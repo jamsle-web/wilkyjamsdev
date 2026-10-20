@@ -231,9 +231,94 @@
                 <h2 data-i18n="projects.title">Proyectos destacados</h2>
                 <p data-i18n="projects.subtitle">Casos de éxito donde el diseño y la estrategia digital marcaron la diferencia.</p>
             </div>
+
+            <!-- ===== FILTROS DE CATEGORÍA ===== -->
+            <div class="filter-tabs" data-aos="fade-up" data-aos-delay="100">
+                <button class="active" data-filter="all">Todos</button>
+                <button data-filter="uiux">UI/UX</button>
+                <button data-filter="desarrollo">Desarrollo</button>
+                <button data-filter="ecommerce">E-commerce</button>
+            </div>
+
             <div class="projects-grid">
-                <!-- Proyecto 1: Santo Sabor -->
-                <div class="project-card" data-aos="flip-up" data-aos-delay="100">
+                <!-- Proyecto 1: Aetheris (DESTACADO + LINK) -->
+                <div class="project-card featured" data-category="desarrollo uiux" data-aos="flip-up" data-aos-delay="100">
+                    <div class="project-thumb">
+                        <img src="https://i.postimg.cc/tJj4pPpz/IMXJh-Zesr-Oyx8.png" alt="Aetheris - Landing page interactiva" loading="lazy" />
+                        <span class="featured-badge"><i class="fas fa-star"></i> Proyecto Estrella</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="tags">
+                            <span>Three.js</span>
+                            <span>GSAP</span>
+                            <span>Lenis</span>
+                            <span>WebGL</span>
+                            <span>Glassmorphism</span>
+                        </div>
+                        <h3 data-i18n="proj5.title">Aetheris · Landing page interactiva</h3>
+                        <p data-i18n="proj5.desc">Experiencia web inmersiva para una marca de computación espacial. Interfaz con efecto glass, animaciones 3D fluidas con Three.js, scroll suave con Lenis y diseño futurista.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj5.result">Interactividad 3D y experiencia de usuario de vanguardia</span></div>
+                        <div class="project-footer">
+                            <span class="project-year">2026</span>
+                            <a href="https://aetheris-xi.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-demo">
+                                <i class="fas fa-external-link-alt"></i> Ver demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2: DevPath 2027 (CON LINK) -->
+                <div class="project-card" data-category="desarrollo uiux" data-aos="flip-up" data-aos-delay="200">
+                    <div class="project-thumb">
+                        <img src="https://i.postimg.cc/FR4TrL4v/IMOGBd-SDw274M.png" alt="DevPath 2027 - Plan de estudios interactivo" loading="lazy" />
+                    </div>
+                    <div class="project-body">
+                        <div class="tags">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>UI/UX</span>
+                            <span>Educación</span>
+                        </div>
+                        <h3>DevPath 2027 · Plan de estudios interactivo</h3>
+                        <p>Plataforma educativa que presenta una hoja de ruta completa para convertirte en desarrollador web. Incluye seguimiento de progreso, módulos organizados por meses y recursos de aprendizaje.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> Interfaz de aprendizaje estructurada y seguimiento de progreso en tiempo real</div>
+                        <div class="project-footer">
+                            <span class="project-year">2026</span>
+                            <a href="https://devpath-2027-lyart.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-demo">
+                                <i class="fas fa-external-link-alt"></i> Ver demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 3: Gentleman's Grooming (CON LINK) -->
+                <div class="project-card" data-category="ecommerce uiux" data-aos="flip-up" data-aos-delay="300">
+                    <div class="project-thumb">
+                        <img src="https://i.postimg.cc/KjX3SPhG/grooming-website.png" alt="Gentleman's Grooming - E-commerce de lujo" loading="lazy" />
+                    </div>
+                    <div class="project-body">
+                        <div class="tags">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>E-commerce</span>
+                            <span>UI/UX</span>
+                        </div>
+                        <h3>Gentleman's Grooming · E-commerce de lujo</h3>
+                        <p>Tienda online premium para el caballero moderno. Catálogo de fragancias, relojería y accesorios de alta gama con un diseño elegante y minimalista.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> Experiencia de compra sofisticada y diseño de vanguardia</div>
+                        <div class="project-footer">
+                            <span class="project-year">2026</span>
+                            <a href="https://jamsle-web.github.io/Gentleman-s-Groomin/" target="_blank" rel="noopener noreferrer" class="btn-demo">
+                                <i class="fas fa-external-link-alt"></i> Ver demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 4: Santo Sabor (SIN LINK) -->
+                <div class="project-card" data-category="uiux desarrollo" data-aos="flip-up" data-aos-delay="400">
                     <div class="project-thumb">
                         <img src="https://i.postimg.cc/L8SRG0y4/IMZ78TX4X6W5w.png" alt="Santo Sabor - Rediseño de identidad" loading="lazy" />
                     </div>
@@ -242,11 +327,14 @@
                         <h3 data-i18n="proj1.title">Santo Sabor · Rediseño de identidad</h3>
                         <p data-i18n="proj1.desc">Rediseño de identidad digital para marca local. Experiencia web moderna, funcional y visualmente impactante. Rol: UI/UX Designer & Web Developer.</p>
                         <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj1.result">+40% tiempo de permanencia · mejora en conversión</span></div>
-                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2025</div>
+                        <div class="project-footer">
+                            <span class="project-year">2025</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Proyecto 2: StudyFlow AI -->
-                <div class="project-card" data-aos="flip-up" data-aos-delay="200">
+
+                <!-- Proyecto 5: StudyFlow AI (SIN LINK) -->
+                <div class="project-card" data-category="uiux desarrollo" data-aos="flip-up" data-aos-delay="500">
                     <div class="project-thumb">
                         <img src="https://i.postimg.cc/K8bFCs9L/Study-Flow-AI.png" alt="StudyFlow AI - App educativa" loading="lazy" />
                     </div>
@@ -255,24 +343,14 @@
                         <h3 data-i18n="proj2.title">StudyFlow AI · App educativa</h3>
                         <p data-i18n="proj2.desc">Aplicación educativa impulsada por IA para hacer el aprendizaje más organizado, intuitivo y personalizado. Arquitectura de información, UI/UX y prototipado.</p>
                         <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj2.result">Aprendizaje personalizado con IA</span></div>
-                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
+                        <div class="project-footer">
+                            <span class="project-year">2026</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Proyecto 3: Burger King -->
-                <div class="project-card" data-aos="flip-up" data-aos-delay="300">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/4xGZjF8x/IMGy-Zk1U6B1cw.png" alt="Burger King - Rediseño conceptual" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="tags"><span>Figma</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
-                        <h3 data-i18n="proj3.title">Burger King · Rediseño conceptual</h3>
-                        <p data-i18n="proj3.desc">Rediseño conceptual de interfaz web para Burger King, enfocado en experiencia moderna, visualmente atractiva y centrada en productos.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj3.result">Experiencia moderna y atractiva</span></div>
-                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
-                    </div>
-                </div>
-                <!-- Proyecto 4: Sabor Urbano -->
-                <div class="project-card" data-aos="flip-up" data-aos-delay="400">
+
+                <!-- Proyecto 6: Sabor Urbano (SIN LINK) -->
+                <div class="project-card" data-category="ecommerce desarrollo" data-aos="flip-up" data-aos-delay="600">
                     <div class="project-thumb">
                         <img src="https://i.postimg.cc/TYDDM90H/IMcib-Ay-Zz-EZg4.png" alt="Sabor Urbano - Demo conceptual" loading="lazy" />
                     </div>
@@ -286,26 +364,25 @@
                         <h3 data-i18n="proj4.title">Sabor Urbano · E-commerce conceptual</h3>
                         <p data-i18n="proj4.desc">Demo premium para cafetería de especialidad. Interfaz minimalista con efecto glass, carrito funcional, filtros por categoría y sistema de múltiples idiomas integrado.</p>
                         <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj4.result">Experiencia de usuario fluida y diseño de vanguardia</span></div>
-                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
+                        <div class="project-footer">
+                            <span class="project-year">2026</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Proyecto 5: Aetheris -->
-                <div class="project-card" data-aos="flip-up" data-aos-delay="500">
+
+                <!-- Proyecto 7: Burger King (SIN LINK) -->
+                <div class="project-card" data-category="uiux desarrollo" data-aos="flip-up" data-aos-delay="700">
                     <div class="project-thumb">
-                        <img src="https://i.postimg.cc/tJj4pPpz/IMXJh-Zesr-Oyx8.png" alt="Aetheris - Landing page interactiva" loading="lazy" />
+                        <img src="https://i.postimg.cc/4xGZjF8x/IMGy-Zk1U6B1cw.png" alt="Burger King - Rediseño conceptual" loading="lazy" />
                     </div>
                     <div class="project-body">
-                        <div class="tags">
-                            <span>Three.js</span>
-                            <span>GSAP</span>
-                            <span>Lenis</span>
-                            <span>WebGL</span>
-                            <span>Glassmorphism</span>
+                        <div class="tags"><span>Figma</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+                        <h3 data-i18n="proj3.title">Burger King · Rediseño conceptual</h3>
+                        <p data-i18n="proj3.desc">Rediseño conceptual de interfaz web para Burger King, enfocado en experiencia moderna, visualmente atractiva y centrada en productos.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj3.result">Experiencia moderna y atractiva</span></div>
+                        <div class="project-footer">
+                            <span class="project-year">2026</span>
                         </div>
-                        <h3 data-i18n="proj5.title">Aetheris · Landing page interactiva</h3>
-                        <p data-i18n="proj5.desc">Experiencia web inmersiva para una marca de computación espacial. Interfaz con efecto glass, animaciones 3D fluidas con Three.js, scroll suave con Lenis y diseño futurista.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj5.result">Interactividad 3D y experiencia de usuario de vanguardia</span></div>
-                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
                     </div>
                 </div>
             </div>
@@ -560,6 +637,37 @@ if (homeContact) homeContact.addEventListener('submit', async e => { e.preventDe
     });
 </script>
 <!-- =================================================== -->
+
+<!-- ===== SCRIPT DE FILTROS DE PROYECTOS ===== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterBtns = document.querySelectorAll('.filter-tabs button');
+        const projectCards = document.querySelectorAll('#projects .project-card');
+        
+        if (!filterBtns.length || !projectCards.length) return;
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Quitar active de todos
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                projectCards.forEach(card => {
+                    const categories = (card.getAttribute('data-category') || '').split(' ');
+                    
+                    if (filter === 'all' || categories.includes(filter)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    });
+</script>
+<!-- =========================================== -->
 
     <!-- Vercel Web Analytics -->
     <script defer src="https://vercel-insights.com/v1/script.js"></script>
