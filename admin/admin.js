@@ -528,6 +528,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     document.getElementById('adminProfileZoomMinus')?.addEventListener('click', () => { const input=document.getElementById('adminProfileZoom'); input.value=Math.max(0,Number(input.value||0)-1); input.dispatchEvent(new Event('input',{bubbles:true})); });
     document.getElementById('adminProfileZoomPlus')?.addEventListener('click', () => { const input=document.getElementById('adminProfileZoom'); input.value=Math.min(100,Number(input.value||0)+1); input.dispatchEvent(new Event('input',{bubbles:true})); });
+    
+    // Auto-refresco de pedidos y mensajes cada 30 segundos (Mejora #2)
+    setInterval(() => {
+        const activeSection = document.querySelector('#adminNav a.active')?.dataset.adminSection;
+        if (activeSection === 'panelPedidos') loadOrders();
+        if (activeSection === 'panelMensajes') loadMessages();
+    }, 30000);
 });
 
 
@@ -590,14 +597,28 @@ async function loadContentEditor() {
                 <button type="button" class="cms-btn cms-btn-secondary" id="resetContentOverrides"><i class="fas fa-rotate-left"></i> Restablecer página</button>\
                 <button type="button" class="cms-btn cms-btn-primary" id="saveContentOverrides"><i class="fas fa-save"></i> Guardar contenido</button>\
             </div>`;
-        document.getElementById('saveContentOverrides').onclick = async () => {
+        document.getElementById('saveContentOverrides').onclick = async function() {
+            // Mejora #1: Feedback visual en el botón de guardar
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+            
             const values = {};
             wrap.querySelectorAll('[data-content-input]').forEach(input => { values[input.dataset.contentInput] = input.value; });
             contentOverrides[page] = contentOverrides[page] || {};
             contentOverrides[page][language] = values;
             const { error } = await db.from('site_settings').upsert({ key: CONTENT_OVERRIDE_KEY, value: contentOverrides, updated_at: new Date().toISOString() }, { onConflict: 'key' });
-            if (error) return adminNotify(error.message);
-            adminNotify('Contenido guardado. Recarga el sitio público para ver los cambios.');
+            
+            if (error) {
+                adminNotify(error.message);
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                return;
+            }
+            adminNotify('Contenido guardado. Recarga el sitio público para ver los cambios.', 'success');
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         };
         document.getElementById('resetContentOverrides').onclick = async () => {
             if (!(await adminConfirm('¿Restablecer los textos personalizados de esta página e idioma?'))) return;
