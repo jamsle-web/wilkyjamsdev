@@ -60,7 +60,6 @@
     <!-- ===== CANALES DE CONTACTO ===== -->
     <section id="channels" style="padding-top: 0;">
         <div class="container">
-            <!-- Se mantienen las 4 tarjetas superiores, son útiles -->
             <div class="contact-channels">
                 <a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" class="channel-card" data-aos="fade-up" data-aos-delay="50" style="text-decoration:none; color: inherit;">
                     <i class="fab fa-whatsapp"></i>
@@ -85,7 +84,6 @@
             </div>
 
             <!-- ===== FORMULARIO + INFO ===== -->
-            <!-- CAMBIO: data-aos="flip-up" fue cambiado a "fade-up" para no marear -->
             <div class="contact-wrapper" data-aos="fade-up">
                 <div class="contact-info">
                     <h3 data-i18n="contactpage.form_title">Cuéntame sobre tu proyecto</h3>
@@ -102,15 +100,11 @@
                         <i class="fas fa-briefcase"></i>
                         <a href="https://www.fiverr.com/s/xLZLbj0" >Fiverr · JamsLab Studio</a>
                     </div>
-                    <!-- CAMBIO: Se eliminó el icono de Fiverr repetido y los enlaces vacíos -->
                     <div class="social-links">
-                        <!-- Si tienes LinkedIn, pon la URL real. Ejemplo: -->
-                        <!-- <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> -->
                         <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="github" aria-label="GitHub"><i class="fab fa-github"></i></a>
                         <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="behance" aria-label="Behance"><i class="fab fa-behance"></i></a>
                         <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <!-- Eliminado el 5to icono de Fiverr que estaba repetido aquí -->
                     </div>
                 </div>
                 <form class="contact-form" id="contactForm">
@@ -201,8 +195,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <!-- CAMBIO: Se cambió © 2026 por © 2024 -->
-                <p>© 2024 <span>Jamsle Porcena</span> <span data-i18n="footer.tagline">· Diseño web & Marketing Digital</span></p>
+                <p>© 2026 <span>Jamsle Porcena</span> <span data-i18n="footer.tagline">· Diseño web & Marketing Digital</span></p>
             </div>
         </div>
     </footer>
@@ -241,7 +234,7 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: true, mirror: false });</script> <!-- CAMBIO: once: true, mirror: false para que no se repita la animación al subir -->
+    <script>AOS.init({ duration: 800, once: true, mirror: false });</script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-client.js"></script>
@@ -252,11 +245,14 @@
             e.preventDefault();
             const form = this;
             const f = new FormData(form);
+            
             const projectType = String(f.get('project_type') || '').trim();
             const budget = String(f.get('budget') || '').trim();
             const baseMessage = String(f.get('message') || '').trim();
             const context = [projectType ? `Tipo de proyecto: ${projectType}` : '', budget ? `Presupuesto: ${budget}` : ''].filter(Boolean).join('\n');
             const message = [baseMessage, context].filter(Boolean).join('\n\n');
+
+            // 1. GUARDAR EN SUPABASE
             const { error } = await portfolioSupabase.from('contact_messages').insert({
                 name: String(f.get('name') || '').trim(),
                 email: String(f.get('email') || '').trim(),
@@ -267,9 +263,25 @@
                 alert(typeof jpT === 'function' ? jpT('contact.error', 'No se pudo enviar el mensaje. Inténtalo de nuevo.') : 'No se pudo enviar el mensaje. Inténtalo de nuevo.');
                 return;
             }
+
+            // 2. ENVIAR A FORMSPREE (Para que te llegue el correo)
+            try {
+                await fetch("https://formspree.io/f/mkjoappw", {
+                    method: "POST",
+                    body: f,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+            } catch (err) {
+                console.error("Error al enviar a Formspree:", err);
+            }
+
+            // 3. GENERAR EL MENSAJE DE WHATSAPP
             const ownerWhatsApp = (window.getSiteSetting?.('whatsapp') || '18099995904').replace(/\D/g, '');
             const waText = `Nuevo mensaje desde Wilkyjams Dev\n\nNombre: ${String(f.get('name') || '').trim()}\nEmail: ${String(f.get('email') || '').trim()}\nTipo: ${projectType || 'No especificado'}\nPresupuesto: ${budget || 'No especificado'}\n\nMensaje:\n${baseMessage}`;
             const waUrl = `https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(waText)}`;
+            
             form.reset();
             document.getElementById('formModal').classList.add('open');
             setTimeout(() => window.open(waUrl, '_blank', 'noopener,noreferrer'), 80);
