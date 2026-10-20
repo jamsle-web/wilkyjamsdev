@@ -4184,6 +4184,7 @@ body.admin-body .admin-profile-socials .settings-grid label i{margin-right:6px}
 .admin-panel {
     overflow-x: auto;
 }
+
 /* ============================================================
    V16 — PROYECTOS: FILTROS, BOTONES DEMO, DESTACADO, IMÁGENES
    Solo añade estilos nuevos. No modifica lo existente.
@@ -4250,9 +4251,10 @@ body.admin-body .admin-profile-socials .settings-grid label i{margin-right:6px}
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin-top: 16px;
-    padding-top: 14px;
+    margin-top: auto; /* Empuja el footer hacia abajo para igualar alturas */
+    padding-top: 16px;
     border-top: 1px solid var(--border-color);
+    min-height: 50px;
 }
 
 #projects .project-year {
@@ -4284,38 +4286,36 @@ body.admin-body .admin-profile-socials .settings-grid label i{margin-right:6px}
     font-size: 0.75rem;
 }
 
-/* ----- PROYECTO DESTACADO (Aetheris) ----- */
+/* ----- PROYECTO DESTACADO (Aetheris) - SUTIL Y ELEGANTE ----- */
 #projects .project-card.featured {
-    border: 2px solid transparent;
+    border: 1.5px solid transparent;
     background:
         linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
-        linear-gradient(135deg, #7c3aed, #06b6d4, #7c3aed) border-box;
-    box-shadow: 0 0 30px rgba(124, 58, 237, 0.25), 0 0 60px rgba(6, 182, 212, 0.12);
+        linear-gradient(135deg, var(--accent-1), var(--accent-2)) border-box;
+    box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.3), inset 0 0 20px rgba(6, 182, 212, 0.05);
     position: relative;
-    overflow: visible;
 }
 
+/* Resplandor sutil detrás de la tarjeta */
 #projects .project-card.featured::before {
     content: '';
     position: absolute;
-    inset: -2px;
-    border-radius: calc(var(--radius) + 2px);
-    background: linear-gradient(135deg, #7c3aed, #06b6d4, #7c3aed);
-    background-size: 300% 300%;
-    animation: featuredGlow 4s ease infinite;
+    inset: -1px;
+    border-radius: calc(var(--radius) + 1px);
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
     z-index: -1;
-    opacity: 0.5;
-    filter: blur(12px);
-}
-
-@keyframes featuredGlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    opacity: 0.15; /* Antes era 0.5 y con blur, ahora es muy sutil */
+    filter: blur(8px);
+    transition: var(--transition);
 }
 
 #projects .project-card.featured:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 40px rgba(124, 58, 237, 0.4), 0 0 80px rgba(6, 182, 212, 0.2);
+    box-shadow: 0 15px 40px -10px rgba(124, 58, 237, 0.4), inset 0 0 20px rgba(6, 182, 212, 0.1);
+}
+
+#projects .project-card.featured:hover::before {
+    opacity: 0.25;
 }
 
 /* ----- ETIQUETA "PROYECTO ESTRELLA" ----- */
