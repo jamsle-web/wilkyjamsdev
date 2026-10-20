@@ -219,7 +219,7 @@
                 <!-- Proyecto 1: Santo Sabor -->
                 <div class="project-card" data-aos="flip-up" data-aos-delay="100">
                     <div class="project-thumb">
-                        <img src="https://i.postimg.cc/L8SRG0y4/IMZ78TX4X6W5w.png" alt="Santo Sabor - Rediseño de identidad" />
+                        <img src="https://i.postimg.cc/L8SRG0y4/IMZ78TX4X6W5w.png" alt="Santo Sabor - Rediseño de identidad" loading="lazy" />
                     </div>
                     <div class="project-body">
                         <div class="tags"><span>Figma</span><span>Webflow</span><span>HTML5</span><span>CSS3</span><span>AI</span></div>
@@ -232,7 +232,7 @@
                 <!-- Proyecto 2: StudyFlow AI -->
                 <div class="project-card" data-aos="flip-up" data-aos-delay="200">
                     <div class="project-thumb">
-                        <img src="https://i.postimg.cc/K8bFCs9L/Study-Flow-AI.png" alt="StudyFlow AI - App educativa" />
+                        <img src="https://i.postimg.cc/K8bFCs9L/Study-Flow-AI.png" alt="StudyFlow AI - App educativa" loading="lazy" />
                     </div>
                     <div class="project-body">
                         <div class="tags"><span>AI</span><span>UI/UX</span><span>Product Design</span></div>
@@ -245,7 +245,7 @@
                 <!-- Proyecto 3: Burger King -->
                 <div class="project-card" data-aos="flip-up" data-aos-delay="300">
                     <div class="project-thumb">
-                        <img src="https://i.postimg.cc/4xGZjF8x/IMGy-Zk1U6B1cw.png" alt="Burger King - Rediseño conceptual" />
+                        <img src="https://i.postimg.cc/4xGZjF8x/IMGy-Zk1U6B1cw.png" alt="Burger King - Rediseño conceptual" loading="lazy" />
                     </div>
                     <div class="project-body">
                         <div class="tags"><span>Figma</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
@@ -258,7 +258,7 @@
                 <!-- Proyecto 4: Sabor Urbano -->
                 <div class="project-card" data-aos="flip-up" data-aos-delay="400">
                     <div class="project-thumb">
-                       <img src="https://i.postimg.cc/TYDDM90H/IMcib-Ay-Zz-EZg4.png" alt="Sabor Urbano - Demo conceptual" loading="lazy" />
+                        <img src="https://i.postimg.cc/TYDDM90H/IMcib-Ay-Zz-EZg4.png" alt="Sabor Urbano - Demo conceptual" loading="lazy" />
                     </div>
                     <div class="project-body">
                         <div class="tags">
@@ -380,6 +380,41 @@
                     <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> <span data-i18n="contact.form_submit">Enviar mensaje</span></button>
                 </form>
             </div>
+        </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <section id="newsletter" style="padding: 60px 0; background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container" style="text-align: center; max-width: 750px;">
+            <span class="label" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-2); padding: 4px 16px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; display: inline-block;">Newsletter</span>
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin-bottom: 12px;">¿Qué te gustaría recibir?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 28px;">Selecciona tus intereses y te enviaré contenido exclusivo directamente a tu correo.</p>
+            
+            <form action="https://formspree.io/f/mkjoappw" method="POST" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                <!-- Asunto oculto para identificar en tu correo que es un suscriptor -->
+                <input type="hidden" name="_subject" value="Nuevo suscriptor en Wilkyjams Dev!">
+                
+                <!-- Input del correo -->
+                <input type="email" name="email" placeholder="Tu mejor correo electrónico" required style="width: 100%; max-width: 400px; padding: 14px 18px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 1rem;">
+
+                <!-- Opciones de suscripción (Checkboxes) con flex-wrap para móviles -->
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 5px 0 15px;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-color);">
+                        <input type="checkbox" name="interes[]" value="Proyectos" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
+                        Nuevos proyectos
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-color);">
+                        <input type="checkbox" name="interes[]" value="Productos" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
+                        Productos digitales
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-color);">
+                        <input type="checkbox" name="interes[]" value="Cupones" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
+                        Cupones y ofertas
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary" style="padding: 14px 40px; border-radius: 12px; border: none; cursor: pointer; width: 100%; max-width: 400px;">Suscribirme</button>
+            </form>
         </div>
     </section>
 
