@@ -31,7 +31,6 @@
                 <a href="#panelServicios" data-admin-section="panelServicios" title="Servicios" aria-label="Servicios"><i class="fas fa-briefcase"></i> Servicios</a>
                 <a href="#panelPedidos" data-admin-section="panelPedidos" title="Pedidos" aria-label="Pedidos"><i class="fas fa-receipt"></i> Pedidos</a>
                 <a href="#panelMensajes" data-admin-section="panelMensajes" title="Mensajes" aria-label="Mensajes"><i class="fas fa-envelope"></i> Mensajes</a>
-                <a href="/" title="Ver sitio" aria-label="Ver sitio"><i class="fas fa-arrow-left"></i> Ver sitio</a>
             </nav>
             <button class="admin-logout" title="Cerrar sesión" aria-label="Cerrar sesión" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
         </aside>
@@ -49,16 +48,15 @@
                     </div>
                 </div>
                 <div class="admin-topbar-tools">
-                    <!-- BOTÓN AÑADIDO: Ver sitio público -->
-                    <a href="/" class="admin-icon-btn" title="Ver sitio público" aria-label="Ver sitio público" style="text-decoration: none;">
-                        <i class="fas fa-arrow-up-right-from-square"></i>
-                    </a>
-                    
                     <div class="admin-search">
                         <i class="fas fa-search"></i>
                         <input id="adminGlobalSearch" type="search" placeholder="Buscar en el panel…" autocomplete="off" aria-label="Buscar en el panel">
                         <kbd>⌘ K</kbd>
                     </div>
+                    <!-- BOTÓN VER SITIO MOVIDO AQUÍ (Esquina superior derecha) -->
+                    <a href="/" class="admin-icon-btn" title="Ver sitio público" aria-label="Ver sitio público" style="text-decoration: none;">
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
                     <button class="admin-icon-btn" id="adminThemeToggle" type="button" aria-label="Cambiar tema" title="Cambiar tema">
                         <i class="fas fa-moon"></i>
                     </button>
