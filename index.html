@@ -255,6 +255,24 @@
                         <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
                     </div>
                 </div>
+                <!-- Proyecto 4: Sabor Urbano -->
+                <div class="project-card" data-aos="flip-up" data-aos-delay="400">
+                    <div class="project-thumb">
+                       <img src="https://i.postimg.cc/TYDDM90H/IMcib-Ay-Zz-EZg4.png" alt="Sabor Urbano - Demo conceptual" loading="lazy" />
+                    </div>
+                    <div class="project-body">
+                        <div class="tags">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>Glassmorphism</span>
+                        </div>
+                        <h3 data-i18n="proj4.title">Sabor Urbano · E-commerce conceptual</h3>
+                        <p data-i18n="proj4.desc">Demo premium para cafetería de especialidad. Interfaz minimalista con efecto glass, carrito funcional, filtros por categoría y sistema de múltiples idiomas integrado.</p>
+                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj4.result">Experiencia de usuario fluida y diseño de vanguardia</span></div>
+                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">2026</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -440,6 +458,6 @@ const homeContact = document.getElementById('contactFormHome');
 if (homeContact) homeContact.addEventListener('submit', async e => { e.preventDefault(); const f=new FormData(homeContact); const {error}=await portfolioSupabase.from('contact_messages').insert({name:f.get('name'),email:f.get('email'),subject:f.get('subject'),message:f.get('message')}); if(error){alert('No se pudo enviar el mensaje. Inténtalo de nuevo.');return;} homeContact.reset(); alert('Mensaje enviado correctamente.'); });
 </script>
     <!-- Vercel Web Analytics -->
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    <script defer src="https://vercel-insights.com/v1/script.js"></script>
 </body>
 </html>
