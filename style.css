@@ -1379,3 +1379,67 @@ body.admin-body .table-actions button:hover {
     background: #a8b9cc !important;
     color: #000 !important;
 }
+/* ============================================================
+   ARREGLO DEFINITIVO: VENTANA MODAL, FONDOS Y BOTONES
+   ============================================================ */
+
+/* 1. OCULTAR LA VENTANA MODAL POR DEFECTO (Soluciona la ventana transparente) */
+body.admin-body .cms-modal,
+body.admin-body .jp-confirm-modal {
+    display: flex !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+    background: rgba(5, 6, 10, 0.85) !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+/* Cuando el JS le añade la clase .is-visible, la ventana aparece */
+body.admin-body .cms-modal.is-visible,
+body.admin-body .jp-confirm-modal.is-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: all !important;
+}
+
+/* 2. FONDO SÓLIDO PARA EL PANEL Y TARJETAS (Que no se mezclen) */
+body.admin-body .admin-main {
+    background: #050505 !important;
+    padding: 30px 40px !important;
+}
+body.admin-body .admin-panel {
+    background: #0a0a0c !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    margin-bottom: 30px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+}
+body.admin-body .admin-stat-card {
+    background: #0f111a !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 3. BARRA LATERAL SÓLIDA Y FIJA */
+body.admin-body .admin-sidebar {
+    background: #08080a !important;
+    backdrop-filter: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    z-index: 1000 !important;
+}
+
+/* 4. ESTILO DE LA CAJA DE LA VENTANA MODAL (Para que se vea bonita) */
+body.admin-body .cms-dialog,
+body.admin-body .jp-confirm-dialog {
+    background: #0f111a !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8) !important;
+    transform: translateY(0) !important;
+}
