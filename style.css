@@ -1334,3 +1334,48 @@ body.admin-body .admin-profile-social-preview a:hover {
         grid-template-columns: 1fr 1fr !important;
     }
 }
+/* ============================================================
+   SEPARACIÓN VISUAL DEL PANEL DE ADMIN
+   ============================================================ */
+
+/* 1. Fondo sólido para el contenido principal */
+body.admin-body .admin-main {
+    background: #050505 !important;
+    padding: 30px 40px !important;
+}
+
+/* 2. Fondo sólido y borde para la barra lateral (sin transparencia) */
+body.admin-body .admin-sidebar {
+    background: #08080a !important; 
+    backdrop-filter: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.5) !important;
+}
+
+/* 3. Separar cada panel (Productos, Servicios, Opiniones) */
+body.admin-body .admin-panel {
+    background: #0a0a0c !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    margin-bottom: 30px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+}
+
+/* 4. Separar las tarjetas de estadísticas */
+body.admin-body .admin-stat-card {
+    background: #0f111a !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+}
+
+/* 5. Arreglar los botones de acción (Lápiz y Basura) */
+body.admin-body .table-actions button {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+}
+body.admin-body .table-actions button:hover {
+    background: #a8b9cc !important;
+    color: #000 !important;
+}
