@@ -641,6 +641,7 @@ Object.assign(translations.es,{"page.title.privacy":"Privacidad · Jamsle Porcen
 Object.assign(translations.en,{"page.title.privacy":"Privacy · Jamsle Porcena","page.title.terms":"Terms · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Help Center · Jamsle Porcena","page.description.privacy":"Jamsle Porcena privacy policy.","page.description.terms":"Jamsle Porcena terms of use.","page.description.cookies":"Jamsle Porcena cookie policy.","page.description.help":"Jamsle Porcena help center."});
 Object.assign(translations.fr,{"page.title.privacy":"Confidentialité · Jamsle Porcena","page.title.terms":"Conditions · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centre d’aide · Jamsle Porcena","page.description.privacy":"Politique de confidentialité de Jamsle Porcena.","page.description.terms":"Conditions d’utilisation de Jamsle Porcena.","page.description.cookies":"Politique relative aux cookies de Jamsle Porcena.","page.description.help":"Centre d’aide de Jamsle Porcena."});
 Object.assign(translations.pt,{"page.title.privacy":"Privacidade · Jamsle Porcena","page.title.terms":"Termos · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Central de Ajuda · Jamsle Porcena","page.description.privacy":"Política de privacidade de Jamsle Porcena.","page.description.terms":"Termos de uso de Jamsle Porcena.","page.description.cookies":"Política de cookies de Jamsle Porcena.","page.description.help":"Central de ajuda de Jamsle Porcena."});
+
 /* ===== LÓGICA DE NEWSLETTER ===== */
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('newsletterForm');
@@ -685,47 +686,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-/* ===== LÓGICA DE NEWSLETTER ===== */
+
+/* ===== LÓGICA DEL MODAL DE DETALLES (TIENDA) ===== */
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('newsletterForm');
-    const btn = document.getElementById('newsletterBtn');
-    const toast = document.getElementById('newsletterToast');
+    const storeGrid = document.getElementById('storeGrid');
+    if (!storeGrid) return;
 
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Guardamos el texto original y ponemos "Cargando..."
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-            btn.disabled = true;
+    // Escuchar clics en toda la tienda (delegación de eventos)
+    storeGrid.addEventListener('click', (e) => {
+        const detailBtn = e.target.closest('.btn-details');
+        if (!detailBtn) return;
 
-            const formData = new FormData(form);
-            // Añadimos el asunto para Formspree
-            formData.append('_subject', 'Nuevo suscriptor en Wilkyjams Dev!');
+        const productId = detailBtn.getAttribute('data-id');
+        if (!productId) return;
 
-            try {
-                const response = await fetch('https://formspree.io/f/mkjoappw', {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
+        // Buscar el producto en el catálogo actual
+        const catalog = window.PRODUCTS || PRODUCTS_FALLBACK;
+        const product = catalog.find(p => String(p.id) === String(productId));
+        if (!product) return;
+
+        // Crear el Modal
+        const modal = document.createElement('div');
+        modal.className = 'store-detail-modal';
+        
+        // Formatear precios
+        const price = Number(product.price).toFixed(2);
+        const oldPrice = product.oldPrice ? `<span>$${Number(product.oldPrice).toFixed(2)}</span>` : '';
+        
+        // Obtener el texto completo (usando el que ya tienes en tu store.js)
+        const fullDesc = product.description_es || product.description || 'Sin descripción.';
+        const productName = product.name_es || product.name || 'Producto';
+
+        modal.innerHTML = `
+            <div class="store-detail-dialog">
+                <button class="store-detail-close" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+                <div class="store-detail-media">
+                    <img src="${product.image}" alt="${productName}">
+                </div>
+                <div class="store-detail-content">
+                    <h2>${productName}</h2>
+                    <p>${fullDesc}</p>
+                    <div class="store-detail-bottom">
+                        <div class="store-price" style="flex-direction: row; align-items: center; gap: 10px;">
+                            ${oldPrice}
+                            $${price}
+                        </div>
+                        <button class="btn-add-cart btn-modal-add" data-id="${product.id}">
+                            <i class="fas fa-plus"></i> Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        
+        // Animación de entrada
+        requestAnimationFrame(() => modal.classList.add('is-visible'));
+
+        // Cerrar modal
+        const closeModal = () => {
+            modal.classList.remove('is-visible');
+            setTimeout(() => modal.remove(), 300);
+        };
+        
+        modal.querySelector('.store-detail-close').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Lógica para agregar al carrito desde el modal
+        modal.querySelector('.btn-modal-add').addEventListener('click', () => {
+            if (window.Cart) {
+                window.Cart.add({
+                    id: product.id,
+                    name: productName,
+                    price: Number(product.price),
+                    image: product.image,
+                    category: product.category
                 });
-
-                if (response.ok) {
-                    // Éxito: Mostrar Toast
-                    form.reset();
-                    toast.classList.add('show');
-                    setTimeout(() => toast.classList.remove('show'), 4000);
-                } else {
-                    alert('Hubo un problema. Inténtalo de nuevo.');
-                }
-            } catch (error) {
-                alert('Error de conexión. Revisa tu internet.');
-            } finally {
-                // Restaurar botón
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                closeModal();
             }
         });
-    }
+    });
 });
