@@ -304,7 +304,7 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
 .footer-grid ul a:hover { color: var(--accent-2); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; font-size: 0.85rem; color: var(--text-muted); }
 
-/* ===== CARRITO LATERAL (ARREGLADO CON GLASS) ===== */
+/* ===== CARRITO LATERAL ===== */
 .cart-overlay { position: fixed; inset: 0; background: rgba(5, 6, 10, 0.6); backdrop-filter: blur(3px); z-index: 1200; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .cart-overlay.open { opacity: 1; pointer-events: all; }
 .cart-drawer { 
@@ -359,7 +359,7 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
 }
 .btn-whatsapp-checkout:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); }
 
-/* RESPONSIVE */
+/* RESPONSIVE GENERAL */
 @media (max-width: 1024px) {
     .glass-hero { grid-template-columns: 1fr; text-align: center; }
     .hero-buttons, .hero-stats { justify-content: center; }
@@ -392,1054 +392,174 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
 .glass-toast i { color: #4ade80; font-size: 1.2rem; }
 
 /* ============================================================
-   ESTILOS EXCLUSIVOS DEL PANEL DE ADMINISTRACIÓN (GLASS)
+   ESTILOS EXCLUSIVOS DEL PANEL DE ADMINISTRACIÓN (DEFINITIVO)
    ============================================================ */
 
-/* === LOGIN (admin-login) === */
-.admin-login-wrapper {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: var(--bg-color);
-}
-.admin-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-    padding: 50px 40px;
-    width: 100%;
-    max-width: 450px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.03);
-    position: relative;
-}
-.back-to-site {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    text-decoration: none;
-    transition: var(--transition);
-}
+/* === LOGIN === */
+.admin-login-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: #050505; }
+.admin-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 50px 40px; width: 100%; max-width: 450px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4); position: relative; }
+.back-to-site { position: absolute; top: 20px; left: 20px; color: #a0a0a0; font-size: 0.85rem; text-decoration: none; transition: all 0.3s ease; }
 .back-to-site:hover { color: #fff; }
-.admin-logo {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 800;
-    text-align: center;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 10px;
-}
-.admin-subtitle {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 30px;
-}
-.admin-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-.admin-card label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: -5px;
-}
-.admin-card input {
-    width: 100%;
-    padding: 16px 20px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: #fff;
-    font-family: var(--font-body);
-    outline: none;
-    transition: var(--transition);
-}
-.admin-card input:focus {
-    border-color: var(--accent-1);
-    box-shadow: 0 0 0 3px rgba(168, 185, 204, 0.1);
-}
-.admin-card button {
-    background: #fff;
-    color: #000;
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: var(--transition);
-    margin-top: 10px;
-}
-.admin-card button:hover {
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-}
-.admin-error {
-    display: none;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #f87171;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    text-align: center;
-    margin-bottom: 20px;
-}
+.admin-logo { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; text-align: center; background: linear-gradient(135deg, #a8b9cc, #c4a8cc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+.admin-subtitle { text-align: center; color: #a0a0a0; font-size: 0.9rem; margin-bottom: 30px; }
+.admin-card form { display: flex; flex-direction: column; gap: 15px; }
+.admin-card label { font-size: 0.85rem; color: #a0a0a0; margin-bottom: -5px; }
+.admin-card input { width: 100%; padding: 16px 20px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; outline: none; transition: all 0.3s ease; }
+.admin-card input:focus { border-color: #a8b9cc; box-shadow: 0 0 0 3px rgba(168, 185, 204, 0.1); }
+.admin-card button { background: #fff; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; }
+.admin-card button:hover { box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); transform: translateY(-2px); }
+.admin-error { display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; padding: 12px; border-radius: 8px; font-size: 0.9rem; text-align: center; margin-bottom: 20px; }
 .admin-error.show { display: block; }
 
-/* === DASHBOARD (admin-layout) === */
-.admin-body {
-    background: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-body);
-    min-height: 100vh;
-    display: flex;
-}
-.admin-layout {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-}
+/* === DASHBOARD === */
+.admin-body { background: #050505 !important; color: #fff; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; margin: 0; overflow-x: hidden; }
+.admin-layout { display: flex; width: 100%; min-height: 100vh; }
 
-/* Sidebar */
-.admin-sidebar {
-    width: 260px;
-    background: rgba(10, 10, 12, 0.95);
-    backdrop-filter: blur(20px);
-    border-right: 1px solid var(--glass-border);
-    display: flex;
-    flex-direction: column;
-    padding: 24px 16px;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-    z-index: 100;
-    transition: transform 0.3s ease;
-}
-.admin-desktop-logo { display: block; text-align: left; padding-left: 12px; font-size: 1.5rem; margin-bottom: 30px; }
-.admin-nav { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
-.admin-nav a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: var(--transition);
-    text-decoration: none;
-}
-.admin-nav a:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
-.admin-nav a.active { background: var(--accent-gradient); color: #000; font-weight: 700; }
-.admin-nav a i { width: 20px; text-align: center; }
-.admin-logout {
-    display: flex; align-items: center; gap: 10px;
-    background: transparent; border: 1px solid var(--glass-border);
-    color: var(--text-muted); padding: 12px; border-radius: 10px;
-    cursor: pointer; transition: var(--transition); margin-top: 20px;
-    width: 100%;
-}
-.admin-logout:hover { border-color: #ef4444; color: #ef4444; }
+/* Sidebar Sólido y Fijo */
+.admin-sidebar { width: 260px !important; background: #08080a !important; border-right: 1px solid rgba(255, 255, 255, 0.08) !important; display: flex !important; flex-direction: column !important; padding: 24px 16px !important; position: fixed !important; top: 0 !important; left: 0 !important; height: 100vh !important; overflow-y: auto !important; z-index: 1000 !important; transition: transform 0.3s ease !important; }
+.admin-desktop-logo { display: block !important; text-align: left !important; padding-left: 12px !important; font-size: 1.5rem !important; font-weight: 800 !important; color: #fff !important; margin-bottom: 30px !important; font-family: 'Syne', sans-serif !important; }
+.admin-nav { display: flex !important; flex-direction: column !important; gap: 4px !important; flex-grow: 1 !important; }
+.admin-nav a { display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 16px !important; border-radius: 10px !important; color: #a0a0a0 !important; font-size: 0.9rem !important; font-weight: 500 !important; transition: all 0.3s ease !important; text-decoration: none !important; }
+.admin-nav a:hover { background: rgba(255, 255, 255, 0.05) !important; color: #fff !important; }
+.admin-nav a.active { background: linear-gradient(135deg, #a8b9cc, #c4a8cc) !important; color: #000 !important; font-weight: 700 !important; }
+.admin-nav a i { width: 20px !important; text-align: center !important; }
+.admin-logout { display: flex !important; align-items: center !important; gap: 10px !important; background: transparent !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; color: #a0a0a0 !important; padding: 12px !important; border-radius: 10px !important; cursor: pointer !important; transition: all 0.3s ease !important; margin-top: 20px !important; width: 100% !important; }
+.admin-logout:hover { border-color: #ef4444 !important; color: #ef4444 !important; }
 
 /* Main Content */
-.admin-main {
-    flex-grow: 1;
-    margin-left: 260px;
-    padding: 30px;
-    background: var(--bg-color);
-    min-height: 100vh;
-}
+.admin-main { flex-grow: 1 !important; margin-left: 260px !important; padding: 30px !important; background: #050505 !important; min-height: 100vh !important; position: relative !important; z-index: 50 !important; }
+
+/* Ocultar restos del sitio público en el admin */
+body.admin-body > nav, body.admin-body > footer, body.admin-body > #webgl-canvas, body.admin-body > .cart-overlay, body.admin-body > .cart-drawer { display: none !important; }
 
 /* Topbar */
-.admin-topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-    padding: 16px 24px;
-    margin-bottom: 30px;
-    backdrop-filter: blur(25px);
-}
-.admin-topbar-left h1 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 4px; }
-.admin-breadcrumb { font-size: 0.8rem; color: var(--text-muted); }
+.admin-topbar { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 16px 24px; margin-bottom: 30px; }
+.admin-topbar-left h1 { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 4px; }
+.admin-breadcrumb { font-size: 0.8rem; color: #a0a0a0; }
 .admin-topbar-tools { display: flex; align-items: center; gap: 12px; }
-.admin-search {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border);
-    border-radius: 50px; padding: 8px 16px;
-}
+.admin-search { display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50px; padding: 8px 16px; }
 .admin-search input { background: transparent; border: none; color: #fff; outline: none; font-size: 0.9rem; width: 200px; }
-.admin-search kbd { font-size: 0.7rem; color: var(--text-muted); background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; }
-.admin-icon-btn {
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    color: #fff; width: 40px; height: 40px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: var(--transition); position: relative;
-}
-.admin-icon-btn:hover { border-color: var(--accent-1); }
-.admin-profile-trigger {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    padding: 6px 16px 6px 6px; border-radius: 50px; cursor: pointer;
-    color: #fff; transition: var(--transition);
-}
+.admin-search kbd { font-size: 0.7rem; color: #a0a0a0; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; }
+.admin-icon-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; position: relative; }
+.admin-icon-btn:hover { border-color: #a8b9cc; }
+.admin-profile-trigger { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 6px 16px 6px 6px; border-radius: 50px; cursor: pointer; color: #fff; transition: all 0.3s ease; }
 .admin-profile-photo img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
 .admin-profile-copy { display: flex; flex-direction: column; text-align: left; line-height: 1.2; }
 .admin-profile-copy strong { font-size: 0.85rem; }
-.admin-profile-copy small { font-size: 0.7rem; color: var(--text-muted); }
+.admin-profile-copy small { font-size: 0.7rem; color: #a0a0a0; }
 
 /* Stats */
-.stats-row {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px; margin-bottom: 30px;
-}
-.admin-stat-card {
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    border-radius: var(--radius); padding: 24px;
-    display: flex; flex-direction: column; gap: 10px;
-    backdrop-filter: blur(25px);
-}
-.stat-top { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); }
-.stat-value { font-family: var(--font-display); font-size: 2rem; font-weight: 800; }
-.stat-label { font-size: 0.85rem; color: var(--text-muted); }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
+.admin-stat-card { background: #0f111a !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.stat-top { display: flex; justify-content: space-between; align-items: center; color: #a0a0a0; }
+.stat-value { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; }
+.stat-label { font-size: 0.85rem; color: #a0a0a0; }
 
 /* Panels & Tables */
-.admin-panel {
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    border-radius: var(--radius); padding: 30px; margin-bottom: 30px;
-    backdrop-filter: blur(25px);
-}
+.admin-panel { background: #0a0a0c !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 20px !important; padding: 30px !important; margin-bottom: 30px !important; overflow-x: auto !important; }
 .panel-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.panel-title h3 { font-family: var(--font-display); font-size: 1.2rem; }
-.admin-panel-subtitle { font-size: 0.85rem; color: var(--text-muted); }
-.btn-admin-add {
-    background: #fff; color: #000; border: none;
-    padding: 10px 20px; border-radius: 50px;
-    font-weight: 700; font-size: 0.85rem; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 8px;
-    transition: var(--transition);
-}
+.panel-title h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; }
+.admin-panel-subtitle { font-size: 0.85rem; color: #a0a0a0; }
+.btn-admin-add { background: #fff; color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
 .btn-admin-add:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
-.btn-admin-ghost { background: transparent; border: 1px solid var(--glass-border); color: #fff; }
+.btn-admin-ghost { background: transparent; border: 1px solid rgba(255, 255, 255, 0.08); color: #fff; }
 .btn-admin-ghost:hover { background: rgba(255,255,255,0.05); }
-
-.admin-table { width: 100%; border-collapse: collapse; text-align: left; }
-.admin-table th { padding: 16px 12px; border-bottom: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; }
+.admin-table { width: 100%; border-collapse: collapse; text-align: left; table-layout: auto !important; }
+.admin-table th { padding: 16px 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: #a0a0a0; font-size: 0.8rem; text-transform: uppercase; }
 .admin-table td { padding: 16px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; }
 .admin-table tr:last-child td { border-bottom: none; }
 .admin-table tr:hover td { background: rgba(255,255,255,0.02); }
+.admin-table td img, .prod-cell img { width: 48px !important; height: 48px !important; object-fit: cover !important; border-radius: 8px !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; display: block !important; }
+.prod-cell { display: flex !important; align-items: center !important; gap: 12px !important; font-weight: 500 !important; color: #fff !important; }
 
-/* Settings Forms */
+/* Botones de acción en tablas */
+.table-actions { display: flex !important; gap: 8px !important; align-items: center !important; }
+.table-actions button { background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; color: #a0a0a0 !important; width: 36px !important; height: 36px !important; border-radius: 10px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; transition: all 0.3s ease !important; }
+.table-actions button:hover { background: rgba(255, 255, 255, 0.1) !important; color: #fff !important; border-color: #a8b9cc !important; }
+.table-actions button.danger:hover { background: rgba(239, 68, 68, 0.1) !important; border-color: #ef4444 !important; color: #ef4444 !important; }
+
+/* Status pills */
+.status-pill { display: inline-block !important; padding: 4px 12px !important; border-radius: 50px !important; font-size: 0.75rem !important; font-weight: 700 !important; }
+.status-pill.active { background: rgba(74, 222, 128, 0.1) !important; color: #4ade80 !important; border: 1px solid rgba(74, 222, 128, 0.2) !important; }
+.status-pill.pending { background: rgba(251, 191, 36, 0.1) !important; color: #fbbf24 !important; border: 1px solid rgba(251, 191, 36, 0.2) !important; }
+
+/* Settings & CMS */
 .admin-settings-form { display: flex; flex-direction: column; gap: 20px; }
 .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-.admin-settings-form label { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
-.admin-settings-form input, .admin-settings-form textarea, .admin-settings-form select {
-    width: 100%; padding: 12px 16px;
-    background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px; color: #fff; outline: none; font-family: var(--font-body);
-    transition: var(--transition);
-}
-.admin-settings-form input:focus, .admin-settings-form textarea:focus { border-color: var(--accent-1); }
+.admin-settings-form label, .admin-profile-fields label { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #a0a0a0; }
+.admin-settings-form input, .admin-settings-form textarea, .admin-settings-form select, .admin-profile-fields input, .admin-profile-fields textarea { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; outline: none; font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+.admin-settings-form input:focus, .admin-settings-form textarea:focus, .admin-profile-fields input:focus { border-color: #a8b9cc; }
+.cms-settings-note { background: rgba(168, 185, 204, 0.05); border: 1px solid rgba(168, 185, 204, 0.2); border-radius: 10px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; font-size: 0.85rem; color: #a8b9cc; margin-bottom: 20px; }
+.cms-settings-note i { font-size: 1.2rem; margin-top: 2px; }
 
-/* Responsive */
-@media (max-width: 1024px) {
-    .admin-sidebar { transform: translateX(-100%); }
-    .admin-sidebar.is-open { transform: translateX(0); }
-    .admin-main { margin-left: 0; }
-    .admin-desktop-logo { display: none; }
-    .admin-mobile-head { display: flex !important; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-}
-/* ============================================================
-   ARREGLO DE COMPONENTES INTERNOS DEL CMS Y PERFIL (PASO 1)
-   ============================================================ */
-
-/* 1. Arreglo del Editor de Contenido (Evitar que los textos se monten) */
-.cms-grid {
-    display: grid !important;
-    gap: 20px !important;
-    margin-bottom: 20px !important;
-}
+/* Editor de contenido */
+.cms-grid { display: grid !important; gap: 20px !important; margin-bottom: 20px !important; }
 .cms-grid-2 { grid-template-columns: repeat(2, 1fr) !important; }
 .cms-grid-3 { grid-template-columns: repeat(3, 1fr) !important; }
+.cms-field { display: flex !important; flex-direction: column !important; gap: 8px !important; width: 100% !important; }
+.cms-field-label { font-size: 0.85rem !important; color: #a0a0a0 !important; display: flex !important; align-items: center !important; gap: 6px !important; }
+.cms-field textarea, .cms-field input, .cms-content-field textarea { width: 100% !important; padding: 12px 16px !important; background: rgba(0, 0, 0, 0.4) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 8px !important; color: #fff !important; font-family: 'Inter', sans-serif !important; font-size: 0.95rem !important; resize: vertical !important; outline: none !important; transition: all 0.3s ease !important; }
+.cms-field textarea:focus, .cms-field input:focus { border-color: #a8b9cc !important; }
 
+/* Perfil Admin */
+.admin-profile-editor-grid { display: grid !important; grid-template-columns: 1fr 1.5fr !important; gap: 30px !important; margin-bottom: 30px !important; align-items: start !important; }
+.admin-profile-crop-card { background: rgba(0, 0, 0, 0.2) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 16px !important; padding: 20px !important; display: flex !important; flex-direction: column !important; gap: 20px !important; }
+.admin-profile-crop-preview { width: 100% !important; height: 300px !important; background: #000 !important; border-radius: 12px !important; overflow: hidden !important; position: relative !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; }
+.admin-profile-crop-preview img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+.admin-profile-fields { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+
+/* Interruptores y notificaciones */
+.cms-switch { display: inline-flex !important; align-items: center !important; gap: 10px !important; cursor: pointer !important; }
+.cms-switch input { display: none !important; }
+.cms-switch-ui { width: 40px !important; height: 22px !important; background: rgba(255, 255, 255, 0.1) !important; border-radius: 50px !important; position: relative !important; transition: 0.3s !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; }
+.cms-switch-ui::after { content: '' !important; position: absolute !important; top: 2px !important; left: 2px !important; width: 16px !important; height: 16px !important; background: #fff !important; border-radius: 50% !important; transition: 0.3s !important; }
+.cms-switch input:checked + .cms-switch-ui { background: linear-gradient(135deg, #a8b9cc, #c4a8cc) !important; }
+.cms-switch input:checked + .cms-switch-ui::after { transform: translateX(18px) !important; background: #000 !important; }
+.admin-notification-badge { position: absolute !important; top: -5px !important; right: -5px !important; background: #ef4444 !important; color: #fff !important; font-size: 0.65rem !important; font-weight: 700 !important; width: 18px !important; height: 18px !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; border: 2px solid #050505 !important; }
+.admin-popover { background: #0f111a !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 16px !important; box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important; padding: 10px !important; min-width: 220px !important; z-index: 9999 !important; }
+.popover-head { display: flex !important; justify-content: space-between !important; align-items: flex-start !important; padding: 16px !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important; gap: 10px !important; }
+
+/* Modales CMS */
+.cms-modal { position: fixed !important; inset: 0 !important; background: rgba(5, 6, 10, 0.85) !important; backdrop-filter: blur(8px) !important; display: flex !important; align-items: center !important; justify-content: center !important; z-index: 9999 !important; padding: 20px !important; opacity: 0 !important; pointer-events: none !important; transition: opacity 0.3s ease !important; }
+.cms-modal.is-visible { opacity: 1 !important; pointer-events: all !important; }
+.cms-dialog { background: #0a0a0c !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 20px !important; width: 100% !important; max-width: 900px !important; max-height: 90vh !important; overflow-y: auto !important; padding: 30px !important; position: relative !important; box-shadow: 0 30px 100px rgba(0,0,0,0.6) !important; transform: translateY(20px) !important; transition: transform 0.3s ease !important; }
+
+/* VENTANA DE CONFIRMACIÓN (JP CONFIRM) */
+.jp-confirm-modal { position: fixed !important; inset: 0 !important; background: rgba(5, 6, 10, 0.85) !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; display: flex !important; align-items: center !important; justify-content: center !important; z-index: 99999 !important; padding: 20px !important; opacity: 0 !important; visibility: hidden !important; transition: opacity 0.3s ease, visibility 0.3s ease !important; }
+.jp-confirm-modal.is-visible { opacity: 1 !important; visibility: visible !important; }
+.jp-confirm-dialog { background: #0f111a !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 20px !important; width: 100% !important; max-width: 400px !important; padding: 30px !important; position: relative !important; box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8) !important; text-align: center !important; transform: translateY(20px) !important; transition: transform 0.3s ease !important; }
+.jp-confirm-modal.is-visible .jp-confirm-dialog { transform: translateY(0) !important; }
+.jp-confirm-close { position: absolute !important; top: 15px !important; right: 15px !important; background: transparent !important; border: none !important; color: #a0a0a0 !important; font-size: 1.2rem !important; cursor: pointer !important; }
+.jp-confirm-close:hover { color: #fff !important; }
+.jp-confirm-icon { width: 60px !important; height: 60px !important; border-radius: 50% !important; background: rgba(168, 185, 204, 0.1) !important; color: #a8b9cc !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 1.8rem !important; margin: 0 auto 20px auto !important; }
+.jp-confirm-dialog h3 { font-family: 'Syne', sans-serif !important; font-size: 1.3rem !important; color: #fff !important; margin-bottom: 10px !important; }
+.jp-confirm-dialog p { font-size: 0.95rem !important; color: #a0a0a0 !important; margin-bottom: 25px !important; line-height: 1.5 !important; }
+.jp-confirm-actions { display: flex !important; gap: 12px !important; justify-content: center !important; }
+.jp-confirm-actions button { padding: 12px 20px !important; border-radius: 10px !important; font-weight: 600 !important; font-size: 0.9rem !important; cursor: pointer !important; border: none !important; transition: all 0.3s ease !important; flex: 1 !important; }
+.jp-confirm-actions .cms-btn-secondary { background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; color: #fff !important; }
+.jp-confirm-actions .cms-btn-secondary:hover { background: rgba(255, 255, 255, 0.1) !important; }
+.jp-confirm-actions .cms-btn-primary { background: #ef4444 !important; color: #fff !important; }
+.jp-confirm-actions .cms-btn-primary:hover { background: #dc2626 !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important; }
+
+/* RESPONSIVE PARA EL ADMIN */
 @media (max-width: 1024px) {
-    .cms-grid-2, .cms-grid-3 { grid-template-columns: 1fr !important; }
+    .admin-sidebar { transform: translateX(-100%) !important; }
+    .admin-sidebar.is-open { transform: translateX(0) !important; }
+    .admin-main { margin-left: 0 !important; padding: 20px !important; }
+    .admin-desktop-logo { display: none !important; }
+    .admin-mobile-head { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 20px !important; }
+    .admin-topbar { flex-direction: column !important; align-items: flex-start !important; gap: 15px !important; }
+    .admin-topbar-tools { width: 100% !important; flex-wrap: wrap !important; justify-content: space-between !important; }
+    .admin-search { width: 100% !important; }
+    .admin-search input { width: 100% !important; }
+    .admin-table th, .admin-table td { white-space: nowrap !important; }
+    .settings-grid, .cms-grid-2, .cms-grid-3, .admin-profile-editor-grid { grid-template-columns: 1fr !important; }
 }
 
-.cms-field {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    width: 100% !important;
-}
-.cms-field-label {
-    font-size: 0.85rem !important;
-    color: var(--text-muted) !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-}
-.cms-field-index {
-    background: var(--accent-gradient) !important;
-    color: #000 !important;
-    font-size: 0.7rem !important;
-    font-weight: bold !important;
-    padding: 2px 6px !important;
-    border-radius: 4px !important;
-}
-.cms-field textarea, 
-.cms-field input,
-.cms-content-field textarea {
-    width: 100% !important;
-    padding: 12px 16px !important;
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 8px !important;
-    color: #fff !important;
-    font-family: var(--font-body) !important;
-    font-size: 0.95rem !important;
-    resize: vertical !important;
-    outline: none !important;
-    transition: var(--transition) !important;
-}
-.cms-field textarea:focus, 
-.cms-field input:focus,
-.cms-content-field textarea:focus {
-    border-color: var(--accent-1) !important;
-    box-shadow: 0 0 10px rgba(168, 185, 204, 0.1) !important;
-}
-.cms-field-hint {
-    font-size: 0.75rem !important;
-    color: rgba(255, 255, 255, 0.4) !important;
-    margin-top: 4px !important;
-}
-
-/* 2. Arreglo del Perfil del Administrador (Cuadrícula de Foto y Datos) */
-.admin-profile-editor-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1.5fr !important;
-    gap: 30px !important;
-    margin-bottom: 30px !important;
-    align-items: start !important;
-}
-@media (max-width: 900px) {
-    .admin-profile-editor-grid { grid-template-columns: 1fr !important; }
-}
-
-.admin-profile-crop-card {
-    background: rgba(0, 0, 0, 0.2) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 16px !important;
-    padding: 20px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
-}
-
-.admin-profile-crop-preview {
-    width: 100% !important;
-    height: 300px !important;
-    background: #000 !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    position: relative !important;
-    border: 1px solid var(--glass-border) !important;
-}
-.admin-profile-crop-preview img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-}
-
-.admin-profile-fields {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 16px !important;
-}
-.admin-profile-fields label {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    font-size: 0.85rem !important;
-    color: var(--text-muted) !important;
-}
-.admin-profile-fields input,
-.admin-profile-fields textarea {
-    width: 100% !important;
-    padding: 14px 16px !important;
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 10px !important;
-    color: #fff !important;
-    font-family: var(--font-body) !important;
-    outline: none !important;
-    transition: var(--transition) !important;
-}
-.admin-profile-fields input:focus,
-.admin-profile-fields textarea:focus {
-    border-color: var(--accent-1) !important;
-}
-
-/* Arreglo de los controles de zoom y posición */
-.admin-profile-crop-controls {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-}
-.admin-profile-control-head {
-    display: flex !important;
-    justify-content: space-between !important;
-    font-size: 0.85rem !important;
-    color: var(--text-muted) !important;
-}
-.admin-profile-zoom-row {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-}
-.admin-profile-zoom-row input[type="range"] {
-    flex-grow: 1 !important;
-    accent-color: var(--accent-1) !important;
-}
-.admin-profile-position-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
-}
-.admin-profile-position-grid label {
-    font-size: 0.8rem !important;
-    color: var(--text-muted) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-}
-
-/* 3. Formularios y Notas del CMS */
-.cms-settings-note {
-    background: rgba(168, 185, 204, 0.05) !important;
-    border: 1px solid rgba(168, 185, 204, 0.2) !important;
-    border-radius: 10px !important;
-    padding: 16px !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 12px !important;
-    font-size: 0.85rem !important;
-    color: var(--accent-1) !important;
-    margin-bottom: 20px !important;
-}
-.cms-settings-note i { font-size: 1.2rem !important; margin-top: 2px !important; }
-/* ============================================================
-   ARREGLO DE TABLAS, IMÁGENES Y BOTONES DE ACCIÓN (PASO 2)
-   ============================================================ */
-
-/* 1. Forzar a que las tablas no se salgan de la pantalla */
-.admin-table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-    table-layout: auto !important;
-}
-
-/* 2. Controlar las imágenes gigantes en las tablas (Productos, Proyectos) */
-.admin-table td img,
-.prod-cell img {
-    width: 48px !important;
-    height: 48px !important;
-    object-fit: cover !important;
-    border-radius: 8px !important;
-    border: 1px solid var(--glass-border) !important;
-    display: block !important;
-}
-
-/* 3. Alinear el nombre del producto al lado de su imagen */
-.prod-cell {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    font-weight: 500 !important;
-    color: #fff !important;
-}
-
-/* 4. Estilo para los botones de acción (Editar / Eliminar) */
-.table-actions {
-    display: flex !important;
-    gap: 8px !important;
-    align-items: center !important;
-}
-.table-actions button {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid var(--glass-border) !important;
-    color: var(--text-muted) !important;
-    width: 34px !important;
-    height: 34px !important;
-    border-radius: 8px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer !important;
-    transition: var(--transition) !important;
-}
-.table-actions button:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-    border-color: var(--accent-1) !important;
-}
-.table-actions button.danger:hover {
-    background: rgba(239, 68, 68, 0.1) !important;
-    border-color: #ef4444 !important;
-    color: #ef4444 !important;
-}
-
-/* 5. Estilo para las etiquetas de estado (Activo/Oculto) */
-.status-pill {
-    display: inline-block !important;
-    padding: 4px 12px !important;
-    border-radius: 50px !important;
-    font-size: 0.75rem !important;
-    font-weight: 700 !important;
-}
-.status-pill.active {
-    background: rgba(74, 222, 128, 0.1) !important;
-    color: #4ade80 !important;
-    border: 1px solid rgba(74, 222, 128, 0.2) !important;
-}
-.status-pill.pending {
-    background: rgba(251, 191, 36, 0.1) !important;
-    color: #fbbf24 !important;
-    border: 1px solid rgba(251, 191, 36, 0.2) !important;
-}
-
-/* 6. Contenedor con scroll horizontal por si la tabla es muy ancha en móviles */
-.admin-panel {
-    overflow-x: auto !important;
-}
-
-/* 7. Estilo para los selectores dentro de la tabla (como el estado de pedidos) */
-.admin-inline-select {
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid var(--glass-border) !important;
-    color: #fff !important;
-    padding: 6px 10px !important;
-    border-radius: 6px !important;
-    font-family: var(--font-body) !important;
-    outline: none !important;
-    cursor: pointer !important;
-}
-.admin-inline-select:focus {
-    border-color: var(--accent-1) !important;
-}
-
-/* 8. Arreglo de los Modales (Ventanas emergentes para Crear/Editar) */
-.cms-modal {
-    position: fixed !important;
-    inset: 0 !important;
-    background: rgba(5, 6, 10, 0.85) !important;
-    backdrop-filter: blur(8px) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 9999 !important;
-    padding: 20px !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    transition: opacity 0.3s ease !important;
-}
-.cms-modal.is-visible {
-    opacity: 1 !important;
-    pointer-events: all !important;
-}
-.cms-dialog {
-    background: rgba(20, 20, 25, 0.95) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 24px !important;
-    width: 100% !important;
-    max-width: 900px !important;
-    max-height: 90vh !important;
-    overflow-y: auto !important;
-    padding: 40px !important;
-    position: relative !important;
-    box-shadow: 0 30px 100px rgba(0,0,0,0.6) !important;
-    transform: translateY(20px) !important;
-    transition: transform 0.3s ease !important;
-}
-.cms-modal.is-visible .cms-dialog {
-    transform: translateY(0) !important;
-}
-.cms-close {
-    position: absolute !important;
-    top: 20px !important;
-    right: 20px !important;
-    background: transparent !important;
-    border: none !important;
-    color: var(--text-muted) !important;
-    font-size: 1.5rem !important;
-    cursor: pointer !important;
-    transition: var(--transition) !important;
-}
-.cms-close:hover { color: #fff !important; }
-/* ============================================================
-   MEJORAS VISUALES EXCLUSIVAS DEL PANEL DE ADMIN (SEGURO)
-   ============================================================ */
-
-/* 1. Mejorar los botones de acción en las tablas (Editar / Eliminar) */
-body.admin-body .table-actions button {
-    position: relative !important;
-    overflow: hidden !important;
-}
-body.admin-body .table-actions button i {
-    transition: transform 0.2s ease, color 0.2s ease !important;
-}
-/* Efecto al pasar el ratón por el lápiz */
-body.admin-body .table-actions button:not(.danger):hover i.fa-pen {
-    color: #a8b9cc !important; /* Tu color azul */
-    transform: scale(1.2) !important;
-}
-/* Efecto al pasar el ratón por la basura */
-body.admin-body .table-actions button.danger:hover i.fa-trash {
-    color: #ef4444 !important; /* Rojo */
-    transform: scale(1.2) !important;
-}
-
-/* 2. Animación para el botón "Nuevo Producto" / "Nueva Opinión" */
-body.admin-body .btn-admin-add {
-    position: relative !important;
-    overflow: hidden !important;
-}
-body.admin-body .btn-admin-add::after {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important; left: -100% !important;
-    width: 50% !important; height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent) !important;
-    transition: left 0.5s ease !important;
-}
-body.admin-body .btn-admin-add:hover::after {
-    left: 100% !important;
-}
-body.admin-body .btn-admin-add i {
-    transition: transform 0.3s ease !important;
-}
-body.admin-body .btn-admin-add:hover i.fa-plus {
-    transform: rotate(90deg) !important;
-}
-
-/* 3. Icono de "Ver Sitio" (Esquina superior derecha) */
-body.admin-body .admin-icon-btn:hover i.fa-arrow-up-right-from-square {
-    transform: translate(2px, -2px) !important;
-    transition: transform 0.2s ease !important;
-}
-
-/* 4. Mejorar la barra de búsqueda cuando está enfocada */
-body.admin-body .admin-search:focus-within {
-    border-color: #a8b9cc !important;
-    box-shadow: 0 0 15px rgba(168, 185, 204, 0.1) !important;
-}
-body.admin-body .admin-search:focus-within i {
-    color: #a8b9cc !important;
-}
-
-/* 5. Efecto de carga en el botón de "Guardar" del CMS */
-body.admin-body .cms-btn-primary:active {
-    transform: scale(0.98) !important;
-}
-/* ============================================================
-   MEJORAS VISUALES EXCLUSIVAS DEL PANEL DE ADMIN (SEGURO)
-   ============================================================ */
-
-/* 1. Arreglar el panel de notificaciones (campanita) */
-body.admin-body .popover-head {
-    padding: 16px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-body.admin-body .popover-head strong {
-    color: #fff !important;
-    font-size: 0.95rem !important;
-}
-body.admin-body .popover-head button {
-    background: rgba(168, 185, 204, 0.1) !important;
-    color: #a8b9cc !important;
-    padding: 4px 10px !important;
-    border-radius: 20px !important;
-    font-size: 0.7rem !important;
-    border: none !important;
-    cursor: pointer !important;
-}
-body.admin-body .popover-head button:hover {
-    background: rgba(168, 185, 204, 0.2) !important;
-}
-body.admin-body .popover-item {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 12px 16px !important;
-    border-bottom: 1px solid rgba(255,255,255,0.03) !important;
-    transition: background 0.2s !important;
-    text-decoration: none !important;
-}
-body.admin-body .popover-item:hover {
-    background: rgba(255,255,255,0.05) !important;
-}
-body.admin-body .popover-icon {
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 50% !important;
-    background: rgba(168, 185, 204, 0.1) !important;
-    color: #a8b9cc !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-body.admin-body .popover-item strong {
-    color: #fff !important;
-    font-size: 0.85rem !important;
-    display: block !important;
-}
-body.admin-body .popover-item small {
-    color: #a0a0a0 !important;
-    font-size: 0.75rem !important;
-}
-
-/* 2. Mejorar la sección de Notificaciones Sonoras (Sonido y Volumen) */
-body.admin-body .admin-sound-settings {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 16px !important;
-    padding: 24px !important;
-    margin-top: 20px !important;
-}
-body.admin-body .admin-sound-head {
-    margin-bottom: 20px !important;
-}
-body.admin-body .admin-sound-head strong {
-    color: #fff !important;
-    font-size: 1rem !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-}
-body.admin-body .admin-sound-head small {
-    color: #a0a0a0 !important;
-    font-size: 0.8rem !important;
-    display: block !important;
-    margin-top: 4px !important;
-}
-body.admin-body .admin-sound-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 20px !important;
-    align-items: end !important;
-}
-body.admin-body .admin-sound-grid label {
-    color: #a0a0a0 !important;
-    font-size: 0.8rem !important;
-    font-weight: 600 !important;
-}
-body.admin-body .admin-sound-grid select {
-    background: rgba(0,0,0,0.5) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    color: #fff !important;
-    padding: 10px 14px !important;
-    border-radius: 8px !important;
-    margin-top: 6px !important;
-}
-body.admin-body .admin-sound-actions {
-    display: flex !important;
-    align-items: center !important;
-    gap: 15px !important;
-}
-body.admin-body .admin-sound-status {
-    color: #4ade80 !important;
-    font-size: 0.8rem !important;
-    font-weight: 600 !important;
-}
-
-/* 3. Mejorar la parte de "Perfiles y Enlaces" (Redes Sociales) */
-body.admin-body .admin-profile-socials {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 16px !important;
-    padding: 24px !important;
-    margin-top: 20px !important;
-}
-body.admin-body .admin-profile-socials .cms-section-title {
-    color: #fff !important;
-    font-size: 1rem !important;
-    margin-bottom: 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-}
-body.admin-body .admin-profile-socials .settings-grid label {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    color: #a0a0a0 !important;
-    font-size: 0.8rem !important;
-}
-body.admin-body .admin-profile-socials .settings-grid input {
-    background: rgba(0,0,0,0.5) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    color: #fff !important;
-    padding: 12px 16px !important;
-    border-radius: 8px !important;
-}
-body.admin-body .admin-profile-social-preview {
-    display: flex !important;
-    gap: 12px !important;
-    margin-top: 20px !important;
-}
-body.admin-body .admin-profile-social-preview a {
-    width: 44px !important;
-    height: 44px !important;
-    border-radius: 50% !important;
-    background: rgba(255,255,255,0.05) !important;
-    color: #fff !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: 0.3s !important;
-}
-body.admin-body .admin-profile-social-preview a:hover {
-    background: linear-gradient(135deg, #a8b9cc, #c4a8cc) !important;
-    color: #000 !important;
-    transform: translateY(-3px) !important;
-}
-/* ============================================================
-   ARREGLO RESPONSIVE (MÓVILES Y TABLETS) - SEGURO
-   ============================================================ */
-
-/* 1. Ajustes generales para móviles */
-@media (max-width: 768px) {
-    /* Menú de navegación */
-    nav {
-        width: 95% !important;
-        padding: 10px 15px !important;
-        top: 10px !important;
-    }
-    .nav-links {
-        display: none !important; /* Ocultar menú de escritorio */
-    }
-    .nav-links.open {
-        display: flex !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100vh !important;
-        background: rgba(5,5,5,0.98) !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 20px !important;
-        z-index: 9999 !important;
-    }
-    .hamburger {
-        display: flex !important;
-    }
-
-    /* Hero Section */
-    .glass-hero {
-        grid-template-columns: 1fr !important;
-        padding: 30px 20px !important;
-        text-align: center !important;
-        gap: 20px !important;
-    }
-    .hero-content h1 {
-        font-size: 2.2rem !important;
-    }
-    .hero-buttons {
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-    .hero-stats {
-        flex-direction: column !important;
-        gap: 15px !important;
-    }
-    .hero-image {
-        margin-top: 20px !important;
-    }
-
-    /* Secciones (Sobre mí, Servicios, Tienda, etc.) */
-    .about-grid, .pricing-grid, .testimonials-grid, .contact-wrapper {
-        grid-template-columns: 1fr !important;
-        padding: 20px !important;
-        gap: 20px !important;
-    }
-    .about-certs {
-        grid-template-columns: 1fr !important;
-    }
-    
-    /* Tarjetas de servicios (Planes) */
-    .pricing-card {
-        padding: 20px !important;
-    }
-    .plan-price {
-        font-size: 2rem !important;
-    }
-
-    /* Tienda (Grid de productos) */
-    .store-grid {
-        grid-template-columns: 1fr !important;
-    }
-    .store-card {
-        margin-bottom: 20px !important;
-    }
-
-    /* Sección de contacto */
-    .contact-wrapper {
-        padding: 20px !important;
-    }
-    .contact-info {
-        text-align: center !important;
-    }
-    .social-links {
-        justify-content: center !important;
-    }
-
-    /* Footer */
-    .footer-grid {
-        grid-template-columns: 1fr !important;
-        text-align: center !important;
-        gap: 30px !important;
-    }
-    .footer-brand .glass-logo {
-        margin: 0 auto 10px !important;
-    }
-}
-
-/* 2. Ajustes para tablets (pantallas medianas) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .glass-hero {
-        grid-template-columns: 1fr !important;
-        text-align: center !important;
-    }
-    .hero-image {
-        margin-top: 30px !important;
-    }
-    .pricing-grid, .testimonials-grid {
-        grid-template-columns: 1fr 1fr !important;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr 1fr !important;
-    }
-}
-/* ============================================================
-   SEPARACIÓN VISUAL DEL PANEL DE ADMIN
-   ============================================================ */
-
-/* 1. Fondo sólido para el contenido principal */
-body.admin-body .admin-main {
-    background: #050505 !important;
-    padding: 30px 40px !important;
-}
-
-/* 2. Fondo sólido y borde para la barra lateral (sin transparencia) */
-body.admin-body .admin-sidebar {
-    background: #08080a !important; 
-    backdrop-filter: none !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 5px 0 20px rgba(0,0,0,0.5) !important;
-}
-
-/* 3. Separar cada panel (Productos, Servicios, Opiniones) */
-body.admin-body .admin-panel {
-    background: #0a0a0c !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 20px !important;
-    padding: 30px !important;
-    margin-bottom: 30px !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
-}
-
-/* 4. Separar las tarjetas de estadísticas */
-body.admin-body .admin-stat-card {
-    background: #0f111a !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
-}
-
-/* 5. Arreglar los botones de acción (Lápiz y Basura) */
-body.admin-body .table-actions button {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-}
-body.admin-body .table-actions button:hover {
-    background: #a8b9cc !important;
-    color: #000 !important;
-}
-/* ============================================================
-   ARREGLO DEFINITIVO: VENTANA MODAL, FONDOS Y BOTONES
-   ============================================================ */
-
-/* 1. OCULTAR LA VENTANA MODAL POR DEFECTO (Soluciona la ventana transparente) */
-body.admin-body .cms-modal,
-body.admin-body .jp-confirm-modal {
-    display: flex !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    position: fixed !important;
-    inset: 0 !important;
-    z-index: 99999 !important;
-    background: rgba(5, 6, 10, 0.85) !important;
-    backdrop-filter: blur(8px) !important;
-}
-
-/* Cuando el JS le añade la clase .is-visible, la ventana aparece */
-body.admin-body .cms-modal.is-visible,
-body.admin-body .jp-confirm-modal.is-visible {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: all !important;
-}
-
-/* 2. FONDO SÓLIDO PARA EL PANEL Y TARJETAS (Que no se mezclen) */
-body.admin-body .admin-main {
-    background: #050505 !important;
-    padding: 30px 40px !important;
-}
-body.admin-body .admin-panel {
-    background: #0a0a0c !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 20px !important;
-    padding: 30px !important;
-    margin-bottom: 30px !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
-}
-body.admin-body .admin-stat-card {
-    background: #0f111a !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-/* 3. BARRA LATERAL SÓLIDA Y FIJA */
-body.admin-body .admin-sidebar {
-    background: #08080a !important;
-    backdrop-filter: none !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-    z-index: 1000 !important;
-}
-
-/* 4. ESTILO DE LA CAJA DE LA VENTANA MODAL (Para que se vea bonita) */
-body.admin-body .cms-dialog,
-body.admin-body .jp-confirm-dialog {
-    background: #0f111a !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 20px !important;
-    padding: 30px !important;
-    width: 100% !important;
-    max-width: 600px !important;
-    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8) !important;
-    transform: translateY(0) !important;
-}
+/* Mejoras adicionales de botones */
+body.admin-body .table-actions button:not(.danger):hover i.fa-pen { color: #a8b9cc !important; transform: scale(1.2) !important; }
+body.admin-body .table-actions button.danger:hover i.fa-trash { color: #ef4444 !important; transform: scale(1.2) !important; }
+body.admin-body .btn-admin-add:hover i.fa-plus { transform: rotate(90deg) !important; }
+body.admin-body .admin-icon-btn:hover i.fa-arrow-up-right-from-square { transform: translate(2px, -2px) !important; }
+body.admin-body .admin-search:focus-within { border-color: #a8b9cc !important; box-shadow: 0 0 15px rgba(168, 185, 204, 0.1) !important; }
+body.admin-body .admin-search:focus-within i { color: #a8b9cc !important; }
