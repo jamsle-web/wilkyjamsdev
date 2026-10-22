@@ -641,3 +641,47 @@ Object.assign(translations.es,{"page.title.privacy":"Privacidad · Jamsle Porcen
 Object.assign(translations.en,{"page.title.privacy":"Privacy · Jamsle Porcena","page.title.terms":"Terms · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Help Center · Jamsle Porcena","page.description.privacy":"Jamsle Porcena privacy policy.","page.description.terms":"Jamsle Porcena terms of use.","page.description.cookies":"Jamsle Porcena cookie policy.","page.description.help":"Jamsle Porcena help center."});
 Object.assign(translations.fr,{"page.title.privacy":"Confidentialité · Jamsle Porcena","page.title.terms":"Conditions · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centre d’aide · Jamsle Porcena","page.description.privacy":"Politique de confidentialité de Jamsle Porcena.","page.description.terms":"Conditions d’utilisation de Jamsle Porcena.","page.description.cookies":"Politique relative aux cookies de Jamsle Porcena.","page.description.help":"Centre d’aide de Jamsle Porcena."});
 Object.assign(translations.pt,{"page.title.privacy":"Privacidade · Jamsle Porcena","page.title.terms":"Termos · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Central de Ajuda · Jamsle Porcena","page.description.privacy":"Política de privacidade de Jamsle Porcena.","page.description.terms":"Termos de uso de Jamsle Porcena.","page.description.cookies":"Política de cookies de Jamsle Porcena.","page.description.help":"Central de ajuda de Jamsle Porcena."});
+/* ===== LÓGICA DE NEWSLETTER ===== */
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('newsletterForm');
+    const btn = document.getElementById('newsletterBtn');
+    const toast = document.getElementById('newsletterToast');
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Guardamos el texto original y ponemos "Cargando..."
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+            // Añadimos el asunto para Formspree
+            formData.append('_subject', 'Nuevo suscriptor en Wilkyjams Dev!');
+
+            try {
+                const response = await fetch('https://formspree.io/f/mkjoappw', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    // Éxito: Mostrar Toast
+                    form.reset();
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 4000);
+                } else {
+                    alert('Hubo un problema. Inténtalo de nuevo.');
+                }
+            } catch (error) {
+                alert('Error de conexión. Revisa tu internet.');
+            } finally {
+                // Restaurar botón
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    }
+});
