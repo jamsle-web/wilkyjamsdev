@@ -4,18 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Diseño web, UI/UX y marketing digital de Jamsle Porcena. Portafolio de proyectos, servicios y soluciones digitales." data-i18n-meta="page.description.home" />
-    <meta name="theme-color" content="#0b0f19" />
+    <meta name="theme-color" content="#050505" />
     <title>Wilkyjams Dev · Experiencias Digitales</title>
 
-    <!-- ===== FAVICON (Archivos locales subidos a tu proyecto) ===== -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <!-- =================== -->
 
-    <!-- ===== ETIQUETAS PARA REDES SOCIALES (OPEN GRAPH) ===== -->
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://wilkyjamsdev.vercel.app/" />
     <meta property="og:title" content="Wilkyjams Dev | Diseño Web & Marketing Digital" />
@@ -24,49 +23,48 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <!-- Etiquetas para Twitter (X) -->
+    <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Wilkyjams Dev | Diseño Web & Marketing Digital" />
     <meta name="twitter:description" content="Transformo ideas en identidades digitales sólidas. Combino diseño, tecnología e IA para hacer crecer tu marca." />
     <meta name="twitter:image" content="https://i.postimg.cc/qqSTwpnh/36e1931a-3105-4dd3-b173-cd49a8a81d18.jpg" />
-    <!-- ====================================================== -->
 
-    <!-- Fuentes e iconos (CDN) -->
+    <!-- FUENTES Y LIBRERÍAS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-    <!-- AOS (Animate On Scroll) - CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
-    <!-- CSS principal (archivo local) -->
+    <!-- TU CSS (El que transformaremos) -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ===== NAVEGACIÓN ===== -->
+    <!-- CANVAS PARA PARTICULAS 3D -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- ===== NAVEGACIÓN (ESTILO GLASS) ===== -->
     <nav>
         <div class="container">
-            <!-- LOGO ACTUALIZADO: JP + Wilkyjams Dev -->
             <a href="#hero" class="logo" data-jp-owner-access style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
                 <span class="logo-icon">JP</span>
                 <span class="logo-text">Wilkyjams Dev</span>
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
-                <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
-                <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
-                <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
-                <li><a href="#projects" data-i18n="nav.projects">Proyectos</a></li>
-                <li><a href="contacto.html" class="btn-outline" data-i18n="nav.contact">Contáctame</a></li>
+                <li><a href="#services" data-i18n="nav.services">Servicios</a></li>
+                <li><a href="#store" data-i18n="nav.store">Tienda</a></li>
+                <!-- ENLACE AL NUEVO PORTAFOLIO -->
+                <li><a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" style="color: var(--accent-2); font-weight: 700;">Portafolio <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a></li>
+                <li><a href="#contact" class="btn-outline" data-i18n="nav.contact">Contáctame</a></li>
+                
                 <li>
                     <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
                         <i class="fas fa-shopping-bag"></i>
                         <span class="cart-count">0</span>
                     </button>
                 </li>
-              <!-- Selector de idioma -->
                 <li>
                     <div class="lang-selector">
                         <button class="active" data-lang="es">ES</button>
@@ -77,34 +75,31 @@
                 </li>
             </ul>
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- ===== HERO ===== -->
+    <!-- ===== HERO (ESTILO PROFESIONAL Y GLASS) ===== -->
     <section id="hero">
-        <div class="container">
+        <div class="container glass-hero">
             <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
-                <div class="subtitle">
-                    <i class="fas fa-code"></i> <span data-i18n="hero.subtitle" data-site-setting="site_role">Web Design · Marketing Digital</span>
+                <div class="subtitle glass-badge">
+                    <i class="fas fa-rocket"></i> <span data-i18n="hero.subtitle">Web Design · Marketing Digital</span>
                 </div>
-                <!-- H1 MODIFICADO PARA EL EFECTO DE ESCRITURA (TEXTO FIJO) -->
-                <h1 id="hero-title-container">
-                    <span style="color: #fff;">Hola, soy</span> <br>
-                    <span class="highlight" id="typewriter-text"></span>
+                <h1 class="reveal-text">
+                    <span style="color: #fff;" data-i18n="hero.greeting">Diseño y Estrategia</span> <br>
+                    <span class="highlight">para tu Marca</span>
                 </h1>
-                <p data-i18n="hero.description" data-site-setting="description">
-                    Diseñador web y especialista en marketing digital apasionado por transformar ideas en identidades digitales sólidas. Combino diseño, tecnología e IA para hacer crecer tu marca.
+                <p data-i18n="hero.description">
+                    Soluciones digitales de alto impacto. Combino diseño, tecnología e IA para hacer crecer tu negocio.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn-primary">
-                        <i class="fas fa-arrow-right"></i> <span data-i18n="hero.btn_projects">Ver proyectos</span>
+                    <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" class="btn-primary">
+                        <i class="fas fa-external-link-alt"></i> <span>Ver Portafolio</span>
                     </a>
-                    <a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-                        <i class="fas fa-paper-plane"></i> <span data-i18n="hero.btn_contact">Hablemos</span>
+                    <a href="#services" class="btn-secondary glass-btn">
+                        <i class="fas fa-briefcase"></i> <span>Nuestros Servicios</span>
                     </a>
                 </div>
                 <div class="hero-stats">
@@ -123,22 +118,22 @@
                 </div>
             </div>
             <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
-                <div class="avatar-wrapper">
+                <div class="avatar-wrapper glass-avatar">
                     <div class="avatar-inner"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SOBRE MÍ ===== -->
-    <section id="about">
+    <!-- ===== SOBRE MÍ (GLASS) ===== -->
+    <section id="about" style="background: rgba(255,255,255,0.01);">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="label" data-i18n="about.label">Conóceme</span>
+                <span class="label glass-label" data-i18n="about.label">Conóceme</span>
                 <h2 data-i18n="about.title">Diseño + Estrategia = Impacto</h2>
                 <p data-i18n="about.subtitle">Mi enfoque va más allá de lo estético: construyo experiencias digitales que conectan y generan resultados.</p>
             </div>
-            <div class="about-grid">
+            <div class="about-grid glass-panel">
                 <div class="about-text" data-aos="fade-right">
                     <h3 data-i18n="about.heading">Apasionado por la creación digital</h3>
                     <p data-i18n="about.p1">
@@ -150,43 +145,41 @@
                         <strong data-i18n="about.specialty_label">Especialidad:</strong> 
                         <span data-i18n="about.specialty_text">Landing pages optimizadas, CMS (WordPress/Webflow), investigación UX y edición con IA.</span>
                     </p>
-                   
-<div class="lang-list">
-    <span><strong>Francés</strong> · Nativo</span>
-    <span><strong>Creole</strong> · Nativo</span>
-    <span><strong>Portugués</strong> · Básico</span>
-    <span><strong>Español</strong> · Fluido</span>
-    <span><strong>Inglés</strong> · Avanzado (C1)</span>
-</div>
-
+                    <div class="lang-list">
+                        <span><strong>Francés</strong> · Nativo</span>
+                        <span><strong>Creole</strong> · Nativo</span>
+                        <span><strong>Portugués</strong> · Básico</span>
+                        <span><strong>Español</strong> · Fluido</span>
+                        <span><strong>Inglés</strong> · Avanzado (C1)</span>
+                    </div>
                     <div style="margin-top: 24px;">
-                        <span style="background: var(--bg-card); padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border-color); font-size: 0.9rem;">
+                        <span class="glass-tag">
                             <i class="fas fa-briefcase" style="color: var(--accent-2);"></i> <span data-i18n="about.experience">Freelance · JamsLab Studio (2023-2025)</span>
                         </span>
                     </div>
                 </div>
                 <div class="about-certs" data-aos="fade-left">
-                    <div class="cert-item">
+                    <div class="cert-item glass-card">
                         <i class="fas fa-certificate"></i>
                         <h4 data-i18n="cert.website_title">Website Design</h4>
                         <p data-i18n="cert.website_org">HP LIFE · 2024</p>
                     </div>
-                    <div class="cert-item">
+                    <div class="cert-item glass-card">
                         <i class="fas fa-robot"></i>
                         <h4 data-i18n="cert.ai_title">AI Technology for Business</h4>
                         <p data-i18n="cert.ai_org">HP LIFE · 2024</p>
                     </div>
-                    <div class="cert-item">
+                    <div class="cert-item glass-card">
                         <i class="fas fa-paint-brush"></i>
                         <h4 data-i18n="cert.canva_title">Canva Design</h4>
                         <p data-i18n="cert.canva_org">Canva · 2024</p>
                     </div>
-                    <div class="cert-item">
+                    <div class="cert-item glass-card">
                         <i class="fas fa-chart-line"></i>
                         <h4 data-i18n="cert.dm_title">Digital Marketing</h4>
                         <p data-i18n="cert.dm_org">HubSpot Academy · 2025</p>
                     </div>
-                    <div class="cert-item" style="grid-column: span 2;">
+                    <div class="cert-item glass-card" style="grid-column: span 2;">
                         <i class="fas fa-database"></i>
                         <h4 data-i18n="cert.data_title">Data Analytics</h4>
                         <p data-i18n="cert.data_org">Databricks / Simplilearn · 2025</p>
@@ -196,233 +189,125 @@
         </div>
     </section>
 
-    <!-- ===== HABILIDADES ===== -->
-    <section id="skills">
+    <!-- ===== SERVICIOS (PRICING) ===== -->
+    <section id="services">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="label" data-i18n="skills.label">Experiencia técnica</span>
-                <h2 data-i18n="skills.title">Mis herramientas</h2>
-                <p data-i18n="skills.subtitle">Desde diseño y desarrollo hasta estrategia digital y análisis de datos.</p>
+                <span class="label glass-label" data-i18n="services.plans_label">Servicios</span>
+                <h2 data-i18n="services.plans_title">Planes a tu medida</h2>
+                <p data-i18n="services.plans_desc">Precios de referencia en dólares (USD). Cada proyecto se ajusta según alcance, plazos y contenido.</p>
             </div>
-            <div class="skills-grid">
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="50"><i class="fab fa-html5"></i><h4>HTML5</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-css3-alt"></i><h4>CSS3</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="150"><i class="fab fa-js"></i><h4>JavaScript</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-mobile-alt"></i><h4 data-i18n="skill.responsive">Responsive Design</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="250"><i class="fas fa-pencil-ruler"></i><h4>UI/UX Design</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="300"><i class="fab fa-figma"></i><h4>Figma</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="350"><i class="fas fa-code"></i><h4>VS Code</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="400"><i class="fab fa-wordpress"></i><h4>WordPress</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="450"><i class="fas fa-globe"></i><h4>Webflow</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="500"><i class="fas fa-search"></i><h4>SEO</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="550"><i class="fas fa-users"></i><h4 data-i18n="skill.ux">UX Research</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="600"><i class="fas fa-rocket"></i><h4 data-i18n="skill.landing">Landing Pages</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="650"><i class="fas fa-database"></i><h4 data-i18n="skill.cms">CMS Management</h4></div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="700"><i class="fas fa-brain"></i><h4 data-i18n="skill.ai">IA & Edición</h4></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== PROYECTOS ===== -->
-    <section id="projects">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="label" data-i18n="projects.label">Portafolio</span>
-                <h2 data-i18n="projects.title">Proyectos destacados</h2>
-                <p data-i18n="projects.subtitle">Casos de éxito donde el diseño y la estrategia digital marcaron la diferencia.</p>
-            </div>
-
-            <!-- ===== FILTROS DE CATEGORÍA ===== -->
-            <div class="filter-tabs" data-aos="fade-up" data-aos-delay="100">
-                <button class="active" data-filter="all">Todos</button>
-                <button data-filter="uiux">UI/UX</button>
-                <button data-filter="desarrollo">Desarrollo</button>
-                <button data-filter="ecommerce">E-commerce</button>
-            </div>
-
-            <div class="projects-grid">
-                <!-- Proyecto 1: Aetheris (DESTACADO, SIN LINK) -->
-                <div class="project-card featured" data-category="desarrollo uiux" data-aos="flip-up" data-aos-delay="100">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/tJj4pPpz/IMXJh-Zesr-Oyx8.png" alt="Aetheris - Landing page interactiva" loading="lazy" />
-                        <span class="featured-badge"><i class="fas fa-star"></i> Proyecto Estrella</span>
-                    </div>
-                    <div class="project-body">
-                        <div class="tags">
-                            <span>Three.js</span>
-                            <span>GSAP</span>
-                            <span>Lenis</span>
-                            <span>WebGL</span>
-                            <span>Glassmorphism</span>
-                        </div>
-                        <h3 data-i18n="proj5.title">Aetheris · Landing page interactiva</h3>
-                        <p data-i18n="proj5.desc">Experiencia web inmersiva para una marca de computación espacial. Interfaz con efecto glass, animaciones 3D fluidas con Three.js, scroll suave con Lenis y diseño futurista.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj5.result">Interactividad 3D y experiencia de usuario de vanguardia</span></div>
-                        <div class="project-footer">
-                            <span class="project-year">2026</span>
-                            <!-- SIN BOTÓN VER DEMO PORQUE NO TIENE LINK -->
-                        </div>
-                    </div>
+            <div class="pricing-grid">
+                <!-- Plan 1 -->
+                <div class="pricing-card glass-panel" data-aos="fade-up" data-aos-delay="50">
+                    <h4 class="plan-name" data-i18n="plans.landing.title">Landing Page</h4>
+                    <p class="plan-desc" data-i18n="plans.landing.desc">Ideal para lanzar un producto o campaña.</p>
+                    <div class="plan-price">$180 <span data-i18n="plans.per_project">/ proyecto</span></div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.landing.f1">Diseño de 1 página</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.landing.f2">Responsive</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.landing.f3">Formulario de contacto</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.landing.f4">SEO básica</span></li>
+                    </ul>
+                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Landing%20Page" target="_blank" class="btn-secondary glass-btn" style="justify-content:center;" data-service-plan="landing" data-i18n="services.request">Solicitar</a>
                 </div>
-
-                <!-- Proyecto 2: DevPath 2027 (CON LINK) -->
-                <div class="project-card" data-category="desarrollo uiux" data-aos="flip-up" data-aos-delay="200">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/FR4TrL4v/IMOGBd-SDw274M.png" alt="DevPath 2027 - Plan de estudios interactivo" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="tags">
-                            <span>HTML5</span>
-                            <span>CSS3</span>
-                            <span>JavaScript</span>
-                            <span>UI/UX</span>
-                            <span>Educación</span>
-                        </div>
-                        <h3>DevPath 2027 · Plan de estudios interactivo</h3>
-                        <p>Plataforma educativa que presenta una hoja de ruta completa para convertirte en desarrollador web. Incluye seguimiento de progreso, módulos organizados por meses y recursos de aprendizaje.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> Interfaz de aprendizaje estructurada y seguimiento de progreso en tiempo real</div>
-                        <div class="project-footer">
-                            <span class="project-year">2026</span>
-                            <a href="https://devpath-2027-lyart.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-demo">
-                                <i class="fas fa-external-link-alt"></i> Ver demo
-                            </a>
-                        </div>
-                    </div>
+                <!-- Plan 2 -->
+                <div class="pricing-card glass-panel featured" data-aos="fade-up" data-aos-delay="150">
+                    <span class="badge-popular" data-i18n="services.popular">Más elegido</span>
+                    <h4 class="plan-name" data-i18n="plans.full.title">Sitio Web Completo</h4>
+                    <p class="plan-desc" data-i18n="plans.full.desc">Un sitio multi-página profesional.</p>
+                    <div class="plan-price">$450 <span data-i18n="plans.per_project">/ proyecto</span></div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.full.f1">Hasta 5 páginas</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.full.f2">Diseño 100% personalizado</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.full.f3">Animaciones</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.full.f4">SEO + Analytics</span></li>
+                    </ul>
+                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Sitio%20Web%20Completo" target="_blank" class="btn-primary" style="justify-content:center;" data-service-plan="full" data-i18n="services.request">Solicitar</a>
                 </div>
-
-                <!-- Proyecto 3: Gentleman's Grooming (CON LINK) -->
-                <div class="project-card" data-category="ecommerce uiux" data-aos="flip-up" data-aos-delay="300">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/KjX3SPhG/grooming-website.png" alt="Gentleman's Grooming - E-commerce de lujo" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="tags">
-                            <span>HTML5</span>
-                            <span>CSS3</span>
-                            <span>JavaScript</span>
-                            <span>E-commerce</span>
-                            <span>UI/UX</span>
-                        </div>
-                        <h3>Gentleman's Grooming · E-commerce de lujo</h3>
-                        <p>Tienda online premium para el caballero moderno. Catálogo de fragancias, relojería y accesorios de alta gama con un diseño elegante y minimalista.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> Experiencia de compra sofisticada y diseño de vanguardia</div>
-                        <div class="project-footer">
-                            <span class="project-year">2026</span>
-                            <a href="https://jamsle-web.github.io/Gentleman-s-Groomin/" target="_blank" rel="noopener noreferrer" class="btn-demo">
-                                <i class="fas fa-external-link-alt"></i> Ver demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Proyecto 4: Santo Sabor (SIN LINK) -->
-                <div class="project-card" data-category="uiux desarrollo" data-aos="flip-up" data-aos-delay="400">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/L8SRG0y4/IMZ78TX4X6W5w.png" alt="Santo Sabor - Rediseño de identidad" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="tags"><span>Figma</span><span>Webflow</span><span>HTML5</span><span>CSS3</span><span>AI</span></div>
-                        <h3 data-i18n="proj1.title">Santo Sabor · Rediseño de identidad</h3>
-                        <p data-i18n="proj1.desc">Rediseño de identidad digital para marca local. Experiencia web moderna, funcional y visualmente impactante. Rol: UI/UX Designer & Web Developer.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj1.result">+40% tiempo de permanencia · mejora en conversión</span></div>
-                        <div class="project-footer">
-                            <span class="project-year">2025</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Proyecto 5: StudyFlow AI (SIN LINK) -->
-                <div class="project-card" data-category="uiux desarrollo" data-aos="flip-up" data-aos-delay="500">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/K8bFCs9L/Study-Flow-AI.png" alt="StudyFlow AI - App educativa" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="tags"><span>AI</span><span>UI/UX</span><span>Product Design</span></div>
-                        <h3 data-i18n="proj2.title">StudyFlow AI · App educativa</h3>
-                        <p data-i18n="proj2.desc">Aplicación educativa impulsada por IA para hacer el aprendizaje más organizado, intuitivo y personalizado. Arquitectura de información, UI/UX y prototipado.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj2.result">Aprendizaje personalizado con IA</span></div>
-                        <div class="project-footer">
-                            <span class="project-year">2026</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Proyecto 6: Sabor Urbano (SIN LINK) -->
-                <div class="project-card" data-category="ecommerce desarrollo" data-aos="flip-up" data-aos-delay="600">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/TYDDM90H/IMcib-Ay-Zz-EZg4.png" alt="Sabor Urbano - Demo conceptual" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="tags">
-                            <span>HTML5</span>
-                            <span>CSS3</span>
-                            <span>JavaScript</span>
-                            <span>Glassmorphism</span>
-                        </div>
-                        <h3 data-i18n="proj4.title">Sabor Urbano · E-commerce conceptual</h3>
-                        <p data-i18n="proj4.desc">Demo premium para cafetería de especialidad. Interfaz minimalista con efecto glass, carrito funcional, filtros por categoría y sistema de múltiples idiomas integrado.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj4.result">Experiencia de usuario fluida y diseño de vanguardia</span></div>
-                        <div class="project-footer">
-                            <span class="project-year">2026</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Proyecto 7: Burger King (SIN LINK) -->
-                <div class="project-card" data-category="uiux desarrollo" data-aos="flip-up" data-aos-delay="700">
-                    <div class="project-thumb">
-                        <img src="https://i.postimg.cc/4xGZjF8x/IMGy-Zk1U6B1cw.png" alt="Burger King - Rediseño conceptual" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="tags"><span>Figma</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
-                        <h3 data-i18n="proj3.title">Burger King · Rediseño conceptual</h3>
-                        <p data-i18n="proj3.desc">Rediseño conceptual de interfaz web para Burger King, enfocado en experiencia moderna, visualmente atractiva y centrada en productos.</p>
-                        <div class="result"><i class="fas fa-arrow-up"></i> <span data-i18n="proj3.result">Experiencia moderna y atractiva</span></div>
-                        <div class="project-footer">
-                            <span class="project-year">2026</span>
-                        </div>
-                    </div>
+                <!-- Plan 3 -->
+                <div class="pricing-card glass-panel" data-aos="fade-up" data-aos-delay="250">
+                    <h4 class="plan-name" data-i18n="plans.brand.title">Marca + Marketing</h4>
+                    <p class="plan-desc" data-i18n="plans.brand.desc">Identidad visual y estrategia de contenido.</p>
+                    <div class="plan-price">$850 <span data-i18n="plans.per_project">/ proyecto</span></div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.brand.f1">Todo lo del plan Web</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.brand.f2">Logo + manual de marca</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.brand.f3">Plan de contenido</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="plans.brand.f4">Estrategia SEO avanzada</span></li>
+                    </ul>
+                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Marca%20%2B%20Marketing" target="_blank" class="btn-secondary glass-btn" style="justify-content:center;" data-service-plan="brand" data-i18n="services.request">Solicitar</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== TESTIMONIOS ===== -->
+    <!-- ===== PROYECTOS DESTACADOS (PREVIEW) ===== -->
+    <section id="projects-preview" style="background: rgba(255,255,255,0.01);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label glass-label" data-i18n="projects.label">Portafolio</span>
+                <h2 data-i18n="projects.title">Trabajos Recientes</h2>
+                <p data-i18n="projects.subtitle">Una muestra de los proyectos donde el diseño marcó la diferencia.</p>
+            </div>
+            <!-- Mini Grid de 3 Proyectos -->
+            <div class="projects-grid-mini">
+                <div class="project-card glass-panel" data-aos="fade-up">
+                    <div class="project-thumb"><img src="https://i.postimg.cc/tJj4pPpz/IMXJh-Zesr-Oyx8.png" alt="Aetheris" loading="lazy"></div>
+                    <div class="project-body"><h4>Aetheris</h4><p>Landing 3D Inmersiva</p></div>
+                </div>
+                <div class="project-card glass-panel" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-thumb"><img src="https://i.postimg.cc/FR4TrL4v/IMOGBd-SDw274M.png" alt="DevPath" loading="lazy"></div>
+                    <div class="project-body"><h4>DevPath 2027</h4><p>Plataforma Educativa</p></div>
+                </div>
+                <div class="project-card glass-panel" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-thumb"><img src="https://i.postimg.cc/KjX3SPhG/grooming-website.png" alt="Grooming" loading="lazy"></div>
+                    <div class="project-body"><h4>Gentleman's</h4><p>E-commerce Premium</p></div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;" data-aos="fade-up">
+                <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i> Ver todos los proyectos en mi Portafolio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIOS (GLASS) ===== -->
     <section id="testimonials">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="label" data-i18n="testimonials.label">Opiniones</span>
+                <span class="label glass-label" data-i18n="testimonials.label">Opiniones</span>
                 <h2 data-i18n="testimonials.title">Lo que dicen mis clientes</h2>
-                <p data-i18n="testimonials.subtitle">Personas y empresas que han confiado en mí para potenciar su presencia digital.</p>
             </div>
             <div class="testimonials-grid">
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <i class="fas fa-quote-left"></i>
-                    <p data-i18n="testimonial1.text">"Jamsle transformó por completo nuestra web. El diseño es impecable y nuestras ventas online se dispararon. Muy profesional y atento a cada detalle."</p>
+                    <p data-i18n="testimonial1.text">"Jamsle transformó por completo nuestra web. El diseño es impecable y nuestras ventas online se dispararon."</p>
                     <div class="client">
-                        <div class="avatar">M</div>
+                        <div class="avatar" style="background: var(--accent-gradient);">M</div>
                         <div class="info">
                             <h4 data-i18n="testimonial1.name">María Gómez</h4>
                             <span data-i18n="testimonial1.role">Directora de EcoGreen</span>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <i class="fas fa-quote-left"></i>
-                    <p data-i18n="testimonial2.text">"Excelente trabajo en el rediseño de nuestro spa. El nuevo sitio es moderno, rápido y ha aumentado las reservas de forma significativa. Muy recomendable."</p>
+                    <p data-i18n="testimonial2.text">"Excelente trabajo en el rediseño de nuestro spa. El nuevo sitio es moderno y ha aumentado las reservas."</p>
                     <div class="client">
-                        <div class="avatar">C</div>
+                        <div class="avatar" style="background: var(--accent-gradient);">C</div>
                         <div class="info">
                             <h4 data-i18n="testimonial2.name">Carlos Pérez</h4>
                             <span data-i18n="testimonial2.role">Gerente de Bella Vista Spa</span>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="300">
                     <i class="fas fa-quote-left"></i>
-                    <p data-i18n="testimonial3.text">"La estrategia SEO de Jamsle llevó nuestro blog al primer lugar en Google. El tráfico orgánico creció más de un 120% en pocos meses. Un verdadero experto."</p>
+                    <p data-i18n="testimonial3.text">"La estrategia SEO de Jamsle llevó nuestro blog al primer lugar en Google. Un verdadero experto."</p>
                     <div class="client">
-                        <div class="avatar">L</div>
+                        <div class="avatar" style="background: var(--accent-gradient);">L</div>
                         <div class="info">
                             <h4 data-i18n="testimonial3.name">Laura Díaz</h4>
                             <span data-i18n="testimonial3.role">Fundadora de TechLab RD</span>
@@ -433,53 +318,35 @@
         </div>
     </section>
 
-    <!-- ===== CERTIFICACIONES (extra) ===== -->
-    <section id="certs" style="padding-top: 0;">
+    <!-- ===== CONTACTO (GLASS) ===== -->
+    <section id="contact" style="background: rgba(255,255,255,0.01);">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="label" data-i18n="certs.label">Formación continua</span>
-                <h2 data-i18n="certs.title">Certificaciones</h2>
+                <span class="label glass-label" data-i18n="contact.label">Conectemos</span>
+                <h2 data-i18n="contact.title">¿Hablamos de tu proyecto?</h2>
             </div>
-            <div class="certs-grid">
-                <div class="cert-item" data-aos="zoom-in" data-aos-delay="50"><i class="fas fa-laptop-code"></i><h4 data-i18n="cert.website_title">Website Design Fundamentals</h4><p data-i18n="cert.website_org">HP LIFE · 2024</p></div>
-                <div class="cert-item" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-microchip"></i><h4 data-i18n="cert.ai_title">AI Technology for Business</h4><p data-i18n="cert.ai_org">HP LIFE · 2024</p></div>
-                <div class="cert-item" data-aos="zoom-in" data-aos-delay="150"><i class="fas fa-palette"></i><h4 data-i18n="cert.canva_title">Canva Design Certificate</h4><p data-i18n="cert.canva_org">Canva · 2024</p></div>
-                <div class="cert-item" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-bullhorn"></i><h4 data-i18n="cert.dm_title">Digital Marketing</h4><p data-i18n="cert.dm_org">HubSpot Academy · 2025</p></div>
-                <div class="cert-item" style="grid-column: span 2;" data-aos="zoom-in" data-aos-delay="250"><i class="fas fa-chart-pie"></i><h4 data-i18n="cert.data_title">Data Analytics</h4><p data-i18n="cert.data_org">Databricks · Simplilearn · 2025</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== CONTACTO ===== -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="label" data-i18n="contact.label">Conectemos</span>
-                <h2 data-i18n="contact.title">¿Hablamos de tu próximo proyecto?</h2>
-                <p data-i18n="contact.subtitle">Estoy a un mensaje de distancia. Cuéntame tu idea y la hacemos realidad.</p>
-            </div>
-            <div class="contact-wrapper" data-aos="flip-up">
+            <div class="contact-wrapper glass-panel" data-aos="flip-up">
                 <div class="contact-info">
                     <h3 data-i18n="contact.info_title">Información de contacto</h3>
                     <p data-i18n="contact.info_desc">Puedes escribirme por cualquiera de estos medios o a través de mis redes profesionales.</p>
                     <div class="contact-item">
                         <i class="fas fa-phone-alt"></i>
-                        <a href="tel:+18099995904" data-site-setting="phone-link">+1 (809) 999-59-04</a>
+                        <a href="tel:+18099995904">+1 (809) 999-59-04</a>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:porcenatjamsle07@gmail.com" data-site-setting="email-link">porcenatjamsle07@gmail.com</a>
+                        <a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-briefcase"></i>
-                        <a href="https://www.fiverr.com/s/xLZLbj0" >Fiverr · JamsLab Studio</a>
+                        <a href="https://www.fiverr.com/s/xLZLbj0" target="_blank">Fiverr · JamsLab Studio</a>
                     </div>
                     <div class="social-links">
-                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="github" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="behance" aria-label="Behance"><i class="fab fa-behance"></i></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" data-site-setting="youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.fiverr.com/s/xLZLbj0" target="_blank" rel="noopener noreferrer" aria-label="Fiverr"><i class="fas fa-star"></i></a>
+                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                        <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.fiverr.com/s/xLXLbj0" target="_blank" aria-label="Fiverr"><i class="fas fa-star"></i></a>
                     </div>
                 </div>
                 <form class="contact-form" id="contactFormHome">
@@ -487,92 +354,56 @@
                     <input type="email" name="email" placeholder="Correo electrónico" required data-i18n-placeholder="contact.form_email" />
                     <input type="text" name="subject" placeholder="Asunto" data-i18n-placeholder="contact.form_subject" />
                     <textarea name="message" placeholder="Cuéntame sobre tu proyecto..." required data-i18n-placeholder="contact.form_message"></textarea>
-                    <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> <span data-i18n="contact.form_submit">Enviar mensaje</span></button>
+                    <button type="submit" class="btn-primary" style="width: 100%; border-radius: 12px;"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> <span data-i18n="contact.form_submit">Enviar mensaje</span></button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- ===== NEWSLETTER ===== -->
-    <section id="newsletter" style="padding: 60px 0; background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-        <div class="container" style="text-align: center; max-width: 750px;">
-            <span class="label" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-2); padding: 4px 16px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; display: inline-block;">Newsletter</span>
-            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin-bottom: 12px;">¿Qué te gustaría recibir?</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 28px;">Selecciona tus intereses y te enviaré contenido exclusivo directamente a tu correo.</p>
-            
-            <form action="https://formspree.io/f/mkjoappw" method="POST" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-                <!-- Asunto oculto para identificar en tu correo que es un suscriptor -->
-                <input type="hidden" name="_subject" value="Nuevo suscriptor en Wilkyjams Dev!">
-                
-                <!-- Input del correo -->
-                <input type="email" name="email" placeholder="Tu mejor correo electrónico" required style="width: 100%; max-width: 400px; padding: 14px 18px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 1rem;">
-
-                <!-- Opciones de suscripción (Checkboxes) con flex-wrap para móviles -->
-                <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 5px 0 15px;">
-                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-color);">
-                        <input type="checkbox" name="interes[]" value="Proyectos" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
-                        Nuevos proyectos
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-color);">
-                        <input type="checkbox" name="interes[]" value="Productos" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
-                        Productos digitales
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-color);">
-                        <input type="checkbox" name="interes[]" value="Cupones" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
-                        Cupones y ofertas
-                    </label>
-                </div>
-
-                <button type="submit" class="btn-primary" style="padding: 14px 40px; border-radius: 12px; border: none; cursor: pointer; width: 100%; max-width: 400px;">Suscribirme</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
+    <!-- ===== FOOTER (GLASS) ===== -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <div class="logo">JP</div>
+                    <div class="logo glass-logo">JP</div>
                     <p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p>
                 </div>
                 <div>
                     <h5 data-i18n="footer.navigation">Navegación</h5>
                     <ul>
-                        <li><a href="index.html#hero" data-i18n="nav.home">Inicio</a></li>
-                        <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
-                        <li><a href="index.html#projects" data-i18n="nav.projects">Proyectos</a></li>
-                        <li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li>
+                        <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
+                        <li><a href="#about" data-i18n="nav.about">Sobre mí</a></li>
+                        <li><a href="#projects-preview" data-i18n="nav.projects">Proyectos</a></li>
+                        <li><a href="#contact" data-i18n="nav.contact_short">Contacto</a></li>
                     </ul>
                 </div>
                 <div>
                     <h5 data-i18n="footer.services">Servicios</h5>
                     <ul>
-                        <li><a href="servicios.html" data-i18n="footer.web_design">Diseño web</a></li>
-                        <li><a href="servicios.html" data-i18n="footer.digital_marketing">Marketing digital</a></li>
-                        <li><a href="tienda.html" data-i18n="footer.store">Tienda de productos</a></li>
-                        <li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li>
-                        <li><a href="terms.html" data-i18n="footer.terms">Términos</a></li>
-                        <li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li>
-                        <li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li>
+                        <li><a href="#services" data-i18n="footer.web_design">Diseño web</a></li>
+                        <li><a href="#services" data-i18n="footer.digital_marketing">Marketing digital</a></li>
+                        <li><a href="#" data-i18n="footer.store">Tienda de productos</a></li>
+                        <li><a href="#" data-i18n="footer.privacy">Privacidad</a></li>
+                        <li><a href="#" data-i18n="footer.terms">Términos</a></li>
+                        <li><a href="#" data-i18n="footer.help">Centro de ayuda</a></li>
                     </ul>
                 </div>
                 <div>
                     <h5 data-i18n="footer.contact">Contacto</h5>
                     <ul>
-                        <li><a href="tel:+18099995904" data-site-setting="phone-link">+1 (809) 999-59-04</a></li>
-                        <li><a href="mailto:porcenatjamsle07@gmail.com" data-site-setting="email-link">porcenatjamsle07@gmail.com</a></li>
-                        <li><a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li>
+                        <li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li>
+                        <li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li>
+                        <li><a href="https://wa.me/18099995904" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 <span>Jamsle Porcena</span> · <span data-i18n="footer.tagline">Diseño web & Marketing Digital</span></p>
+                <p>© 2026 <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Jamsle Porcena</span> <span data-i18n="footer.tagline">· Diseño web & Marketing Digital</span></p>
             </div>
         </div>
     </footer>
 
-    <!-- ===== CARRITO LATERAL ===== -->
+    <!-- ===== CARRITO LATERAL (MANTENIDO) ===== -->
     <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
@@ -591,83 +422,68 @@
         </div>
     </div>
 
-    <!-- ===== SCRIPTS ===== -->
+    <!-- SCRIPTS BASE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: false, mirror: true });</script>
+    
+    <!-- LIBRERIAS 3D (THREE.JS) PARA EL FONDO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-client.js"></script>
     <script src="common.js"></script>
     <script src="cms-content.js"></script>
-<script>
-const homeContact = document.getElementById('contactFormHome');
-if (homeContact) homeContact.addEventListener('submit', async e => { e.preventDefault(); const f=new FormData(homeContact); const {error}=await portfolioSupabase.from('contact_messages').insert({name:f.get('name'),email:f.get('email'),subject:f.get('subject'),message:f.get('message')}); if(error){alert('No se pudo enviar el mensaje. Inténtalo de nuevo.');return;} homeContact.reset(); alert('Mensaje enviado correctamente.'); });
-</script>
 
-<!-- ===== SCRIPT DEL EFECTO DE MÁQUINA DE ESCRIBIR CORREGIDO ===== -->
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const textElement = document.getElementById('typewriter-text');
-        if (!textElement) return;
-        
-        // El texto que queremos que aparezca en la animación
-        const fullText = "Wilkyjams Dev";
-        
-        textElement.textContent = ''; // Vaciamos el span
-        textElement.style.borderRight = '3px solid #06b6d4'; // Cursor parpadeante
-        textElement.style.paddingRight = '4px';
-        
-        let i = 0;
-        function typeWriter() {
-            if (i < fullText.length) {
-                textElement.textContent += fullText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 80); // Velocidad de escritura
-            } else {
-                // Quitamos el cursor al terminar
-                setTimeout(() => {
-                    textElement.style.borderRight = 'none';
-                }, 2000);
-            }
+    <!-- SCRIPT PARA EL FONDO 3D (Three.js) -->
+    <script>
+        const canvas = document.querySelector('#webgl-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+
+        const particlesGeo = new THREE.BufferGeometry();
+        const particlesCount = 400;
+        const posArray = new Float32Array(particlesCount * 3);
+        for (let i = 0; i < particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+        const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particlesMesh);
+
+        const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), new THREE.MeshBasicMaterial({ color: 0xa8b9cc, wireframe: true, transparent: true, opacity: 0.15 }));
+        sphere.position.set(2.5, 0, -2);
+        scene.add(sphere);
+
+        const sphere2 = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshBasicMaterial({ color: 0xc4a8cc, wireframe: true, transparent: true, opacity: 0.1 }));
+        sphere2.position.set(-2.5, -1, -2);
+        scene.add(sphere2);
+
+        let reqId;
+        const clock = new THREE.Clock();
+        function animate() {
+            reqId = requestAnimationFrame(animate);
+            const t = clock.getElapsedTime();
+            particlesMesh.rotation.y = t * 0.04;
+            sphere.rotation.y = t * 0.12;
+            sphere2.rotation.y = -t * 0.15;
+            renderer.render(scene, camera);
         }
-        
-        // Empezamos después de 500ms para que la página cargue
-        setTimeout(typeWriter, 500);
-    });
-</script>
-<!-- =================================================== -->
+        animate();
 
-<!-- ===== SCRIPT DE FILTROS DE PROYECTOS ===== -->
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const filterBtns = document.querySelectorAll('.filter-tabs button');
-        const projectCards = document.querySelectorAll('#projects .project-card');
-        
-        if (!filterBtns.length || !projectCards.length) return;
-        
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Quitar active de todos
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const filter = btn.getAttribute('data-filter');
-                
-                projectCards.forEach(card => {
-                    const categories = (card.getAttribute('data-category') || '').split(' ');
-                    
-                    if (filter === 'all' || categories.includes(filter)) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) cancelAnimationFrame(reqId);
+            else animate();
         });
-    });
-</script>
-<!-- =========================================== -->
 
-    <!-- Vercel Web Analytics -->
-    <script defer src="https://vercel-insights.com/v1/script.js"></script>
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>
