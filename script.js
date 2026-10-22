@@ -685,3 +685,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+/* ===== LÓGICA DE NEWSLETTER ===== */
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('newsletterForm');
+    const btn = document.getElementById('newsletterBtn');
+    const toast = document.getElementById('newsletterToast');
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Guardamos el texto original y ponemos "Cargando..."
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+            // Añadimos el asunto para Formspree
+            formData.append('_subject', 'Nuevo suscriptor en Wilkyjams Dev!');
+
+            try {
+                const response = await fetch('https://formspree.io/f/mkjoappw', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    // Éxito: Mostrar Toast
+                    form.reset();
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 4000);
+                } else {
+                    alert('Hubo un problema. Inténtalo de nuevo.');
+                }
+            } catch (error) {
+                alert('Error de conexión. Revisa tu internet.');
+            } finally {
+                // Restaurar botón
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    }
+});
