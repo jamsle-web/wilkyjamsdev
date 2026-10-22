@@ -342,10 +342,12 @@
         <div class="cart-footer">
             <div class="cart-total"><span data-i18n="cart.total">Total</span><span id="cartTotalValue">$0.00</span></div>
             <div style="display: flex; gap: 10px; flex-direction: column;">
-                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-primary" style="width: 100%; justify-content: center; background: #00c4b4; color: #fff;">
+                <!-- BOTÓN DE AIRTM (AHORA ES BLANCO Y GLASS) -->
+                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-airtm">
                     <i class="fas fa-credit-card"></i> Pagar con Airtm
                 </a>
-                <button class="btn-checkout" onclick="Cart.checkoutViaWhatsApp()" style="background: transparent; border: 1px solid var(--glass-border); color: #fff;">
+                <!-- BOTÓN DE WHATSAPP (TRANSPARENTE CON BORDE) -->
+                <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()">
                     <i class="fab fa-whatsapp"></i> Coordinar por WhatsApp
                 </button>
             </div>
