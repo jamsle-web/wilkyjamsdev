@@ -484,3 +484,123 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
     background: #dc2626 !important;
     box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
 }
+/* ============================================================
+   VENTANA DE CONFIRMACIÓN (JP CONFIRM) - CORREGIDO
+   ============================================================ */
+
+.jp-confirm-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 6, 10, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden; /* Oculto por defecto */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Solo se muestra cuando el JS le añade la clase .is-visible */
+.jp-confirm-modal.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.jp-confirm-dialog {
+    background: #0f111a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.jp-confirm-modal.is-visible .jp-confirm-dialog {
+    transform: translateY(0);
+}
+
+.jp-confirm-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.jp-confirm-close:hover { color: #fff; }
+
+.jp-confirm-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(168, 185, 204, 0.1);
+    color: #a8b9cc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 20px auto;
+}
+
+.jp-confirm-dialog h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.jp-confirm-dialog p {
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.jp-confirm-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.jp-confirm-actions button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.jp-confirm-actions .cms-btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.jp-confirm-actions .cms-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.jp-confirm-actions .cms-btn-primary {
+    background: #ef4444;
+    color: #fff;
+}
+
+.jp-confirm-actions .cms-btn-primary:hover {
+    background: #dc2626;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
