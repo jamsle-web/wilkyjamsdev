@@ -661,3 +661,330 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
     .admin-desktop-logo { display: none; }
     .admin-mobile-head { display: flex !important; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 }
+/* ============================================================
+   ARREGLO DE COMPONENTES INTERNOS DEL CMS Y PERFIL (PASO 1)
+   ============================================================ */
+
+/* 1. Arreglo del Editor de Contenido (Evitar que los textos se monten) */
+.cms-grid {
+    display: grid !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+}
+.cms-grid-2 { grid-template-columns: repeat(2, 1fr) !important; }
+.cms-grid-3 { grid-template-columns: repeat(3, 1fr) !important; }
+
+@media (max-width: 1024px) {
+    .cms-grid-2, .cms-grid-3 { grid-template-columns: 1fr !important; }
+}
+
+.cms-field {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+}
+.cms-field-label {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+.cms-field-index {
+    background: var(--accent-gradient) !important;
+    color: #000 !important;
+    font-size: 0.7rem !important;
+    font-weight: bold !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+}
+.cms-field textarea, 
+.cms-field input,
+.cms-content-field textarea {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.95rem !important;
+    resize: vertical !important;
+    outline: none !important;
+    transition: var(--transition) !important;
+}
+.cms-field textarea:focus, 
+.cms-field input:focus,
+.cms-content-field textarea:focus {
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 0 10px rgba(168, 185, 204, 0.1) !important;
+}
+.cms-field-hint {
+    font-size: 0.75rem !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin-top: 4px !important;
+}
+
+/* 2. Arreglo del Perfil del Administrador (Cuadrícula de Foto y Datos) */
+.admin-profile-editor-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1.5fr !important;
+    gap: 30px !important;
+    margin-bottom: 30px !important;
+    align-items: start !important;
+}
+@media (max-width: 900px) {
+    .admin-profile-editor-grid { grid-template-columns: 1fr !important; }
+}
+
+.admin-profile-crop-card {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+.admin-profile-crop-preview {
+    width: 100% !important;
+    height: 300px !important;
+    background: #000 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    border: 1px solid var(--glass-border) !important;
+}
+.admin-profile-crop-preview img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.admin-profile-fields {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+}
+.admin-profile-fields label {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+}
+.admin-profile-fields input,
+.admin-profile-fields textarea {
+    width: 100% !important;
+    padding: 14px 16px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+    font-family: var(--font-body) !important;
+    outline: none !important;
+    transition: var(--transition) !important;
+}
+.admin-profile-fields input:focus,
+.admin-profile-fields textarea:focus {
+    border-color: var(--accent-1) !important;
+}
+
+/* Arreglo de los controles de zoom y posición */
+.admin-profile-crop-controls {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+.admin-profile-control-head {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+}
+.admin-profile-zoom-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+.admin-profile-zoom-row input[type="range"] {
+    flex-grow: 1 !important;
+    accent-color: var(--accent-1) !important;
+}
+.admin-profile-position-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+}
+.admin-profile-position-grid label {
+    font-size: 0.8rem !important;
+    color: var(--text-muted) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+/* 3. Formularios y Notas del CMS */
+.cms-settings-note {
+    background: rgba(168, 185, 204, 0.05) !important;
+    border: 1px solid rgba(168, 185, 204, 0.2) !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    font-size: 0.85rem !important;
+    color: var(--accent-1) !important;
+    margin-bottom: 20px !important;
+}
+.cms-settings-note i { font-size: 1.2rem !important; margin-top: 2px !important; }
+/* ============================================================
+   ARREGLO DE TABLAS, IMÁGENES Y BOTONES DE ACCIÓN (PASO 2)
+   ============================================================ */
+
+/* 1. Forzar a que las tablas no se salgan de la pantalla */
+.admin-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;
+}
+
+/* 2. Controlar las imágenes gigantes en las tablas (Productos, Proyectos) */
+.admin-table td img,
+.prod-cell img {
+    width: 48px !important;
+    height: 48px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--glass-border) !important;
+    display: block !important;
+}
+
+/* 3. Alinear el nombre del producto al lado de su imagen */
+.prod-cell {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    font-weight: 500 !important;
+    color: #fff !important;
+}
+
+/* 4. Estilo para los botones de acción (Editar / Eliminar) */
+.table-actions {
+    display: flex !important;
+    gap: 8px !important;
+    align-items: center !important;
+}
+.table-actions button {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-muted) !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: var(--transition) !important;
+}
+.table-actions button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-color: var(--accent-1) !important;
+}
+.table-actions button.danger:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+}
+
+/* 5. Estilo para las etiquetas de estado (Activo/Oculto) */
+.status-pill {
+    display: inline-block !important;
+    padding: 4px 12px !important;
+    border-radius: 50px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+}
+.status-pill.active {
+    background: rgba(74, 222, 128, 0.1) !important;
+    color: #4ade80 !important;
+    border: 1px solid rgba(74, 222, 128, 0.2) !important;
+}
+.status-pill.pending {
+    background: rgba(251, 191, 36, 0.1) !important;
+    color: #fbbf24 !important;
+    border: 1px solid rgba(251, 191, 36, 0.2) !important;
+}
+
+/* 6. Contenedor con scroll horizontal por si la tabla es muy ancha en móviles */
+.admin-panel {
+    overflow-x: auto !important;
+}
+
+/* 7. Estilo para los selectores dentro de la tabla (como el estado de pedidos) */
+.admin-inline-select {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: #fff !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    font-family: var(--font-body) !important;
+    outline: none !important;
+    cursor: pointer !important;
+}
+.admin-inline-select:focus {
+    border-color: var(--accent-1) !important;
+}
+
+/* 8. Arreglo de los Modales (Ventanas emergentes para Crear/Editar) */
+.cms-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(5, 6, 10, 0.85) !important;
+    backdrop-filter: blur(8px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 9999 !important;
+    padding: 20px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+}
+.cms-modal.is-visible {
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
+.cms-dialog {
+    background: rgba(20, 20, 25, 0.95) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 24px !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    padding: 40px !important;
+    position: relative !important;
+    box-shadow: 0 30px 100px rgba(0,0,0,0.6) !important;
+    transform: translateY(20px) !important;
+    transition: transform 0.3s ease !important;
+}
+.cms-modal.is-visible .cms-dialog {
+    transform: translateY(0) !important;
+}
+.cms-close {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    font-size: 1.5rem !important;
+    cursor: pointer !important;
+    transition: var(--transition) !important;
+}
+.cms-close:hover { color: #fff !important; }
