@@ -464,5 +464,41 @@
 
     <!-- GOOGLE RECAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?hl=es" async defer></script>
+
+    <!-- ===== LÓGICA DEL FORMULARIO DE CONTACTO (EMAILJS) ===== -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar EmailJS con tu Public Key
+            emailjs.init("0Km4RQbZC8JqZ6fkL");
+
+            const contactForm = document.getElementById('contactFormHome');
+            if (!contactForm) return;
+
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita que la página recargue
+
+                const btn = contactForm.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+
+                // Cambiamos el botón para avisar que está enviando
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+                btn.disabled = true;
+
+                // Enviar usando tus credenciales
+                emailjs.sendForm('service_q28ua8c', 'template_y5u95hs', this)
+                    .then(function() {
+                        alert('¡Mensaje enviado con éxito! Te responderé pronto.');
+                        contactForm.reset(); // Limpia el formulario
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }, function(error) {
+                        alert('Error al enviar: ' + JSON.stringify(error));
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    });
+            });
+        });
+    </script>
 </body>
 </html>
