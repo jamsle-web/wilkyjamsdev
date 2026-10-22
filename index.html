@@ -264,22 +264,31 @@
         </div>
     </section>
 
-    <!-- ===== NEWSLETTER ===== -->
+    <!-- ===== NEWSLETTER (CONECTADA A BREVO CON CAPTCHA) ===== -->
     <section id="newsletter" style="padding: 60px 0; background: rgba(255,255,255,0.01); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
         <div class="container" style="text-align: center; max-width: 750px;">
             <span class="label glass-label">Newsletter</span>
             <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 12px;" data-i18n="newsletter.title">¿Qué te gustaría recibir?</h2>
             <p style="color: var(--text-secondary); margin-bottom: 28px;" data-i18n="newsletter.desc">Selecciona tus intereses y te enviaré contenido exclusivo directamente a tu correo.</p>
             
-            <form id="newsletterForm" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-                <input type="email" name="email" placeholder="Tu mejor correo electrónico" required class="glass-input" style="width: 100%; max-width: 400px; padding: 16px 20px; border-radius: 12px; font-size: 1rem; outline: none;">
+            <!-- FORMULARIO GLASS QUE ENVÍA A BREVO POR DETRÁS -->
+            <form id="brevoForm" action="https://46701861.sibforms.com/serve/MUIFAIRy08Zlv8vyx1OYr41_Omgz72kpWi4KLegtEqsvgLk3iI_MzAMd8bRkzAgykmyvrxRpCCDRCAMpAlzKBHnl1xbh44_nn-O8-fhU6LJ6LOXuJKsElOSXKCVhoaiacnVKKnrra848Z3735wRGzqoWfQaDbpm53Af7KQezkj_IgNSaXgmTzV6wQqIUnyP7lymoTgwn2747ItVIrw==" method="POST" target="brevo_iframe" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                
+                <input type="email" name="EMAIL" placeholder="Tu mejor correo electrónico" required class="glass-input" style="width: 100%; max-width: 400px; padding: 16px 20px; border-radius: 12px; font-size: 1rem; outline: none;">
+                
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 5px 0 10px;">
-                    <label class="glass-checkbox-label"><input type="checkbox" name="interes[]" value="Proyectos" class="custom-checkbox"><span data-i18n="newsletter.interests.projects">Nuevos proyectos</span></label>
-                    <label class="glass-checkbox-label"><input type="checkbox" name="interes[]" value="Productos" class="custom-checkbox"><span data-i18n="newsletter.interests.products">Productos digitales</span></label>
-                    <label class="glass-checkbox-label"><input type="checkbox" name="interes[]" value="Cupones" class="custom-checkbox"><span data-i18n="newsletter.interests.coupons">Cupones y ofertas</span></label>
+                    <label class="glass-checkbox-label"><input type="checkbox" name="interes_proyectos" value="Si"><span data-i18n="newsletter.interests.projects">Nuevos proyectos</span></label>
+                    <label class="glass-checkbox-label"><input type="checkbox" name="interes_productos" value="Si"><span data-i18n="newsletter.interests.products">Productos digitales</span></label>
+                    <label class="glass-checkbox-label"><input type="checkbox" name="interes_cupones" value="Si"><span data-i18n="newsletter.interests.coupons">Cupones y ofertas</span></label>
                 </div>
-                <button type="submit" id="newsletterBtn" class="btn-primary" style="padding: 16px 40px; border-radius: 50px; border: none; cursor: pointer; width: 100%; max-width: 400px; font-size: 0.9rem;" data-i18n="newsletter.btn">Suscribirme</button>
+
+                <!-- CAPTCHA DE BREVO -->
+                <div class="g-recaptcha" data-sitekey="6Lexr_stAAAAABCqIjH_dED9-rIlodWYX1aKXhcH" style="margin-bottom: 10px;"></div>
+
+                <button type="submit" id="brevoBtn" class="btn-primary" style="padding: 16px 40px; border-radius: 50px; border: none; cursor: pointer; width: 100%; max-width: 400px; font-size: 0.9rem;" data-i18n="newsletter.btn">Suscribirme</button>
             </form>
+            <!-- Iframe invisible para que Brevo reciba los datos sin recargar la página -->
+            <iframe name="brevo_iframe" style="display:none;"></iframe>
         </div>
     </section>
 
@@ -342,11 +351,9 @@
         <div class="cart-footer">
             <div class="cart-total"><span data-i18n="cart.total">Total</span><span id="cartTotalValue">$0.00</span></div>
             <div style="display: flex; gap: 10px; flex-direction: column;">
-                <!-- BOTÓN DE AIRTM (AHORA ES BLANCO Y GLASS) -->
                 <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-airtm">
                     <i class="fas fa-credit-card"></i> Pagar con Airtm
                 </a>
-                <!-- BOTÓN DE WHATSAPP (TRANSPARENTE CON BORDE) -->
                 <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()">
                     <i class="fab fa-whatsapp"></i> Coordinar por WhatsApp
                 </button>
@@ -413,6 +420,27 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+
+    <!-- GOOGLE RECAPTCHA & LÓGICA DE NEWSLETTER (BREVO) -->
+    <script src="https://www.google.com/recaptcha/api.js?hl=es" async defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('brevoForm');
+            const btn = document.getElementById('brevoBtn');
+            const toast = document.getElementById('newsletterToast');
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    // Mostramos el mensaje de éxito de inmediato (porque el iframe envía por detrás)
+                    setTimeout(() => {
+                        form.reset();
+                        toast.classList.add('show');
+                        setTimeout(() => toast.classList.remove('show'), 4000);
+                    }, 500); 
+                });
+            }
         });
     </script>
 </body>
