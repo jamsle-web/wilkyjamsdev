@@ -271,8 +271,8 @@
             <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 12px;" data-i18n="newsletter.title">¿Qué te gustaría recibir?</h2>
             <p style="color: var(--text-secondary); margin-bottom: 28px;" data-i18n="newsletter.desc">Selecciona tus intereses y te enviaré contenido exclusivo directamente a tu correo.</p>
             
-            <!-- FORMULARIO GLASS -->
-            <form id="brevoForm" action="https://46701861.sibforms.com/serve/MUIFAIRy08Zlv8vyx1OYr41_Omgz72kpWi4KLegtEqsvgLk3iI_MzAMd8bRkzAgykmyvrxRpCCDRCAMpAlzKBHnl1xbh44_nn-O8-fhU6LJ6LOXuJKsElOSXKCVhoaiacnVKKnrra848Z3735wRGzqoWfQaDbpm53Af7KQezkj_IgNSaXgmTzV6wQqIUnyP7lymoTgwn2747ItVIrw==" method="POST" target="brevo_iframe" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+            <!-- FORMULARIO GLASS CON CONEXIÓN REAL A BREVO -->
+            <form id="brevoForm" action="https://46701861.sibforms.com/serve/MUIFAIRy08Zlv8vyx1OYr41_Omgz72kpWi4KLegtEqsvgLk3iI_MzAMd8bRkzAgykmyvrxRpCCDRCAMpAlzKBHnl1xbh44_nn-O8-fhU6LJ6LOXuJKsElOSXKCVhoaiacnVKKnrra848Z3735wRGzqoWfQaDbpm53Af7KQezkj_IgNSaXgmTzV6wQqIUnyP7lymoTgwn2747ItVIrw==" method="POST" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
                 
                 <input type="email" name="EMAIL" placeholder="Tu mejor correo electrónico" required class="glass-input" style="width: 100%; max-width: 400px; padding: 16px 20px; border-radius: 12px; font-size: 1rem; outline: none;">
                 
@@ -282,13 +282,11 @@
                     <label class="glass-checkbox-label"><input type="checkbox" name="interes_cupones" value="Si"><span data-i18n="newsletter.interests.coupons">Cupones y ofertas</span></label>
                 </div>
 
-                <!-- CAPTCHA DE BREVO -->
+                <!-- CAPTCHA DE BREVO (AHORA SÍ SE VA A VER) -->
                 <div class="g-recaptcha" data-sitekey="6Lexr_stAAAAABCqIjH_dED9-rIlodWYX1aKXhcH" style="margin-bottom: 10px;"></div>
 
-                <button type="submit" id="brevoBtn" class="btn-primary" style="padding: 16px 40px; border-radius: 50px; border: none; cursor: pointer; width: 100%; max-width: 400px; font-size: 0.9rem;" data-i18n="newsletter.btn">Suscribirme</button>
+                <button type="submit" class="btn-primary" style="padding: 16px 40px; border-radius: 50px; border: none; cursor: pointer; width: 100%; max-width: 400px; font-size: 0.9rem;" data-i18n="newsletter.btn">Suscribirme</button>
             </form>
-            <!-- Iframe oculto para que Brevo reciba los datos -->
-            <iframe name="brevo_iframe" style="display:none;"></iframe>
         </div>
     </section>
 
@@ -419,22 +417,5 @@
 
     <!-- GOOGLE RECAPTCHA & LÓGICA DE NEWSLETTER (BREVO) -->
     <script src="https://www.google.com/recaptcha/api.js?hl=es" async defer></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('brevoForm');
-            const btn = document.getElementById('brevoBtn');
-            const toast = document.getElementById('newsletterToast');
-
-            if (form) {
-                form.addEventListener('submit', (e) => {
-                    // Aquí es donde ocurre la magia. 
-                    // Al enviar a Brevo por el iframe, esperamos un momento y redirigimos a gracias.html
-                    setTimeout(() => {
-                        window.location.href = "gracias.html";
-                    }, 800); // Le damos 800ms a Brevo para procesar
-                });
-            }
-        });
-    </script>
 </body>
 </html>
