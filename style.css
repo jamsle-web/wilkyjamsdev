@@ -661,3 +661,182 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
     .admin-desktop-logo { display: none; }
     .admin-mobile-head { display: flex !important; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 }
+/* ============================================================
+   ARREGLO DE COMPONENTES INTERNOS DEL CMS Y PERFIL (PASO 1)
+   ============================================================ */
+
+/* 1. Arreglo del Editor de Contenido (Evitar que los textos se monten) */
+.cms-grid {
+    display: grid !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+}
+.cms-grid-2 { grid-template-columns: repeat(2, 1fr) !important; }
+.cms-grid-3 { grid-template-columns: repeat(3, 1fr) !important; }
+
+@media (max-width: 1024px) {
+    .cms-grid-2, .cms-grid-3 { grid-template-columns: 1fr !important; }
+}
+
+.cms-field {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+}
+.cms-field-label {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+.cms-field-index {
+    background: var(--accent-gradient) !important;
+    color: #000 !important;
+    font-size: 0.7rem !important;
+    font-weight: bold !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+}
+.cms-field textarea, 
+.cms-field input,
+.cms-content-field textarea {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.95rem !important;
+    resize: vertical !important;
+    outline: none !important;
+    transition: var(--transition) !important;
+}
+.cms-field textarea:focus, 
+.cms-field input:focus,
+.cms-content-field textarea:focus {
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 0 10px rgba(168, 185, 204, 0.1) !important;
+}
+.cms-field-hint {
+    font-size: 0.75rem !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin-top: 4px !important;
+}
+
+/* 2. Arreglo del Perfil del Administrador (Cuadrícula de Foto y Datos) */
+.admin-profile-editor-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1.5fr !important;
+    gap: 30px !important;
+    margin-bottom: 30px !important;
+    align-items: start !important;
+}
+@media (max-width: 900px) {
+    .admin-profile-editor-grid { grid-template-columns: 1fr !important; }
+}
+
+.admin-profile-crop-card {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+.admin-profile-crop-preview {
+    width: 100% !important;
+    height: 300px !important;
+    background: #000 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    border: 1px solid var(--glass-border) !important;
+}
+.admin-profile-crop-preview img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.admin-profile-fields {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+}
+.admin-profile-fields label {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+}
+.admin-profile-fields input,
+.admin-profile-fields textarea {
+    width: 100% !important;
+    padding: 14px 16px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+    font-family: var(--font-body) !important;
+    outline: none !important;
+    transition: var(--transition) !important;
+}
+.admin-profile-fields input:focus,
+.admin-profile-fields textarea:focus {
+    border-color: var(--accent-1) !important;
+}
+
+/* Arreglo de los controles de zoom y posición */
+.admin-profile-crop-controls {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+.admin-profile-control-head {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+}
+.admin-profile-zoom-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+.admin-profile-zoom-row input[type="range"] {
+    flex-grow: 1 !important;
+    accent-color: var(--accent-1) !important;
+}
+.admin-profile-position-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+}
+.admin-profile-position-grid label {
+    font-size: 0.8rem !important;
+    color: var(--text-muted) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+/* 3. Formularios y Notas del CMS */
+.cms-settings-note {
+    background: rgba(168, 185, 204, 0.05) !important;
+    border: 1px solid rgba(168, 185, 204, 0.2) !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    font-size: 0.85rem !important;
+    color: var(--accent-1) !important;
+    margin-bottom: 20px !important;
+}
+.cms-settings-note i { font-size: 1.2rem !important; margin-top: 2px !important; }
