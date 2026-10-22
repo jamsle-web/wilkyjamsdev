@@ -1110,3 +1110,165 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+/* ============================================================
+   PARTE A: DISEÑO RESPONSIVE, NOTIFICACIONES Y AJUSTES FINALES
+   ============================================================ */
+
+/* 1. Arreglar el menú de notificaciones (Popover) */
+.admin-popover .popover-head {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    padding: 16px !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+    gap: 10px !important;
+}
+.admin-popover .popover-head strong {
+    display: block !important;
+    font-size: 0.95rem !important;
+    color: #fff !important;
+}
+.admin-popover .popover-head small {
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+}
+.admin-popover .popover-head button {
+    background: transparent !important;
+    border: none !important;
+    color: var(--accent-1) !important;
+    font-size: 0.75rem !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+}
+.admin-popover .popover-head button:hover {
+    text-decoration: underline !important;
+}
+.admin-popover .popover-list {
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    padding: 10px !important;
+}
+.admin-popover .popover-empty {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 20px !important;
+    color: var(--text-muted) !important;
+    font-size: 0.85rem !important;
+    justify-content: center !important;
+}
+
+/* 2. Mejorar la Configuración (Iconos, Switchs y Notas) */
+.admin-sound-head {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 15px !important;
+    gap: 15px !important;
+}
+.admin-sound-head strong {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #fff !important;
+}
+.admin-sound-head small {
+    display: block !important;
+    font-size: 0.8rem !important;
+    color: var(--text-muted) !important;
+    margin-top: 4px !important;
+}
+
+/* Interruptor (Switch) mejorado */
+.cms-switch {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    cursor: pointer !important;
+}
+.cms-switch input {
+    display: none !important;
+}
+.cms-switch-ui {
+    width: 40px !important;
+    height: 22px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 50px !important;
+    position: relative !important;
+    transition: 0.3s !important;
+    border: 1px solid var(--glass-border) !important;
+}
+.cms-switch-ui::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 2px !important;
+    left: 2px !important;
+    width: 16px !important;
+    height: 16px !important;
+    background: #fff !important;
+    border-radius: 50% !important;
+    transition: 0.3s !important;
+}
+.cms-switch input:checked + .cms-switch-ui {
+    background: var(--accent-gradient) !important;
+}
+.cms-switch input:checked + .cms-switch-ui::after {
+    transform: translateX(18px) !important;
+    background: #000 !important;
+}
+
+/* 3. Hacer el Admin Responsive (Móviles y Tablets) */
+@media (max-width: 900px) {
+    .admin-topbar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px !important;
+    }
+    .admin-topbar-tools {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+    }
+    .admin-search {
+        width: 100% !important;
+    }
+    .admin-search input {
+        width: 100% !important;
+    }
+    .admin-table th, .admin-table td {
+        white-space: nowrap !important;
+    }
+    .admin-panel {
+        padding: 20px !important;
+    }
+    .settings-grid, .cms-grid-2, .cms-grid-3 {
+        grid-template-columns: 1fr !important;
+    }
+    .admin-profile-editor-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* 4. Mejorar los Botones de Acción y Edición en Tablas */
+.table-actions button {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    font-size: 0.9rem !important;
+}
+
+/* 5. Ajustes visuales para el Modal de Edición */
+.cms-modal .cms-dialog {
+    padding: 30px !important;
+    border-radius: 20px !important;
+    background: #0a0a0c !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+}
+.cms-dialog-head h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 8px !important;
+}
+.cms-dialog-head p {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+}
