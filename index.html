@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
+    <!-- ESTILOS OFICIALES DE BREVO -->
+    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+
     <!-- TU CSS -->
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -274,16 +277,22 @@
             <!-- FORMULARIO GLASS CON CONEXIÓN REAL A BREVO -->
             <form id="brevoForm" action="https://46701861.sibforms.com/serve/MUIFAIRy08Zlv8vyx1OYr41_Omgz72kpWi4KLegtEqsvgLk3iI_MzAMd8bRkzAgykmyvrxRpCCDRCAMpAlzKBHnl1xbh44_nn-O8-fhU6LJ6LOXuJKsElOSXKCVhoaiacnVKKnrra848Z3735wRGzqoWfQaDbpm53Af7KQezkj_IgNSaXgmTzV6wQqIUnyP7lymoTgwn2747ItVIrw==" method="POST" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
                 
-                <input type="email" name="EMAIL" placeholder="Tu mejor correo electrónico" required class="glass-input" style="width: 100%; max-width: 400px; padding: 16px 20px; border-radius: 12px; font-size: 1rem; outline: none;">
+                <!-- Campo EMAIL (obligatorio para Brevo) -->
+                <input type="email" name="EMAIL" id="EMAIL" placeholder="Tu mejor correo electrónico" required class="glass-input" style="width: 100%; max-width: 400px; padding: 16px 20px; border-radius: 12px; font-size: 1rem; outline: none;" autocomplete="off">
                 
+                <!-- Checkboxes VISUALES (sin name, no se envían a Brevo) -->
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 5px 0 10px;">
-                    <label class="glass-checkbox-label"><input type="checkbox" name="interes_proyectos" value="Si"><span data-i18n="newsletter.interests.projects">Nuevos proyectos</span></label>
-                    <label class="glass-checkbox-label"><input type="checkbox" name="interes_productos" value="Si"><span data-i18n="newsletter.interests.products">Productos digitales</span></label>
-                    <label class="glass-checkbox-label"><input type="checkbox" name="interes_cupones" value="Si"><span data-i18n="newsletter.interests.coupons">Cupones y ofertas</span></label>
+                    <label class="glass-checkbox-label"><input type="checkbox"><span data-i18n="newsletter.interests.projects">Nuevos proyectos</span></label>
+                    <label class="glass-checkbox-label"><input type="checkbox"><span data-i18n="newsletter.interests.products">Productos digitales</span></label>
+                    <label class="glass-checkbox-label"><input type="checkbox"><span data-i18n="newsletter.interests.coupons">Cupones y ofertas</span></label>
                 </div>
 
-                <!-- CAPTCHA DE BREVO (AHORA SÍ SE VA A VER) -->
-                <div class="g-recaptcha" data-sitekey="6Lexr_stAAAAABCqIjH_dED9-rIlodWYX1aKXhcH" style="margin-bottom: 10px;"></div>
+                <!-- CAPTCHA DE BREVO (REAL) -->
+                <div class="g-recaptcha" id="sib-captcha" data-sitekey="6Lexr_stAAAAABCqIjH_dED9-rIlodWYX1aKXhcH" data-callback="handleCaptchaResponse" style="margin-bottom: 10px;"></div>
+
+                <!-- CAMPOS OCULTOS QUE BREVO NECESITA -->
+                <input type="text" name="email_address_check" value="" style="display:none;">
+                <input type="hidden" name="locale" value="es">
 
                 <button type="submit" class="btn-primary" style="padding: 16px 40px; border-radius: 50px; border: none; cursor: pointer; width: 100%; max-width: 400px; font-size: 0.9rem;" data-i18n="newsletter.btn">Suscribirme</button>
             </form>
@@ -415,7 +424,45 @@
         });
     </script>
 
-    <!-- GOOGLE RECAPTCHA & LÓGICA DE NEWSLETTER (BREVO) -->
+    <!-- LÓGICA DE NEWSLETTER (BREVO + REDIRECCIÓN A GRACIAS.HTML) -->
+    <script>
+        function handleCaptchaResponse() {
+            console.log('Captcha resuelto');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('brevoForm');
+            if (!form) return;
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const recaptchaResponse = (typeof grecaptcha !== 'undefined') ? grecaptcha.getResponse() : '';
+                if (!recaptchaResponse) {
+                    alert('Por favor, completa el captcha "No soy un robot".');
+                    return;
+                }
+
+                const formData = new FormData(form);
+                formData.append('g-recaptcha-response', recaptchaResponse);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                }).then(() => {
+                    window.location.href = 'gracias.html';
+                }).catch(() => {
+                    window.location.href = 'gracias.html';
+                });
+            });
+        });
+    </script>
+
+    <!-- SCRIPT OFICIAL DE BREVO -->
+    <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+
+    <!-- GOOGLE RECAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?hl=es" async defer></script>
 </body>
 </html>
