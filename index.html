@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
-    <!-- TU CSS (El que transformaremos) -->
+    <!-- TU CSS -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -242,72 +242,75 @@
         </div>
     </section>
 
-    <!-- ===== PROYECTOS DESTACADOS (PREVIEW) ===== -->
-    <section id="projects-preview" style="background: rgba(255,255,255,0.01);">
+    <!-- ===== TIENDA (INTEGRADA) ===== -->
+    <section id="store" style="background: rgba(255,255,255,0.01);">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="label glass-label" data-i18n="projects.label">Portafolio</span>
-                <h2 data-i18n="projects.title">Trabajos Recientes</h2>
-                <p data-i18n="projects.subtitle">Una muestra de los proyectos donde el diseño marcó la diferencia.</p>
+                <span class="label glass-label" data-i18n="store.hero_label">Tienda digital</span>
+                <h2 data-i18n="store.hero_title_prefix">Productos digitales <br><span class="highlight" data-i18n="store.hero_title_highlight">listos para usar</span></h2>
+                <p data-i18n="store.hero_desc">Logos, sitios web, landing pages, apps, flyers, tarjetas de presentación y sesiones de fotos — todo lo que tu marca necesita, en un solo lugar.</p>
             </div>
-            <!-- Mini Grid de 3 Proyectos -->
-            <div class="projects-grid-mini">
-                <div class="project-card glass-panel" data-aos="fade-up">
-                    <div class="project-thumb"><img src="https://i.postimg.cc/tJj4pPpz/IMXJh-Zesr-Oyx8.png" alt="Aetheris" loading="lazy"></div>
-                    <div class="project-body"><h4>Aetheris</h4><p>Landing 3D Inmersiva</p></div>
-                </div>
-                <div class="project-card glass-panel" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-thumb"><img src="https://i.postimg.cc/FR4TrL4v/IMOGBd-SDw274M.png" alt="DevPath" loading="lazy"></div>
-                    <div class="project-body"><h4>DevPath 2027</h4><p>Plataforma Educativa</p></div>
-                </div>
-                <div class="project-card glass-panel" data-aos="fade-up" data-aos-delay="200">
-                    <div class="project-thumb"><img src="https://i.postimg.cc/KjX3SPhG/grooming-website.png" alt="Grooming" loading="lazy"></div>
-                    <div class="project-body"><h4>Gentleman's</h4><p>E-commerce Premium</p></div>
-                </div>
+            
+            <div class="store-search-wrap" data-aos="fade-up">
+                <input id="storeSearch" aria-label="Buscar productos" type="search" placeholder="Buscar productos…" autocomplete="off">
             </div>
-            <div style="text-align: center; margin-top: 40px;" data-aos="fade-up">
-                <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" class="btn-primary">
-                    <i class="fas fa-arrow-right"></i> Ver todos los proyectos en mi Portafolio
-                </a>
+            
+            <div class="filter-tabs" id="filterTabs" data-aos="fade-up">
+                <button class="active" data-filter="all" data-i18n="store.all">Todos</button>
+                <button data-filter="logos" data-i18n="store.logos">Logos</button>
+                <button data-filter="web" data-i18n="store.web">Sitios Web</button>
+                <button data-filter="landing" data-i18n="store.landing">Landing Pages</button>
+                <button data-filter="apps" data-i18n="store.apps">Apps</button>
+                <button data-filter="flyers" data-i18n="store.flyers">Flyers</button>
+                <button data-filter="business-cards" data-i18n="store.business_cards">Business Cards</button>
+                <button data-filter="fotos" data-i18n="store.photo">Fotografía</button>
+            </div>
+
+            <div class="store-grid" id="storeGrid">
+                <!-- Las tarjetas de producto se generan dinámicamente con store.js -->
             </div>
         </div>
     </section>
 
-    <!-- ===== TESTIMONIOS (GLASS) ===== -->
+    <!-- ===== TESTIMONIOS (AVATARES ARREGLADOS) ===== -->
     <section id="testimonials">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="label glass-label" data-i18n="testimonials.label">Opiniones</span>
                 <h2 data-i18n="testimonials.title">Lo que dicen mis clientes</h2>
+                <p data-i18n="testimonials.subtitle">Personas y empresas que han confiado en mí para potenciar su presencia digital.</p>
             </div>
             <div class="testimonials-grid">
+                <!-- Testimonio 1 -->
                 <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-quote-left"></i>
-                    <p data-i18n="testimonial1.text">"Jamsle transformó por completo nuestra web. El diseño es impecable y nuestras ventas online se dispararon."</p>
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="testimonial1.text">"Jamsle transformó por completo nuestra web. El diseño es impecable y nuestras ventas online se dispararon. Muy profesional y atento a cada detalle."</p>
                     <div class="client">
-                        <div class="avatar" style="background: var(--accent-gradient);">M</div>
+                        <div class="avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Maria&backgroundColor=c0aede" alt="María Gómez"></div>
                         <div class="info">
                             <h4 data-i18n="testimonial1.name">María Gómez</h4>
                             <span data-i18n="testimonial1.role">Directora de EcoGreen</span>
                         </div>
                     </div>
                 </div>
+                <!-- Testimonio 2 -->
                 <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-quote-left"></i>
-                    <p data-i18n="testimonial2.text">"Excelente trabajo en el rediseño de nuestro spa. El nuevo sitio es moderno y ha aumentado las reservas."</p>
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="testimonial2.text">"Excelente trabajo en el rediseño de nuestro spa. El nuevo sitio es moderno, rápido y ha aumentado las reservas de forma significativa. Muy recomendable."</p>
                     <div class="client">
-                        <div class="avatar" style="background: var(--accent-gradient);">C</div>
+                        <div class="avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos&backgroundColor=b6e3f4" alt="Carlos Pérez"></div>
                         <div class="info">
                             <h4 data-i18n="testimonial2.name">Carlos Pérez</h4>
                             <span data-i18n="testimonial2.role">Gerente de Bella Vista Spa</span>
                         </div>
                     </div>
                 </div>
+                <!-- Testimonio 3 -->
                 <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-quote-left"></i>
-                    <p data-i18n="testimonial3.text">"La estrategia SEO de Jamsle llevó nuestro blog al primer lugar en Google. Un verdadero experto."</p>
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="testimonial3.text">"La estrategia SEO de Jamsle llevó nuestro blog al primer lugar en Google. El tráfico orgánico creció más de un 120% en pocos meses. Un verdadero experto."</p>
                     <div class="client">
-                        <div class="avatar" style="background: var(--accent-gradient);">L</div>
+                        <div class="avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Laura&backgroundColor=ffdfbf" alt="Laura Díaz"></div>
                         <div class="info">
                             <h4 data-i18n="testimonial3.name">Laura Díaz</h4>
                             <span data-i18n="testimonial3.role">Fundadora de TechLab RD</span>
@@ -318,8 +321,40 @@
         </div>
     </section>
 
+    <!-- ===== NEWSLETTER (NUEVO) ===== -->
+    <section id="newsletter" style="padding: 60px 0; background: rgba(255,255,255,0.01); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container" style="text-align: center; max-width: 750px;">
+            <span class="label glass-label">Newsletter</span>
+            <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 12px;" data-i18n="newsletter.title">¿Qué te gustaría recibir?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 28px;" data-i18n="newsletter.desc">Selecciona tus intereses y te enviaré contenido exclusivo directamente a tu correo.</p>
+            
+            <form action="https://formspree.io/f/mkjoappw" method="POST" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                <input type="hidden" name="_subject" value="Nuevo suscriptor en Wilkyjams Dev!">
+                
+                <input type="email" name="email" placeholder="Tu mejor correo electrónico" required class="glass-input" style="width: 100%; max-width: 400px; padding: 14px 18px; border-radius: 12px; font-size: 1rem;">
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 5px 0 15px;">
+                    <label class="glass-checkbox-label">
+                        <input type="checkbox" name="interes[]" value="Proyectos" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
+                        <span data-i18n="newsletter.interests.projects">Nuevos proyectos</span>
+                    </label>
+                    <label class="glass-checkbox-label">
+                        <input type="checkbox" name="interes[]" value="Productos" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
+                        <span data-i18n="newsletter.interests.products">Productos digitales</span>
+                    </label>
+                    <label class="glass-checkbox-label">
+                        <input type="checkbox" name="interes[]" value="Cupones" style="accent-color: var(--accent-2); width: 16px; height: 16px;">
+                        <span data-i18n="newsletter.interests.coupons">Cupones y ofertas</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary" style="padding: 14px 40px; border-radius: 12px; border: none; cursor: pointer; width: 100%; max-width: 400px;" data-i18n="newsletter.btn">Suscribirme</button>
+            </form>
+        </div>
+    </section>
+
     <!-- ===== CONTACTO (GLASS) ===== -->
-    <section id="contact" style="background: rgba(255,255,255,0.01);">
+    <section id="contact">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="label glass-label" data-i18n="contact.label">Conectemos</span>
@@ -341,12 +376,12 @@
                         <i class="fas fa-briefcase"></i>
                         <a href="https://www.fiverr.com/s/xLZLbj0" target="_blank">Fiverr · JamsLab Studio</a>
                     </div>
+                    <!-- Redes Sociales Reales -->
                     <div class="social-links">
-                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" target="_blank" aria-label="Behance"><i class="fab fa-behance"></i></a>
-                        <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.fiverr.com/s/xLXLbj0" target="_blank" aria-label="Fiverr"><i class="fas fa-star"></i></a>
+                        <a href="https://www.linkedin.com/in/jamsle-porcena-917593297/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/jamsle-web" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.youtube.com/@WilkyJamesDev" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.fiverr.com/s/xLZLbj0" target="_blank" aria-label="Fiverr"><i class="fas fa-star"></i></a>
                     </div>
                 </div>
                 <form class="contact-form" id="contactFormHome">
@@ -373,19 +408,18 @@
                     <ul>
                         <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
                         <li><a href="#about" data-i18n="nav.about">Sobre mí</a></li>
-                        <li><a href="#projects-preview" data-i18n="nav.projects">Proyectos</a></li>
+                        <li><a href="#services" data-i18n="nav.services">Servicios</a></li>
+                        <li><a href="#store" data-i18n="nav.store">Tienda</a></li>
                         <li><a href="#contact" data-i18n="nav.contact_short">Contacto</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 data-i18n="footer.services">Servicios</h5>
+                    <h5 data-i18n="footer.services">Legal</h5>
                     <ul>
-                        <li><a href="#services" data-i18n="footer.web_design">Diseño web</a></li>
-                        <li><a href="#services" data-i18n="footer.digital_marketing">Marketing digital</a></li>
-                        <li><a href="#" data-i18n="footer.store">Tienda de productos</a></li>
-                        <li><a href="#" data-i18n="footer.privacy">Privacidad</a></li>
-                        <li><a href="#" data-i18n="footer.terms">Términos</a></li>
-                        <li><a href="#" data-i18n="footer.help">Centro de ayuda</a></li>
+                        <li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li>
+                        <li><a href="terms.html" data-i18n="footer.terms">Términos</a></li>
+                        <li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li>
+                        <li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li>
                     </ul>
                 </div>
                 <div>
@@ -434,6 +468,7 @@
     <script src="supabase-client.js"></script>
     <script src="common.js"></script>
     <script src="cms-content.js"></script>
+    <script src="store.js"></script>
 
     <!-- SCRIPT PARA EL FONDO 3D (Three.js) -->
     <script>
