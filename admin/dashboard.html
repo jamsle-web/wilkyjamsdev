@@ -22,7 +22,6 @@
 <body class="admin-body">
 
     <div class="admin-layout">
-        <!-- ===== SIDEBAR ===== -->
         <aside class="admin-sidebar" id="adminSidebar">
             <div class="admin-mobile-head"><div class="admin-logo">JP · Admin</div><button class="admin-menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" onclick="toggleAdminMenu()"><i class="fas fa-bars"></i></button></div>
             <div class="admin-logo admin-desktop-logo">JP · Admin</div>
@@ -42,7 +41,6 @@
             <button class="admin-logout" title="Cerrar sesión" aria-label="Cerrar sesión" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
         </aside>
 
-        <!-- ===== CONTENIDO PRINCIPAL ===== -->
         <main class="admin-main">
             <div class="admin-topbar">
                 <div class="admin-topbar-left">
@@ -60,7 +58,6 @@
                         <input id="adminGlobalSearch" type="search" placeholder="Buscar en el panel…" autocomplete="off" aria-label="Buscar en el panel">
                         <kbd>⌘ K</kbd>
                     </div>
-                    <!-- BOTÓN VER SITIO MOVIDO AQUÍ (Esquina superior derecha) -->
                     <a href="/" class="admin-icon-btn" title="Ver sitio público" aria-label="Ver sitio público" style="text-decoration: none;">
                         <i class="fas fa-arrow-up-right-from-square"></i>
                     </a>
@@ -90,43 +87,29 @@
                 </div>
             </div>
 
-            <!-- ===== STATS ===== -->
             <div class="stats-row">
                 <div class="admin-stat-card">
-                    <div class="stat-top">
-                        <i class="fas fa-dollar-sign"></i>
-                        <span class="stat-change">—</span>
-                    </div>
+                    <div class="stat-top"><i class="fas fa-dollar-sign"></i><span class="stat-change">—</span></div>
                     <div class="stat-value">$0.00</div>
                     <div class="stat-label">Ventas registradas</div>
                 </div>
                 <div class="admin-stat-card">
-                    <div class="stat-top">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="stat-change">—</span>
-                    </div>
+                    <div class="stat-top"><i class="fas fa-shopping-bag"></i><span class="stat-change">—</span></div>
                     <div class="stat-value">0</div>
                     <div class="stat-label">Pedidos totales</div>
                 </div>
                 <div class="admin-stat-card">
-                    <div class="stat-top">
-                        <i class="fas fa-users"></i>
-                        <span class="stat-change">—</span>
-                    </div>
+                    <div class="stat-top"><i class="fas fa-users"></i><span class="stat-change">—</span></div>
                     <div class="stat-value">0</div>
                     <div class="stat-label">Visitas al sitio</div>
                 </div>
                 <div class="admin-stat-card">
-                    <div class="stat-top">
-                        <i class="fas fa-envelope"></i>
-                        <span class="stat-change down">—</span>
-                    </div>
+                    <div class="stat-top"><i class="fas fa-envelope"></i><span class="stat-change down">—</span></div>
                     <div class="stat-value">0</div>
                     <div class="stat-label">Mensajes sin responder</div>
                 </div>
             </div>
 
-            <!-- ===== EDITOR DE CONTENIDO ===== -->
             <div class="admin-panel" id="panelContenido">
                 <div class="panel-title">
                     <div><h3>Editor de contenido</h3><span class="admin-panel-subtitle">Edita textos de cada página sin tocar HTML, CSS ni el diseño.</span></div>
@@ -142,7 +125,6 @@
                 </div>
             </div>
 
-            <!-- ===== CONFIGURACIÓN DEL SITIO ===== -->
             <div class="admin-panel" id="panelConfiguracion">
                 <div class="panel-title">
                     <h3>Contenido general del sitio</h3>
@@ -179,7 +161,6 @@
                 <p class="admin-panel-note">Estos datos se guardan en Supabase y se aplican al sitio público sin modificar su diseño.</p>
             </div>
 
-            <!-- ===== PERFIL DEL ADMINISTRADOR ===== -->
             <div class="admin-panel" id="panelPerfilAdmin">
                 <div class="panel-title">
                     <div><h3>Mi perfil de administrador</h3><span class="admin-panel-subtitle">Este perfil pertenece exclusivamente al panel Admin. No modifica el perfil público del inicio.</span></div>
@@ -218,7 +199,6 @@
                 </form>
             </div>
 
-            <!-- ===== ANALÍTICA ===== -->
             <div class="admin-panel" id="panelAnalitica">
                 <div class="panel-title">
                     <div><h3>Actividad del sitio</h3><span class="admin-panel-subtitle">Visitas únicas por sesión · últimas páginas</span></div>
@@ -242,7 +222,6 @@
                 </div>
             </div>
 
-            <!-- ===== PRODUCTOS ===== -->
             <div class="admin-panel" id="panelProductos">
                 <div class="panel-title">
                     <h3>Productos de la tienda</h3>
@@ -256,7 +235,6 @@
                 </table>
             </div>
 
-            <!-- ===== TESTIMONIOS ===== -->
             <div class="admin-panel" id="panelTestimonios">
                 <div class="panel-title">
                     <div><h3>Opiniones de clientes</h3><span class="admin-panel-subtitle">Administra testimonios, estrellas, fotos, idiomas y visibilidad.</span></div>
@@ -265,7 +243,6 @@
                 <table class="admin-table"><thead><tr><th>Cliente</th><th>Rol / empresa</th><th>Valoración</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="testimonialsTableBody"></tbody></table>
             </div>
 
-            <!-- ===== PROYECTOS ===== -->
             <div class="admin-panel" id="panelProyectos">
                 <div class="panel-title">
                     <h3>Proyectos del portafolio</h3>
@@ -274,7 +251,6 @@
                 <table class="admin-table"><thead><tr><th>Proyecto</th><th>Slug</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="projectsTableBody"></tbody></table>
             </div>
 
-            <!-- ===== SERVICIOS ===== -->
             <div class="admin-panel" id="panelServicios">
                 <div class="panel-title">
                     <h3>Servicios y planes</h3>
@@ -283,7 +259,6 @@
                 <table class="admin-table"><thead><tr><th>Servicio</th><th>Precio</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="servicesTableBody"></tbody></table>
             </div>
 
-            <!-- ===== PEDIDOS ===== -->
             <div class="admin-panel" id="panelPedidos">
                 <div class="panel-title">
                     <div><h3>Pedidos recientes</h3><span class="admin-panel-subtitle">Gestiona el estado de las solicitudes recibidas.</span></div>
@@ -297,7 +272,6 @@
                 </table>
             </div>
 
-            <!-- ===== MENSAJES ===== -->
             <div class="admin-panel" id="panelMensajes">
                 <div class="panel-title">
                     <div><h3>Mensajes de contacto</h3><span class="admin-panel-subtitle">Consulta y organiza las conversaciones del sitio.</span></div>
