@@ -988,3 +988,68 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
     transition: var(--transition) !important;
 }
 .cms-close:hover { color: #fff !important; }
+/* ============================================================
+   MEJORAS VISUALES EXCLUSIVAS DEL PANEL DE ADMIN (SEGURO)
+   ============================================================ */
+
+/* 1. Mejorar los botones de acción en las tablas (Editar / Eliminar) */
+body.admin-body .table-actions button {
+    position: relative !important;
+    overflow: hidden !important;
+}
+body.admin-body .table-actions button i {
+    transition: transform 0.2s ease, color 0.2s ease !important;
+}
+/* Efecto al pasar el ratón por el lápiz */
+body.admin-body .table-actions button:not(.danger):hover i.fa-pen {
+    color: #a8b9cc !important; /* Tu color azul */
+    transform: scale(1.2) !important;
+}
+/* Efecto al pasar el ratón por la basura */
+body.admin-body .table-actions button.danger:hover i.fa-trash {
+    color: #ef4444 !important; /* Rojo */
+    transform: scale(1.2) !important;
+}
+
+/* 2. Animación para el botón "Nuevo Producto" / "Nueva Opinión" */
+body.admin-body .btn-admin-add {
+    position: relative !important;
+    overflow: hidden !important;
+}
+body.admin-body .btn-admin-add::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important; left: -100% !important;
+    width: 50% !important; height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+body.admin-body .btn-admin-add:hover::after {
+    left: 100% !important;
+}
+body.admin-body .btn-admin-add i {
+    transition: transform 0.3s ease !important;
+}
+body.admin-body .btn-admin-add:hover i.fa-plus {
+    transform: rotate(90deg) !important;
+}
+
+/* 3. Icono de "Ver Sitio" (Esquina superior derecha) */
+body.admin-body .admin-icon-btn:hover i.fa-arrow-up-right-from-square {
+    transform: translate(2px, -2px) !important;
+    transition: transform 0.2s ease !important;
+}
+
+/* 4. Mejorar la barra de búsqueda cuando está enfocada */
+body.admin-body .admin-search:focus-within {
+    border-color: #a8b9cc !important;
+    box-shadow: 0 0 15px rgba(168, 185, 204, 0.1) !important;
+}
+body.admin-body .admin-search:focus-within i {
+    color: #a8b9cc !important;
+}
+
+/* 5. Efecto de carga en el botón de "Guardar" del CMS */
+body.admin-body .cms-btn-primary:active {
+    transform: scale(0.98) !important;
+}
