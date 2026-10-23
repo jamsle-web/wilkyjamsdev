@@ -1,0 +1,53 @@
+[
+  {
+    "id": "post-001",
+    "title": "Cómo una Landing Page Optimizada Puede Duplicar las Ventas de tu Negocio",
+    "slug": "landing-page-optimizada-ventas",
+    "category": "Marketing Digital",
+    "readTime": "4 min",
+    "date": "2026-10-23",
+    "excerpt": "Descubre los elementos clave de diseño y estructura que transforman las visitas casuales en clientes reales para tu marca.",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    "tags": ["Landing Pages", "Conversión", "UI/UX"],
+    "body": [
+      "Muchos emprendedores y empresas cometen el grave error de dirigir sus campañas de publicidad hacia la página de inicio genérica de su sitio web. Esto dispersa la atención del usuario. Una landing page optimizada se enfoca en un único objetivo: la conversión.",
+      "Para lograr un alto impacto, el primer paso es definir una propuesta de valor clara en los primeros tres segundos de carga. El usuario debe entender inmediatamente qué problema resuelves y cómo puede adquirir tu solución.",
+      "Los llamados a la acción (CTA) deben ser estratégicos, contrastantes y utilizar textos persuasivos que motiven a hacer clic. Elementos como formularios simplificados y la eliminación de menús de navegación secundarios evitan las fugas de tráfico.",
+      "Finalmente, la optimización móvil y la inclusión de pruebas sociales, como testimonios reales de clientes, terminan por consolidar la confianza necesaria para cerrar la venta. Una landing page bien diseñada no es un gasto, es un motor de ingresos constante."
+    ]
+  },
+  {
+    "id": "post-002",
+    "title": "El Poder de CSS Grid en el Diseño Web Moderno",
+    "slug": "poder-css-grid-diseno-web",
+    "category": "Desarrollo Frontend",
+    "readTime": "5 min",
+    "date": "2026-10-20",
+    "excerpt": "Deja atrás las limitaciones antiguas de maquetación y aprende a estructurar interfaces complejas, limpias y adaptables.",
+    "image": "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&q=80",
+    "tags": ["CSS Grid", "Frontend", "Desarrollo Web"],
+    "body": [
+      "La disposición y estructura de los elementos en una pantalla definen la calidad de la experiencia del usuario. Durante años, los desarrolladores frontend lidiamos con métodos complejos como floats o tablas, pero la llegada de CSS Grid cambió las reglas del juego por completo.",
+      "CSS Grid ofrece un sistema de maquetación bidimensional nativo. Esto significa que puedes controlar tanto las columnas como las filas al mismo tiempo, permitiendo la creación de cuadrículas perfectas sin depender de frameworks pesados de terceros.",
+      "Una de sus mayores ventajas es la reducción de código innecesario. Al poder definir la estructura directamente en el contenedor padre, mantienes un HTML limpio y semántico, lo que impacta positivamente en el rendimiento y la velocidad de carga del sitio.",
+      "Además, la adaptabilidad con Media Queries se vuelve sumamente intuitiva. Puedes reordenar por completo bloques visuales y adaptar layouts complejos para pantallas móviles con apenas unas líneas de código. Dominar las grillas modernas es el estándar de un desarrollador experto."
+    ]
+  },
+  {
+    "id": "post-003",
+    "title": "IA y Diseño Web: Cómo la Inteligencia Artificial Potencia la Creación Digital",
+    "slug": "ia-diseno-web-potencia-creativa",
+    "category": "Inteligencia Artificial",
+    "readTime": "3 min",
+    "date": "2026-10-17",
+    "excerpt": "La IA no reemplaza el talento humano; se convierte en el aliado ideal para acelerar tus flujos de trabajo y optimizar resultados.",
+    "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    "tags": ["IA", "Tecnología", "Productividad"],
+    "body": [
+      "El ecosistema digital avanza de forma acelerada y la Inteligencia Artificial ha dejado de ser una promesa del futuro para convertirse en una herramienta del presente. En el diseño web, su uso correcto está redefiniendo los tiempos de desarrollo.",
+      "Lejos de sustituir la perspectiva estética humana, la IA actúa como un potenciador de la productividad. En fases iniciales, permite acelerar la investigación UX mediante el análisis predictivo de patrones de comportamiento del consumidor.",
+      "En el aspecto visual, facilita la optimización de activos gráficos, permitiendo generar fondos dinámicos, mockups personalizados o realizar edición avanzada en minutos. Esto libera tiempo valioso para enfocar los esfuerzos en la estrategia de la marca.",
+      "Combinar la tecnología de vanguardia y el uso de código limpio con metodologías guiadas por IA permite entregar proyectos robustos, funcionales y memorables en tiempo récord. El futuro del desarrollo web es híbrido y colaborativo."
+    ]
+  }
+]
