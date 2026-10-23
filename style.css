@@ -1013,3 +1013,57 @@ nav .lang-selector {
         grid-template-columns: 1fr !important;
     }
 }
+/* ============================================================
+   AJUSTE FINAL PARA COMPACTAR EL BLOG (QUITAR ESPACIOS VACÍOS)
+   ============================================================ */
+
+/* 1. Quitar todo el espacio extra del encabezado del blog */
+section#blog-hero {
+    padding-top: 140px !important; /* Solo lo necesario para que no lo tape la barra */
+    padding-bottom: 0 !important;
+    min-height: auto !important;
+}
+
+/* 2. Quitar el margen gigante del título */
+section#blog-hero .section-header {
+    margin-bottom: 30px !important;
+}
+
+/* 3. Unir los filtros justo debajo del título */
+section#blog-list {
+    padding-top: 0 !important;
+    padding-bottom: 60px !important;
+    min-height: auto !important;
+}
+
+/* 4. Ajustar los filtros y las tarjetas */
+#blogFilterTabs {
+    margin-bottom: 40px !important;
+    margin-top: 0 !important;
+}
+
+#blogGrid {
+    margin-top: 0 !important;
+    gap: 30px !important;
+}
+
+/* 5. RESPONSIVE: Ajustar para celulares */
+@media (max-width: 768px) {
+    section#blog-hero {
+        padding-top: 110px !important;
+    }
+    #blogHero h2 {
+        font-size: 2rem !important;
+    }
+    #blogFilterTabs {
+        gap: 8px !important;
+        margin-bottom: 30px !important;
+    }
+    #blogFilterTabs button {
+        font-size: 0.75rem !important;
+        padding: 8px 14px !important;
+    }
+    #blogGrid {
+        grid-template-columns: 1fr !important;
+    }
+}
