@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Blog de Wilkyjams Dev. Artículos sobre diseño web, UI/UX, marketing digital e inteligencia artificial." />
+    <meta name="theme-color" content="#050505" />
+    <title>Blog · Wilkyjams Dev</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- FUENTES Y LIBRERÍAS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <!-- TU CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- CANVAS PARA PARTICULAS 3D -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- ===== NAVEGACIÓN ===== -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                <span class="logo-icon">JP</span>
+                <span class="logo-text">Wilkyjams Dev</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#services">Servicios</a></li>
+                <li><a href="index.html#store">Tienda</a></li>
+                <li><a href="blog.html" style="color: var(--accent-2); font-weight: 700;">Blog</a></li>
+                <li><a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank">Portafolio <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a></li>
+                <li><a href="index.html#contact" class="btn-outline">Contáctame</a></li>
+                <li>
+                    <div class="lang-selector">
+                        <button class="active" data-lang="es">ES</button>
+                        <button data-lang="en">EN</button>
+                        <button data-lang="fr">FR</button>
+                        <button data-lang="pt">PT</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO DEL BLOG ===== -->
+    <section id="blog-hero" style="padding-top: 160px; min-height: auto;">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label glass-label">Recursos & Ideas</span>
+                <h2>El Blog de <span class="highlight">Wilkyjams</span></h2>
+                <p>Artículos sobre diseño web, UI/UX, marketing digital e inteligencia artificial para hacer crecer tu marca.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GRID DE ARTÍCULOS ===== -->
+    <section id="blog-list" style="min-height: 50vh; padding: 20px 0 100px 0;">
+        <div class="container">
+            <div class="store-grid" id="blogGrid">
+                <!-- Las tarjetas se generan desde el JSON con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo glass-logo">JP</div>
+                    <p>Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p>
+                </div>
+                <div>
+                    <h5>Navegación</h5>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#services">Servicios</a></li>
+                        <li><a href="index.html#store">Tienda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="privacy.html">Privacidad</a></li>
+                        <li><a href="terms.html">Términos</a></li>
+                        <li><a href="cookies.html">Cookies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Contacto</h5>
+                    <ul>
+                        <li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li>
+                        <li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Jamsle Porcena</span> · Diseño web & Marketing Digital</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: false, mirror: true });</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- SCRIPT PARA EL FONDO 3D (Three.js) -->
+    <script>
+        const canvas = document.querySelector('#webgl-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+
+        const particlesGeo = new THREE.BufferGeometry();
+        const particlesCount = 400;
+        const posArray = new Float32Array(particlesCount * 3);
+        for (let i = 0; i < particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+        const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particlesMesh);
+
+        const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), new THREE.MeshBasicMaterial({ color: 0xa8b9cc, wireframe: true, transparent: true, opacity: 0.15 }));
+        sphere.position.set(2.5, 0, -2);
+        scene.add(sphere);
+
+        const sphere2 = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshBasicMaterial({ color: 0xc4a8cc, wireframe: true, transparent: true, opacity: 0.1 }));
+        sphere2.position.set(-2.5, -1, -2);
+        scene.add(sphere2);
+
+        let reqId;
+        const clock = new THREE.Clock();
+        function animate() {
+            reqId = requestAnimationFrame(animate);
+            const t = clock.getElapsedTime();
+            particlesMesh.rotation.y = t * 0.04;
+            sphere.rotation.y = t * 0.12;
+            sphere2.rotation.y = -t * 0.15;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) cancelAnimationFrame(reqId);
+            else animate();
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+
+    <!-- SCRIPT PARA CARGAR LOS ARTÍCULOS DEL BLOG -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('blogGrid');
+            if (!grid) return;
+
+            try {
+                const response = await fetch('blog.json');
+                const posts = await response.json();
+
+                grid.innerHTML = posts.map(post => `
+                    <div class="store-card" data-aos="fade-up">
+                        <div class="store-thumb">
+                            <span class="store-cat">${post.category}</span>
+                            <img src="${post.image}" alt="${post.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=500&q=80'">
+                        </div>
+                        <div class="store-body">
+                            <div style="display: flex; gap: 8px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">
+                                <span><i class="fas fa-calendar"></i> ${new Date(post.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                                <span>·</span>
+                                <span><i class="fas fa-clock"></i> ${post.readTime}</span>
+                            </div>
+                            <h3>${post.title}</h3>
+                            <p>${post.excerpt}</p>
+                            <div class="store-footer">
+                                <div class="store-price" style="font-size: 0.8rem; color: var(--accent-1);">
+                                    ${post.tags.map(t => `#${t}`).join(' ')}
+                                </div>
+                                <div class="store-card-actions">
+                                    <a href="blog-post.html?slug=${post.slug}" class="btn-add-cart" style="text-decoration: none;">
+                                        <i class="fas fa-book-open"></i> Leer más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                if (typeof AOS !== 'undefined') AOS.refresh();
+            } catch (error) {
+                console.error('Error cargando el blog:', error);
+                grid.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No se pudieron cargar los artículos.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
