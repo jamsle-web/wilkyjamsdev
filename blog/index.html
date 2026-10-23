@@ -137,7 +137,13 @@
                 return;
             }
 
-            grid.innerHTML = filtered.map(post => `
+            grid.innerHTML = filtered.map(post => {
+                // Verificamos si el enlace es externo (Dev.to) o local
+                const isExternal = post.slug.startsWith('http');
+                const linkUrl = isExternal ? post.slug : `blog-post.html?slug=${post.slug}`;
+                const targetAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+
+                return `
                 <div class="store-card" data-aos="fade-up">
                     <div class="store-thumb">
                         <span class="store-cat">${post.category}</span>
@@ -156,14 +162,15 @@
                                 ${post.tags.map(t => `#${t}`).join(' ')}
                             </div>
                             <div class="store-card-actions">
-                                <a href="blog-post.html?slug=${post.slug}" class="btn-add-cart" style="text-decoration: none;">
+                                <a href="${linkUrl}" ${targetAttr} class="btn-add-cart" style="text-decoration: none;">
                                     <i class="fas fa-book-open"></i> Leer más
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function renderCategoryFilters(posts) {
