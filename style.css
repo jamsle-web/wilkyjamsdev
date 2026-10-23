@@ -911,3 +911,43 @@ nav .lang-selector {
     border-top: none !important;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important; /* Solo la sombra, sin el borde */
 }
+/* ============================================================
+   ESTILOS ESPECÍFICOS PARA LOS FILTROS DEL BLOG
+   ============================================================ */
+
+/* 1. Contenedor de los botones de filtro */
+#blogFilterTabs {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin-bottom: 40px !important;
+    justify-content: center !important;
+}
+
+/* 2. Botones de filtro */
+#blogFilterTabs button {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #a0a0a0 !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    padding: 10px 22px !important;
+    border-radius: 30px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+/* 3. Efecto al pasar el ratón */
+#blogFilterTabs button:hover {
+    color: #fff !important;
+    border-color: #a8b9cc !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 4. Botón activo (el que está seleccionado) */
+#blogFilterTabs button.active {
+    background: linear-gradient(135deg, #a8b9cc, #c4a8cc) !important;
+    color: #000 !important;
+    border-color: transparent !important;
+    font-weight: 700 !important;
+}
