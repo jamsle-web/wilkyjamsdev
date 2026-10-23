@@ -831,3 +831,36 @@ body::-webkit-scrollbar-thumb:hover {
     line-height: 1.5 !important;
     margin: 0 !important;
 }
+/* ============================================================
+   ESTILO DE LA BARRA DE NAVEGACIÓN IDÉNTICO AL PORTAFOLIO
+   ============================================================ */
+
+/* 1. Fondo oscuro sólido (como el portafolio) */
+nav {
+    background: rgba(10, 10, 12, 0.85) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    transition: all 0.3s ease !important;
+}
+
+/* 2. Efecto al hacer scroll (se vuelve más opaca para que no se vea nada por detrás) */
+nav.scrolled {
+    background: rgba(5, 5, 7, 0.98) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* 3. Asegurar que los textos del menú se vean bien */
+nav .nav-links a {
+    color: #a0a0a0 !important;
+}
+nav .nav-links a:hover {
+    color: #fff !important;
+}
+
+/* 4. Asegurar que los botones de idiomas se vean igual */
+nav .lang-selector {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
