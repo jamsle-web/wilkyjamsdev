@@ -864,3 +864,35 @@ nav .lang-selector {
     background: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
+/* ============================================================
+   LIMPIAR LA BARRA DE NAVEGACIÓN (QUITAR LÍNEA BLANCA)
+   ============================================================ */
+
+/* 1. Quitar la línea blanca superior de la barra */
+nav {
+    border-top: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Un borde sutil como el de tu portafolio */
+    background: rgba(10, 10, 12, 0.85) !important; /* Fondo oscuro sólido */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important; /* Sombra sutil */
+}
+
+/* 2. Eliminar el "brillo de cristal" (la línea blanca del borde) */
+nav::before {
+    display: none !important;
+}
+
+/* 3. Hacer que los textos del menú se vean nítidos y blancos */
+nav .nav-links a {
+    color: #a0a0a0 !important;
+    font-weight: 500 !important;
+    transition: color 0.3s ease !important;
+}
+nav .nav-links a:hover {
+    color: #fff !important;
+}
+
+/* 4. Ajustar los botones de idiomas para que no tengan brillo */
+nav .lang-selector {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
