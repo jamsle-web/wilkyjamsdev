@@ -951,3 +951,65 @@ nav .lang-selector {
     border-color: transparent !important;
     font-weight: 700 !important;
 }
+/* ============================================================
+   AJUSTE DE ESPACIADO Y RESPONSIVE PARA EL BLOG
+   ============================================================ */
+
+/* 1. Reducir el espacio gigante del encabezado del blog */
+#blog-hero {
+    padding-top: 140px !important;
+    padding-bottom: 20px !important;
+    min-height: auto !important;
+}
+
+#blog-hero .section-header {
+    margin-bottom: 20px !important;
+}
+
+/* 2. Reducir el espacio de los filtros */
+#blogFilterTabs {
+    margin-top: 0 !important;
+    margin-bottom: 30px !important;
+}
+
+/* 3. Hacer que el grid de artículos no tenga tanto espacio vacío */
+#blogGrid {
+    margin-top: 0 !important;
+    gap: 24px !important;
+}
+
+/* 4. Ajustar el padding de la sección de artículos */
+#blog-list {
+    padding-top: 0 !important;
+    padding-bottom: 80px !important;
+}
+
+/* 5. RESPONSIVE: Para celulares y tablets */
+@media (max-width: 1024px) {
+    #blog-hero {
+        padding-top: 120px !important;
+    }
+    #blogGrid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #blog-hero {
+        padding-top: 110px !important;
+        padding-bottom: 10px !important;
+    }
+    #blog-hero h2 {
+        font-size: 2rem !important;
+    }
+    #blogFilterTabs {
+        gap: 8px !important;
+    }
+    #blogFilterTabs button {
+        font-size: 0.75rem !important;
+        padding: 8px 16px !important;
+    }
+    #blogGrid {
+        grid-template-columns: 1fr !important;
+    }
+}
