@@ -49,5 +49,56 @@
       "En el aspecto visual, facilita la optimización de activos gráficos, permitiendo generar fondos dinámicos, mockups personalizados o realizar edición avanzada en minutos. Esto libera tiempo valioso para enfocar los esfuerzos en la estrategia de la marca.",
       "Combinar la tecnología de vanguardia y el uso de código limpio con metodologías guiadas por IA permite entregar proyectos robustos, funcionales y memorables en tiempo récord. El futuro del desarrollo web es híbrido y colaborativo."
     ]
+  },
+  {
+    "id": "post-004",
+    "title": "5 Errores Comunes de UI/UX que Hacen Perder Clientes a tu Web (y Cómo Evitarlos)",
+    "slug": "errores-comunes-ui-ux-sitio-web",
+    "category": "Diseño UI/UX",
+    "readTime": "6 min",
+    "date": "2026-10-23",
+    "excerpt": "Identifica las fallas de experiencia de usuario más frecuentes que causan que las personas abandonen tu plataforma y aprende a solucionarlas.",
+    "image": "https://images.unsplash.com/photo-1581291518655-9523c932dedf?q=80&w=500",
+    "tags": ["UX Research", "Diseño Web", "Optimización"],
+    "body": [
+      "El diseño visual atrae a las personas, pero una mala experiencia de usuario (UX) las ahuyenta de inmediato. Muchas marcas pierden ventas diariamente no por su producto, sino porque su sitio web confunde o frustra al visitante durante la navegación.",
+      "El primer error crítico es la falta de consistencia visual. Utilizar demasiadas tipografías dispares o paletas de colores desorganizadas rompe la armonía estética y destruye la confianza del cliente, haciendo que el negocio luzca poco profesional.",
+      "Otro fallo masivo son los formularios excesivamente largos. Cada campo adicional que obligas a rellenar reduce la tasa de conversión en un 10%; la solución ideal es solicitar estrictamente los datos esenciales, como el correo y el nombre de contacto.",
+      "Finalmente, ignorar la jerarquía visual deja al usuario sin un camino claro. Los botones de acción importantes deben destacar usando contrastes marcados y espacios en blanco inteligentes que permitan una lectura limpia, fluida y sin distracciones."
+    ]
+  },
+  {
+    "id": "post-005",
+    "title": "Guía de SEO Técnico: Cómo Optimizar la Velocidad de Carga para Google",
+    "slug": "guia-seo-tecnico-velocidad-carga",
+    "category": "Marketing Digital",
+    "readTime": "5 min",
+    "date": "2026-10-19",
+    "excerpt": "Aprende las mejores prácticas de rendimiento frontend para posicionar tu portafolio o sitio de negocio en el primer lugar de los buscadores.",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=500",
+    "tags": ["SEO", "Performance", "Frontend"],
+    "body": [
+      "El posicionamiento en buscadores (SEO) va mucho más allá de repetir palabras clave. Google prioriza la experiencia técnica del usuario, y la velocidad con la que tu código se renderiza en la pantalla es uno de los factores de clasificación más determinantes.",
+      "Optimizar las imágenes multimedia es la tarea con mayor retorno de inversión técnica. Cambiar formatos antiguos por archivos de nueva generación (como WebP o AVIF) reduce el peso de transferencia hasta en un 70% sin sacrificar un ápice de calidad visual.",
+      "El uso correcto de la carga diferida o 'lazy loading' asegura que el navegador del usuario solo descargue los recursos visuales a medida que hace scroll hacia abajo. Esto disminuye drásticamente el tiempo de interacción inicial de la página.",
+      "Mantener un código optimizado mediante la eliminación de scripts redundantes o librerías CSS pesadas garantiza interfaces instantáneas. Un sitio web rápido no solo agrada a los algoritmos de Google, sino que duplica la retención de clientes potenciales."
+    ]
+  },
+  {
+    "id": "post-006",
+    "title": "Prompt Engineering para Desarrolladores: Domina la IA en tu Flujo de Trabajo",
+    "slug": "prompt-engineering-ia-desarrollo-web",
+    "category": "Inteligencia Artificial",
+    "readTime": "4 min",
+    "date": "2026-10-15",
+    "excerpt": "Aprende a formular instrucciones ultra precisas para modelos de lenguaje para depurar código y estructurar componentes en tiempo récord.",
+    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500",
+    "tags": ["IA", "Prompt Engineering", "Código"],
+    "body": [
+      "La Inteligencia Artificial se ha transformado en el copiloto definitivo de la programación y el diseño moderno. Sin embargo, la calidad del código o la estructura que genera una IA depende directamente de la claridad con la que se le dan las órdenes.",
+      "El 'Prompt Engineering' es el arte de estructurar instrucciones asignando un rol específico (ej. 'Actúa como un desarrollador experto en frontend') y entregando un contexto detallado del proyecto para evitar respuestas genéricas o erróneas.",
+      "Una técnica avanzada es delimitar claramente los datos de entrada mediante formatos limpios (como JSON) y especificar el resultado exacto que necesitas, forzando al modelo a omitir explicaciones de texto innecesarias si solo buscas lógica pura.",
+      "Aprender a iterar y refinar las instrucciones introduciendo restricciones técnicas directas permite crear maquetas completas y resolver bugs en minutos. Dominar esta interacción separa a los desarrolladores tradicionales de los desarrolladores del futuro."
+    ]
   }
 ]
