@@ -563,3 +563,138 @@ body.admin-body .btn-admin-add:hover i.fa-plus { transform: rotate(90deg) !impor
 body.admin-body .admin-icon-btn:hover i.fa-arrow-up-right-from-square { transform: translate(2px, -2px) !important; }
 body.admin-body .admin-search:focus-within { border-color: #a8b9cc !important; box-shadow: 0 0 15px rgba(168, 185, 204, 0.1) !important; }
 body.admin-body .admin-search:focus-within i { color: #a8b9cc !important; }
+/* ============================================================
+   ARREGLO VISUAL DEL CARRITO LATERAL (MINIATURAS)
+   ============================================================ */
+
+/* 1. Controlar el tamaño de la imagen del producto en el carrito */
+.cart-item-image,
+.cart-items img {
+    width: 70px !important;
+    height: 70px !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin-right: 15px !important;
+}
+
+/* 2. Alinear el contenido del producto (imagen a la izquierda, texto a la derecha) */
+.cart-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+    padding: 15px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 3. Arreglar el texto del producto */
+.cart-item-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    flex-grow: 1 !important;
+}
+
+.cart-item-info h4 {
+    font-family: var(--font-display) !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+}
+
+.cart-item-info .cart-item-price {
+    font-size: 0.85rem !important;
+    color: var(--accent-1) !important;
+    font-weight: 700 !important;
+}
+
+/* 4. Arreglar los botones de cantidad (+ / -) */
+.cart-qty-controls {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 8px !important;
+}
+
+.cart-qty-controls button {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.cart-qty-controls button:hover {
+    background: var(--accent-1) !important;
+    color: #000 !important;
+    border-color: var(--accent-1) !important;
+}
+
+.cart-qty-controls span {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    min-width: 20px !important;
+    text-align: center !important;
+}
+
+/* 5. Botón de eliminar (papelera) */
+.cart-item-remove {
+    background: transparent !important;
+    border: none !important;
+    color: #a0a0a0 !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    margin-top: 8px !important;
+    padding: 0 !important;
+    transition: color 0.3s ease !important;
+}
+
+.cart-item-remove:hover {
+    color: #ef4444 !important;
+}
+
+
+/* ============================================================
+   ARREGLO DE LA BARRA DE SCROLL (CARRITO Y SITIO)
+   ============================================================ */
+
+/* 1. Hacer que la barra del carrito sea invisible pero funcional */
+.cart-items::-webkit-scrollbar {
+    width: 0px !important; /* Ancho 0 para que no se vea */
+    background: transparent !important;
+}
+
+/* Para Firefox */
+.cart-items {
+    scrollbar-width: none !important; 
+}
+
+/* 2. Ocultar la barra del carrito lateral (el contenedor principal) */
+.cart-drawer::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* 3. Opcional: Si quieres que la barra del sitio (body) sea elegante y finita */
+body::-webkit-scrollbar {
+    width: 6px !important;
+}
+body::-webkit-scrollbar-track {
+    background: #050505 !important;
+}
+body::-webkit-scrollbar-thumb {
+    background: #a8b9cc !important;
+    border-radius: 10px !important;
+}
+body::-webkit-scrollbar-thumb:hover {
+    background: #c4a8cc !important;
+}
