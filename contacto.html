@@ -13,32 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <link rel="stylesheet" href="style.css" />
-
-    <!-- ESTILOS PARA EL MAPA RESPONSIVE -->
-    <style>
-        .map-container {
-            width: 100%;
-            height: 350px;
-            border-radius: var(--radius, 24px);
-            overflow: hidden;
-            border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
-            margin-top: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            position: relative;
-            z-index: 10;
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-        @media (max-width: 768px) {
-            .map-container {
-                height: 250px;
-            }
-        }
-    </style>
 </head>
 <body>
 
@@ -135,8 +109,8 @@
             </div>
 
             <!-- ===== MAPA DE GOOGLE MAPS (RESPONSIVE) ===== -->
-            <div class="map-container" data-aos="fade-up">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2157044.913184117!2d-70.130055!3d18.6698995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa933eacba0316287%3A0xd9fc78d8f55ebaf1!2sWilkyJames%20Dev%20%E2%80%94%20Desarrollo%20Web!5e1!3m2!1ses!2sdo!4v1792859449029!5m2!1ses!2sdo" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="map-container" data-aos="fade-up" style="width: 100%; height: 350px; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); margin-top: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; z-index: 10;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2157044.913184117!2d-70.130055!3d18.6698995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa933eacba0316287%3A0xd9fc78d8f55ebaf1!2sWilkyJames%20Dev%20%E2%80%94%20Desarrollo%20Web!5e1!3m2!1ses!2sdo!4v1792859449029!5m2!1ses!2sdo" style="width: 100%; height: 100%; border: 0; display: block;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
         </div>
     </section>
@@ -302,6 +276,18 @@
             form.reset();
             document.getElementById('formModal').classList.add('open');
             setTimeout(() => window.open(waUrl, '_blank', 'noopener,noreferrer'), 80);
+        });
+    </script>
+    <!-- Forzar ocultación de la capa de transición si se queda pegada -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const transitionLayer = document.getElementById('jpPageTransition');
+                if (transitionLayer) {
+                    transitionLayer.classList.remove('is-visible');
+                    transitionLayer.style.display = 'none';
+                }
+            }, 500);
         });
     </script>
     <!-- Vercel Web Analytics -->
