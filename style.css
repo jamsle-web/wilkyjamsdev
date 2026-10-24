@@ -630,3 +630,43 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
         height: 300px !important;
     }
 }
+/* ============================================================
+   FORZAR LA OCULTACIÓN DE LA CAPA DE TRANSICIÓN (JP PREPARANDO)
+   ============================================================ */
+#jpPageTransition {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+}
+
+/* ============================================================
+   FORZAR LA VISIBILIDAD DEL MAPA
+   ============================================================ */
+.map-container {
+    display: block !important;
+    width: 100% !important;
+    height: 350px !important;
+    min-height: 250px !important;
+    margin-top: 40px !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.map-container iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+    display: block !important;
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 250px !important;
+    }
+}
