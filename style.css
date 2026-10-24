@@ -62,14 +62,22 @@ ul { list-style: none; }
     z-index: 2;
 }
 
-/* ===== NAV (GLASS) ===== */
+/* ===== NAV (ESTILO PORTAFOLIO) ===== */
 nav {
     position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
     width: 90%; max-width: 1200px; z-index: 1000;
     display: flex; justify-content: space-between; align-items: center;
     padding: 15px 30px; border-radius: 50px;
-    background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--glass-border); transition: var(--transition);
+    background: rgba(10, 10, 12, 0.85) !important; 
+    backdrop-filter: blur(20px) !important; 
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    transition: var(--transition);
+}
+nav.scrolled {
+    background: rgba(5, 5, 7, 0.98) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
 }
 nav .container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -77,8 +85,8 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .logo-text { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: #fff; }
 
 .nav-links { display: flex; gap: 20px; align-items: center; background: transparent; border: none; box-shadow: none; backdrop-filter: none; overflow: visible; }
-.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: var(--transition); }
-.nav-links a:hover { color: #fff; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted) !important; transition: var(--transition); }
+.nav-links a:hover { color: #fff !important; }
 .btn-outline { border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 50px; color: #fff !important; transition: var(--transition); }
 .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
@@ -86,7 +94,7 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .cart-btn { background: transparent; border: 1px solid var(--glass-border); color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; position: relative; transition: var(--transition); }
 .cart-btn:hover { border-color: var(--accent-1); }
 .cart-count { position: absolute; top: -5px; right: -5px; background: var(--accent-gradient); color: #000; font-size: 0.65rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.lang-selector { display: flex; gap: 5px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 50px; }
+.lang-selector { display: flex; gap: 5px; background: rgba(255,255,255,0.03) !important; padding: 4px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.08) !important; }
 .lang-selector button { background: transparent; border: none; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 50px; cursor: pointer; transition: var(--transition); }
 .lang-selector button.active { background: var(--accent-gradient); color: #000; }
 
@@ -108,6 +116,8 @@ p { color: var(--text-muted); font-size: 1.05rem; }
     gap: 40px;
     align-items: center;
     padding: 60px;
+    border-top: none !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
 }
 .hero-content .subtitle { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-1); background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; }
 .hero-content h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.1; text-transform: uppercase; margin-bottom: 24px; }
@@ -563,146 +573,11 @@ body.admin-body .btn-admin-add:hover i.fa-plus { transform: rotate(90deg) !impor
 body.admin-body .admin-icon-btn:hover i.fa-arrow-up-right-from-square { transform: translate(2px, -2px) !important; }
 body.admin-body .admin-search:focus-within { border-color: #a8b9cc !important; box-shadow: 0 0 15px rgba(168, 185, 204, 0.1) !important; }
 body.admin-body .admin-search:focus-within i { color: #a8b9cc !important; }
+
 /* ============================================================
    ARREGLO VISUAL DEL CARRITO LATERAL (MINIATURAS)
    ============================================================ */
 
-/* 1. Controlar el tamaño de la imagen del producto en el carrito */
-.cart-item-image,
-.cart-items img {
-    width: 70px !important;
-    height: 70px !important;
-    object-fit: cover !important;
-    border-radius: 12px !important;
-    flex-shrink: 0 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    margin-right: 15px !important;
-}
-
-/* 2. Alinear el contenido del producto (imagen a la izquierda, texto a la derecha) */
-.cart-item {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 15px !important;
-    padding: 15px 0 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-/* 3. Arreglar el texto del producto */
-.cart-item-info {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 5px !important;
-    flex-grow: 1 !important;
-}
-
-.cart-item-info h4 {
-    font-family: var(--font-display) !important;
-    font-size: 0.95rem !important;
-    font-weight: 600 !important;
-    color: #fff !important;
-    line-height: 1.3 !important;
-    margin: 0 !important;
-}
-
-.cart-item-info .cart-item-price {
-    font-size: 0.85rem !important;
-    color: var(--accent-1) !important;
-    font-weight: 700 !important;
-}
-
-/* 4. Arreglar los botones de cantidad (+ / -) */
-.cart-qty-controls {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    margin-top: 8px !important;
-}
-
-.cart-qty-controls button {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-    width: 28px !important;
-    height: 28px !important;
-    border-radius: 6px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-}
-
-.cart-qty-controls button:hover {
-    background: var(--accent-1) !important;
-    color: #000 !important;
-    border-color: var(--accent-1) !important;
-}
-
-.cart-qty-controls span {
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    color: #fff !important;
-    min-width: 20px !important;
-    text-align: center !important;
-}
-
-/* 5. Botón de eliminar (papelera) */
-.cart-item-remove {
-    background: transparent !important;
-    border: none !important;
-    color: #a0a0a0 !important;
-    cursor: pointer !important;
-    font-size: 0.9rem !important;
-    margin-top: 8px !important;
-    padding: 0 !important;
-    transition: color 0.3s ease !important;
-}
-
-.cart-item-remove:hover {
-    color: #ef4444 !important;
-}
-
-
-/* ============================================================
-   ARREGLO DE LA BARRA DE SCROLL (CARRITO Y SITIO)
-   ============================================================ */
-
-/* 1. Hacer que la barra del carrito sea invisible pero funcional */
-.cart-items::-webkit-scrollbar {
-    width: 0px !important; /* Ancho 0 para que no se vea */
-    background: transparent !important;
-}
-
-/* Para Firefox */
-.cart-items {
-    scrollbar-width: none !important; 
-}
-
-/* 2. Ocultar la barra del carrito lateral (el contenedor principal) */
-.cart-drawer::-webkit-scrollbar {
-    display: none !important;
-}
-
-/* 3. Opcional: Si quieres que la barra del sitio (body) sea elegante y finita */
-body::-webkit-scrollbar {
-    width: 6px !important;
-}
-body::-webkit-scrollbar-track {
-    background: #050505 !important;
-}
-body::-webkit-scrollbar-thumb {
-    background: #a8b9cc !important;
-    border-radius: 10px !important;
-}
-body::-webkit-scrollbar-thumb:hover {
-    background: #c4a8cc !important;
-}
-/* ============================================================
-   ARREGLO VISUAL DEFINITIVO DEL CARRITO (BASADO EN common.js)
-   ============================================================ */
-
-/* 1. Contenedor de la línea del producto */
 .cart-line {
     display: flex !important;
     align-items: center !important;
@@ -712,7 +587,6 @@ body::-webkit-scrollbar-thumb:hover {
     position: relative !important;
 }
 
-/* 2. Miniatura de la imagen (evita que se vea gigante) */
 .cart-line > img {
     width: 64px !important;
     height: 64px !important;
@@ -722,7 +596,6 @@ body::-webkit-scrollbar-thumb:hover {
     flex-shrink: 0 !important;
 }
 
-/* 3. Información del producto (título, precio y botones) */
 .cart-line-info {
     display: flex !important;
     flex-direction: column !important;
@@ -738,7 +611,6 @@ body::-webkit-scrollbar-thumb:hover {
     color: #fff !important;
     line-height: 1.3 !important;
     margin: 0 !important;
-    /* Truncar texto si es muy largo */
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -750,7 +622,6 @@ body::-webkit-scrollbar-thumb:hover {
     font-weight: 600 !important;
 }
 
-/* 4. Controles de cantidad (+ / - / número) */
 .qty-controls {
     display: flex !important;
     align-items: center !important;
@@ -764,7 +635,7 @@ body::-webkit-scrollbar-thumb:hover {
     color: #fff !important;
     width: 26px !important;
     height: 26px !important;
-    border-radius: 50% !important; /* Redondos */
+    border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -790,7 +661,6 @@ body::-webkit-scrollbar-thumb:hover {
     text-align: center !important;
 }
 
-/* 5. Botón de eliminar (basura) a la derecha */
 .cart-remove-btn {
     background: transparent !important;
     border: none !important;
@@ -809,7 +679,6 @@ body::-webkit-scrollbar-thumb:hover {
     color: #ef4444 !important;
 }
 
-/* 6. Mensaje de carrito vacío */
 .cart-empty {
     display: flex !important;
     flex-direction: column !important;
@@ -831,91 +700,21 @@ body::-webkit-scrollbar-thumb:hover {
     line-height: 1.5 !important;
     margin: 0 !important;
 }
+
 /* ============================================================
-   ESTILO DE LA BARRA DE NAVEGACIÓN IDÉNTICO AL PORTAFOLIO
+   BARRA DE SCROLL ESTILIZADA
    ============================================================ */
+.cart-items::-webkit-scrollbar { width: 0px !important; background: transparent !important; }
+.cart-items { scrollbar-width: none !important; }
+.cart-drawer::-webkit-scrollbar { display: none !important; }
+body::-webkit-scrollbar { width: 6px !important; }
+body::-webkit-scrollbar-track { background: #050505 !important; }
+body::-webkit-scrollbar-thumb { background: #a8b9cc !important; border-radius: 10px !important; }
+body::-webkit-scrollbar-thumb:hover { background: #c4a8cc !important; }
 
-/* 1. Fondo oscuro sólido (como el portafolio) */
-nav {
-    background: rgba(10, 10, 12, 0.85) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-    transition: all 0.3s ease !important;
-}
-
-/* 2. Efecto al hacer scroll (se vuelve más opaca para que no se vea nada por detrás) */
-nav.scrolled {
-    background: rgba(5, 5, 7, 0.98) !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-}
-
-/* 3. Asegurar que los textos del menú se vean bien */
-nav .nav-links a {
-    color: #a0a0a0 !important;
-}
-nav .nav-links a:hover {
-    color: #fff !important;
-}
-
-/* 4. Asegurar que los botones de idiomas se vean igual */
-nav .lang-selector {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-/* ============================================================
-   LIMPIAR LA BARRA DE NAVEGACIÓN (QUITAR LÍNEA BLANCA)
-   ============================================================ */
-
-/* 1. Quitar la línea blanca superior de la barra */
-nav {
-    border-top: none !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Un borde sutil como el de tu portafolio */
-    background: rgba(10, 10, 12, 0.85) !important; /* Fondo oscuro sólido */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important; /* Sombra sutil */
-}
-
-/* 2. Eliminar el "brillo de cristal" (la línea blanca del borde) */
-nav::before {
-    display: none !important;
-}
-
-/* 3. Hacer que los textos del menú se vean nítidos y blancos */
-nav .nav-links a {
-    color: #a0a0a0 !important;
-    font-weight: 500 !important;
-    transition: color 0.3s ease !important;
-}
-nav .nav-links a:hover {
-    color: #fff !important;
-}
-
-/* 4. Ajustar los botones de idiomas para que no tengan brillo */
-nav .lang-selector {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-/* ============================================================
-   QUITAR LA LÍNEA BLANCA DE LOS PANELES GLASS (HERO)
-   ============================================================ */
-
-/* Eliminar el brillo superior de la caja del Hero y paneles */
-.glass-hero::before,
-.glass-panel::before {
-    display: none !important;
-}
-
-/* Asegurar que la caja del Hero no tenga borde arriba */
-.glass-hero {
-    border-top: none !important;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important; /* Solo la sombra, sin el borde */
-}
 /* ============================================================
    ESTILOS ESPECÍFICOS PARA LOS FILTROS DEL BLOG
    ============================================================ */
-
-/* 1. Contenedor de los botones de filtro */
 #blogFilterTabs {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -923,8 +722,6 @@ nav .lang-selector {
     margin-bottom: 40px !important;
     justify-content: center !important;
 }
-
-/* 2. Botones de filtro */
 #blogFilterTabs button {
     background: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -936,134 +733,46 @@ nav .lang-selector {
     cursor: pointer !important;
     transition: all 0.3s ease !important;
 }
-
-/* 3. Efecto al pasar el ratón */
 #blogFilterTabs button:hover {
     color: #fff !important;
     border-color: #a8b9cc !important;
     background: rgba(255, 255, 255, 0.05) !important;
 }
-
-/* 4. Botón activo (el que está seleccionado) */
 #blogFilterTabs button.active {
     background: linear-gradient(135deg, #a8b9cc, #c4a8cc) !important;
     color: #000 !important;
     border-color: transparent !important;
     font-weight: 700 !important;
 }
+
 /* ============================================================
-   AJUSTE DE ESPACIADO Y RESPONSIVE PARA EL BLOG
+   AJUSTE DE ESPACIADO PARA EL BLOG
    ============================================================ */
-
-/* 1. Reducir el espacio gigante del encabezado del blog */
-#blog-hero {
-    padding-top: 140px !important;
-    padding-bottom: 20px !important;
-    min-height: auto !important;
-}
-
-#blog-hero .section-header {
-    margin-bottom: 20px !important;
-}
-
-/* 2. Reducir el espacio de los filtros */
-#blogFilterTabs {
-    margin-top: 0 !important;
-    margin-bottom: 30px !important;
-}
-
-/* 3. Hacer que el grid de artículos no tenga tanto espacio vacío */
-#blogGrid {
-    margin-top: 0 !important;
-    gap: 24px !important;
-}
-
-/* 4. Ajustar el padding de la sección de artículos */
-#blog-list {
-    padding-top: 0 !important;
-    padding-bottom: 80px !important;
-}
-
-/* 5. RESPONSIVE: Para celulares y tablets */
-@media (max-width: 1024px) {
-    #blog-hero {
-        padding-top: 120px !important;
-    }
-    #blogGrid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-    }
-}
-
-@media (max-width: 768px) {
-    #blog-hero {
-        padding-top: 110px !important;
-        padding-bottom: 10px !important;
-    }
-    #blog-hero h2 {
-        font-size: 2rem !important;
-    }
-    #blogFilterTabs {
-        gap: 8px !important;
-    }
-    #blogFilterTabs button {
-        font-size: 0.75rem !important;
-        padding: 8px 16px !important;
-    }
-    #blogGrid {
-        grid-template-columns: 1fr !important;
-    }
-}
-/* ============================================================
-   AJUSTE FINAL PARA COMPACTAR EL BLOG (QUITAR ESPACIOS VACÍOS)
-   ============================================================ */
-
-/* 1. Quitar todo el espacio extra del encabezado del blog */
 section#blog-hero {
-    padding-top: 140px !important; /* Solo lo necesario para que no lo tape la barra */
+    padding-top: 140px !important;
     padding-bottom: 0 !important;
     min-height: auto !important;
 }
-
-/* 2. Quitar el margen gigante del título */
 section#blog-hero .section-header {
     margin-bottom: 30px !important;
 }
-
-/* 3. Unir los filtros justo debajo del título */
 section#blog-list {
     padding-top: 0 !important;
     padding-bottom: 60px !important;
     min-height: auto !important;
 }
-
-/* 4. Ajustar los filtros y las tarjetas */
 #blogFilterTabs {
     margin-bottom: 40px !important;
     margin-top: 0 !important;
 }
-
 #blogGrid {
     margin-top: 0 !important;
     gap: 30px !important;
 }
-
-/* 5. RESPONSIVE: Ajustar para celulares */
 @media (max-width: 768px) {
-    section#blog-hero {
-        padding-top: 110px !important;
-    }
-    #blogHero h2 {
-        font-size: 2rem !important;
-    }
-    #blogFilterTabs {
-        gap: 8px !important;
-        margin-bottom: 30px !important;
-    }
-    #blogFilterTabs button {
-        font-size: 0.75rem !important;
-        padding: 8px 14px !important;
-    }
-    #blogGrid {
-        grid-template-columns: 1fr !important;
-    }
+    section#blog-hero { padding-top: 110px !important; }
+    #blog-hero h2 { font-size: 2rem !important; }
+    #blogFilterTabs { gap: 8px !important; margin-bottom: 30px !important; }
+    #blogFilterTabs button { font-size: 0.75rem !important; padding: 8px 14px !important; }
+    #blogGrid { grid-template-columns: 1fr !important; }
 }
