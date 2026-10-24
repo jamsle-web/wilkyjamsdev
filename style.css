@@ -930,3 +930,30 @@ h2 { font-size: 1.8rem !important; }
 .contact-form input, .contact-form textarea {
     font-size: 0.9rem !important;
 }
+/* ============================================================
+   ARREGLO DEL CARRITO LATERAL (ESCRITORIO VS MÓVIL)
+   ============================================================ */
+
+/* 1. En computadora, el carrito se queda a la derecha con su tamaño original */
+.cart-drawer {
+    width: 100% !important;
+    max-width: 420px !important; /* Ancho original de escritorio */
+    right: -420px !important;
+    position: fixed !important;
+    top: 0 !important;
+    height: 100vh !important;
+}
+.cart-drawer.open {
+    right: 0 !important;
+}
+
+/* 2. En celulares y tablets, el carrito ocupa todo el ancho de la pantalla */
+@media (max-width: 768px) {
+    .cart-drawer {
+        max-width: 100% !important;
+        right: -100% !important;
+    }
+    .cart-drawer.open {
+        right: 0 !important;
+    }
+}
