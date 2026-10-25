@@ -1,10 +1,10 @@
-// Inicializar AOS (Animate On Scroll)
+// ============================================================
+// script.js — Traducciones, setLanguage, i18n, legal pages
+// ============================================================
+
+// AOS (por si se carga antes que la librería; guard)
 if (window.AOS && typeof window.AOS.init === 'function') {
-    AOS.init({
-        duration: 800,
-        once: false,
-        mirror: true
-    });
+    AOS.init({ duration: 800, once: false, mirror: true });
 }
 
 /* ===== CMS content overrides (owner-editable without changing design) ===== */
@@ -23,6 +23,9 @@ window.applyContentOverrides = function () {
     });
 };
 
+/* ===== IDIOMA ACTUAL (declarado ANTES de usarse — fix TDZ) ===== */
+let currentLang = 'es';
+
 const translations = {
     es: {
         "nav.home": "Inicio",
@@ -33,6 +36,10 @@ const translations = {
         "nav.projects": "Proyectos",
         "nav.testimonials": "Testimonios",
         "nav.contact": "Contáctame",
+        "nav.contact_short": "Contacto",
+        "nav.blog": "Blog",
+        "nav.portfolio": "Ver Portafolio",
+        "nav.portfolio_short": "Portafolio",
         "hero.subtitle": "Web Design · Marketing Digital",
         "hero.greeting": "Diseño y Estrategia",
         "hero.name": "para tu Marca",
@@ -118,7 +125,174 @@ const translations = {
         "contact.form_subject": "Asunto",
         "contact.form_message": "Cuéntame sobre tu proyecto...",
         "contact.form_submit": "Enviar mensaje",
-        "footer.tagline": "Diseño web & Marketing Digital"
+        "footer.tagline": "Diseño web & Marketing Digital",
+        "footer.copyright": "© 2026 Wilkyjams Dev · Diseño web & Marketing Digital",
+        "cart.aria": "Carrito",
+        "cart.decrease": "Disminuir cantidad",
+        "cart.increase": "Aumentar cantidad",
+        "services.hero_label": "Servicios",
+        "services.hero_title_prefix": "Soluciones digitales a la medida de tu ",
+        "services.hero_title_highlight": "marca",
+        "services.hero_title": "Soluciones digitales a la medida de tu marca",
+        "services.hero_desc": "Diseño web, marketing digital y estrategia de marca en paquetes claros, o hechos completamente a tu medida.",
+        "services.plans_label": "Planes",
+        "services.plans_title": "Elige el paquete ideal para ti",
+        "services.plans_desc": "Precios de referencia en dólares (USD). Cada proyecto se ajusta según alcance, plazos y contenido.",
+        "services.request": "Solicitar",
+        "services.popular": "Más elegido",
+        "services.custom_prefix": "¿Necesitas algo diferente?",
+        "services.custom_link": "Cuéntame tu proyecto",
+        "services.custom_suffix": "y armamos una propuesta a tu medida.",
+        "services.process_label": "Cómo trabajamos",
+        "services.process_title": "De la idea al lanzamiento",
+        "services.process_desc": "Un proceso simple y transparente, pensado para que siempre sepas en qué etapa está tu proyecto.",
+        "services.cta_title": "¿Listo para empezar tu proyecto?",
+        "services.cta_desc": "Escríbeme y conversemos sobre cómo llevar tu marca al siguiente nivel.",
+        "services.view": "Ver servicios",
+        "aboutpage.hero_label": "Mi historia",
+        "aboutpage.hero_title_prefix": "Detrás de cada diseño hay una ",
+        "aboutpage.hero_title_highlight": "historia",
+        "aboutpage.hero_title": "Detrás de cada diseño hay una historia",
+        "aboutpage.hero_desc": "Soy Jamsle Porcena: diseñador web, especialista en marketing digital y, sobre todo, alguien a quien le apasiona ayudar a marcas a encontrar su voz digital.",
+        "aboutpage.bio_title": "Del Caribe al mundo digital",
+        "aboutpage.values_label": "Cómo trabajo",
+        "aboutpage.values_title": "Los valores detrás de cada proyecto",
+        "aboutpage.timeline_label": "Trayectoria",
+        "aboutpage.timeline_title": "Mi camino hasta hoy",
+        "aboutpage.cta_title": "¿Conectamos?",
+        "aboutpage.cta_desc": "Me encantaría conocer tu proyecto y ver cómo puedo ayudarte a hacerlo realidad.",
+        "contactpage.hero_label": "Conectemos",
+        "contactpage.hero_title_prefix": "Hablemos de tu ",
+        "contactpage.hero_title_highlight": "próximo proyecto",
+        "contactpage.hero_title": "Hablemos de tu próximo proyecto",
+        "contactpage.hero_desc": "Elige el canal que prefieras. Normalmente respondo en menos de 24 horas.",
+        "contactpage.form_title": "Cuéntame sobre tu proyecto",
+        "contactpage.form_desc": "Entre más detalles me des, más rápido podré prepararte una propuesta ajustada a lo que necesitas.",
+        "contactpage.faq_label": "Preguntas frecuentes",
+        "contactpage.faq_title": "Antes de escribirme",
+        "contactpage.modal_title": "¡Mensaje listo para enviar!",
+        "contactpage.close": "Cerrar",
+        "store.hero_label": "Tienda digital",
+        "store.hero_title_prefix": "Productos digitales ",
+        "store.hero_title_highlight": "listos para usar",
+        "store.hero_title": "Productos digitales listos para usar",
+        "store.hero_desc": "Logos, sitios web, landing pages, apps, flyers, tarjetas de presentación y sesiones de fotos — todo lo que tu marca necesita, en un solo lugar.",
+        "store.all": "Todos",
+        "store.logos": "Logos",
+        "store.web": "Sitios Web",
+        "store.landing": "Landing Pages",
+        "store.apps": "Apps",
+        "store.flyers": "Flyers",
+        "store.business_cards": "Business Cards",
+        "store.photo": "Fotografía",
+        "store.how_title": "¿Cómo funciona la compra?",
+        "store.how_desc": "Agrega los productos que necesitas al carrito y finaliza tu pedido por WhatsApp. Coordinamos el pago por el canal acordado y te entrego el archivo o proyecto una vez confirmado.",
+        "footer.description": "Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.",
+        "footer.navigation": "Navegación",
+        "footer.services": "Servicios",
+        "footer.contact": "Contacto",
+        "footer.web_design": "Diseño web",
+        "footer.digital_marketing": "Marketing digital",
+        "footer.store": "Tienda de productos",
+        "footer.whatsapp": "WhatsApp",
+        "plans.per_project": "/ proyecto",
+        "plans.landing.title": "Landing Page",
+        "plans.landing.desc": "Ideal para lanzar un producto, servicio o campaña específica.",
+        "plans.landing.f1": "Diseño de 1 página (una sola sección larga)",
+        "plans.landing.f2": "Responsive (móvil, tablet, escritorio)",
+        "plans.landing.f3": "Formulario de contacto",
+        "plans.landing.f4": "Optimización SEO básica",
+        "plans.landing.f5": "Panel de administración",
+        "plans.full.title": "Sitio Web Completo",
+        "plans.full.desc": "Un sitio multi-página para presentar tu negocio de forma profesional.",
+        "plans.full.f1": "Hasta 5 páginas (Inicio, Sobre, Servicios, Contacto...)",
+        "plans.full.f2": "Diseño 100% personalizado",
+        "plans.full.f3": "Responsive + animaciones",
+        "plans.full.f4": "SEO on-page + Google Analytics",
+        "plans.full.f5": "1 mes de soporte post-lanzamiento",
+        "plans.brand.title": "Marca + Marketing",
+        "plans.brand.desc": "Identidad visual, sitio web y estrategia de contenido para escalar tu marca.",
+        "plans.brand.f1": "Todo lo del plan Sitio Web Completo",
+        "plans.brand.f2": "Diseño de logo + manual de marca",
+        "plans.brand.f3": "Plan de contenido para redes (1 mes)",
+        "plans.brand.f4": "Estrategia SEO avanzada",
+        "plans.brand.f5": "Reunión mensual de seguimiento",
+        "process.1.title": "Descubrimiento",
+        "process.1.desc": "Conversamos sobre tu marca, objetivos, referencias y público para entender qué necesitas realmente.",
+        "process.2.title": "Propuesta y diseño",
+        "process.2.desc": "Te presento una propuesta clara de alcance, tiempos e inversión, y empezamos con el diseño visual.",
+        "process.3.title": "Desarrollo",
+        "process.3.desc": "Construyo el sitio o la pieza de marketing, con revisiones contigo en cada etapa clave.",
+        "process.4.title": "Lanzamiento y soporte",
+        "process.4.desc": "Publicamos tu proyecto y te acompaño en el periodo posterior para ajustes y dudas.",
+        "aboutpage.bio1": "Crecí entre culturas —francesa, haitiana y dominicana— y esa mezcla forma parte de cómo entiendo el diseño: como un puente entre lo que una marca quiere decir y cómo la gente realmente la percibe.",
+        "aboutpage.bio2": "Empecé programando páginas simples por curiosidad, y con el tiempo esa curiosidad se convirtió en una carrera enfocada en diseño web (UI/UX), optimización SEO y marketing basado en datos.",
+        "aboutpage.bio3": "Fuera de la pantalla, sigo aprendiendo constantemente: cada certificación, cada proyecto y cada cliente me enseña algo nuevo que llevo al siguiente trabajo.",
+        "values.communication.title": "Comunicación clara",
+        "values.communication.desc": "Sin tecnicismos innecesarios: te explico cada decisión de diseño en un lenguaje que entiendas.",
+        "values.results.title": "Resultados, no solo estética",
+        "values.results.desc": "Cada diseño busca un objetivo medible: más conversiones, más tiempo en el sitio, más ventas.",
+        "values.delivery.title": "Entrega puntual",
+        "values.delivery.desc": "Los plazos que acordamos se cumplen. Si algo cambia, te aviso con anticipación.",
+        "values.detail.title": "Cuidado por el detalle",
+        "values.detail.desc": "Los pequeños detalles —espaciados, colores, microcopys— son los que hacen la diferencia.",
+        "timeline.2023.title": "Inicios como freelancer",
+        "timeline.2023.desc": "Comencé a tomar mis primeros proyectos de diseño web y marketing digital, fundando lo que hoy es JamsLab Studio.",
+        "timeline.2024.title": "Certificaciones en diseño e IA",
+        "timeline.2024.desc": "Completé certificaciones en Website Design, AI Technology for Business y Canva Design, ampliando mis herramientas de trabajo.",
+        "timeline.2025.title": "Especialización en marketing y datos",
+        "timeline.2025.desc": "Sumé Digital Marketing (HubSpot Academy) y Data Analytics (Databricks/Simplilearn) para tomar decisiones de diseño basadas en datos reales.",
+        "timeline.2026.title": "De portafolio a estudio digital",
+        "timeline.2026.desc": "JamsLab Studio se convierte en un espacio completo: servicios de diseño, marketing y una tienda de productos digitales listos para usar.",
+        "contactpage.whatsapp": "WhatsApp",
+        "contactpage.email": "Correo",
+        "contactpage.call": "Llamada",
+        "contactpage.fiverr": "Fiverr",
+        "faq.1.q": "¿Cuánto tiempo toma un proyecto de sitio web?",
+        "faq.1.a": "Depende del alcance: una landing page suele tomar de 5 a 7 días, mientras que un sitio completo puede tomar entre 2 y 4 semanas.",
+        "faq.2.q": "¿Cómo funcionan los pagos?",
+        "faq.2.a": "Trabajo con un adelanto del 50% para iniciar y el 50% restante contra entrega. Los productos de la tienda se coordinan por WhatsApp para gestionar el pago y la entrega.",
+        "faq.3.q": "¿Ofreces soporte después de la entrega?",
+        "faq.3.a": "Sí. Los planes de Sitio Web Completo y Marca + Marketing incluyen soporte post-lanzamiento; también ofrezco mantenimiento mensual por separado.",
+        "faq.4.q": "¿Puedo pedir un proyecto que no está en los planes?",
+        "faq.4.a": "Claro. Los planes son una guía de referencia — cuéntame tu idea y armamos una propuesta 100% a tu medida.",
+        "faq.5.q": "¿Trabajas con clientes fuera de República Dominicana?",
+        "faq.5.a": "Sí, trabajo de forma remota con clientes en cualquier parte del mundo, coordinando por videollamada, WhatsApp o correo.",
+        "budget.1": "Presupuesto: menos de $200",
+        "budget.2": "Presupuesto: $200 - $500",
+        "budget.3": "Presupuesto: $500 - $1,000",
+        "budget.4": "Presupuesto: más de $1,000",
+        "blog.hero_label": "Recursos & Ideas",
+        "blog.hero_title": "El Blog de Wilkyjams",
+        "blog.hero_desc": "Artículos sobre diseño web, UI/UX, marketing digital e inteligencia artificial.",
+        "blog.all": "Todos",
+        "blog.read_more": "Leer más",
+        "blog.empty": "No hay artículos en esta categoría.",
+        "blog.loading": "Cargando artículos...",
+        "blog.error": "No se pudieron cargar los artículos.",
+        "blog.back": "Volver al blog",
+        "lang.es": "Español",
+        "lang.en": "English",
+        "lang.fr": "Français",
+        "lang.pt": "Português",
+        "page.title.home": "Wilkyjams Dev · Experiencias Digitales",
+        "page.title.about": "Wilkyjams Dev · Sobre mí",
+        "page.title.services": "Wilkyjams Dev · Servicios",
+        "page.title.contact": "Wilkyjams Dev · Contacto",
+        "page.title.store": "Wilkyjams Dev · Tienda",
+        "page.title.privacy": "Privacidad · Wilkyjams Dev",
+        "page.title.terms": "Términos · Wilkyjams Dev",
+        "page.title.cookies": "Cookies · Wilkyjams Dev",
+        "page.title.help": "Centro de ayuda · Wilkyjams Dev",
+        "page.description.home": "Diseño web, UI/UX y marketing digital de Wilkyjams Dev. Portafolio de proyectos, servicios y soluciones digitales.",
+        "page.description.about": "Conoce a Jamsle Porcena, diseñador web y especialista en marketing digital, UI/UX e inteligencia artificial.",
+        "page.description.services": "Servicios de diseño web, marketing digital y estrategia de marca a medida.",
+        "page.description.contact": "Contacta a Jamsle Porcena para proyectos de diseño web, UI/UX, desarrollo y marketing digital.",
+        "page.description.store": "Productos digitales listos para usar: logos, sitios web, landing pages, apps, flyers y más.",
+        "page.description.privacy": "Política de privacidad de Wilkyjams Dev.",
+        "page.description.terms": "Términos de uso de Wilkyjams Dev.",
+        "page.description.cookies": "Política de cookies de Wilkyjams Dev.",
+        "page.description.help": "Centro de ayuda de Wilkyjams Dev."
     },
     en: {
         "nav.home": "Home",
@@ -129,6 +303,10 @@ const translations = {
         "nav.projects": "Projects",
         "nav.testimonials": "Testimonials",
         "nav.contact": "Contact me",
+        "nav.contact_short": "Contact",
+        "nav.blog": "Blog",
+        "nav.portfolio": "View Portfolio",
+        "nav.portfolio_short": "Portfolio",
         "hero.subtitle": "Web Design · Digital Marketing",
         "hero.greeting": "Design and Strategy",
         "hero.name": "for your Brand",
@@ -214,7 +392,174 @@ const translations = {
         "contact.form_subject": "Subject",
         "contact.form_message": "Tell me about your project...",
         "contact.form_submit": "Send message",
-        "footer.tagline": "Web Design & Digital Marketing"
+        "footer.tagline": "Web Design & Digital Marketing",
+        "footer.copyright": "© 2026 Wilkyjams Dev · Web Design & Digital Marketing",
+        "cart.aria": "Cart",
+        "cart.decrease": "Decrease quantity",
+        "cart.increase": "Increase quantity",
+        "services.hero_label": "Services",
+        "services.hero_title_prefix": "Tailored digital solutions for your ",
+        "services.hero_title_highlight": "brand",
+        "services.hero_title": "Tailored digital solutions for your brand",
+        "services.hero_desc": "Web design, digital marketing and brand strategy in clear packages, or completely tailored to your needs.",
+        "services.plans_label": "Plans",
+        "services.plans_title": "Choose the ideal package for you",
+        "services.plans_desc": "Reference prices in US dollars (USD). Each project is adjusted according to scope, timeline and content.",
+        "services.request": "Request",
+        "services.popular": "Most chosen",
+        "services.custom_prefix": "Need something different?",
+        "services.custom_link": "Tell me about your project",
+        "services.custom_suffix": "and we'll build a tailored proposal.",
+        "services.process_label": "How we work",
+        "services.process_title": "From idea to launch",
+        "services.process_desc": "A simple and transparent process designed so you always know which stage your project is in.",
+        "services.cta_title": "Ready to start your project?",
+        "services.cta_desc": "Write to me and let's discuss how to take your brand to the next level.",
+        "services.view": "View services",
+        "aboutpage.hero_label": "My story",
+        "aboutpage.hero_title_prefix": "Behind every design is a ",
+        "aboutpage.hero_title_highlight": "story",
+        "aboutpage.hero_title": "Behind every design is a story",
+        "aboutpage.hero_desc": "I'm Jamsle Porcena: a web designer and digital marketing specialist who is passionate about helping brands find their digital voice.",
+        "aboutpage.bio_title": "From the Caribbean to the digital world",
+        "aboutpage.values_label": "How I work",
+        "aboutpage.values_title": "The values behind every project",
+        "aboutpage.timeline_label": "Journey",
+        "aboutpage.timeline_title": "My journey so far",
+        "aboutpage.cta_title": "Let's connect",
+        "aboutpage.cta_desc": "I'd love to learn about your project and see how I can help make it a reality.",
+        "contactpage.hero_label": "Let's connect",
+        "contactpage.hero_title_prefix": "Let's talk about your ",
+        "contactpage.hero_title_highlight": "next project",
+        "contactpage.hero_title": "Let's talk about your next project",
+        "contactpage.hero_desc": "Choose the channel you prefer. I usually reply within 24 hours.",
+        "contactpage.form_title": "Tell me about your project",
+        "contactpage.form_desc": "The more details you provide, the faster I can prepare a proposal tailored to what you need.",
+        "contactpage.faq_label": "Frequently asked questions",
+        "contactpage.faq_title": "Before you write",
+        "contactpage.modal_title": "Message ready to send!",
+        "contactpage.close": "Close",
+        "store.hero_label": "Digital store",
+        "store.hero_title_prefix": "Digital products ",
+        "store.hero_title_highlight": "ready to use",
+        "store.hero_title": "Digital products ready to use",
+        "store.hero_desc": "Logos, websites, landing pages, apps, flyers, business cards and photo sessions — everything your brand needs, in one place.",
+        "store.all": "All",
+        "store.logos": "Logos",
+        "store.web": "Websites",
+        "store.landing": "Landing Pages",
+        "store.apps": "Apps",
+        "store.flyers": "Flyers",
+        "store.business_cards": "Business Cards",
+        "store.photo": "Photography",
+        "store.how_title": "How does the purchase work?",
+        "store.how_desc": "Add the products you need to your cart and complete your order through WhatsApp. We coordinate payment through the agreed channel and deliver the file or project once confirmed.",
+        "footer.description": "Web design, digital marketing and digital products ready to help your brand grow.",
+        "footer.navigation": "Navigation",
+        "footer.services": "Services",
+        "footer.contact": "Contact",
+        "footer.web_design": "Web design",
+        "footer.digital_marketing": "Digital marketing",
+        "footer.store": "Product store",
+        "footer.whatsapp": "WhatsApp",
+        "plans.per_project": "/ project",
+        "plans.landing.title": "Landing Page",
+        "plans.landing.desc": "Ideal to launch a product, service or specific campaign.",
+        "plans.landing.f1": "1-page design (single long section)",
+        "plans.landing.f2": "Responsive (mobile, tablet, desktop)",
+        "plans.landing.f3": "Contact form",
+        "plans.landing.f4": "Basic SEO optimization",
+        "plans.landing.f5": "Admin panel",
+        "plans.full.title": "Complete Website",
+        "plans.full.desc": "A multi-page site to present your business professionally.",
+        "plans.full.f1": "Up to 5 pages (Home, About, Services, Contact...)",
+        "plans.full.f2": "100% custom design",
+        "plans.full.f3": "Responsive + animations",
+        "plans.full.f4": "On-page SEO + Google Analytics",
+        "plans.full.f5": "1 month post-launch support",
+        "plans.brand.title": "Brand + Marketing",
+        "plans.brand.desc": "Visual identity, website and content strategy to scale your brand.",
+        "plans.brand.f1": "Everything in the Complete Website plan",
+        "plans.brand.f2": "Logo design + brand manual",
+        "plans.brand.f3": "Social content plan (1 month)",
+        "plans.brand.f4": "Advanced SEO strategy",
+        "plans.brand.f5": "Monthly follow-up meeting",
+        "process.1.title": "Discovery",
+        "process.1.desc": "We talk about your brand, goals, references and audience to understand what you really need.",
+        "process.2.title": "Proposal and design",
+        "process.2.desc": "I present a clear proposal of scope, timing and investment, and we start with the visual design.",
+        "process.3.title": "Development",
+        "process.3.desc": "I build the site or marketing piece, with reviews with you at each key stage.",
+        "process.4.title": "Launch and support",
+        "process.4.desc": "We publish your project and I accompany you in the following period for adjustments and questions.",
+        "aboutpage.bio1": "I grew up between cultures —French, Haitian and Dominican— and that mix is part of how I understand design: as a bridge between what a brand wants to say and how people actually perceive it.",
+        "aboutpage.bio2": "I started programming simple pages out of curiosity, and over time that curiosity became a career focused on web design (UI/UX), SEO optimization and data-driven marketing.",
+        "aboutpage.bio3": "Off-screen, I keep learning constantly: every certification, every project and every client teaches me something new that I bring to the next job.",
+        "values.communication.title": "Clear communication",
+        "values.communication.desc": "No unnecessary jargon: I explain every design decision in a language you understand.",
+        "values.results.title": "Results, not just aesthetics",
+        "values.results.desc": "Every design seeks a measurable goal: more conversions, more time on site, more sales.",
+        "values.delivery.title": "On-time delivery",
+        "values.delivery.desc": "The deadlines we agree on are met. If something changes, I let you know in advance.",
+        "values.detail.title": "Attention to detail",
+        "values.detail.desc": "The small details —spacing, colors, microcopy— are what make the difference.",
+        "timeline.2023.title": "Freelance beginnings",
+        "timeline.2023.desc": "I started taking my first web design and digital marketing projects, founding what is now JamsLab Studio.",
+        "timeline.2024.title": "Design and AI certifications",
+        "timeline.2024.desc": "I completed certifications in Website Design, AI Technology for Business and Canva Design, expanding my toolkit.",
+        "timeline.2025.title": "Specialization in marketing and data",
+        "timeline.2025.desc": "I added Digital Marketing (HubSpot Academy) and Data Analytics (Databricks/Simplilearn) to make design decisions based on real data.",
+        "timeline.2026.title": "From portfolio to digital studio",
+        "timeline.2026.desc": "JamsLab Studio becomes a complete space: design services, marketing and a store of ready-to-use digital products.",
+        "contactpage.whatsapp": "WhatsApp",
+        "contactpage.email": "Email",
+        "contactpage.call": "Call",
+        "contactpage.fiverr": "Fiverr",
+        "faq.1.q": "How long does a website project take?",
+        "faq.1.a": "It depends on the scope: a landing page usually takes 5 to 7 days, while a complete site can take 2 to 4 weeks.",
+        "faq.2.q": "How do payments work?",
+        "faq.2.a": "I work with a 50% advance to start and the remaining 50% on delivery. Store products are coordinated via WhatsApp to manage payment and delivery.",
+        "faq.3.q": "Do you offer support after delivery?",
+        "faq.3.a": "Yes. The Complete Website and Brand + Marketing plans include post-launch support; I also offer monthly maintenance separately.",
+        "faq.4.q": "Can I request a project that isn't in the plans?",
+        "faq.4.a": "Of course. The plans are a reference guide — tell me your idea and we'll build a 100% tailored proposal.",
+        "faq.5.q": "Do you work with clients outside the Dominican Republic?",
+        "faq.5.a": "Yes, I work remotely with clients anywhere in the world, coordinating by video call, WhatsApp or email.",
+        "budget.1": "Budget: under $200",
+        "budget.2": "Budget: $200 - $500",
+        "budget.3": "Budget: $500 - $1,000",
+        "budget.4": "Budget: over $1,000",
+        "blog.hero_label": "Resources & Ideas",
+        "blog.hero_title": "The Wilkyjams Blog",
+        "blog.hero_desc": "Articles on web design, UI/UX, digital marketing and artificial intelligence.",
+        "blog.all": "All",
+        "blog.read_more": "Read more",
+        "blog.empty": "No articles in this category.",
+        "blog.loading": "Loading articles...",
+        "blog.error": "Could not load articles.",
+        "blog.back": "Back to blog",
+        "lang.es": "Español",
+        "lang.en": "English",
+        "lang.fr": "Français",
+        "lang.pt": "Português",
+        "page.title.home": "Wilkyjams Dev · Digital Experiences",
+        "page.title.about": "Wilkyjams Dev · About",
+        "page.title.services": "Wilkyjams Dev · Services",
+        "page.title.contact": "Wilkyjams Dev · Contact",
+        "page.title.store": "Wilkyjams Dev · Store",
+        "page.title.privacy": "Privacy · Wilkyjams Dev",
+        "page.title.terms": "Terms · Wilkyjams Dev",
+        "page.title.cookies": "Cookies · Wilkyjams Dev",
+        "page.title.help": "Help Center · Wilkyjams Dev",
+        "page.description.home": "Web design, UI/UX and digital marketing by Wilkyjams Dev. Portfolio of projects, services and digital solutions.",
+        "page.description.about": "Meet Jamsle Porcena, web designer and digital marketing specialist, UI/UX and artificial intelligence.",
+        "page.description.services": "Web design, digital marketing and tailored brand strategy services.",
+        "page.description.contact": "Contact Jamsle Porcena for web design, UI/UX, development and digital marketing projects.",
+        "page.description.store": "Ready-to-use digital products: logos, websites, landing pages, apps, flyers and more.",
+        "page.description.privacy": "Wilkyjams Dev privacy policy.",
+        "page.description.terms": "Wilkyjams Dev terms of use.",
+        "page.description.cookies": "Wilkyjams Dev cookie policy.",
+        "page.description.help": "Wilkyjams Dev help center."
     },
     fr: {
         "nav.home": "Accueil",
@@ -225,6 +570,10 @@ const translations = {
         "nav.projects": "Projets",
         "nav.testimonials": "Témoignages",
         "nav.contact": "Contactez-moi",
+        "nav.contact_short": "Contact",
+        "nav.blog": "Blog",
+        "nav.portfolio": "Voir le portfolio",
+        "nav.portfolio_short": "Portfolio",
         "hero.subtitle": "Web Design · Marketing Digital",
         "hero.greeting": "Design et Stratégie",
         "hero.name": "pour votre Marque",
@@ -310,7 +659,174 @@ const translations = {
         "contact.form_subject": "Sujet",
         "contact.form_message": "Parlez-moi de votre projet...",
         "contact.form_submit": "Envoyer le message",
-        "footer.tagline": "Web Design & Marketing Digital"
+        "footer.tagline": "Web Design & Marketing Digital",
+        "footer.copyright": "© 2026 Wilkyjams Dev · Web Design & Marketing Digital",
+        "cart.aria": "Panier",
+        "cart.decrease": "Diminuer la quantité",
+        "cart.increase": "Augmenter la quantité",
+        "services.hero_label": "Services",
+        "services.hero_title_prefix": "Des solutions numériques sur mesure pour votre ",
+        "services.hero_title_highlight": "marque",
+        "services.hero_title": "Des solutions numériques sur mesure pour votre marque",
+        "services.hero_desc": "Design web, marketing numérique et stratégie de marque dans des forfaits clairs ou entièrement personnalisés.",
+        "services.plans_label": "Forfaits",
+        "services.plans_title": "Choisissez le forfait idéal pour vous",
+        "services.plans_desc": "Prix indicatifs en dollars américains (USD). Chaque projet est adapté selon la portée, les délais et le contenu.",
+        "services.request": "Demander",
+        "services.popular": "Le plus choisi",
+        "services.custom_prefix": "Besoin de quelque chose de différent ?",
+        "services.custom_link": "Parlez-moi de votre projet",
+        "services.custom_suffix": "et nous préparerons une proposition sur mesure.",
+        "services.process_label": "Comment nous travaillons",
+        "services.process_title": "De l'idée au lancement",
+        "services.process_desc": "Un processus simple et transparent pour que vous sachiez toujours à quelle étape se trouve votre projet.",
+        "services.cta_title": "Prêt à commencer votre projet ?",
+        "services.cta_desc": "Écrivez-moi et discutons de la manière de faire passer votre marque au niveau supérieur.",
+        "services.view": "Voir les services",
+        "aboutpage.hero_label": "Mon histoire",
+        "aboutpage.hero_title_prefix": "Derrière chaque design, il y a une ",
+        "aboutpage.hero_title_highlight": "histoire",
+        "aboutpage.hero_title": "Derrière chaque design, il y a une histoire",
+        "aboutpage.hero_desc": "Je suis Jamsle Porcena : designer web et spécialiste du marketing numérique, passionné par l'idée d'aider les marques à trouver leur voix numérique.",
+        "aboutpage.bio_title": "Des Caraïbes au monde numérique",
+        "aboutpage.values_label": "Ma façon de travailler",
+        "aboutpage.values_title": "Les valeurs derrière chaque projet",
+        "aboutpage.timeline_label": "Parcours",
+        "aboutpage.timeline_title": "Mon parcours jusqu'à aujourd'hui",
+        "aboutpage.cta_title": "Restons en contact",
+        "aboutpage.cta_desc": "J'aimerais découvrir votre projet et voir comment je peux vous aider à le concrétiser.",
+        "contactpage.hero_label": "Restons en contact",
+        "contactpage.hero_title_prefix": "Parlons de votre ",
+        "contactpage.hero_title_highlight": "prochain projet",
+        "contactpage.hero_title": "Parlons de votre prochain projet",
+        "contactpage.hero_desc": "Choisissez le canal que vous préférez. Je réponds généralement en moins de 24 heures.",
+        "contactpage.form_title": "Parlez-moi de votre projet",
+        "contactpage.form_desc": "Plus vous me donnez de détails, plus vite je pourrai préparer une proposition adaptée à vos besoins.",
+        "contactpage.faq_label": "Questions fréquentes",
+        "contactpage.faq_title": "Avant de m'écrire",
+        "contactpage.modal_title": "Message prêt à être envoyé !",
+        "contactpage.close": "Fermer",
+        "store.hero_label": "Boutique numérique",
+        "store.hero_title_prefix": "Produits numériques ",
+        "store.hero_title_highlight": "prêts à l'emploi",
+        "store.hero_title": "Produits numériques prêts à l'emploi",
+        "store.hero_desc": "Logos, sites web, landing pages, applications, flyers, cartes de visite et séances photo — tout ce dont votre marque a besoin, au même endroit.",
+        "store.all": "Tous",
+        "store.logos": "Logos",
+        "store.web": "Sites web",
+        "store.landing": "Landing pages",
+        "store.apps": "Applications",
+        "store.flyers": "Flyers",
+        "store.business_cards": "Cartes de visite",
+        "store.photo": "Photographie",
+        "store.how_title": "Comment fonctionne l'achat ?",
+        "store.how_desc": "Ajoutez les produits dont vous avez besoin au panier et finalisez votre commande via WhatsApp. Nous coordonnons le paiement via le canal convenu et je livre le fichier ou le projet une fois confirmé.",
+        "footer.description": "Design web, marketing numérique et produits numériques prêts à faire grandir votre marque.",
+        "footer.navigation": "Navigation",
+        "footer.services": "Services",
+        "footer.contact": "Contact",
+        "footer.web_design": "Design web",
+        "footer.digital_marketing": "Marketing numérique",
+        "footer.store": "Boutique de produits",
+        "footer.whatsapp": "WhatsApp",
+        "plans.per_project": "/ projet",
+        "plans.landing.title": "Landing Page",
+        "plans.landing.desc": "Idéal pour lancer un produit, un service ou une campagne spécifique.",
+        "plans.landing.f1": "Design d'une page (une seule longue section)",
+        "plans.landing.f2": "Responsive (mobile, tablette, ordinateur)",
+        "plans.landing.f3": "Formulaire de contact",
+        "plans.landing.f4": "Optimisation SEO de base",
+        "plans.landing.f5": "Panneau d'administration",
+        "plans.full.title": "Site Web Complet",
+        "plans.full.desc": "Un site multi-pages pour présenter votre entreprise de manière professionnelle.",
+        "plans.full.f1": "Jusqu'à 5 pages (Accueil, À propos, Services, Contact...)",
+        "plans.full.f2": "Design 100% personnalisé",
+        "plans.full.f3": "Responsive + animations",
+        "plans.full.f4": "SEO on-page + Google Analytics",
+        "plans.full.f5": "1 mois de support après le lancement",
+        "plans.brand.title": "Marque + Marketing",
+        "plans.brand.desc": "Identité visuelle, site web et stratégie de contenu pour développer votre marque.",
+        "plans.brand.f1": "Tout ce qui est dans le plan Site Web Complet",
+        "plans.brand.f2": "Création de logo + manuel de marque",
+        "plans.brand.f3": "Plan de contenu pour les réseaux (1 mois)",
+        "plans.brand.f4": "Stratégie SEO avancée",
+        "plans.brand.f5": "Réunion mensuelle de suivi",
+        "process.1.title": "Découverte",
+        "process.1.desc": "Nous parlons de votre marque, de vos objectifs, de vos références et de votre public pour comprendre ce dont vous avez vraiment besoin.",
+        "process.2.title": "Proposition et design",
+        "process.2.desc": "Je vous présente une proposition claire de portée, de délais et d'investissement, et nous commençons par le design visuel.",
+        "process.3.title": "Développement",
+        "process.3.desc": "Je construis le site ou la pièce marketing, avec des révisions avec vous à chaque étape clé.",
+        "process.4.title": "Lancement et support",
+        "process.4.desc": "Nous publions votre projet et je vous accompagne dans la période suivante pour les ajustements et les questions.",
+        "aboutpage.bio1": "J'ai grandi entre les cultures —française, haïtienne et dominicaine— et ce mélange fait partie de ma façon de comprendre le design : comme un pont entre ce qu'une marque veut dire et la façon dont les gens le perçoivent réellement.",
+        "aboutpage.bio2": "J'ai commencé à programmer des pages simples par curiosité, et avec le temps cette curiosité est devenue une carrière axée sur le design web (UI/UX), l'optimisation SEO et le marketing basé sur les données.",
+        "aboutpage.bio3": "Hors écran, je continue d'apprendre constamment : chaque certification, chaque projet et chaque client m'apprend quelque chose de nouveau que j'apporte au travail suivant.",
+        "values.communication.title": "Communication claire",
+        "values.communication.desc": "Sans jargon inutile : je vous explique chaque décision de design dans un langage que vous comprenez.",
+        "values.results.title": "Des résultats, pas seulement de l'esthétique",
+        "values.results.desc": "Chaque design vise un objectif mesurable : plus de conversions, plus de temps sur le site, plus de ventes.",
+        "values.delivery.title": "Livraison ponctuelle",
+        "values.delivery.desc": "Les délais convenus sont respectés. Si quelque chose change, je vous préviens à l'avance.",
+        "values.detail.title": "Souci du détail",
+        "values.detail.desc": "Les petits détails —espacements, couleurs, microcopies— font la différence.",
+        "timeline.2023.title": "Débuts en freelance",
+        "timeline.2023.desc": "J'ai commencé à prendre mes premiers projets de design web et de marketing numérique, fondant ce qui est aujourd'hui JamsLab Studio.",
+        "timeline.2024.title": "Certifications en design et IA",
+        "timeline.2024.desc": "J'ai complété des certifications en Website Design, AI Technology for Business et Canva Design, élargissant ma boîte à outils.",
+        "timeline.2025.title": "Spécialisation en marketing et données",
+        "timeline.2025.desc": "J'ai ajouté Digital Marketing (HubSpot Academy) et Data Analytics (Databricks/Simplilearn) pour prendre des décisions de design basées sur des données réelles.",
+        "timeline.2026.title": "Du portfolio au studio numérique",
+        "timeline.2026.desc": "JamsLab Studio devient un espace complet : services de design, marketing et une boutique de produits numériques prêts à l'emploi.",
+        "contactpage.whatsapp": "WhatsApp",
+        "contactpage.email": "E-mail",
+        "contactpage.call": "Appel",
+        "contactpage.fiverr": "Fiverr",
+        "faq.1.q": "Combien de temps prend un projet de site web ?",
+        "faq.1.a": "Cela dépend de la portée : une landing page prend généralement 5 à 7 jours, tandis qu'un site complet peut prendre 2 à 4 semaines.",
+        "faq.2.q": "Comment fonctionnent les paiements ?",
+        "faq.2.a": "Je travaille avec un acompte de 50% pour commencer et les 50% restants à la livraison. Les produits de la boutique sont coordonnés via WhatsApp pour gérer le paiement et la livraison.",
+        "faq.3.q": "Offrez-vous un support après la livraison ?",
+        "faq.3.a": "Oui. Les plans Site Web Complet et Marque + Marketing incluent un support après le lancement ; j'offre aussi une maintenance mensuelle séparément.",
+        "faq.4.q": "Puis-je demander un projet qui n'est pas dans les plans ?",
+        "faq.4.a": "Bien sûr. Les plans sont un guide de référence — parlez-moi de votre idée et nous construirons une proposition 100% sur mesure.",
+        "faq.5.q": "Travaillez-vous avec des clients hors de la République Dominicaine ?",
+        "faq.5.a": "Oui, je travaille à distance avec des clients partout dans le monde, en coordonnant par appel vidéo, WhatsApp ou e-mail.",
+        "budget.1": "Budget : moins de 200 $",
+        "budget.2": "Budget : 200 $ - 500 $",
+        "budget.3": "Budget : 500 $ - 1 000 $",
+        "budget.4": "Budget : plus de 1 000 $",
+        "blog.hero_label": "Ressources & Idées",
+        "blog.hero_title": "Le Blog de Wilkyjams",
+        "blog.hero_desc": "Articles sur le design web, l'UI/UX, le marketing numérique et l'intelligence artificielle.",
+        "blog.all": "Tous",
+        "blog.read_more": "Lire plus",
+        "blog.empty": "Aucun article dans cette catégorie.",
+        "blog.loading": "Chargement des articles...",
+        "blog.error": "Impossible de charger les articles.",
+        "blog.back": "Retour au blog",
+        "lang.es": "Español",
+        "lang.en": "English",
+        "lang.fr": "Français",
+        "lang.pt": "Português",
+        "page.title.home": "Wilkyjams Dev · Expériences Numériques",
+        "page.title.about": "Wilkyjams Dev · À propos",
+        "page.title.services": "Wilkyjams Dev · Services",
+        "page.title.contact": "Wilkyjams Dev · Contact",
+        "page.title.store": "Wilkyjams Dev · Boutique",
+        "page.title.privacy": "Confidentialité · Wilkyjams Dev",
+        "page.title.terms": "Conditions · Wilkyjams Dev",
+        "page.title.cookies": "Cookies · Wilkyjams Dev",
+        "page.title.help": "Centre d'aide · Wilkyjams Dev",
+        "page.description.home": "Design web, UI/UX et marketing numérique par Wilkyjams Dev. Portfolio de projets, services et solutions numériques.",
+        "page.description.about": "Rencontrez Jamsle Porcena, designer web et spécialiste du marketing numérique, UI/UX et intelligence artificielle.",
+        "page.description.services": "Services de design web, marketing numérique et stratégie de marque sur mesure.",
+        "page.description.contact": "Contactez Jamsle Porcena pour des projets de design web, UI/UX, développement et marketing numérique.",
+        "page.description.store": "Produits numériques prêts à l'emploi : logos, sites web, landing pages, applications, flyers et plus encore.",
+        "page.description.privacy": "Politique de confidentialité de Wilkyjams Dev.",
+        "page.description.terms": "Conditions d'utilisation de Wilkyjams Dev.",
+        "page.description.cookies": "Politique relative aux cookies de Wilkyjams Dev.",
+        "page.description.help": "Centre d'aide de Wilkyjams Dev."
     },
     pt: {
         "nav.home": "Início",
@@ -321,6 +837,10 @@ const translations = {
         "nav.projects": "Projetos",
         "nav.testimonials": "Depoimentos",
         "nav.contact": "Fale comigo",
+        "nav.contact_short": "Contato",
+        "nav.blog": "Blog",
+        "nav.portfolio": "Ver Portfólio",
+        "nav.portfolio_short": "Portfólio",
         "hero.subtitle": "Web Design · Marketing Digital",
         "hero.greeting": "Design e Estratégia",
         "hero.name": "para sua Marca",
@@ -406,125 +926,231 @@ const translations = {
         "contact.form_subject": "Assunto",
         "contact.form_message": "Conte-me sobre o seu projeto...",
         "contact.form_submit": "Enviar mensagem",
-        "footer.tagline": "Design web & Marketing Digital"
+        "footer.tagline": "Design web & Marketing Digital",
+        "footer.copyright": "© 2026 Wilkyjams Dev · Design web & Marketing Digital",
+        "cart.aria": "Carrinho",
+        "cart.decrease": "Diminuir quantidade",
+        "cart.increase": "Aumentar quantidade",
+        "services.hero_label": "Serviços",
+        "services.hero_title_prefix": "Soluções digitais sob medida para a sua ",
+        "services.hero_title_highlight": "marca",
+        "services.hero_title": "Soluções digitais sob medida para a sua marca",
+        "services.hero_desc": "Design web, marketing digital e estratégia de marca em pacotes claros, ou feitos completamente sob medida para você.",
+        "services.plans_label": "Planos",
+        "services.plans_title": "Escolha o pacote ideal para você",
+        "services.plans_desc": "Preços de referência em dólares (USD). Cada projeto é ajustado conforme escopo, prazos e conteúdo.",
+        "services.request": "Solicitar",
+        "services.popular": "Mais escolhido",
+        "services.custom_prefix": "Precisa de algo diferente?",
+        "services.custom_link": "Conte-me sobre seu projeto",
+        "services.custom_suffix": "e montamos uma proposta sob medida.",
+        "services.process_label": "Como trabalhamos",
+        "services.process_title": "Da ideia ao lançamento",
+        "services.process_desc": "Um processo simples e transparente, pensado para que você saiba sempre em qual etapa está seu projeto.",
+        "services.cta_title": "Pronto para começar seu projeto?",
+        "services.cta_desc": "Escreva para mim e conversemos sobre como levar sua marca ao próximo nível.",
+        "services.view": "Ver serviços",
+        "aboutpage.hero_label": "Minha história",
+        "aboutpage.hero_title_prefix": "Por trás de cada design existe uma ",
+        "aboutpage.hero_title_highlight": "história",
+        "aboutpage.hero_title": "Por trás de cada design existe uma história",
+        "aboutpage.hero_desc": "Sou Jamsle Porcena: designer web, especialista em marketing digital e, acima de tudo, alguém apaixonado por ajudar marcas a encontrar sua voz digital.",
+        "aboutpage.bio_title": "Do Caribe ao mundo digital",
+        "aboutpage.values_label": "Como trabalho",
+        "aboutpage.values_title": "Os valores por trás de cada projeto",
+        "aboutpage.timeline_label": "Trajetória",
+        "aboutpage.timeline_title": "Meu caminho até hoje",
+        "aboutpage.cta_title": "Vamos conectar?",
+        "aboutpage.cta_desc": "Adoraria conhecer seu projeto e ver como posso ajudar a torná-lo realidade.",
+        "contactpage.hero_label": "Vamos conectar",
+        "contactpage.hero_title_prefix": "Vamos falar sobre o seu ",
+        "contactpage.hero_title_highlight": "próximo projeto",
+        "contactpage.hero_title": "Vamos falar sobre o seu próximo projeto",
+        "contactpage.hero_desc": "Escolha o canal que preferir. Normalmente respondo em menos de 24 horas.",
+        "contactpage.form_title": "Conte-me sobre seu projeto",
+        "contactpage.form_desc": "Quanto mais detalhes você me der, mais rápido poderei preparar uma proposta ajustada ao que você precisa.",
+        "contactpage.faq_label": "Perguntas frequentes",
+        "contactpage.faq_title": "Antes de me escrever",
+        "contactpage.modal_title": "Mensagem pronta para enviar!",
+        "contactpage.close": "Fechar",
+        "store.hero_label": "Loja digital",
+        "store.hero_title_prefix": "Produtos digitais ",
+        "store.hero_title_highlight": "prontos para usar",
+        "store.hero_title": "Produtos digitais prontos para usar",
+        "store.hero_desc": "Logos, sites, landing pages, apps, flyers, cartões de visita e sessões de fotos — tudo o que sua marca precisa, em um só lugar.",
+        "store.all": "Todos",
+        "store.logos": "Logos",
+        "store.web": "Sites",
+        "store.landing": "Landing Pages",
+        "store.apps": "Apps",
+        "store.flyers": "Flyers",
+        "store.business_cards": "Cartões de visita",
+        "store.photo": "Fotografia",
+        "store.how_title": "Como funciona a compra?",
+        "store.how_desc": "Adicione os produtos que precisa ao carrinho e finalize seu pedido pelo WhatsApp. Coordenamos o pagamento pelo canal acordado e entregamos o arquivo ou projeto após a confirmação.",
+        "footer.description": "Design web, marketing digital e produtos digitais prontos para fazer crescer sua marca.",
+        "footer.navigation": "Navegação",
+        "footer.services": "Serviços",
+        "footer.contact": "Contato",
+        "footer.web_design": "Design web",
+        "footer.digital_marketing": "Marketing digital",
+        "footer.store": "Loja de produtos",
+        "footer.whatsapp": "WhatsApp",
+        "plans.per_project": "/ projeto",
+        "plans.landing.title": "Landing Page",
+        "plans.landing.desc": "Ideal para lançar um produto, serviço ou campanha específica.",
+        "plans.landing.f1": "Design de 1 página (uma única seção longa)",
+        "plans.landing.f2": "Responsivo (celular, tablet, desktop)",
+        "plans.landing.f3": "Formulário de contato",
+        "plans.landing.f4": "Otimização SEO básica",
+        "plans.landing.f5": "Painel de administração",
+        "plans.full.title": "Site Completo",
+        "plans.full.desc": "Um site multi-página para apresentar seu negócio de forma profissional.",
+        "plans.full.f1": "Até 5 páginas (Início, Sobre, Serviços, Contato...)",
+        "plans.full.f2": "Design 100% personalizado",
+        "plans.full.f3": "Responsivo + animações",
+        "plans.full.f4": "SEO on-page + Google Analytics",
+        "plans.full.f5": "1 mês de suporte pós-lançamento",
+        "plans.brand.title": "Marca + Marketing",
+        "plans.brand.desc": "Identidade visual, site e estratégia de conteúdo para escalar sua marca.",
+        "plans.brand.f1": "Tudo do plano Site Completo",
+        "plans.brand.f2": "Design de logo + manual de marca",
+        "plans.brand.f3": "Plano de conteúdo para redes (1 mês)",
+        "plans.brand.f4": "Estratégia SEO avançada",
+        "plans.brand.f5": "Reunião mensal de acompanhamento",
+        "process.1.title": "Descoberta",
+        "process.1.desc": "Conversamos sobre sua marca, objetivos, referências e público para entender o que você realmente precisa.",
+        "process.2.title": "Proposta e design",
+        "process.2.desc": "Apresento uma proposta clara de escopo, prazos e investimento, e começamos com o design visual.",
+        "process.3.title": "Desenvolvimento",
+        "process.3.desc": "Construo o site ou a peça de marketing, com revisões com você em cada etapa chave.",
+        "process.4.title": "Lançamento e suporte",
+        "process.4.desc": "Publicamos seu projeto e te acompanho no período seguinte para ajustes e dúvidas.",
+        "aboutpage.bio1": "Cresci entre culturas —francesa, haitiana e dominicana— e essa mistura faz parte de como entendo o design: como uma ponte entre o que uma marca quer dizer e como as pessoas realmente percebem.",
+        "aboutpage.bio2": "Comecei programando páginas simples por curiosidade, e com o tempo essa curiosidade se tornou uma carreira focada em design web (UI/UX), otimização SEO e marketing baseado em dados.",
+        "aboutpage.bio3": "Fora da tela, continuo aprendendo constantemente: cada certificação, cada projeto e cada cliente me ensina algo novo que levo para o próximo trabalho.",
+        "values.communication.title": "Comunicação clara",
+        "values.communication.desc": "Sem jargões desnecessários: explico cada decisão de design em uma linguagem que você entende.",
+        "values.results.title": "Resultados, não apenas estética",
+        "values.results.desc": "Cada design busca um objetivo mensurável: mais conversões, mais tempo no site, mais vendas.",
+        "values.delivery.title": "Entrega pontual",
+        "values.delivery.desc": "Os prazos acordados são cumpridos. Se algo mudar, aviso com antecedência.",
+        "values.detail.title": "Cuidado com o detalhe",
+        "values.detail.desc": "Os pequenos detalhes —espaçamentos, cores, microcopys— são o que fazem a diferença.",
+        "timeline.2023.title": "Inícios como freelancer",
+        "timeline.2023.desc": "Comecei a pegar meus primeiros projetos de design web e marketing digital, fundando o que hoje é o JamsLab Studio.",
+        "timeline.2024.title": "Certificações em design e IA",
+        "timeline.2024.desc": "Completei certificações em Website Design, AI Technology for Business e Canva Design, ampliando minhas ferramentas de trabalho.",
+        "timeline.2025.title": "Especialização em marketing e dados",
+        "timeline.2025.desc": "Adicionei Digital Marketing (HubSpot Academy) e Data Analytics (Databricks/Simplilearn) para tomar decisões de design baseadas em dados reais.",
+        "timeline.2026.title": "De portfólio a estúdio digital",
+        "timeline.2026.desc": "O JamsLab Studio se torna um espaço completo: serviços de design, marketing e uma loja de produtos digitais prontos para usar.",
+        "contactpage.whatsapp": "WhatsApp",
+        "contactpage.email": "E-mail",
+        "contactpage.call": "Ligação",
+        "contactpage.fiverr": "Fiverr",
+        "faq.1.q": "Quanto tempo leva um projeto de site?",
+        "faq.1.a": "Depende do escopo: uma landing page geralmente leva de 5 a 7 dias, enquanto um site completo pode levar de 2 a 4 semanas.",
+        "faq.2.q": "Como funcionam os pagamentos?",
+        "faq.2.a": "Trabalho com um adiantamento de 50% para iniciar e os 50% restantes na entrega. Os produtos da loja são coordenados pelo WhatsApp para gerenciar o pagamento e a entrega.",
+        "faq.3.q": "Você oferece suporte após a entrega?",
+        "faq.3.a": "Sim. Os planos Site Completo e Marca + Marketing incluem suporte pós-lançamento; também ofereço manutenção mensal separadamente.",
+        "faq.4.q": "Posso pedir um projeto que não está nos planos?",
+        "faq.4.a": "Claro. Os planos são um guia de referência — conte-me sua ideia e montamos uma proposta 100% sob medida.",
+        "faq.5.q": "Você trabalha com clientes fora da República Dominicana?",
+        "faq.5.a": "Sim, trabalho remotamente com clientes em qualquer parte do mundo, coordenando por videochamada, WhatsApp ou e-mail.",
+        "budget.1": "Orçamento: menos de $200",
+        "budget.2": "Orçamento: $200 - $500",
+        "budget.3": "Orçamento: $500 - $1.000",
+        "budget.4": "Orçamento: mais de $1.000",
+        "blog.hero_label": "Recursos & Ideias",
+        "blog.hero_title": "O Blog do Wilkyjams",
+        "blog.hero_desc": "Artigos sobre design web, UI/UX, marketing digital e inteligência artificial.",
+        "blog.all": "Todos",
+        "blog.read_more": "Ler mais",
+        "blog.empty": "Não há artigos nesta categoria.",
+        "blog.loading": "Carregando artigos...",
+        "blog.error": "Não foi possível carregar os artigos.",
+        "blog.back": "Voltar ao blog",
+        "lang.es": "Español",
+        "lang.en": "English",
+        "lang.fr": "Français",
+        "lang.pt": "Português",
+        "page.title.home": "Wilkyjams Dev · Experiências Digitais",
+        "page.title.about": "Wilkyjams Dev · Sobre mim",
+        "page.title.services": "Wilkyjams Dev · Serviços",
+        "page.title.contact": "Wilkyjams Dev · Contato",
+        "page.title.store": "Wilkyjams Dev · Loja",
+        "page.title.privacy": "Privacidade · Wilkyjams Dev",
+        "page.title.terms": "Termos · Wilkyjams Dev",
+        "page.title.cookies": "Cookies · Wilkyjams Dev",
+        "page.title.help": "Central de Ajuda · Wilkyjams Dev",
+        "page.description.home": "Design web, UI/UX e marketing digital por Wilkyjams Dev. Portfólio de projetos, serviços e soluções digitais.",
+        "page.description.about": "Conheça Jamsle Porcena, designer web e especialista em marketing digital, UI/UX e inteligência artificial.",
+        "page.description.services": "Serviços de design web, marketing digital e estratégia de marca sob medida.",
+        "page.description.contact": "Entre em contato com Jamsle Porcena para projetos de design web, UI/UX, desenvolvimento e marketing digital.",
+        "page.description.store": "Produtos digitais prontos para usar: logos, sites, landing pages, apps, flyers e muito mais.",
+        "page.description.privacy": "Política de privacidade da Wilkyjams Dev.",
+        "page.description.terms": "Termos de uso da Wilkyjams Dev.",
+        "page.description.cookies": "Política de cookies da Wilkyjams Dev.",
+        "page.description.help": "Central de ajuda da Wilkyjams Dev."
     }
 };
 
-/* Traducciones extra (Se mantienen intactas) */
-Object.assign(translations.es, {
-    "cart.decrease":"Disminuir cantidad", "cart.increase":"Aumentar cantidad",
-    "nav.contact_short":"Contacto", "services.hero_label":"Servicios", "services.hero_title_prefix":"Soluciones digitales a la medida de tu ", "services.hero_title_highlight":"marca", "services.hero_title":"Soluciones digitales a la medida de tu marca", "services.hero_desc":"Diseño web, marketing digital y estrategia de marca en paquetes claros, o hechos completamente a tu medida.",
-    "services.plans_label":"Planes", "services.plans_title":"Elige el paquete ideal para ti", "services.plans_desc":"Precios de referencia en dólares (USD). Cada proyecto se ajusta según alcance, plazos y contenido.", "services.request":"Solicitar", "services.popular":"Más elegido", "services.custom_prefix":"¿Necesitas algo diferente?", "services.custom_link":"Cuéntame tu proyecto", "services.custom_suffix":"y armamos una propuesta a tu medida.", "services.process_label":"Cómo trabajamos", "services.process_title":"De la idea al lanzamiento", "services.process_desc":"Un proceso simple y transparente, pensado para que siempre sepas en qué etapa está tu proyecto.", "services.cta_title":"¿Listo para empezar tu proyecto?", "services.cta_desc":"Escríbeme y conversemos sobre cómo llevar tu marca al siguiente nivel.", "services.view":"Ver servicios",
-    "aboutpage.hero_label":"Mi historia", "aboutpage.hero_title_prefix":"Detrás de cada diseño hay una ", "aboutpage.hero_title_highlight":"historia", "aboutpage.hero_title":"Detrás de cada diseño hay una historia", "aboutpage.hero_desc":"Soy Jamsle Porcena: diseñador web, especialista en marketing digital y, sobre todo, alguien a quien le apasiona ayudar a marcas a encontrar su voz digital.", "aboutpage.bio_title":"Del Caribe al mundo digital", "aboutpage.values_label":"Cómo trabajo", "aboutpage.values_title":"Los valores detrás de cada proyecto", "aboutpage.timeline_label":"Trayectoria", "aboutpage.timeline_title":"Mi camino hasta hoy", "aboutpage.cta_title":"¿Conectamos?", "aboutpage.cta_desc":"Me encantaría conocer tu proyecto y ver cómo puedo ayudarte a hacerlo realidad.",
-    "contactpage.hero_label":"Conectemos", "contactpage.hero_title_prefix":"Hablemos de tu ", "contactpage.hero_title_highlight":"próximo proyecto", "contactpage.hero_title":"Hablemos de tu próximo proyecto", "contactpage.hero_desc":"Elige el canal que prefieras. Normalmente respondo en menos de 24 horas.", "contactpage.form_title":"Cuéntame sobre tu proyecto", "contactpage.form_desc":"Entre más detalles me des, más rápido podré prepararte una propuesta ajustada a lo que necesitas.", "contactpage.faq_label":"Preguntas frecuentes", "contactpage.faq_title":"Antes de escribirme", "contactpage.modal_title":"¡Mensaje listo para enviar!", "contactpage.close":"Cerrar",
-    "store.hero_label":"Tienda digital", "store.hero_title_prefix":"Productos digitales ", "store.hero_title_highlight":"listos para usar", "store.hero_title":"Productos digitales listos para usar", "store.hero_desc":"Logos, sitios web, landing pages, apps, flyers, tarjetas de presentación y sesiones de fotos — todo lo que tu marca necesita, en un solo lugar.", "store.all":"Todos", "store.logos":"Logos", "store.web":"Sitios Web", "store.landing":"Landing Pages", "store.apps":"Apps", "store.flyers":"Flyers", "store.business_cards":"Business Cards", "store.photo":"Fotografía", "store.how_title":"¿Cómo funciona la compra?", "store.how_desc":"Agrega los productos que necesitas al carrito y finaliza tu pedido por WhatsApp. Coordinamos el pago por el canal acordado y te entrego el archivo o proyecto una vez confirmado.",
-    "footer.description":"Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.", "footer.navigation":"Navegación", "footer.services":"Servicios", "footer.contact":"Contacto", "footer.web_design":"Diseño web", "footer.digital_marketing":"Marketing digital", "footer.store":"Tienda de productos", "footer.whatsapp":"WhatsApp"
-});
+/* v8 — Legal/help pages: complete body + navigation translations. */
+window.LEGAL_CONTENT = {
+  es:{
+    'privacy.html':{title:'Política de privacidad · Wilkyjams Dev',desc:'Información sobre los datos que se recopilan y cómo se utilizan.'},
+    'terms.html':{title:'Términos de uso · Wilkyjams Dev',desc:'Condiciones generales para el uso del sitio y la contratación de servicios.'},
+    'cookies.html':{title:'Política de cookies · Wilkyjams Dev',desc:'Cómo utiliza este sitio almacenamiento local y tecnologías similares.'},
+    'help.html':{title:'Centro de ayuda · Wilkyjams Dev',desc:'Ayuda para encontrar servicios, proyectos, tienda y contacto.'}
+  },
+  en:{
+    'privacy.html':{title:'Privacy Policy · Wilkyjams Dev',desc:'Information about data collected and how it is used.'},
+    'terms.html':{title:'Terms of Use · Wilkyjams Dev',desc:'General conditions for using the site and hiring services.'},
+    'cookies.html':{title:'Cookie Policy · Wilkyjams Dev',desc:'How this site uses local storage and similar technologies.'},
+    'help.html':{title:'Help Center · Wilkyjams Dev',desc:'Help finding services, projects, store, contact and payments.'}
+  },
+  fr:{
+    'privacy.html':{title:'Politique de confidentialité · Wilkyjams Dev',desc:'Informations sur les données collectées et leur utilisation.'},
+    'terms.html':{title:"Conditions d'utilisation · Wilkyjams Dev",desc:"Conditions générales d'utilisation du site et de commande de services."},
+    'cookies.html':{title:'Politique relative aux cookies · Wilkyjams Dev',desc:'Utilisation du stockage local et de technologies similaires.'},
+    'help.html':{title:"Centre d'aide · Wilkyjams Dev",desc:'Aide pour trouver les services, projets, boutique et contact.'}
+  },
+  pt:{
+    'privacy.html':{title:'Política de privacidade · Wilkyjams Dev',desc:'Informações sobre os dados coletados e como são utilizados.'},
+    'terms.html':{title:'Termos de uso · Wilkyjams Dev',desc:'Condições gerais para o uso do site e contratação de serviços.'},
+    'cookies.html':{title:'Política de cookies · Wilkyjams Dev',desc:'Como este site utiliza armazenamento local e tecnologias similares.'},
+    'help.html':{title:'Central de ajuda · Wilkyjams Dev',desc:'Ajuda para encontrar serviços, projetos, loja e contato.'}
+  }
+};
 
-Object.assign(translations.en, { 'cart.decrease': 'Decrease quantity', 'cart.increase': 'Increase quantity' });
-Object.assign(translations.en, {
-    "nav.contact_short":"Contact", "services.hero_label":"Services", "services.hero_title_prefix":"Tailored digital solutions for your ", "services.hero_title_highlight":"brand", "services.hero_title":"Tailored digital solutions for your brand", "services.hero_desc":"Web design, digital marketing and brand strategy in clear packages, or completely tailored to your needs.", "services.plans_label":"Plans", "services.plans_title":"Choose the ideal package for you", "services.plans_desc":"Reference prices in US dollars (USD). Each project is adjusted according to scope, timeline and content.", "services.request":"Request", "services.popular":"Most chosen", "services.custom_prefix":"Need something different?", "services.custom_link":"Tell me about your project", "services.custom_suffix":"and we'll build a tailored proposal.", "services.process_label":"How we work", "services.process_title":"From idea to launch", "services.process_desc":"A simple and transparent process designed so you always know which stage your project is in.", "services.cta_title":"Ready to start your project?", "services.cta_desc":"Write to me and let's discuss how to take your brand to the next level.", "services.view":"View services",
-    "aboutpage.hero_label":"My story", "aboutpage.hero_title_prefix":"Behind every design is a ", "aboutpage.hero_title_highlight":"story", "aboutpage.hero_title":"Behind every design is a story", "aboutpage.hero_desc":"I'm Jamsle Porcena: a web designer and digital marketing specialist who is passionate about helping brands find their digital voice.", "aboutpage.bio_title":"From the Caribbean to the digital world", "aboutpage.values_label":"How I work", "aboutpage.values_title":"The values behind every project", "aboutpage.timeline_label":"Journey", "aboutpage.timeline_title":"My journey so far", "aboutpage.cta_title":"Let's connect", "aboutpage.cta_desc":"I'd love to learn about your project and see how I can help make it a reality.",
-    "contactpage.hero_label":"Let's connect", "contactpage.hero_title_prefix":"Let's talk about your ", "contactpage.hero_title_highlight":"next project", "contactpage.hero_title":"Let's talk about your next project", "contactpage.hero_desc":"Choose the channel you prefer. I usually reply within 24 hours.", "contactpage.form_title":"Tell me about your project", "contactpage.form_desc":"The more details you provide, the faster I can prepare a proposal tailored to what you need.", "contactpage.faq_label":"Frequently asked questions", "contactpage.faq_title":"Before you write", "contactpage.modal_title":"Message ready to send!", "contactpage.close":"Close",
-    "store.hero_label":"Digital store", "store.hero_title_prefix":"Digital products ", "store.hero_title_highlight":"ready to use", "store.hero_title":"Digital products ready to use", "store.hero_desc":"Logos, websites, landing pages, apps, flyers, business cards and photo sessions — everything your brand needs, in one place.", "store.all":"All", "store.logos":"Logos", "store.web":"Websites", "store.landing":"Landing Pages", "store.apps":"Apps", "store.flyers":"Flyers", "store.business_cards":"Business Cards", "store.photo":"Photography", "store.how_title":"How does the purchase work?", "store.how_desc":"Add the products you need to your cart and complete your order through WhatsApp. We coordinate payment through the agreed channel and deliver the file or project once confirmed.",
-    "footer.description":"Web design, digital marketing and digital products ready to help your brand grow.", "footer.navigation":"Navigation", "footer.services":"Services", "footer.contact":"Contact", "footer.web_design":"Web design", "footer.digital_marketing":"Digital marketing", "footer.store":"Product store", "footer.whatsapp":"WhatsApp"
-});
+window.applyLegalLanguage = function(){
+  const file=location.pathname.split('/').pop(); const lang=(typeof currentLang!=='undefined'?currentLang:(localStorage.getItem('jp_lang')||'es'));
+  if(!window.LEGAL_CONTENT[lang]?.[file]) return;
+  const data=window.LEGAL_CONTENT[lang][file]; document.title=data.title; const meta=document.querySelector('meta[name="description"]'); if(meta)meta.content=data.desc;
+  const nav={es:['Inicio','Sobre mí','Servicios','Tienda','Contacto'],en:['Home','About','Services','Store','Contact'],fr:['Accueil','À propos','Services','Boutique','Contact'],pt:['Início','Sobre mim','Serviços','Loja','Contato']};
+  document.querySelectorAll('.nav-links a').forEach((a,i)=>{if(nav[lang]?.[i])a.textContent=nav[lang][i];});
+  const footNav=lang==='fr'?['Accueil','À propos','Services','Boutique de produits','Confidentialité','Conditions','Cookies','Centre d’aide']:lang==='en'?['Home','About','Services','Store products','Privacy','Terms','Cookies','Help Center']:lang==='pt'?['Início','Sobre mim','Serviços','Loja de produtos','Privacidade','Termos','Cookies','Central de ajuda']:['Inicio','Sobre mí','Servicios','Tienda de productos','Privacidad','Términos','Cookies','Centro de ayuda'];
+  document.querySelectorAll('footer ul a').forEach((a,i)=>{if(footNav[i])a.textContent=footNav[i];});
+  const legal={
+  es:{privacy:['Política de privacidad','Responsable del sitio: Wilkyjams Dev','Contacto: porcenatjamsle07@gmail.com · +1 (809) 999-59-04','Datos que podemos recibir','Cuando envías un formulario podemos recibir tu nombre, correo, asunto, tipo de proyecto, presupuesto y mensaje. Cuando realizas un pedido podemos recibir los datos necesarios para gestionar la solicitud y los productos seleccionados.','Finalidad','Usamos estos datos para responder consultas, gestionar pedidos, prestar servicios, mejorar el sitio y mantener registros operativos.','Analítica','El sitio registra eventos técnicos de navegación mediante un identificador de sesión generado en el navegador. No se almacena la dirección IP en nuestra tabla de analítica.','Servicios externos','El sitio puede utilizar Supabase para almacenamiento y WhatsApp para comunicación cuando el visitante elige ese canal. Cada servicio procesa información conforme a sus propias políticas.','Conservación y derechos','Conservamos la información durante el tiempo razonablemente necesario para atender la relación o cumplir obligaciones aplicables. Puedes solicitar acceso, corrección o eliminación escribiendo al correo de contacto.'],
+  terms:['Términos de uso','Uso del sitio','El contenido del sitio se ofrece para informar sobre servicios, proyectos y productos de Wilkyjams Dev. No está permitido utilizarlo de forma fraudulenta o para vulnerar derechos de terceros.','Servicios','El alcance, precio, plazos, revisiones y entregables de cada proyecto se acuerdan con el cliente antes de iniciar el trabajo. Los textos de la web no sustituyen una propuesta o contrato específico.','Productos y pagos','Los productos de la tienda pueden solicitarse por WhatsApp para coordinar el pedido y el pago. Un pedido se considera confirmado cuando el pago o las condiciones acordadas hayan sido verificadas.','Propiedad intelectual','Los elementos del portafolio y los materiales propios del sitio no pueden copiarse, revenderse o reutilizarse sin autorización, salvo los recursos de terceros sujetos a sus respectivas licencias.','Contacto','Para dudas sobre un pedido o servicio, utiliza Contacto o el canal de WhatsApp indicado en el sitio.'],
+  cookies:['Política de cookies','Este sitio prioriza tecnologías esenciales para que sus funciones trabajen correctamente.','Almacenamiento local','El carrito y la preferencia de idioma pueden guardarse en el almacenamiento local del navegador. Esto permite conservar el carrito y recordar el idioma entre páginas.','Cookies de terceros','Algunos recursos externos, como fuentes, iconos o contenido integrado, pueden aplicar sus propias tecnologías según su configuración. El sitio no utiliza estas tecnologías para crear perfiles publicitarios propios.','Preferencias','Puedes borrar el almacenamiento local y las cookies desde la configuración de tu navegador. Algunas funciones, como el carrito o el idioma guardado, podrían reiniciarse.'],
+  help:['Centro de ayuda','¿Qué estás buscando?','Servicios','Consulta planes, precios y formas de solicitar un proyecto.','Tienda','Explora productos digitales, agrégalos al carrito y continúa por WhatsApp.','Contacto','Envía una consulta o inicia una conversación directa.','Navegación','Usa el menú del sitio para encontrar rápidamente cada sección.','Pedidos','El carrito permite preparar tu pedido y continuar por WhatsApp para coordinar el pago.','¿No encuentras algo?','Escríbeme y te ayudaré a encontrar la información correcta.']}
+ };
+  const arr=legal[lang]?.[file]; if(!arr) return;
+  const main=document.querySelector('main .section-header'); if(!main) return;
+  if(file==='privacy.html'||file==='terms.html'||file==='cookies.html'){main.innerHTML=arr.map((v,i)=>i===0?`<h1>${v}</h1>`:i%2===1?`<p>${v}</p>`:`<h2>${v}</h2>`).join('')+`<p><em>${lang==='fr'?'Cette page fournit des informations générales et ne remplace pas un avis juridique.':lang==='en'?'This page is general information and does not replace legal advice.':lang==='pt'?'Esta página fornece informações gerais e não substitui aconselhamento jurídico.':'Esta página es información general y no sustituye asesoramiento jurídico.'}</em></p>`;}
+  else {main.innerHTML=`<h1>${arr[0]}</h1><p>${arr[1]}</p><div class="values-grid"><div class="value-card"><i class="fas fa-briefcase"></i><h3>${arr[2]}</h3><p>${arr[3]}</p><a class="btn-secondary" href="servicios.html">${lang==='fr'?'Voir les services':lang==='en'?'View services':lang==='pt'?'Ver serviços':'Ver servicios'}</a></div><div class="value-card"><i class="fas fa-store"></i><h3>${arr[4]}</h3><p>${arr[5]}</p><a class="btn-secondary" href="tienda.html">${lang==='fr'?'Ouvrir la boutique':lang==='en'?'Open store':lang==='pt'?'Abrir loja':'Abrir tienda'}</a></div><div class="value-card"><i class="fas fa-envelope"></i><h3>${arr[6]}</h3><p>${arr[7]}</p><a class="btn-secondary" href="contacto.html">${lang==='fr'?'Contacter':lang==='en'?'Contact':lang==='pt'?'Contatar':'Contactar'}</a></div><div class="value-card"><i class="fas fa-robot"></i><h3>${arr[8]}</h3><p>${arr[9]}</p></div></div><h2>${arr[10]}</h2><p>${arr[11]}</p><h2>${arr[12]}</h2><p>${arr[13]}</p>`;}
+};
 
-Object.assign(translations.fr, { 'cart.decrease': 'Diminuer la quantité', 'cart.increase': 'Augmenter la quantité' });
-Object.assign(translations.fr, {
-    "nav.contact_short":"Contact", "services.hero_label":"Services", "services.hero_title_prefix":"Des solutions numériques sur mesure pour votre ", "services.hero_title_highlight":"marque", "services.hero_title":"Des solutions numériques sur mesure pour votre marque", "services.hero_desc":"Design web, marketing numérique et stratégie de marque dans des forfaits clairs ou entièrement personnalisés.", "services.plans_label":"Forfaits", "services.plans_title":"Choisissez le forfait idéal pour vous", "services.plans_desc":"Prix indicatifs en dollars américains (USD). Chaque projet est adapté selon la portée, les délais et le contenu.", "services.request":"Demander", "services.popular":"Le plus choisi", "services.custom_prefix":"Besoin de quelque chose de différent ?", "services.custom_link":"Parlez-moi de votre projet", "services.custom_suffix":"et nous préparerons une proposition sur mesure.", "services.process_label":"Comment nous travaillons", "services.process_title":"De l'idée au lancement", "services.process_desc":"Un processus simple et transparent pour que vous sachiez toujours à quelle étape se trouve votre projet.", "services.cta_title":"Prêt à commencer votre projet ?", "services.cta_desc":"Écrivez-moi et discutons de la manière de faire passer votre marque au niveau supérieur.", "services.view":"Voir les services",
-    "aboutpage.hero_label":"Mon histoire", "aboutpage.hero_title_prefix":"Derrière chaque design, il y a une ", "aboutpage.hero_title_highlight":"histoire", "aboutpage.hero_title":"Derrière chaque design, il y a une histoire", "aboutpage.hero_desc":"Je suis Jamsle Porcena : designer web et spécialiste du marketing numérique, passionné par l'idée d'aider les marques à trouver leur voix numérique.", "aboutpage.bio_title":"Des Caraïbes au monde numérique", "aboutpage.values_label":"Ma façon de travailler", "aboutpage.values_title":"Les valeurs derrière chaque projet", "aboutpage.timeline_label":"Parcours", "aboutpage.timeline_title":"Mon parcours jusqu'à aujourd'hui", "aboutpage.cta_title":"Restons en contact", "aboutpage.cta_desc":"J'aimerais découvrir votre projet et voir comment je peux vous aider à le concrétiser.",
-    "contactpage.hero_label":"Restons en contact", "contactpage.hero_title_prefix":"Parlons de votre ", "contactpage.hero_title_highlight":"prochain projet", "contactpage.hero_title":"Parlons de votre prochain projet", "contactpage.hero_desc":"Choisissez le canal que vous préférez. Je réponds généralement en moins de 24 heures.", "contactpage.form_title":"Parlez-moi de votre projet", "contactpage.form_desc":"Plus vous me donnez de détails, plus vite je pourrai préparer une proposition adaptée à vos besoins.", "contactpage.faq_label":"Questions fréquentes", "contactpage.faq_title":"Avant de m'écrire", "contactpage.modal_title":"Message prêt à être envoyé !", "contactpage.close":"Fermer",
-    "store.hero_label":"Boutique numérique", "store.hero_title_prefix":"Produits numériques ", "store.hero_title_highlight":"prêts à l'emploi", "store.hero_title":"Produits numériques prêts à l'emploi", "store.hero_desc":"Logos, sites web, landing pages, applications, flyers, cartes de visite et séances photo — tout ce dont votre marque a besoin, au même endroit.", "store.all":"Tous", "store.logos":"Logos", "store.web":"Sites web", "store.landing":"Landing pages", "store.apps":"Applications", "store.flyers":"Flyers", "store.business_cards":"Cartes de visite", "store.photo":"Photographie", "store.how_title":"Comment fonctionne l'achat ?", "store.how_desc":"Ajoutez les produits dont vous avez besoin au panier et finalisez votre commande via WhatsApp. Nous coordonnons le paiement via le canal convenu et je livre le fichier ou le projet une fois confirmé.",
-    "footer.description":"Design web, marketing numérique et produits numériques prêts à faire grandir votre marque.", "footer.navigation":"Navigation", "footer.services":"Services", "footer.contact":"Contact", "footer.web_design":"Design web", "footer.digital_marketing":"Marketing numérique", "footer.store":"Boutique de produits", "footer.whatsapp":"WhatsApp"
-});
-
-Object.assign(translations.pt, {
-    "nav.contact_short": "Contato",
-    "services.hero_label": "Serviços",
-    "services.hero_title_prefix": "Soluções digitais sob medida para a sua ",
-    "services.hero_title_highlight": "marca",
-    "services.hero_title": "Soluções digitais sob medida para a sua marca",
-    "services.hero_desc": "Design web, marketing digital e estratégia de marca em pacotes claros, ou feitos completamente sob medida para você.",
-    "services.plans_label": "Planos",
-    "services.plans_title": "Escolha o pacote ideal para você",
-    "services.plans_desc": "Preços de referência em dólares (USD). Cada projeto é ajustado conforme escopo, prazos e conteúdo.",
-    "services.request": "Solicitar",
-    "services.popular": "Mais escolhido",
-    "services.custom_prefix": "Precisa de algo diferente?",
-    "services.custom_link": "Conte-me sobre seu projeto",
-    "services.custom_suffix": "e montamos uma proposta sob medida.",
-    "services.process_label": "Como trabalhamos",
-    "services.process_title": "Da ideia ao lançamento",
-    "services.process_desc": "Um processo simples e transparente, pensado para que você saiba sempre em qual etapa está seu projeto.",
-    "services.cta_title": "Pronto para começar seu projeto?",
-    "services.cta_desc": "Escreva para mim e conversemos sobre como levar sua marca ao próximo nível.",
-    "services.view": "Ver serviços",
-    "aboutpage.hero_label": "Minha história",
-    "aboutpage.hero_title_prefix": "Por trás de cada design existe uma ",
-    "aboutpage.hero_title_highlight": "história",
-    "aboutpage.hero_title": "Por trás de cada design existe uma história",
-    "aboutpage.hero_desc": "Sou Jamsle Porcena: designer web, especialista em marketing digital e, acima de tudo, alguém apaixonado por ajudar marcas a encontrar sua voz digital.",
-    "aboutpage.bio_title": "Do Caribe ao mundo digital",
-    "aboutpage.values_label": "Como trabalho",
-    "aboutpage.values_title": "Os valores por trás de cada projeto",
-    "aboutpage.timeline_label": "Trajetória",
-    "aboutpage.timeline_title": "Meu caminho até hoje",
-    "aboutpage.cta_title": "Vamos conectar?",
-    "aboutpage.cta_desc": "Adoraria conhecer seu projeto e ver como posso ajudar a torná-lo realidade.",
-    "contactpage.hero_label": "Vamos conectar",
-    "contactpage.hero_title_prefix": "Vamos falar sobre o seu ",
-    "contactpage.hero_title_highlight": "próximo projeto",
-    "contactpage.hero_title": "Vamos falar sobre o seu próximo projeto",
-    "contactpage.hero_desc": "Escolha o canal que preferir. Normalmente respondo em menos de 24 horas.",
-    "contactpage.form_title": "Conte-me sobre seu projeto",
-    "contactpage.form_desc": "Quanto mais detalhes você me der, mais rápido poderei preparar uma proposta ajustada ao que você precisa.",
-    "contactpage.faq_label": "Perguntas frequentes",
-    "contactpage.faq_title": "Antes de me escrever",
-    "contactpage.modal_title": "Mensagem pronta para enviar!",
-    "contactpage.close": "Fechar",
-    "store.hero_label": "Loja digital",
-    "store.hero_title_prefix": "Produtos digitais ",
-    "store.hero_title_highlight": "prontos para usar",
-    "store.hero_title": "Produtos digitais prontos para usar",
-    "store.hero_desc": "Logos, sites, landing pages, apps, flyers, cartões de visita e sessões de fotos — tudo o que sua marca precisa, em um só lugar.",
-    "store.all": "Todos",
-    "store.logos": "Logos",
-    "store.web": "Sites",
-    "store.landing": "Landing Pages",
-    "store.apps": "Apps",
-    "store.flyers": "Flyers",
-    "store.business_cards": "Cartões de visita",
-    "store.photo": "Fotografia",
-    "store.how_title": "Como funciona a compra?",
-    "store.how_desc": "Adicione os produtos que precisa ao carrinho e finalize seu pedido pelo WhatsApp. Coordenamos o pagamento pelo canal acordado e entregamos o arquivo ou projeto após a confirmação.",
-    "footer.description": "Design web, marketing digital e produtos digitais prontos para fazer crescer sua marca.",
-    "footer.navigation": "Navegação",
-    "footer.services": "Serviços",
-    "footer.contact": "Contato",
-    "footer.web_design": "Design web",
-    "footer.digital_marketing": "Marketing digital",
-    "footer.store": "Loja de produtos",
-    "footer.whatsapp": "WhatsApp"
-});
-
-Object.assign(translations.es, {
- "plans.per_project":"/ proyecto", "plans.landing.title":"Landing Page", "plans.landing.desc":"Ideal para lanzar un producto, servicio o campaña específica.", "plans.landing.f1":"Diseño de 1 página (una sola sección larga)", "plans.landing.f2":"Responsive (móvil, tablet, escritorio)", "plans.landing.f3":"Formulario de contacto", "plans.landing.f4":"Optimización SEO básica", "plans.landing.f5":"Panel de administración",
- "plans.full.title":"Sitio Web Completo", "plans.full.desc":"Un sitio multi-página para presentar tu negocio de forma profesional.", "plans.full.f1":"Hasta 5 páginas (Inicio, Sobre, Servicios, Contacto...)", "plans.full.f2":"Diseño 100% personalizado", "plans.full.f3":"Responsive + animaciones", "plans.full.f4":"SEO on-page + Google Analytics", "plans.full.f5":"1 mes de soporte post-lanzamiento",
- "plans.brand.title":"Marca + Marketing", "plans.brand.desc":"Identidad visual, sitio web y estrategia de contenido para escalar tu marca.", "plans.brand.f1":"Todo lo del plan Sitio Web Completo", "plans.brand.f2":"Diseño de logo + manual de marca", "plans.brand.f3":"Plan de contenido para redes (1 mes)", "plans.brand.f4":"Estrategia SEO avanzada", "plans.brand.f5":"Reunión mensual de seguimiento",
- "process.1.title":"Descubrimiento", "process.1.desc":"Conversamos sobre tu marca, objetivos, referencias y público para entender qué necesitas realmente.", "process.2.title":"Propuesta y diseño", "process.2.desc":"Te presento una propuesta clara de alcance, tiempos e inversión, y empezamos con el diseño visual.", "process.3.title":"Desarrollo", "process.3.desc":"Construyo el sitio o la pieza de marketing, con revisiones contigo en cada etapa clave.", "process.4.title":"Lanzamiento y soporte", "process.4.desc":"Publicamos tu proyecto y te acompaño en el periodo posterior para ajustes y dudas.",
- "aboutpage.bio1":"Crecí entre culturas —francesa, haitiana y dominicana— y esa mezcla forma parte de cómo entiendo el diseño: como un puente entre lo que una marca quiere decir y cómo la gente realmente lo percibe.", "aboutpage.bio2":"Empecé programando páginas simples por curiosidad, y con el tiempo esa curiosidad se convirtió en una carrera enfocada en diseño web (UI/UX), optimización SEO y marketing basado en datos.", "aboutpage.bio3":"Fuera de la pantalla, sigo aprendiendo constantemente: cada certificación, cada proyecto y cada cliente me enseña algo nuevo que llevo al siguiente trabajo.",
- "values.communication.title":"Comunicación clara", "values.communication.desc":"Sin tecnicismos innecesarios: te explico cada decisión de diseño en un lenguaje que entiendas.", "values.results.title":"Resultados, no solo estética", "values.results.desc":"Cada diseño busca un objetivo medible: más conversiones, más tiempo en el sitio, más ventas.", "values.delivery.title":"Entrega puntual", "values.delivery.desc":"Los plazos que acordamos se cumplen. Si algo cambia, te aviso con anticipación.", "values.detail.title":"Cuidado por el detalle", "values.detail.desc":"Los pequeños detalles —espaciados, colores, microcopys— son los que hacen la diferencia.",
- "timeline.2023.title":"Inicios como freelancer", "timeline.2023.desc":"Comencé a tomar mis primeros proyectos de diseño web y marketing digital, fundando lo que hoy es JamsLab Studio.", "timeline.2024.title":"Certificaciones en diseño e IA", "timeline.2024.desc":"Completé certificaciones en Website Design, AI Technology for Business y Canva Design, ampliando mis herramientas de trabajo.", "timeline.2025.title":"Especialización en marketing y datos", "timeline.2025.desc":"Sumé Digital Marketing (HubSpot Academy) y Data Analytics (Databricks/Simplilearn) para tomar decisiones de diseño basadas en datos reales.", "timeline.2026.title":"De portafolio a estudio digital", "timeline.2026.desc":"JamsLab Studio se convierte en un espacio completo: servicios de diseño, marketing y una tienda de productos digitales listos para usar.",
- "contactpage.whatsapp":"WhatsApp", "contactpage.email":"Correo", "contactpage.call":"Llamada", "contactpage.fiverr":"Fiverr", "faq.1.q":"¿Cuánto tiempo toma un proyecto de sitio web?", "faq.1.a":"Depende del alcance: una landing page suele tomar de 5 a 7 días, mientras que un sitio completo puede tomar entre 2 y 4 semanas.", "faq.2.q":"¿Cómo funcionan los pagos?", "faq.2.a":"Trabajo con un adelanto del 50% para iniciar y el 50% restante contra entrega. Los productos de la tienda se coordinan por WhatsApp para gestionar el pago y la entrega.", "faq.3.q":"¿Ofreces soporte después de la entrega?", "faq.3.a":"Sí. Los planes de Sitio Web Completo y Marca + Marketing incluyen soporte post-lanzamiento; también ofrezco mantenimiento mensual por separado.", "faq.4.q":"¿Puedo pedir un proyecto que no está en los planes?", "faq.4.a":"Claro. Los planes son una guía de referencia — cuéntame tu idea y armamos una propuesta 100% a tu medida.", "faq.5.q":"¿Trabajas con clientes fuera de República Dominicana?", "faq.5.a":"Sí, trabajo de forma remota con clientes en cualquier parte del mundo, coordinando por videollamada, WhatsApp o correo.", "budget.1":"Presupuesto: menos de $200", "budget.2":"Presupuesto: $200 - $500", "budget.3":"Presupuesto: $500 - $1,000", "budget.4":"Presupuesto: más de $1,000"
-});
+const _oldSetLanguage = setLanguage;
+setLanguage = function(lang){ _oldSetLanguage(lang); window.applyLegalLanguage?.(); };
 
 function jpT(key, fallback = key) {
     return (translations[currentLang] && translations[currentLang][key]) || (translations.es[key]) || fallback;
 }
-
-// ----- CAMBIO DE IDIOMA -----
-let currentLang = 'es';
 
 function setLanguage(lang) {
     if (!translations[lang]) lang = 'es';
@@ -587,62 +1213,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 console.log('🚀 Portafolio de Jamsle Porcena - Todos los sistemas operativos.');
 console.log('📧 porcenatjamsle07@gmail.com');
 
-/* v8 — Legal/help pages: complete body + navigation translations. */
-window.LEGAL_CONTENT = {
-  es:{
-    'privacy.html':{title:'Política de privacidad · Jamsle Porcena',desc:'Información sobre los datos que se recopilan y cómo se utilizan.'},
-    'terms.html':{title:'Términos de uso · Jamsle Porcena',desc:'Condiciones generales para el uso del sitio y la contratación de servicios.'},
-    'cookies.html':{title:'Política de cookies · Jamsle Porcena',desc:'Cómo utiliza este sitio almacenamiento local y tecnologías similares.'},
-    'help.html':{title:'Centro de ayuda · Jamsle Porcena',desc:'Ayuda para encontrar servicios, proyectos, tienda y contacto.'}
-  },
-  en:{
-    'privacy.html':{title:'Privacy Policy · Jamsle Porcena',desc:'Information about data collected and how it is used.'},
-    'terms.html':{title:'Terms of Use · Jamsle Porcena',desc:'General conditions for using the site and hiring services.'},
-    'cookies.html':{title:'Cookie Policy · Jamsle Porcena',desc:'How this site uses local storage and similar technologies.'},
-    'help.html':{title:'Help Center · Jamsle Porcena',desc:'Help finding services, projects, store, contact and payments.'}
-  },
-  fr:{
-    'privacy.html':{title:'Politique de confidentialité · Jamsle Porcena',desc:'Informations sur les données collectées et leur utilisation.'},
-    'terms.html':{title:"Conditions d'utilisation · Jamsle Porcena",desc:"Conditions générales d'utilisation du site et de commande de services."},
-    'cookies.html':{title:'Politique relative aux cookies · Jamsle Porcena',desc:'Utilisation du stockage local et de technologies similaires.'},
-    'help.html':{title:"Centre d'aide · Jamsle Porcena",desc:'Aide pour trouver les services, projets, boutique et contact.'}
-  },
-  pt:{
-    'privacy.html':{title:'Política de privacidade · Jamsle Porcena',desc:'Informações sobre os dados coletados e como são utilizados.'},
-    'terms.html':{title:'Termos de uso · Jamsle Porcena',desc:'Condições gerais para o uso do site e contratação de serviços.'},
-    'cookies.html':{title:'Política de cookies · Jamsle Porcena',desc:'Como este site utiliza armazenamento local e tecnologias similares.'},
-    'help.html':{title:'Central de ajuda · Jamsle Porcena',desc:'Ajuda para encontrar serviços, projetos, loja e contato.'}
-  }
-};
-
-window.applyLegalLanguage = function(){
- const file=location.pathname.split('/').pop(); const lang=(typeof currentLang!=='undefined'?currentLang:(localStorage.getItem('jp_lang')||'es'));
- if(!window.LEGAL_CONTENT[lang]?.[file]) return;
- const data=window.LEGAL_CONTENT[lang][file]; document.title=data.title; const meta=document.querySelector('meta[name="description"]'); if(meta)meta.content=data.desc;
- const nav={es:['Inicio','Sobre mí','Servicios','Tienda','Contacto'],en:['Home','About','Services','Store','Contact'],fr:['Accueil','À propos','Services','Boutique','Contact'],pt:['Início','Sobre mim','Serviços','Loja','Contato']};
- document.querySelectorAll('.nav-links a').forEach((a,i)=>{if(nav[lang]?.[i])a.textContent=nav[lang][i];});
- const footNav=lang==='fr'?['Accueil','À propos','Services','Boutique de produits','Confidentialité','Conditions','Cookies','Centre d’aide']:lang==='en'?['Home','About','Services','Store products','Privacy','Terms','Cookies','Help Center']:lang==='pt'?['Início','Sobre mim','Serviços','Loja de produtos','Privacidade','Termos','Cookies','Central de ajuda']:['Inicio','Sobre mí','Servicios','Tienda de productos','Privacidad','Términos','Cookies','Centro de ayuda'];
- document.querySelectorAll('footer ul a').forEach((a,i)=>{if(footNav[i])a.textContent=footNav[i];});
- const legal={
-  es:{privacy:['Política de privacidad','Responsable del sitio: Jamsle Porcena','Contacto: porcenatjamsle07@gmail.com · +1 (809) 999-59-04','Datos que podemos recibir','Cuando envías un formulario podemos recibir tu nombre, correo, asunto, tipo de proyecto, presupuesto y mensaje. Cuando realizas un pedido podemos recibir los datos necesarios para gestionar la solicitud y los productos seleccionados.','Finalidad','Usamos estos datos para responder consultas, gestionar pedidos, prestar servicios, mejorar el sitio y mantener registros operativos.','Analítica','El sitio registra eventos técnicos de navegación mediante un identificador de sesión generado en el navegador. No se almacena la dirección IP en nuestra tabla de analítica.','Servicios externos','El sitio puede utilizar Supabase para almacenamiento y WhatsApp para comunicación cuando el visitante elige ese canal. Cada servicio procesa información conforme a sus propias políticas.','Conservación y derechos','Conservamos la información durante el tiempo razonablemente necesario para atender la relación o cumplir obligaciones aplicables. Puedes solicitar acceso, corrección o eliminación escribiendo al correo de contacto.'],
-  terms:['Términos de uso','Uso del sitio','El contenido del sitio se ofrece para informar sobre servicios, proyectos y productos de Jamsle Porcena. No está permitido utilizarlo de forma fraudulenta o para vulnerar derechos de terceros.','Servicios','El alcance, precio, plazos, revisiones y entregables de cada proyecto se acuerdan con el cliente antes de iniciar el trabajo. Los textos de la web no sustituyen una propuesta o contrato específico.','Productos y pagos','Los productos de la tienda pueden solicitarse por WhatsApp para coordinar el pedido y el pago. Un pedido se considera confirmado cuando el pago o las condiciones acordadas hayan sido verificadas.','Propiedad intelectual','Los elementos del portafolio y los materiales propios del sitio no pueden copiarse, revenderse o reutilizarse sin autorización, salvo los recursos de terceros sujetos a sus respectivas licencias.','Contacto','Para dudas sobre un pedido o servicio, utiliza Contacto o el canal de WhatsApp indicado en el sitio.'],
-  cookies:['Política de cookies','Este sitio prioriza tecnologías esenciales para que sus funciones trabajen correctamente.','Almacenamiento local','El carrito y la preferencia de idioma pueden guardarse en el almacenamiento local del navegador. Esto permite conservar el carrito y recordar el idioma entre páginas.','Cookies de terceros','Algunos recursos externos, como fuentes, iconos o contenido integrado, pueden aplicar sus propias tecnologías según su configuración. El sitio no utiliza estas tecnologías para crear perfiles publicitarios propios.','Preferencias','Puedes borrar el almacenamiento local y las cookies desde la configuración de tu navegador. Algunas funciones, como el carrito o el idioma guardado, podrían reiniciarse.'],
-  help:['Centro de ayuda','¿Qué estás buscando?','Servicios','Consulta planes, precios y formas de solicitar un proyecto.','Tienda','Explora productos digitales, agrégalos al carrito y continúa por WhatsApp.','Contacto','Envía una consulta o inicia una conversación directa.','Navegación','Usa el menú del sitio para encontrar rápidamente cada sección.','Pedidos','El carrito permite preparar tu pedido y continuar por WhatsApp para coordinar el pago.','¿No encuentras algo?','Escríbeme y te ayudaré a encontrar la información correcta.']}
- };
- const arr=legal[lang]?.[file]; if(!arr) return;
- const main=document.querySelector('main .section-header'); if(!main) return;
- if(file==='privacy.html'||file==='terms.html'||file==='cookies.html'){main.innerHTML=arr.map((v,i)=>i===0?`<h1>${v}</h1>`:i%2===1?`<p>${v}</p>`:`<h2>${v}</h2>`).join('')+`<p><em>${lang==='fr'?'Cette page fournit des informations générales et ne remplace pas un avis juridique.':lang==='en'?'This page is general information and does not replace legal advice.':lang==='pt'?'Esta página fornece informações gerais e não substitui aconselhamento jurídico.':'Esta página es información general y no sustituye asesoramiento jurídico.'}</em></p>`;}
- else {main.innerHTML=`<h1>${arr[0]}</h1><p>${arr[1]}</p><div class="values-grid"><div class="value-card"><i class="fas fa-briefcase"></i><h3>${arr[2]}</h3><p>${arr[3]}</p><a class="btn-secondary" href="servicios.html">${lang==='fr'?'Voir les services':lang==='en'?'View services':lang==='pt'?'Ver serviços':'Ver servicios'}</a></div><div class="value-card"><i class="fas fa-store"></i><h3>${arr[4]}</h3><p>${arr[5]}</p><a class="btn-secondary" href="tienda.html">${lang==='fr'?'Ouvrir la boutique':lang==='en'?'Open store':lang==='pt'?'Abrir loja':'Abrir tienda'}</a></div><div class="value-card"><i class="fas fa-envelope"></i><h3>${arr[6]}</h3><p>${arr[7]}</p><a class="btn-secondary" href="contacto.html">${lang==='fr'?'Contacter':lang==='en'?'Contact':lang==='pt'?'Contatar':'Contactar'}</a></div><div class="value-card"><i class="fas fa-robot"></i><h3>${arr[8]}</h3><p>${arr[9]}</p></div></div><h2>${arr[10]}</h2><p>${arr[11]}</p><h2>${arr[12]}</h2><p>${arr[13]}</p>`;}
-};
-
-const _oldSetLanguage=setLanguage; setLanguage=function(lang){_oldSetLanguage(lang); window.applyLegalLanguage?.();};
-
-Object.assign(translations.es,{"page.title.privacy":"Privacidad · Jamsle Porcena","page.title.terms":"Términos · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centro de ayuda · Jamsle Porcena","page.description.privacy":"Política de privacidad de Jamsle Porcena.","page.description.terms":"Términos de uso de Jamsle Porcena.","page.description.cookies":"Política de cookies de Jamsle Porcena.","page.description.help":"Centro de ayuda de Jamsle Porcena."});
-Object.assign(translations.en,{"page.title.privacy":"Privacy · Jamsle Porcena","page.title.terms":"Terms · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Help Center · Jamsle Porcena","page.description.privacy":"Jamsle Porcena privacy policy.","page.description.terms":"Jamsle Porcena terms of use.","page.description.cookies":"Jamsle Porcena cookie policy.","page.description.help":"Jamsle Porcena help center."});
-Object.assign(translations.fr,{"page.title.privacy":"Confidentialité · Jamsle Porcena","page.title.terms":"Conditions · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Centre d’aide · Jamsle Porcena","page.description.privacy":"Politique de confidentialité de Jamsle Porcena.","page.description.terms":"Conditions d’utilisation de Jamsle Porcena.","page.description.cookies":"Politique relative aux cookies de Jamsle Porcena.","page.description.help":"Centre d’aide de Jamsle Porcena."});
-Object.assign(translations.pt,{"page.title.privacy":"Privacidade · Jamsle Porcena","page.title.terms":"Termos · Jamsle Porcena","page.title.cookies":"Cookies · Jamsle Porcena","page.title.help":"Central de Ajuda · Jamsle Porcena","page.description.privacy":"Política de privacidade de Jamsle Porcena.","page.description.terms":"Termos de uso de Jamsle Porcena.","page.description.cookies":"Política de cookies de Jamsle Porcena.","page.description.help":"Central de ajuda de Jamsle Porcena."});
-
-/* ===== LÓGICA DE NEWSLETTER ===== */
+/* ===== LÓGICA DE NEWSLETTER (Formspree) ===== */
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('newsletterForm');
     const btn = document.getElementById('newsletterBtn');
@@ -651,14 +1222,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Guardamos el texto original y ponemos "Cargando..."
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             btn.disabled = true;
 
             const formData = new FormData(form);
-            // Añadimos el asunto para Formspree
             formData.append('_subject', 'Nuevo suscriptor en Wilkyjams Dev!');
 
             try {
@@ -669,7 +1237,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    // Éxito: Mostrar Toast
                     form.reset();
                     toast.classList.add('show');
                     setTimeout(() => toast.classList.remove('show'), 4000);
@@ -679,7 +1246,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 alert('Error de conexión. Revisa tu internet.');
             } finally {
-                // Restaurar botón
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }
@@ -687,86 +1253,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* ===== LÓGICA DEL MODAL DE DETALLES (TIENDA) ===== */
+/* ===== LÓGICA DEL MODAL DE DETALLES (TIENDA) — fallback ===== */
 document.addEventListener('DOMContentLoaded', () => {
     const storeGrid = document.getElementById('storeGrid');
     if (!storeGrid) return;
+    // store.js ya maneja el modal con openProductDetails; este bloque solo evita doble listener.
+    // Se conserva por compatibilidad si store.js no cargara.
+});
 
-    // Escuchar clics en toda la tienda (delegación de eventos)
-    storeGrid.addEventListener('click', (e) => {
-        const detailBtn = e.target.closest('.btn-details');
-        if (!detailBtn) return;
-
-        const productId = detailBtn.getAttribute('data-id');
-        if (!productId) return;
-
-        // Buscar el producto en el catálogo actual
-        const catalog = window.PRODUCTS || PRODUCTS_FALLBACK;
-        const product = catalog.find(p => String(p.id) === String(productId));
-        if (!product) return;
-
-        // Crear el Modal
-        const modal = document.createElement('div');
-        modal.className = 'store-detail-modal';
-        
-        // Formatear precios
-        const price = Number(product.price).toFixed(2);
-        const oldPrice = product.oldPrice ? `<span>$${Number(product.oldPrice).toFixed(2)}</span>` : '';
-        
-        // Obtener el texto completo (usando el que ya tienes en tu store.js)
-        const fullDesc = product.description_es || product.description || 'Sin descripción.';
-        const productName = product.name_es || product.name || 'Producto';
-
-        modal.innerHTML = `
-            <div class="store-detail-dialog">
-                <button class="store-detail-close" aria-label="Cerrar"><i class="fas fa-times"></i></button>
-                <div class="store-detail-media">
-                    <img src="${product.image}" alt="${productName}">
-                </div>
-                <div class="store-detail-content">
-                    <h2>${productName}</h2>
-                    <p>${fullDesc}</p>
-                    <div class="store-detail-bottom">
-                        <div class="store-price" style="flex-direction: row; align-items: center; gap: 10px;">
-                            ${oldPrice}
-                            $${price}
-                        </div>
-                        <button class="btn-add-cart btn-modal-add" data-id="${product.id}">
-                            <i class="fas fa-plus"></i> Agregar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(modal);
-        
-        // Animación de entrada
-        requestAnimationFrame(() => modal.classList.add('is-visible'));
-
-        // Cerrar modal
-        const closeModal = () => {
-            modal.classList.remove('is-visible');
-            setTimeout(() => modal.remove(), 300);
-        };
-        
-        modal.querySelector('.store-detail-close').addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // Lógica para agregar al carrito desde el modal
-        modal.querySelector('.btn-modal-add').addEventListener('click', () => {
-            if (window.Cart) {
-                window.Cart.add({
-                    id: product.id,
-                    name: productName,
-                    price: Number(product.price),
-                    image: product.image,
-                    category: product.category
-                });
-                closeModal();
-            }
-        });
-    });
+/* ===== APLICAR OVERRIDES AL CARGAR ===== */
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof window.applyContentOverrides === 'function') window.applyContentOverrides();
 });
