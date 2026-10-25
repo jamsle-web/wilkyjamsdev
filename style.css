@@ -473,3 +473,22 @@ footer { padding: 60px 0 30px; border-top: 1px solid var(--glass-border); text-a
 .modal-actions { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
 .modal-close-link { color: var(--text-muted); font-size: 0.85rem; cursor: pointer; padding: 8px; transition: color 0.2s ease; }
 .modal-close-link:hover { color: #fff; }
+/* ==========================================================================
+   FIX: RESPONSIVE PARA TÍTULOS Y MAPA EN CELULARES
+   ========================================================================== */
+
+/* 1. Arreglar el desbordamiento del título del Blog en celulares */
+@media (max-width: 768px) {
+    .page-hero h1 {
+        font-size: 2.2rem !important; /* Reduce el tamaño en móviles */
+        word-break: break-word; /* Fuerza a bajar de línea si es muy largo */
+        line-height: 1.2;
+    }
+    
+    /* 2. Asegurar que el mapa de Google no se colapse en blanco */
+    .map-container {
+        height: 300px !important; /* Fuerza una altura visible */
+        min-height: 300px !important;
+        display: block !important;
+    }
+}
