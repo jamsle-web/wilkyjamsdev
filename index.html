@@ -20,84 +20,54 @@
     <meta property="og:title" content="Wilkyjams Dev | Diseño Web & Marketing Digital" />
     <meta property="og:description" content="Transformo ideas en identidades digitales sólidas. Combino diseño, tecnología e IA para hacer crecer tu marca." />
     <meta property="og:image" content="https://i.postimg.cc/qqSTwpnh/36e1931a-3105-4dd3-b173-cd49a8a81d18.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
-    <!-- TWITTER -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Wilkyjams Dev | Diseño Web & Marketing Digital" />
-    <meta name="twitter:description" content="Transformo ideas en identidades digitales sólidas. Combino diseño, tecnología e IA para hacer crecer tu marca." />
-    <meta name="twitter:image" content="https://i.postimg.cc/qqSTwpnh/36e1931a-3105-4dd3-b173-cd49a8a81d18.jpg" />
 
     <!-- FUENTES Y LIBRERÍAS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://i.postimg.cc" />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-
-    <!-- ESTILOS OFICIALES DE BREVO -->
-    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
-
-    <!-- TU CSS -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- CANVAS PARA PARTICULAS 3D -->
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- ===== NAVEGACIÓN ===== -->
+    <!-- ===== NUEVA NAVEGACIÓN MINIMALISTA ===== -->
     <nav>
         <div class="container">
             <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
                 <span class="logo-icon">JP</span>
-                <span class="logo-text">Wilkyjams Dev</span>
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" data-i18n="nav.home" class="active">Inicio</a></li>
                 <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
+                <li><a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" rel="noopener noreferrer" data-i18n="nav.projects">Proyectos</a></li>
                 <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
-                <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
                 <li><a href="blog/index.html" data-i18n="nav.blog">Blog</a></li>
-                <li><a href="contacto.html" class="btn-outline" data-i18n="nav.contact">Contáctame</a></li>
+                <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
+                <li><a href="contacto.html" data-i18n="nav.contact">Contacto</a></li>
             </ul>
             <div class="nav-actions">
-                <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-portfolio">
-                    <i class="fas fa-external-link-alt"></i>
-                    <span data-i18n="nav.portfolio">Ver Portafolio</span>
-                </a>
+                <!-- El carrito se ocultará con CSS si está vacío (count = 0) -->
                 <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito" data-i18n-aria-label="cart.aria">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count">0</span>
                 </button>
+                
+                <!-- Botón de idioma con ícono de Globo (Como en tu foto) -->
                 <div class="lang-dropdown">
                     <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false" aria-label="Cambiar idioma">
-                        <img class="flag" data-lang-flag src="flags/es.svg" alt="" width="18" height="12">
-                        <span class="lang-code" data-lang-current>ES</span>
-                        <i class="fas fa-chevron-down lang-chevron"></i>
+                        <i class="fas fa-globe"></i>
                     </button>
                     <ul class="lang-menu" data-lang-menu role="listbox" hidden>
-                        <li data-lang-option="es" role="option" aria-selected="true">
-                            <img src="flags/es.svg" alt="" width="20" height="14">
-                            <span class="lang-label">Español</span>
-                        </li>
-                        <li data-lang-option="en" role="option" aria-selected="false">
-                            <img src="flags/gb.svg" alt="" width="20" height="14">
-                            <span class="lang-label">English</span>
-                        </li>
-                        <li data-lang-option="fr" role="option" aria-selected="false">
-                            <img src="flags/fr.svg" alt="" width="20" height="14">
-                            <span class="lang-label">Français</span>
-                        </li>
-                        <li data-lang-option="pt" role="option" aria-selected="false">
-                            <img src="flags/pt.svg" alt="" width="20" height="14">
-                            <span class="lang-label">Português</span>
-                        </li>
+                        <li data-lang-option="es" role="option" aria-selected="true"><span class="lang-label">Español</span></li>
+                        <li data-lang-option="en" role="option" aria-selected="false"><span class="lang-label">English</span></li>
+                        <li data-lang-option="fr" role="option" aria-selected="false"><span class="lang-label">Français</span></li>
+                        <li data-lang-option="pt" role="option" aria-selected="false"><span class="lang-label">Português</span></li>
                     </ul>
                 </div>
+
                 <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
                     <span></span><span></span><span></span>
                 </button>
@@ -121,7 +91,7 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        <i class="fas fa-external-link-alt"></i> <span data-i18n="nav.portfolio">Ver Portafolio</span>
+                        <i class="fas fa-external-link-alt"></i> <span data-i18n="nav.projects">Ver Proyectos</span>
                     </a>
                     <a href="#services" class="btn-secondary glass-btn">
                         <i class="fas fa-briefcase"></i> <span data-i18n="nav.services">Nuestros Servicios</span>
@@ -248,7 +218,7 @@
             </div>
 
             <div class="store-grid" id="storeGrid">
-                <!-- Las tarjetas de producto se generan dinámicamente con store.js -->
+                <!-- Productos generados por store.js -->
             </div>
         </div>
     </section>
@@ -290,33 +260,23 @@
         </div>
     </section>
 
-    <!-- ===== NEWSLETTER (CONECTADA A BREVO Y REDIRECCIÓN A GRACIAS.HTML) ===== -->
+    <!-- ===== NEWSLETTER ===== -->
     <section id="newsletter" style="padding: 60px 0; background: rgba(255,255,255,0.01); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
         <div class="container" style="text-align: center; max-width: 750px;">
             <span class="label glass-label">Newsletter</span>
             <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 12px;" data-i18n="newsletter.title">¿Qué te gustaría recibir?</h2>
             <p style="color: var(--text-secondary); margin-bottom: 28px;" data-i18n="newsletter.desc">Selecciona tus intereses y te enviaré contenido exclusivo directamente a tu correo.</p>
             
-            <!-- FORMULARIO GLASS CON CONEXIÓN REAL A BREVO -->
             <form id="brevoForm" action="https://46701861.sibforms.com/serve/MUIFAIRy08Zlv8vyx1OYr41_Omgz72kpWi4KLegtEqsvgLk3iI_MzAMd8bRkzAgykmyvrxRpCCDRCAMpAlzKBHnl1xbh44_nn-O8-fhU6LJ6LOXuJKsElOSXKCVhoaiacnVKKnrra848Z3735wRGzqoWfQaDbpm53Af7KQezkj_IgNSaXgmTzV6wQqIUnyP7lymoTgwn2747ItVIrw==" method="POST" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-                
-                <!-- Campo EMAIL (obligatorio para Brevo) -->
                 <input type="email" name="EMAIL" id="EMAIL" placeholder="Tu mejor correo electrónico" required class="glass-input" style="width: 100%; max-width: 400px; padding: 16px 20px; border-radius: 12px; font-size: 1rem; outline: none;" autocomplete="off">
-                
-                <!-- Checkboxes VISUALES (sin name, no se envían a Brevo) -->
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 5px 0 10px;">
                     <label class="glass-checkbox-label"><input type="checkbox"><span data-i18n="newsletter.interests.projects">Nuevos proyectos</span></label>
                     <label class="glass-checkbox-label"><input type="checkbox"><span data-i18n="newsletter.interests.products">Productos digitales</span></label>
                     <label class="glass-checkbox-label"><input type="checkbox"><span data-i18n="newsletter.interests.coupons">Cupones y ofertas</span></label>
                 </div>
-
-                <!-- CAPTCHA DE BREVO (REAL) -->
                 <div class="g-recaptcha" id="sib-captcha" data-sitekey="6Lexr_stAAAAABCqIjH_dED9-rIlodWYX1aKXhcH" data-callback="handleCaptchaResponse" style="margin-bottom: 10px;"></div>
-
-                <!-- CAMPOS OCULTOS QUE BREVO NECESITA -->
                 <input type="text" name="email_address_check" value="" style="display:none;">
                 <input type="hidden" name="locale" value="es">
-
                 <button type="submit" class="btn-primary" style="padding: 16px 40px; border-radius: 50px; border: none; cursor: pointer; width: 100%; max-width: 400px; font-size: 0.9rem;" data-i18n="newsletter.btn">Suscribirme</button>
             </form>
         </div>
@@ -447,7 +407,7 @@
         });
     </script>
 
-    <!-- LÓGICA DE NEWSLETTER (BREVO + REDIRECCIÓN A GRACIAS.HTML) -->
+    <!-- LÓGICA DE NEWSLETTER -->
     <script>
         function handleCaptchaResponse() {
             console.log('Captcha resuelto');
@@ -459,53 +419,36 @@
 
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-
                 const recaptchaResponse = (typeof grecaptcha !== 'undefined') ? grecaptcha.getResponse() : '';
                 if (!recaptchaResponse) {
                     alert('Por favor, completa el captcha "No soy un robot".');
                     return;
                 }
-
                 const formData = new FormData(form);
                 formData.append('g-recaptcha-response', recaptchaResponse);
-
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
-                }).then(() => {
-                    window.location.href = 'gracias.html';
-                }).catch(() => {
-                    window.location.href = 'gracias.html';
-                });
+                fetch(form.action, { method: 'POST', body: formData, mode: 'no-cors' })
+                .then(() => { window.location.href = 'gracias.html'; })
+                .catch(() => { window.location.href = 'gracias.html'; });
             });
         });
     </script>
 
-    <!-- SCRIPT OFICIAL DE BREVO -->
     <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-
-    <!-- GOOGLE RECAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?hl=es" async defer></script>
 
-    <!-- ===== LÓGICA DEL FORMULARIO DE CONTACTO (EMAILJS) ===== -->
+    <!-- FORMULARIO DE CONTACTO -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             emailjs.init("0Km4RQbZC8JqZ6fkL");
-
             const contactForm = document.getElementById('contactFormHome');
             if (!contactForm) return;
-
             contactForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-
                 const btn = contactForm.querySelector('button[type="submit"]');
                 const originalText = btn.innerHTML;
-
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
                 btn.disabled = true;
-
                 emailjs.sendForm('service_q28ua8c', 'template_y5u95hs', this)
                     .then(function() {
                         alert('¡Mensaje enviado con éxito! Te responderé pronto.');
