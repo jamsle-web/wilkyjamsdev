@@ -1145,8 +1145,6 @@ window.applyLegalLanguage = function(){
   else {main.innerHTML=`<h1>${arr[0]}</h1><p>${arr[1]}</p><div class="values-grid"><div class="value-card"><i class="fas fa-briefcase"></i><h3>${arr[2]}</h3><p>${arr[3]}</p><a class="btn-secondary" href="servicios.html">${lang==='fr'?'Voir les services':lang==='en'?'View services':lang==='pt'?'Ver serviços':'Ver servicios'}</a></div><div class="value-card"><i class="fas fa-store"></i><h3>${arr[4]}</h3><p>${arr[5]}</p><a class="btn-secondary" href="tienda.html">${lang==='fr'?'Ouvrir la boutique':lang==='en'?'Open store':lang==='pt'?'Abrir loja':'Abrir tienda'}</a></div><div class="value-card"><i class="fas fa-envelope"></i><h3>${arr[6]}</h3><p>${arr[7]}</p><a class="btn-secondary" href="contacto.html">${lang==='fr'?'Contacter':lang==='en'?'Contact':lang==='pt'?'Contatar':'Contactar'}</a></div><div class="value-card"><i class="fas fa-robot"></i><h3>${arr[8]}</h3><p>${arr[9]}</p></div></div><h2>${arr[10]}</h2><p>${arr[11]}</p><h2>${arr[12]}</h2><p>${arr[13]}</p>`;}
 };
 
-const _oldSetLanguage = setLanguage;
-setLanguage = function(lang){ _oldSetLanguage(lang); window.applyLegalLanguage?.(); };
 
 function jpT(key, fallback = key) {
     return (translations[currentLang] && translations[currentLang][key]) || (translations.es[key]) || fallback;
