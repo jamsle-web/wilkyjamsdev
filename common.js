@@ -270,8 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ----- IDIOMA: detección, persistencia, dropdown ----- */
     const SUPPORTED = ['es', 'en', 'fr', 'pt'];
     const stored = localStorage.getItem('jp_lang');
-    const browserLang = (navigator.language || 'es').slice(0, 2).toLowerCase();
-    const initialLang = SUPPORTED.includes(stored) ? stored : (SUPPORTED.includes(browserLang) ? browserLang : 'es');
+    
+    // CAMBIO AQUÍ: Forzamos que siempre sea 'es' si no hay nada guardado
+    const initialLang = SUPPORTED.includes(stored) ? stored : 'es';
 
     // Sincronizar estado inicial de los botones del selector clásico (si existe)
     document.querySelectorAll('.lang-selector button').forEach(btn => {
@@ -490,7 +491,7 @@ const Cart = {
         }
     },
 
-      renderAll() {
+    renderAll() {
         document.querySelectorAll('.cart-count').forEach(el => {
             const count = this.count();
             el.textContent = count;
