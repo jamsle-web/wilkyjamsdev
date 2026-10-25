@@ -4,46 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Contacta a Jamsle Porcena para proyectos de diseño web, UI/UX, desarrollo y marketing digital." data-i18n-meta="page.description.contact" />
-    <meta name="theme-color" content="#0b0f19" />
+    <meta name="theme-color" content="#050505" />
     <title>Wilkyjams Dev · Contacto</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+    <canvas id="webgl-canvas"></canvas>
+
     <!-- ===== NAVEGACIÓN ===== -->
     <nav>
         <div class="container">
-            <a href="index.html" class="logo" data-jp-owner-access>JP</a>
+            <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
+                <span class="logo-icon">JP</span>
+                <span class="logo-text">Wilkyjams Dev</span>
+            </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html#hero" data-i18n="nav.home">Inicio</a></li>
-                <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
                 <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
                 <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
-                <li><a href="index.html#projects" data-i18n="nav.projects">Proyectos</a></li>
-                <li><a href="contacto.html" class="btn-outline" style="background: var(--accent-1); color: #fff;">Contáctame</a></li>
-                <li>
-                    <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count">0</span>
-                    </button>
-                </li>
-                <li>
-                    <div class="lang-selector">
-                        <button class="active" data-lang="es">ES</button>
-                        <button data-lang="en">EN</button>
-                        <button data-lang="fr">FR</button>
-                        <button data-lang="pt">PT</button>
-                    </div>
-                </li>
+                <li><a href="blog/index.html" data-i18n="nav.blog">Blog</a></li>
+                <li><a href="contacto.html" data-i18n="nav.contact" class="active">Contáctame</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito" data-i18n-aria-label="cart.aria">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false" aria-label="Cambiar idioma">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                    <ul class="lang-menu" data-lang-menu role="listbox" hidden>
+                        <li data-lang-option="es" role="option" aria-selected="true"><span class="lang-label">Español</span></li>
+                        <li data-lang-option="en" role="option" aria-selected="false"><span class="lang-label">English</span></li>
+                        <li data-lang-option="fr" role="option" aria-selected="false"><span class="lang-label">Français</span></li>
+                        <li data-lang-option="pt" role="option" aria-selected="false"><span class="lang-label">Português</span></li>
+                    </ul>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -60,14 +74,12 @@
     <!-- ===== CANALES DE CONTACTO ===== -->
     <section id="channels" style="padding-top: 0;">
         <div class="container">
-            <!-- SOLO 3 TARJETAS: WhatsApp, Correo y Llamada -->
             <div class="contact-channels">
                 <a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" class="channel-card" data-aos="fade-up" data-aos-delay="50" style="text-decoration:none; color: inherit;">
                     <i class="fab fa-whatsapp"></i>
                     <h4><span data-i18n="contactpage.whatsapp">WhatsApp</span></h4>
                     <p>+1 (809) 999-59-04</p>
                 </a>
-                <!-- TARJETA DEL CORREO BLINDADA CONTRA EL SCRIPT DE TRADUCCIÓN -->
                 <a href="mailto:porcenatjamsle07@gmail.com" data-site-setting="email-link" class="channel-card" data-aos="fade-up" data-aos-delay="150" style="text-decoration:none; color: inherit;">
                     <i class="fas fa-envelope"></i>
                     <h4><span data-i18n="contactpage.email">Correo</span></h4>
@@ -80,8 +92,7 @@
                 </a>
             </div>
 
-            <!-- ===== FORMULARIO + INFO ===== -->
-            <div class="contact-wrapper" data-aos="fade-up">
+            <div class="contact-wrapper glass-panel" data-aos="fade-up">
                 <div class="contact-info">
                     <h3 data-i18n="contactpage.form_title">Cuéntame sobre tu proyecto</h3>
                     <p data-i18n="contactpage.form_desc">Entre más detalles me des, más rápido podré prepararte una propuesta ajustada a lo que necesitas.</p>
@@ -97,24 +108,25 @@
                     <input type="text" name="name" data-i18n-placeholder="contact.form_name" placeholder="Nombre completo" required />
                     <input type="email" name="email" data-i18n-placeholder="contact.form_email" placeholder="Correo electrónico" required />
                     <input type="text" name="project_type" data-i18n-placeholder="contact.project_type" placeholder="¿Qué tipo de proyecto es?" />
-                    <select name="budget" style="width:100%; padding: 14px 18px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 16px;">
+                    <select name="budget" style="width:100%; padding: 16px 20px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #fff; font-family: var(--font-body); font-size: 1rem; margin-bottom: 16px;">
                         <option data-i18n="budget.1">Presupuesto: menos de $200</option>
                         <option data-i18n="budget.2">Presupuesto: $200 - $500</option>
                         <option data-i18n="budget.3">Presupuesto: $500 - $1,000</option>
                         <option data-i18n="budget.4">Presupuesto: más de $1,000</option>
                     </select>
                     <textarea name="message" data-i18n-placeholder="contact.form_message" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
-                    <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> <span data-i18n="contact.form_submit">Enviar mensaje</span></button>
+                    <button type="submit" class="btn-primary" style="width: 100%; border-radius: 12px;"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> <span data-i18n="contact.form_submit">Enviar mensaje</span></button>
                 </form>
             </div>
 
-           <!-- ===== MAPA DE GOOGLE MAPS (RESPONSIVE) ===== -->
-<div class="map-container" data-aos="fade-up">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2157044.913184117!2d-70.130055!3d18.6698995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa933eacba0316287%3A0xd9fc78d8f55ebaf1!2sWilkyJames%20Dev%20%E2%80%94%20Desarrollo%20Web!5e1!3m2!1ses!2sdo!4v1792859449029!5m2!1ses!2sdo" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-</div>
+            <div class="map-container" data-aos="fade-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2157044.913184117!2d-70.130055!3d18.6698995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa933eacba0316287%3A0xd9fc78d8f55ebaf1!2sWilkyJames%20Dev%20%E2%80%94%20Desarrollo%20Web!5e1!3m2!1ses!2sdo!4v1792859449029!5m2!1ses!2sdo" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+        </div>
+    </section>
 
     <!-- ===== FAQ ===== -->
-    <section id="faq" style="background: var(--bg-secondary);">
+    <section id="faq" style="background: rgba(255,255,255,0.01);">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="label" data-i18n="contactpage.faq_label">Preguntas frecuentes</span>
@@ -149,62 +161,26 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="logo">JP</div>
-                    <p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p>
-                </div>
-                <div>
-                    <h5 data-i18n="footer.navigation">Navegación</h5>
-                    <ul>
-                        <li><a href="index.html#hero" data-i18n="nav.home">Inicio</a></li>
-                        <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
-                        <li><a href="index.html#projects" data-i18n="nav.projects">Proyectos</a></li>
-                        <li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 data-i18n="footer.services">Servicios</h5>
-                    <ul>
-                        <li><a href="servicios.html" data-i18n="footer.web_design">Diseño web</a></li>
-                        <li><a href="servicios.html" data-i18n="footer.digital_marketing">Marketing digital</a></li>
-                        <li><a href="tienda.html" data-i18n="footer.store">Tienda de productos</a></li>
-                        <li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li>
-                        <li><a href="terms.html" data-i18n="footer.terms">Términos</a></li>
-                        <li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li>
-                        <li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 data-i18n="footer.contact">Contacto</h5>
-                    <ul>
-                        <li><a href="tel:+18099995904" data-site-setting="phone-link">+1 (809) 999-59-04</a></li>
-                        <li><a href="mailto:porcenatjamsle07@gmail.com" data-site-setting="email-link">porcenatjamsle07@gmail.com</a></li>
-                        <li><a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li>
-                    </ul>
-                </div>
+                <div class="footer-brand"><div class="logo glass-logo">JP</div><p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
+                <div><h5 data-i18n="footer.navigation">Navegación</h5><ul><li><a href="index.html" data-i18n="nav.home">Inicio</a></li><li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li><li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li><li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li><li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li></ul></div>
+                <div><h5 data-i18n="footer.services">Legal</h5><ul><li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li><li><a href="terms.html" data-i18n="footer.terms">Términos</a></li><li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li><li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li></ul></div>
+                <div><h5 data-i18n="footer.contact">Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li></ul></div>
             </div>
-            <div class="footer-bottom">
-                <p>© 2026 <span>Jamsle Porcena</span> <span data-i18n="footer.tagline">· Diseño web & Marketing Digital</span></p>
-            </div>
+            <div class="footer-bottom"><p data-i18n="footer.copyright">© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
         </div>
     </footer>
 
     <!-- ===== CARRITO LATERAL ===== -->
     <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header">
-            <h3><i class="fas fa-shopping-bag"></i> <span data-i18n="cart.title">Tu carrito</span></h3>
-            <button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> <span data-i18n="cart.title">Tu carrito</span></h3><button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button></div>
         <div class="cart-items" id="cartItemsWrap"></div>
         <div class="cart-footer">
-            <div class="cart-total">
-                <span data-i18n="cart.total">Total</span>
-                <span id="cartTotalValue">$0.00</span>
+            <div class="cart-total"><span data-i18n="cart.total">Total</span><span id="cartTotalValue">$0.00</span></div>
+            <div style="display: flex; gap: 10px; flex-direction: column;">
+                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-airtm"><i class="fas fa-credit-card"></i> Pagar con Airtm</a>
+                <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()"><i class="fab fa-whatsapp"></i> Coordinar por WhatsApp</button>
             </div>
-            <button class="btn-checkout" onclick="Cart.checkoutViaWhatsApp()">
-                <i class="fab fa-whatsapp"></i> <span data-i18n="cart.checkout">Finalizar por WhatsApp</span>
-            </button>
         </div>
     </div>
 
@@ -223,13 +199,49 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: true, mirror: false });</script>
+    <script>AOS.init({ duration: 800, once: false, mirror: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-client.js"></script>
     <script src="common.js"></script>
     <script src="cms-content.js"></script>
     <script>
+        const canvas = document.querySelector('#webgl-canvas');
+        if (canvas) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            const particlesGeo = new THREE.BufferGeometry();
+            const particlesCount = 400;
+            const posArray = new Float32Array(particlesCount * 3);
+            for (let i = 0; i < particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
+            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+            const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+            scene.add(particlesMesh);
+            const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), new THREE.MeshBasicMaterial({ color: 0xa8b9cc, wireframe: true, transparent: true, opacity: 0.15 }));
+            sphere.position.set(2.5, 0, -2);
+            scene.add(sphere);
+            const clock = new THREE.Clock();
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+                particlesMesh.rotation.y = t * 0.04;
+                sphere.rotation.y = t * 0.12;
+                renderer.render(scene, camera);
+            }
+            animate();
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
         document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const form = this;
@@ -241,7 +253,6 @@
             const context = [projectType ? `Tipo de proyecto: ${projectType}` : '', budget ? `Presupuesto: ${budget}` : ''].filter(Boolean).join('\n');
             const message = [baseMessage, context].filter(Boolean).join('\n\n');
 
-            // 1. GUARDAR EN SUPABASE
             const { error } = await portfolioSupabase.from('contact_messages').insert({
                 name: String(f.get('name') || '').trim(),
                 email: String(f.get('email') || '').trim(),
@@ -253,20 +264,14 @@
                 return;
             }
 
-            // 2. ENVIAR A FORMSPREE (Para que te llegue el correo)
             try {
                 await fetch("https://formspree.io/f/mkjoappw", {
                     method: "POST",
                     body: f,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 });
-            } catch (err) {
-                console.error("Error al enviar a Formspree:", err);
-            }
+            } catch (err) {}
 
-            // 3. GENERAR EL MENSAJE DE WHATSAPP
             const ownerWhatsApp = (window.getSiteSetting?.('whatsapp') || '18099995904').replace(/\D/g, '');
             const waText = `Nuevo mensaje desde Wilkyjams Dev\n\nNombre: ${String(f.get('name') || '').trim()}\nEmail: ${String(f.get('email') || '').trim()}\nTipo: ${projectType || 'No especificado'}\nPresupuesto: ${budget || 'No especificado'}\n\nMensaje:\n${baseMessage}`;
             const waUrl = `https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(waText)}`;
@@ -276,19 +281,5 @@
             setTimeout(() => window.open(waUrl, '_blank', 'noopener,noreferrer'), 80);
         });
     </script>
-    <!-- Forzar ocultación de la capa de transición si se queda pegada -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const transitionLayer = document.getElementById('jpPageTransition');
-                if (transitionLayer) {
-                    transitionLayer.classList.remove('is-visible');
-                    transitionLayer.style.display = 'none';
-                }
-            }, 500);
-        });
-    </script>
-    <!-- Vercel Web Analytics -->
-    <script defer src="https://vercel-insights.com/v1/script.js"></script>
 </body>
 </html>
