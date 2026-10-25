@@ -490,11 +490,17 @@ const Cart = {
         }
     },
 
-    renderAll() {
+      renderAll() {
         document.querySelectorAll('.cart-count').forEach(el => {
             const count = this.count();
             el.textContent = count;
             el.style.display = count > 0 ? 'flex' : 'none';
+            
+            // Ocultar todo el botón del carrito si está vacío
+            const cartBtn = el.closest('.cart-btn');
+            if (cartBtn) {
+                cartBtn.setAttribute('data-empty', count === 0 ? 'true' : 'false');
+            }
         });
 
         const itemsWrap = document.getElementById('cartItemsWrap');
