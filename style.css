@@ -93,7 +93,13 @@ nav .container {
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
 .logo-icon { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -1px; }
 .logo-text { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: #fff; }
-
+.logo-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: contain;
+    display: block;
+}
 .nav-links {
     display: flex; gap: 24px; align-items: center;
     background: transparent; border: none; box-shadow: none;
