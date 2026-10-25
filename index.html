@@ -33,29 +33,31 @@
 
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- ===== NUEVA NAVEGACIÓN MINIMALISTA ===== -->
+    <!-- ===== NUEVA NAVEGACIÓN CORREGIDA ===== -->
     <nav>
         <div class="container">
+            <!-- Título del sitio restaurado al lado del logo -->
             <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
                 <span class="logo-icon">JP</span>
+                <span class="logo-text">Wilkyjams Dev</span>
             </a>
+            
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" data-i18n="nav.home" class="active">Inicio</a></li>
-                <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
-                <li><a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" rel="noopener noreferrer" data-i18n="nav.projects">Proyectos</a></li>
                 <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
-                <li><a href="blog/index.html" data-i18n="nav.blog">Blog</a></li>
                 <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
-                <li><a href="contacto.html" data-i18n="nav.contact">Contacto</a></li>
+                <li><a href="blog/index.html" data-i18n="nav.blog">Blog</a></li>
+                <li><a href="contacto.html" data-i18n="nav.contact">Contáctame</a></li>
             </ul>
+
             <div class="nav-actions">
-                <!-- El carrito se ocultará con CSS si está vacío (count = 0) -->
+                <!-- Carrito (se oculta si está vacío) -->
                 <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito" data-i18n-aria-label="cart.aria">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count">0</span>
                 </button>
                 
-                <!-- Botón de idioma con ícono de Globo (Como en tu foto) -->
+                <!-- Botón de idioma con ícono de Globo -->
                 <div class="lang-dropdown">
                     <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false" aria-label="Cambiar idioma">
                         <i class="fas fa-globe"></i>
@@ -91,7 +93,7 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        <i class="fas fa-external-link-alt"></i> <span data-i18n="nav.projects">Ver Proyectos</span>
+                        <i class="fas fa-external-link-alt"></i> <span data-i18n="nav.portfolio">Ver Portafolio</span>
                     </a>
                     <a href="#services" class="btn-secondary glass-btn">
                         <i class="fas fa-briefcase"></i> <span data-i18n="nav.services">Nuestros Servicios</span>
