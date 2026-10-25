@@ -32,6 +32,8 @@
     <!-- FUENTES Y LIBRERÍAS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://i.postimg.cc" />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
@@ -47,38 +49,58 @@
     <!-- CANVAS PARA PARTICULAS 3D -->
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- ===== NAVEGACIÓN (ESTILO GLASS) ===== -->
+    <!-- ===== NAVEGACIÓN ===== -->
     <nav>
         <div class="container">
-            <a href="#hero" class="logo" data-jp-owner-access style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
                 <span class="logo-icon">JP</span>
                 <span class="logo-text">Wilkyjams Dev</span>
             </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
-                <li><a href="#services" data-i18n="nav.services">Servicios</a></li>
-                <li><a href="#store" data-i18n="nav.store">Tienda</a></li>
-                <li><a href="blog/index.html">Blog</a></li>
-                <li><a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" style="color: var(--accent-2); font-weight: 700;">Portafolio <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a></li>
-                <li><a href="#contact" class="btn-outline" data-i18n="nav.contact">Contáctame</a></li>
-                
-                <li>
-                    <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count">0</span>
-                    </button>
-                </li>
-                <li>
-                    <div class="lang-selector">
-                        <button class="active" data-lang="es">ES</button>
-                        <button data-lang="en">EN</button>
-                        <button data-lang="fr">FR</button>
-                        <button data-lang="pt">PT</button>
-                    </div>
-                </li>
+                <li><a href="index.html" data-i18n="nav.home" class="active">Inicio</a></li>
+                <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
+                <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
+                <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
+                <li><a href="blog/index.html" data-i18n="nav.blog">Blog</a></li>
+                <li><a href="contacto.html" class="btn-outline" data-i18n="nav.contact">Contáctame</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <div class="nav-actions">
+                <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-portfolio">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span data-i18n="nav.portfolio">Ver Portafolio</span>
+                </a>
+                <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito" data-i18n-aria-label="cart.aria">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false" aria-label="Cambiar idioma">
+                        <img class="flag" data-lang-flag src="flags/es.svg" alt="" width="18" height="12">
+                        <span class="lang-code" data-lang-current>ES</span>
+                        <i class="fas fa-chevron-down lang-chevron"></i>
+                    </button>
+                    <ul class="lang-menu" data-lang-menu role="listbox" hidden>
+                        <li data-lang-option="es" role="option" aria-selected="true">
+                            <img src="flags/es.svg" alt="" width="20" height="14">
+                            <span class="lang-label">Español</span>
+                        </li>
+                        <li data-lang-option="en" role="option" aria-selected="false">
+                            <img src="flags/gb.svg" alt="" width="20" height="14">
+                            <span class="lang-label">English</span>
+                        </li>
+                        <li data-lang-option="fr" role="option" aria-selected="false">
+                            <img src="flags/fr.svg" alt="" width="20" height="14">
+                            <span class="lang-label">Français</span>
+                        </li>
+                        <li data-lang-option="pt" role="option" aria-selected="false">
+                            <img src="flags/pt.svg" alt="" width="20" height="14">
+                            <span class="lang-label">Português</span>
+                        </li>
+                    </ul>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -92,17 +114,17 @@
                 </div>
                 <h1 class="reveal-text">
                     <span style="color: #fff;" data-i18n="hero.greeting">Diseño y Estrategia</span> <br>
-                    <span class="highlight">para tu Marca</span>
+                    <span class="highlight" data-i18n="hero.name">para tu Marca</span>
                 </h1>
                 <p data-i18n="hero.description">
                     Soluciones digitales de alto impacto. Combino diseño, tecnología e IA para hacer crecer tu negocio.
                 </p>
                 <div class="hero-buttons">
-                    <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" class="btn-primary">
-                        <i class="fas fa-external-link-alt"></i> <span>Ver Portafolio</span>
+                    <a href="https://jamsle-porcena-portafolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        <i class="fas fa-external-link-alt"></i> <span data-i18n="nav.portfolio">Ver Portafolio</span>
                     </a>
                     <a href="#services" class="btn-secondary glass-btn">
-                        <i class="fas fa-briefcase"></i> <span>Nuestros Servicios</span>
+                        <i class="fas fa-briefcase"></i> <span data-i18n="nav.services">Nuestros Servicios</span>
                     </a>
                 </div>
                 <div class="hero-stats">
@@ -113,7 +135,6 @@
             </div>
             <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
                 <div class="avatar-wrapper glass-avatar">
-                    <!-- FOTO CORREGIDA: Etiqueta <img> real para que cargue en todos los dispositivos -->
                     <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Jamsle Porcena" class="avatar-img">
                 </div>
             </div>
@@ -171,7 +192,7 @@
                         <li><i class="fas fa-check"></i> <span data-i18n="plans.landing.f3">Formulario de contacto</span></li>
                         <li><i class="fas fa-check"></i> <span data-i18n="plans.landing.f4">SEO básica</span></li>
                     </ul>
-                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Landing%20Page" target="_blank" class="btn-secondary glass-btn" style="justify-content:center;" data-service-plan="landing" data-i18n="services.request">Solicitar</a>
+                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Landing%20Page" target="_blank" rel="noopener noreferrer" class="btn-secondary glass-btn" style="justify-content:center;" data-service-plan="landing" data-i18n="services.request">Solicitar</a>
                 </div>
                 <div class="pricing-card glass-panel featured" data-aos="fade-up" data-aos-delay="150">
                     <span class="badge-popular" data-i18n="services.popular">Más elegido</span>
@@ -184,7 +205,7 @@
                         <li><i class="fas fa-check"></i> <span data-i18n="plans.full.f3">Animaciones</span></li>
                         <li><i class="fas fa-check"></i> <span data-i18n="plans.full.f4">SEO + Analytics</span></li>
                     </ul>
-                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Sitio%20Web%20Completo" target="_blank" class="btn-primary" style="justify-content:center;" data-service-plan="full" data-i18n="services.request">Solicitar</a>
+                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Sitio%20Web%20Completo" target="_blank" rel="noopener noreferrer" class="btn-primary" style="justify-content:center;" data-service-plan="full" data-i18n="services.request">Solicitar</a>
                 </div>
                 <div class="pricing-card glass-panel" data-aos="fade-up" data-aos-delay="250">
                     <h4 class="plan-name" data-i18n="plans.brand.title">Marca + Marketing</h4>
@@ -196,7 +217,7 @@
                         <li><i class="fas fa-check"></i> <span data-i18n="plans.brand.f3">Plan de contenido</span></li>
                         <li><i class="fas fa-check"></i> <span data-i18n="plans.brand.f4">Estrategia SEO avanzada</span></li>
                     </ul>
-                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Marca%20%2B%20Marketing" target="_blank" class="btn-secondary glass-btn" style="justify-content:center;" data-service-plan="brand" data-i18n="services.request">Solicitar</a>
+                    <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20me%20interesa%20el%20plan%20Marca%20%2B%20Marketing" target="_blank" rel="noopener noreferrer" class="btn-secondary glass-btn" style="justify-content:center;" data-service-plan="brand" data-i18n="services.request">Solicitar</a>
                 </div>
             </div>
         </div>
@@ -207,7 +228,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="label glass-label" data-i18n="store.hero_label">Tienda digital</span>
-                <h2 data-i18n="store.hero_title_prefix">Productos digitales <br><span class="highlight" data-i18n="store.hero_title_highlight">listos para usar</span></h2>
+                <h2 data-i18n="store.hero_title">Productos digitales <br><span class="highlight" data-i18n="store.hero_title_highlight">listos para usar</span></h2>
                 <p data-i18n="store.hero_desc">Logos, sitios web, landing pages, apps, flyers, tarjetas de presentación y sesiones de fotos — todo lo que tu marca necesita, en un solo lugar.</p>
             </div>
             
@@ -314,12 +335,12 @@
                     <p data-i18n="contact.info_desc">Puedes escribirme por cualquiera de estos medios o a través de mis redes profesionales.</p>
                     <div class="contact-item"><i class="fas fa-phone-alt"></i><a href="tel:+18099995904">+1 (809) 999-59-04</a></div>
                     <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></div>
-                    <div class="contact-item"><i class="fas fa-briefcase"></i><a href="https://www.fiverr.com/s/xLZLbj0" target="_blank">Fiverr · JamsLab Studio</a></div>
+                    <div class="contact-item"><i class="fas fa-briefcase"></i><a href="https://www.fiverr.com/s/xLZLbj0" target="_blank" rel="noopener noreferrer">Fiverr · JamsLab Studio</a></div>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/jamsle-porcena-917593297/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://github.com/jamsle-web" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://www.youtube.com/@WilkyJamesDev" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.fiverr.com/s/xLZLbj0" target="_blank" aria-label="Fiverr"><i class="fas fa-star"></i></a>
+                        <a href="https://www.linkedin.com/in/jamsle-porcena-917593297/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/jamsle-web" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.youtube.com/@WilkyJamesDev" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.fiverr.com/s/xLZLbj0" target="_blank" rel="noopener noreferrer" aria-label="Fiverr"><i class="fas fa-star"></i></a>
                     </div>
                 </div>
                 <form class="contact-form" id="contactFormHome">
@@ -338,11 +359,11 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand"><div class="logo glass-logo">JP</div><p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
-                <div><h5 data-i18n="footer.navigation">Navegación</h5><ul><li><a href="#hero" data-i18n="nav.home">Inicio</a></li><li><a href="#about" data-i18n="nav.about">Sobre mí</a></li><li><a href="#services" data-i18n="nav.services">Servicios</a></li><li><a href="#store" data-i18n="nav.store">Tienda</a></li><li><a href="#contact" data-i18n="nav.contact_short">Contacto</a></li></ul></div>
+                <div><h5 data-i18n="footer.navigation">Navegación</h5><ul><li><a href="index.html" data-i18n="nav.home">Inicio</a></li><li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li><li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li><li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li><li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li></ul></div>
                 <div><h5 data-i18n="footer.services">Legal</h5><ul><li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li><li><a href="terms.html" data-i18n="footer.terms">Términos</a></li><li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li><li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li></ul></div>
                 <div><h5 data-i18n="footer.contact">Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li></ul></div>
             </div>
-            <div class="footer-bottom"><p>© 2026 <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Jamsle Porcena</span> <span data-i18n="footer.tagline">· Diseño web & Marketing Digital</span></p></div>
+            <div class="footer-bottom"><p data-i18n="footer.copyright">© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
         </div>
     </footer>
 
@@ -366,7 +387,7 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: false, mirror: true });</script>
+    <script>AOS.init({ duration: 800, once: false, mirror: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -471,27 +492,24 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar EmailJS con tu Public Key
             emailjs.init("0Km4RQbZC8JqZ6fkL");
 
             const contactForm = document.getElementById('contactFormHome');
             if (!contactForm) return;
 
             contactForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Evita que la página recargue
+                event.preventDefault();
 
                 const btn = contactForm.querySelector('button[type="submit"]');
                 const originalText = btn.innerHTML;
 
-                // Cambiamos el botón para avisar que está enviando
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
                 btn.disabled = true;
 
-                // Enviar usando tus credenciales
                 emailjs.sendForm('service_q28ua8c', 'template_y5u95hs', this)
                     .then(function() {
                         alert('¡Mensaje enviado con éxito! Te responderé pronto.');
-                        contactForm.reset(); // Limpia el formulario
+                        contactForm.reset();
                         btn.innerHTML = originalText;
                         btn.disabled = false;
                     }, function(error) {
