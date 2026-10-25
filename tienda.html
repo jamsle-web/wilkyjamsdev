@@ -3,54 +3,61 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Tienda de productos y recursos digitales de Jamsle Porcena." data-i18n-meta="page.description.store" />
-    <meta name="theme-color" content="#0b0f19" />
-    <title>Tienda · Productos Digitales · Wilkyjams Dev</title>
+    <meta name="description" content="Tienda de productos digitales: Logos, sitios web, landing pages, apps, flyers y más." />
+    <meta name="theme-color" content="#050505" />
+    <title>Wilkyjams Dev · Tienda Digital</title>
 
-    <!-- ===== FAVICON ===== -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <!-- =================== -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+    <canvas id="webgl-canvas"></canvas>
+
     <!-- ===== NAVEGACIÓN ===== -->
     <nav>
         <div class="container">
-            <a href="index.html" class="logo" data-jp-owner-access>JP</a>
+            <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
+                <span class="logo-icon">JP</span>
+                <span class="logo-text">Wilkyjams Dev</span>
+            </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html#hero" data-i18n="nav.home">Inicio</a></li>
-                <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
                 <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
-                <li><a href="tienda.html" style="color: var(--text-primary);" data-i18n="nav.store">Tienda</a></li>
-                <li><a href="index.html#projects" data-i18n="nav.projects">Proyectos</a></li>
-                <li><a href="contacto.html" class="btn-outline" data-i18n="nav.contact">Contáctame</a></li>
-                <li>
-                    <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count">0</span>
-                    </button>
-                </li>
-                <li>
-                    <div class="lang-selector">
-                        <button class="active" data-lang="es">ES</button>
-                        <button data-lang="en">EN</button>
-                        <button data-lang="fr">FR</button>
-                    </div>
-                </li>
+                <li><a href="tienda.html" data-i18n="nav.store" class="active">Tienda</a></li>
+                <li><a href="blog/index.html" data-i18n="nav.blog">Blog</a></li>
+                <li><a href="contacto.html" data-i18n="nav.contact">Contáctame</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito" data-i18n-aria-label="cart.aria">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false" aria-label="Cambiar idioma">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                    <ul class="lang-menu" data-lang-menu role="listbox" hidden>
+                        <li data-lang-option="es" role="option" aria-selected="true"><span class="lang-label">Español</span></li>
+                        <li data-lang-option="en" role="option" aria-selected="false"><span class="lang-label">English</span></li>
+                        <li data-lang-option="fr" role="option" aria-selected="false"><span class="lang-label">Français</span></li>
+                        <li data-lang-option="pt" role="option" aria-selected="false"><span class="lang-label">Português</span></li>
+                    </ul>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -65,10 +72,13 @@
     </section>
 
     <!-- ===== TIENDA ===== -->
-    <section id="store">
+    <section id="store" style="padding-top: 0;">
         <div class="container">
-            <div class="store-search-wrap"><label for="storeSearch" class="sr-only">Buscar productos</label><input id="storeSearch" aria-label="Buscar productos" type="search" placeholder="Buscar productos…" autocomplete="off"></div>
-            <div class="filter-tabs" id="filterTabs">
+            <div class="store-search-wrap" data-aos="fade-up">
+                <input id="storeSearch" aria-label="Buscar productos" type="search" placeholder="Buscar productos…" autocomplete="off">
+            </div>
+            
+            <div class="filter-tabs" id="filterTabs" data-aos="fade-up">
                 <button class="active" data-filter="all" data-i18n="store.all">Todos</button>
                 <button data-filter="logos" data-i18n="store.logos">Logos</button>
                 <button data-filter="web" data-i18n="store.web">Sitios Web</button>
@@ -79,19 +89,9 @@
                 <button data-filter="fotos" data-i18n="store.photo">Fotografía</button>
             </div>
 
+            <!-- Aquí store.js inyecta los productos -->
             <div class="store-grid" id="storeGrid">
-                <!-- Las tarjetas de producto se generan dinámicamente con store.js -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== NOTA SOBRE PAGOS ===== -->
-    <section style="padding-top: 0;">
-        <div class="container">
-            <div class="channel-card" style="max-width: 720px; margin: 0 auto; cursor: default;" data-aos="fade-up">
-                <i class="fab fa-whatsapp"></i>
-                <h4 data-i18n="store.how_title">¿Cómo funciona la compra?</h4>
-                <p data-i18n="store.how_desc">Agrega los productos que necesitas al carrito y finaliza tu pedido por WhatsApp. Coordinamos el pago por el canal acordado y te entrego el archivo o proyecto una vez confirmado.</p>
+                <p style="text-align: center; color: var(--text-muted); grid-column: 1 / -1;">Cargando productos...</p>
             </div>
         </div>
     </section>
@@ -100,75 +100,74 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="logo">JP</div>
-                    <p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p>
-                </div>
-                <div>
-                    <h5 data-i18n="footer.navigation">Navegación</h5>
-                    <ul>
-                        <li><a href="index.html#hero" data-i18n="nav.home">Inicio</a></li>
-                        <li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li>
-                        <li><a href="index.html#projects" data-i18n="nav.projects">Proyectos</a></li>
-                        <li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 data-i18n="footer.services">Servicios</h5>
-                    <ul>
-                        <li><a href="servicios.html" data-i18n="footer.web_design">Diseño web</a></li>
-                        <li><a href="servicios.html" data-i18n="footer.digital_marketing">Marketing digital</a></li>
-                        <li><a href="tienda.html" data-i18n="footer.store">Tienda de productos</a></li>
-                        <li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li>
-                        <li><a href="terms.html" data-i18n="footer.terms">Términos</a></li>
-                        <li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li>
-                        <li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 data-i18n="footer.contact">Contacto</h5>
-                    <ul>
-                        <li><a href="tel:+18099995904" data-site-setting="phone-link">+1 (809) 999-59-04</a></li>
-                        <li><a href="mailto:porcenatjamsle07@gmail.com" data-site-setting="email-link">porcenatjamsle07@gmail.com</a></li>
-                        <li><a href="https://wa.me/18099995904" data-site-setting="whatsapp" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li>
-                    </ul>
-                </div>
+                <div class="footer-brand"><div class="logo glass-logo">JP</div><p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
+                <div><h5 data-i18n="footer.navigation">Navegación</h5><ul><li><a href="index.html" data-i18n="nav.home">Inicio</a></li><li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li><li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li><li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li><li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li></ul></div>
+                <div><h5 data-i18n="footer.services">Legal</h5><ul><li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li><li><a href="terms.html" data-i18n="footer.terms">Términos</a></li><li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li><li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li></ul></div>
+                <div><h5 data-i18n="footer.contact">Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li></ul></div>
             </div>
-            <div class="footer-bottom">
-                <p>© 2026 <span>Jamsle Porcena</span> <span data-i18n="footer.tagline">· Diseño web & Marketing Digital</span></p>
-            </div>
+            <div class="footer-bottom"><p data-i18n="footer.copyright">© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
         </div>
     </footer>
 
     <!-- ===== CARRITO LATERAL ===== -->
     <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header">
-            <h3><i class="fas fa-shopping-bag"></i> <span data-i18n="cart.title">Tu carrito</span></h3>
-            <button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> <span data-i18n="cart.title">Tu carrito</span></h3><button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button></div>
         <div class="cart-items" id="cartItemsWrap"></div>
         <div class="cart-footer">
-            <div class="cart-total">
-                <span data-i18n="cart.total">Total</span>
-                <span id="cartTotalValue">$0.00</span>
+            <div class="cart-total"><span data-i18n="cart.total">Total</span><span id="cartTotalValue">$0.00</span></div>
+            <div style="display: flex; gap: 10px; flex-direction: column;">
+                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-airtm"><i class="fas fa-credit-card"></i> Pagar con Airtm</a>
+                <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()"><i class="fab fa-whatsapp"></i> Coordinar por WhatsApp</button>
             </div>
-            <button class="btn-checkout" onclick="Cart.checkoutViaWhatsApp()">
-                <i class="fab fa-whatsapp"></i> <span data-i18n="cart.checkout">Finalizar por WhatsApp</span>
-            </button>
         </div>
     </div>
 
     <!-- ===== SCRIPTS ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: false, mirror: true });</script>
+    <script>AOS.init({ duration: 800, once: false, mirror: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-client.js"></script>
     <script src="common.js"></script>
     <script src="cms-content.js"></script>
-    <script src="store.js"></script>
-    <!-- Vercel Web Analytics -->
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    <script src="store.js"></script> <!-- ESTE ES CLAVE PARA QUE CARGUEN LOS PRODUCTOS -->
+    <script>
+        const canvas = document.querySelector('#webgl-canvas');
+        if (canvas) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            const particlesGeo = new THREE.BufferGeometry();
+            const particlesCount = 400;
+            const posArray = new Float32Array(particlesCount * 3);
+            for (let i = 0; i < particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
+            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+            const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+            scene.add(particlesMesh);
+            const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), new THREE.MeshBasicMaterial({ color: 0xa8b9cc, wireframe: true, transparent: true, opacity: 0.15 }));
+            sphere.position.set(2.5, 0, -2);
+            scene.add(sphere);
+            const clock = new THREE.Clock();
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+                particlesMesh.rotation.y = t * 0.04;
+                sphere.rotation.y = t * 0.12;
+                renderer.render(scene, camera);
+            }
+            animate();
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+    </script>
 </body>
 </html>
