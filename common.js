@@ -1,13 +1,13 @@
 /* ==========================================================================
    common.js — Lógica compartida en TODAS las páginas del sitio:
    - Menú hamburguesa
-   - Navbar al hacer scroll
-   - Persistencia de idioma (usa el objeto `translations` de script.js si existe)
+   - Navbar al hacer scroll (clase .scrolled)
+   - Dropdown de idioma (1 botón + banderas)
+   - Scrollspy (sección activa en one-page)
+   - Persistencia de idioma
    - Carrito de compras (localStorage) + drawer lateral
    - Acordeón de FAQ
    ========================================================================== */
-
-
 
 /* ----- ANALÍTICA PRIVADA: VISITAS Y EVENTOS -----
    No recopila IP ni datos personales. Usa un identificador de sesión
@@ -227,39 +227,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('open');
+            const isOpen = navLinks.classList.toggle('open');
+            hamburger.classList.toggle('active', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
 
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 navLinks.classList.remove('open');
             });
         });
-    }
 
-    /* ----- NAVBAR AL HACER SCROLL ----- */
-    const nav = document.querySelector('nav');
-    if (nav) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 60) {
-                nav.style.background = 'rgba(11, 13, 21, 0.95)';
-                nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
-            } else {
-                nav.style.background = 'rgba(11, 13, 21, 0.75)';
-                nav.style.boxShadow = 'none';
+        // Cerrar menú con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                navLinks.classList.remove('open');
             }
         });
     }
 
-    /* ----- IDIOMA PERSISTENTE ENTRE PÁGINAS -----
-       Si script.js (con el objeto `translations`) está cargado en esta página,
-       aplicamos el último idioma elegido por el usuario. Si no, solo dejamos
-       los botones visuales sin romper nada. */
-    const savedLang = localStorage.getItem('jp_lang') || 'es';
+    /* ----- NAVBAR AL HACER SCROLL (clase .scrolled, sin estilos inline) ----- */
+    const nav = document.querySelector('nav');
+    if (nav) {
+        let ticking = false;
+        const onScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    nav.classList.toggle('scrolled', window.scrollY > 60);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
+
+    /* ----- IDIOMA: detección, persistencia, dropdown ----- */
+    const SUPPORTED = ['es', 'en', 'fr', 'pt'];
+    const stored = localStorage.getItem('jp_lang');
+    const browserLang = (navigator.language || 'es').slice(0, 2).toLowerCase();
+    const initialLang = SUPPORTED.includes(stored) ? stored : (SUPPORTED.includes(browserLang) ? browserLang : 'es');
+
+    // Sincronizar estado inicial de los botones del selector clásico (si existe)
     document.querySelectorAll('.lang-selector button').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === savedLang);
+        btn.classList.toggle('active', btn.dataset.lang === initialLang);
         btn.addEventListener('click', function () {
             localStorage.setItem('jp_lang', this.dataset.lang);
             if (typeof setLanguage === 'function') {
@@ -269,10 +285,96 @@ document.addEventListener('DOMContentLoaded', () => {
                     b.classList.toggle('active', b === this);
                 });
             }
+            syncLangToggle(this.dataset.lang);
         });
     });
+
+    // Dropdown nuevo (1 botón + menú de banderas)
+    const langToggle = document.querySelector('[data-lang-toggle]');
+    const langMenu = document.querySelector('[data-lang-menu]');
+    const langCurrent = document.querySelector('[data-lang-current]');
+    const langFlag = document.querySelector('[data-lang-flag]');
+
+    const syncLangToggle = (lang) => {
+        if (!langToggle || !langMenu) return;
+        const item = langMenu.querySelector(`[data-lang-option="${lang}"]`);
+        const flagSrc = item?.querySelector('img')?.getAttribute('src') || '';
+        const label = item?.querySelector('.lang-label')?.textContent || lang.toUpperCase();
+        if (langFlag && flagSrc) langFlag.setAttribute('src', flagSrc);
+        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
+        langMenu.querySelectorAll('[data-lang-option]').forEach(el => {
+            el.setAttribute('aria-selected', el.dataset.langOption === lang ? 'true' : 'false');
+        });
+        if (langToggle) langToggle.setAttribute('data-current-lang', lang);
+    };
+
+    const closeLangMenu = () => {
+        if (!langMenu) return;
+        langMenu.hidden = true;
+        if (langToggle) langToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    if (langToggle && langMenu) {
+        langToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = !langMenu.hidden;
+            if (isOpen) {
+                closeLangMenu();
+            } else {
+                langMenu.hidden = false;
+                langToggle.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!langMenu.hidden && !langMenu.contains(e.target) && !langToggle.contains(e.target)) {
+                closeLangMenu();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !langMenu.hidden) {
+                closeLangMenu();
+                langToggle.focus();
+            }
+        });
+
+        langMenu.querySelectorAll('[data-lang-option]').forEach(option => {
+            option.addEventListener('click', () => {
+                const lang = option.dataset.langOption;
+                localStorage.setItem('jp_lang', lang);
+                if (typeof setLanguage === 'function') setLanguage(lang);
+                syncLangToggle(lang);
+                closeLangMenu();
+            });
+        });
+
+        syncLangToggle(initialLang);
+    }
+
     if (typeof setLanguage === 'function') {
-        setLanguage(savedLang);
+        setLanguage(initialLang);
+    }
+
+    /* ----- SCROLLSPY (sección activa en one-page) ----- */
+    const spySections = document.querySelectorAll('section[id]');
+    const spyLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (spySections.length && spyLinks.length && 'IntersectionObserver' in window) {
+        const linkMap = new Map();
+        spyLinks.forEach(a => {
+            const id = a.getAttribute('href').slice(1);
+            if (id) linkMap.set(id, a);
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    spyLinks.forEach(a => a.classList.remove('active'));
+                    const link = linkMap.get(entry.target.id);
+                    if (link) link.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+        spySections.forEach(s => observer.observe(s));
     }
 
     /* ----- FAQ ACORDEÓN ----- */
@@ -295,14 +397,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ----- CARRITO: RENDER INICIAL ----- */
-    Cart.renderAll();
+    if (window.Cart) Cart.renderAll();
 });
 
 /* Botón de carrito en el nav: si el drawer existe en esta página, lo abre;
    si no, lleva a la tienda (el carrito persiste entre páginas). */
 function handleCartClick() {
     const drawer = document.getElementById('cartDrawer');
-    if (drawer) {
+    if (drawer && window.Cart) {
         Cart.openDrawer();
     } else {
         window.location.href = 'tienda.html';
@@ -478,4 +580,5 @@ const Cart = {
     }
 };
 
+window.Cart = Cart;
 window.addEventListener('jp-language-changed', () => Cart.renderAll());
