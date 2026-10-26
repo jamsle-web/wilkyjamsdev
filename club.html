@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#050505" />
     <title>Wilkyjams Dev · Club VIP</title>
 
-    <!-- FAVICON (Añadido y verificado) -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -36,6 +36,41 @@
                 padding: 30px 20px !important;
             }
         }
+
+        /* Modal de detalles de la membresía */
+        .club-modal {
+            position: fixed; inset: 0; z-index: 3000;
+            background: rgba(5,6,10,0.85);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+        .club-modal.open { opacity: 1; pointer-events: all; }
+        .club-modal-content {
+            background: rgba(20,20,25,0.97);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px; width: 100%; max-width: 600px;
+            max-height: 90vh; overflow-y: auto;
+            position: relative; box-shadow: 0 30px 100px rgba(0,0,0,0.6);
+            transform: translateY(20px); transition: transform 0.3s ease;
+            padding: 40px;
+        }
+        .club-modal.open .club-modal-content { transform: translateY(0); }
+        .club-modal-close {
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(0,0,0,0.5); border: none; color: #fff;
+            width: 40px; height: 40px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; transition: var(--transition);
+        }
+        .club-modal-close:hover { background: var(--accent-1); color: #000; transform: rotate(90deg); }
+        
+        .club-feature-list { list-style: none; margin: 20px 0; }
+        .club-feature-list li { margin-bottom: 15px; display: flex; gap: 12px; align-items: flex-start; color: var(--text-muted); font-size: 0.95rem; }
+        .club-feature-list li i { color: var(--accent-1); margin-top: 4px; }
+        .club-feature-list li strong { color: #fff; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
@@ -104,39 +139,41 @@
                     <p class="plan-desc" data-i18n="club.free_desc">Ideal para empezar y conocer mis recursos.</p>
                     <div class="plan-price">$0 <span data-i18n="club.free_period">/ siempre</span></div>
                     <ul>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.free_f1">Acceso a recursos básicos</span></li>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.free_f2">1 plantilla de diseño al mes</span></li>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.free_f3">Newsletter con tips exclusivos</span></li>
-                        <li class="disabled" style="opacity: 0.5;"><i class="fas fa-times"></i> <span data-i18n="club.free_f4">Códigos fuente completos</span></li>
+                        <li><i class="fas fa-check"></i> <span>Acceso a recursos básicos</span></li>
+                        <li><i class="fas fa-check"></i> <span>1 plantilla de diseño al mes</span></li>
+                        <li><i class="fas fa-check"></i> <span>Newsletter con tips exclusivos</span></li>
+                        <li class="disabled" style="opacity: 0.5;"><i class="fas fa-times"></i> <span>Códigos fuente completos</span></li>
                     </ul>
-                    <a href="contacto.html" class="btn-secondary glass-btn" style="justify-content:center;" data-i18n="club.free_btn">Empezar gratis</a>
+                    <a href="contacto.html" class="btn-secondary glass-btn" style="justify-content:center;">Empezar gratis</a>
                 </div>
 
                 <!-- Plan VIP (Destacado) -->
                 <div class="pricing-card glass-panel featured" data-aos="fade-up" data-aos-delay="150">
-                    <span class="badge-popular" data-i18n="club.popular">Recomendado</span>
-                    <h4 class="plan-name" data-i18n="club.vip_title">Plan VIP</h4>
-                    <p class="plan-desc" data-i18n="club.vip_desc">Acceso total e ilimitado a todos los recursos.</p>
-                    <div class="plan-price">$15 <span data-i18n="club.vip_period">/ mes</span></div>
+                    <span class="badge-popular">Recomendado</span>
+                    <h4 class="plan-name">Plan VIP</h4>
+                    <p class="plan-desc">Acceso total e ilimitado a todos los recursos.</p>
+                    <div class="plan-price">$15 <span>/ mes</span></div>
                     <ul>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.vip_f1">Todo lo del Plan Gratis</span></li>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.vip_f2">Códigos fuente completos (HTML, CSS, JS)</span></li>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.vip_f3">Plantillas de Figma y UI Kits</span></li>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.vip_f4">Descarga de archivos ZIP ilimitada</span></li>
-                        <li><i class="fas fa-check"></i> <span data-i18n="club.vip_f5">Soporte prioritario por WhatsApp</span></li>
+                        <li><i class="fas fa-check"></i> <span>Más de 10 plantillas web (E-commerce, Landing, etc.)</span></li>
+                        <li><i class="fas fa-check"></i> <span>UI Kits y archivos de Figma</span></li>
+                        <li><i class="fas fa-check"></i> <span>Scripts en HTML, CSS y JS listos para producción</span></li>
+                        <li><i class="fas fa-check"></i> <span>Descarga ilimitada en ZIP</span></li>
+                        <li><i class="fas fa-check"></i> <span>Soporte prioritario 24/7</span></li>
                     </ul>
                     
-                    <!-- Botones de Pago para el Plan VIP -->
                     <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-                        <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer" class="btn-primary" style="justify-content:center;" data-i18n="club.vip_btn_airtm">
+                        <button onclick="openClubModal()" class="btn-secondary" style="justify-content:center; font-size: 0.9rem; padding: 12px 20px; border-color: var(--accent-1); color: var(--accent-1);">
+                            <i class="fas fa-info-circle"></i> ¿Qué incluye la membresía?
+                        </button>
+                        <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer" class="btn-primary" style="justify-content:center;">
                             <i class="fas fa-credit-card"></i> Pagar con Airtm
                         </a>
-                        <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20quiero%20unirme%20al%20Club%20VIP%20y%20pagar%20con%20Airtm" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="justify-content:center; font-size: 0.85rem; padding: 12px 20px;" data-i18n="club.vip_btn_wa">
+                        <a href="https://wa.me/18099995904?text=Hola%20Jamsle%2C%20quiero%20unirme%20al%20Club%20VIP%20y%20pagar%20con%20Airtm" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="justify-content:center; font-size: 0.85rem; padding: 12px 20px;">
                             <i class="fab fa-whatsapp"></i> Coordinar por WhatsApp
                         </a>
                     </div>
                     <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">
-                        <span data-i18n="club.vip_note">Al pagar, envía tu comprobante por WhatsApp para activar tu acceso.</span>
+                        Al pagar, envía tu comprobante por WhatsApp para activar tu llave de acceso.
                     </p>
                 </div>
 
@@ -148,54 +185,91 @@
     <section id="benefits" style="background: rgba(255,255,255,0.01);">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="label" data-i18n="club.benefits_label">¿Por qué unirme?</span>
-                <h2 data-i18n="club.benefits_title">Todo lo que obtienes en el Club</h2>
+                <span class="label">¿Por qué unirme?</span>
+                <h2>Todo lo que obtienes en el Club</h2>
             </div>
             <div class="values-grid">
                 <div class="value-card" data-aos="zoom-in" data-aos-delay="50">
                     <i class="fas fa-code"></i>
-                    <h4 data-i18n="club.b1_title">Código de Calidad</h4>
-                    <p data-i18n="club.b1_desc">Códigos limpios, optimizados y listos para producción. Copia, pega y personaliza.</p>
+                    <h4>Código de Calidad</h4>
+                    <p>Códigos limpios, optimizados y listos para producción. Copia, pega y personaliza.</p>
                 </div>
                 <div class="value-card" data-aos="zoom-in" data-aos-delay="150">
                     <i class="fas fa-palette"></i>
-                    <h4 data-i18n="club.b2_title">Diseño Premium</h4>
-                    <p data-i18n="club.b2_desc">Plantillas de UI Kits, íconos SVG y prototipos de Figma con acabados profesionales.</p>
+                    <h4>Diseño Premium</h4>
+                    <p>Plantillas de UI Kits, íconos SVG y prototipos de Figma con acabados profesionales.</p>
                 </div>
                 <div class="value-card" data-aos="zoom-in" data-aos-delay="250">
                     <i class="fas fa-infinity"></i>
-                    <h4 data-i18n="club.b3_title">Actualizaciones Constantes</h4>
-                    <p data-i18n="club.b3_desc">Cada mes subimos nuevos recursos: e-commerce templates, landing pages y más.</p>
+                    <h4>Actualizaciones Constantes</h4>
+                    <p>Cada mes subimos nuevos recursos: e-commerce templates, landing pages y más.</p>
                 </div>
                 <div class="value-card" data-aos="zoom-in" data-aos-delay="350">
                     <i class="fas fa-headset"></i>
-                    <h4 data-i18n="club.b4_title">Soporte Directo</h4>
-                    <p data-i18n="club.b4_desc">Si tienes dudas sobre cómo implementar algún código o plantilla, te ayudo directamente.</p>
+                    <h4>Soporte Directo</h4>
+                    <p>Si tienes dudas sobre cómo implementar algún código o plantilla, te ayudo directamente.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- MODAL DE DETALLES DE MEMBRESÍA -->
+    <div class="club-modal" id="clubModal">
+        <div class="club-modal-content">
+            <button class="club-modal-close" onclick="closeClubModal()"><i class="fas fa-times"></i></button>
+            <span class="label" style="margin-bottom: 10px;">Detalles del Plan VIP</span>
+            <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 10px;">¿Qué estás comprando?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Al unirte al Club VIP por $15/mes, obtienes acceso inmediato a:</p>
+            
+            <ul class="club-feature-list">
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <div><strong>Acceso al Área Privada (VIP)</strong> Una página protegida con contraseña donde estarán todos los archivos listos para descargar.</div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <div><strong>Códigos Fuente Completos</strong> E-commerce, Landing Pages 3D, Dashboards Administrativos, etc. (HTML, CSS y JS).</div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <div><strong>Archivos de Diseño</strong> UI Kits en Figma, íconos en SVG y componentes reutilizables.</div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <div><strong>Actualizaciones Mensuales</strong> Cada mes añadiré nuevos recursos premium al catálogo, sin costo extra.</div>
+                </li>
+                <li>
+                    <i class="fas fa-credit-card"></i>
+                    <div><strong>Método de Pago</strong> Actualmente aceptamos pagos seguros a través de Airtm. Una vez pagado, me envías el comprobante por WhatsApp y te doy tu llave de acceso.</div>
+                </li>
+            </ul>
+
+            <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width: 100%; justify-content: center; padding: 16px; font-size: 1rem;">
+                <i class="fas fa-credit-card"></i> Ir a Pagar con Airtm
+            </a>
+        </div>
+    </div>
+
     <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand"><div class="logo glass-logo">JP</div><p data-i18n="footer.description">Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
-                <div><h5 data-i18n="footer.navigation">Navegación</h5><ul><li><a href="index.html" data-i18n="nav.home">Inicio</a></li><li><a href="sobre-mi.html" data-i18n="nav.about">Sobre mí</a></li><li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li><li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li><li><a href="contacto.html" data-i18n="nav.contact_short">Contacto</a></li></ul></div>
-                <div><h5 data-i18n="footer.services">Legal</h5><ul><li><a href="privacy.html" data-i18n="footer.privacy">Privacidad</a></li><li><a href="terms.html" data-i18n="footer.terms">Términos</a></li><li><a href="cookies.html" data-i18n="footer.cookies">Cookies</a></li><li><a href="help.html" data-i18n="footer.help">Centro de ayuda</a></li></ul></div>
-                <div><h5 data-i18n="footer.contact">Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank" rel="noopener noreferrer" data-i18n="footer.whatsapp">WhatsApp</a></li></ul></div>
+                <div class="footer-brand"><div class="logo glass-logo">JP</div><p>Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
+                <div><h5>Navegación</h5><ul><li><a href="index.html">Inicio</a></li><li><a href="sobre-mi.html">Sobre mí</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="tienda.html">Tienda</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+                <div><h5>Legal</h5><ul><li><a href="privacy.html">Privacidad</a></li><li><a href="terms.html">Términos</a></li><li><a href="cookies.html">Cookies</a></li><li><a href="help.html">Centro de ayuda</a></li></ul></div>
+                <div><h5>Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank">WhatsApp</a></li></ul></div>
             </div>
-            <div class="footer-bottom"><p data-i18n="footer.copyright">© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
+            <div class="footer-bottom"><p>© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
         </div>
     </footer>
 
     <!-- ===== CARRITO LATERAL ===== -->
     <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> <span data-i18n="cart.title">Tu carrito</span></h3><button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button></div>
+        <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> <span>Tu carrito</span></h3><button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button></div>
         <div class="cart-items" id="cartItemsWrap"></div>
         <div class="cart-footer">
-            <div class="cart-total"><span data-i18n="cart.total">Total</span><span id="cartTotalValue">$0.00</span></div>
+            <div class="cart-total"><span>Total</span><span id="cartTotalValue">$0.00</span></div>
             <div style="display: flex; gap: 10px; flex-direction: column;">
                 <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-airtm"><i class="fas fa-credit-card"></i> Pagar con Airtm</a>
                 <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()"><i class="fab fa-whatsapp"></i> Coordinar por WhatsApp</button>
@@ -213,7 +287,18 @@
     <script src="common.js"></script>
     <script src="cms-content.js"></script>
     <script>
-        // Fondo 3D animado
+        // --- LÓGICA DEL MODAL DE LA MEMBRESÍA ---
+        function openClubModal() {
+            document.getElementById('clubModal').classList.add('open');
+        }
+        function closeClubModal() {
+            document.getElementById('clubModal').classList.remove('open');
+        }
+        document.getElementById('clubModal').addEventListener('click', function(e) {
+            if (e.target === this) closeClubModal();
+        });
+
+        // --- FONDO 3D ANIMADO ---
         const canvas = document.querySelector('#webgl-canvas');
         if (canvas) {
             const scene = new THREE.Scene();
