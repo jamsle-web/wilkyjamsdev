@@ -24,45 +24,30 @@
     <style>
         /* Refuerzo responsive exclusivo para esta página */
         @media (max-width: 768px) {
-            .page-hero h1 {
-                font-size: 2.2rem !important;
-                word-break: break-word;
-            }
-            .pricing-grid {
-                grid-template-columns: 1fr !important;
-                padding: 0 15px;
-            }
-            .pricing-card {
-                padding: 30px 20px !important;
-            }
+            .page-hero h1 { font-size: 2.2rem !important; word-break: break-word; }
+            .pricing-grid { grid-template-columns: 1fr !important; padding: 0 15px; }
+            .pricing-card { padding: 30px 20px !important; }
+            .vip-preview-grid { grid-template-columns: 1fr !important; }
         }
 
         /* Modal de detalles de la membresía */
         .club-modal {
             position: fixed; inset: 0; z-index: 3000;
-            background: rgba(5,6,10,0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(5,6,10,0.85); backdrop-filter: blur(8px);
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.3s ease;
-            padding: 20px;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
         }
         .club-modal.open { opacity: 1; pointer-events: all; }
         .club-modal-content {
-            background: rgba(20,20,25,0.97);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px; width: 100%; max-width: 600px;
-            max-height: 90vh; overflow-y: auto;
+            background: rgba(20,20,25,0.97); border: 1px solid var(--glass-border);
+            border-radius: 24px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
             position: relative; box-shadow: 0 30px 100px rgba(0,0,0,0.6);
-            transform: translateY(20px); transition: transform 0.3s ease;
-            padding: 40px;
+            transform: translateY(20px); transition: transform 0.3s ease; padding: 40px;
         }
         .club-modal.open .club-modal-content { transform: translateY(0); }
         .club-modal-close {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(0,0,0,0.5); border: none; color: #fff;
-            width: 40px; height: 40px; border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5); border: none; color: #fff;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem; transition: var(--transition);
         }
         .club-modal-close:hover { background: var(--accent-1); color: #000; transform: rotate(90deg); }
@@ -71,6 +56,28 @@
         .club-feature-list li { margin-bottom: 15px; display: flex; gap: 12px; align-items: flex-start; color: var(--text-muted); font-size: 0.95rem; }
         .club-feature-list li i { color: var(--accent-1); margin-top: 4px; }
         .club-feature-list li strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        /* Sección de vista previa VIP (Galería bloqueada) */
+        .vip-preview-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 40px;
+        }
+        .vip-preview-card {
+            position: relative; border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--glass-border); background: #000;
+            aspect-ratio: 16/9; cursor: pointer;
+        }
+        .vip-preview-card img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+            opacity: 0.7;
+        }
+        .vip-preview-card:hover img { transform: scale(1.05); opacity: 0.4; }
+        .vip-preview-overlay {
+            position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(5,5,5,0.4); transition: var(--transition);
+        }
+        .vip-preview-overlay i { font-size: 2rem; color: var(--accent-2); margin-bottom: 10px; }
+        .vip-preview-overlay span { color: #fff; font-weight: 600; font-size: 0.9rem; }
+        .vip-preview-card:hover .vip-preview-overlay { background: rgba(5,5,5,0.2); }
     </style>
 </head>
 <body>
@@ -85,20 +92,20 @@
                 <span class="logo-text">Wilkyjams Dev</span>
             </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
-                <li><a href="servicios.html" data-i18n="nav.services">Servicios</a></li>
-                <li><a href="tienda.html" data-i18n="nav.store">Tienda</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
                 <li><a href="club.html" class="active" style="color: var(--accent-2); font-weight: 700;">Club VIP</a></li>
-                <li><a href="blog/index.html" data-i18n="nav.blog">Blog</a></li>
-                <li><a href="contacto.html" data-i18n="nav.contact">Contáctame</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="contacto.html">Contáctame</a></li>
             </ul>
             <div class="nav-actions">
-                <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito" data-i18n-aria-label="cart.aria">
+                <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count">0</span>
                 </button>
                 <div class="lang-dropdown">
-                    <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false" aria-label="Cambiar idioma">
+                    <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false">
                         <i class="fas fa-globe"></i>
                     </button>
                     <ul class="lang-menu" data-lang-menu role="listbox" hidden>
@@ -118,11 +125,11 @@
     <!-- ===== HERO DE PÁGINA ===== -->
     <section class="page-hero">
         <div class="container">
-            <span class="label" data-i18n="club.hero_label" style="color: var(--accent-2);">Membresía Premium</span>
-            <h1 data-i18n="club.hero_title" style="font-family: var(--font-display); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
+            <span class="label" style="color: var(--accent-2);">Membresía Premium</span>
+            <h1 style="font-family: var(--font-display); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
                 Únete al <span class="highlight">Club VIP</span>
             </h1>
-            <p data-i18n="club.hero_desc" style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
                 Accede a plantillas, códigos fuente, recursos de diseño y todo lo que necesitas para llevar tus proyectos al siguiente nivel.
             </p>
         </div>
@@ -135,16 +142,16 @@
                 
                 <!-- Plan Gratis -->
                 <div class="pricing-card glass-panel" data-aos="fade-up" data-aos-delay="50">
-                    <h4 class="plan-name" data-i18n="club.free_title">Plan Gratis</h4>
-                    <p class="plan-desc" data-i18n="club.free_desc">Ideal para empezar y conocer mis recursos.</p>
-                    <div class="plan-price">$0 <span data-i18n="club.free_period">/ siempre</span></div>
+                    <h4 class="plan-name">Plan Gratis</h4>
+                    <p class="plan-desc">Ideal para empezar y conocer mis recursos.</p>
+                    <div class="plan-price">$0 <span>/ siempre</span></div>
                     <ul>
                         <li><i class="fas fa-check"></i> <span>Acceso a recursos básicos</span></li>
                         <li><i class="fas fa-check"></i> <span>1 plantilla de diseño al mes</span></li>
                         <li><i class="fas fa-check"></i> <span>Newsletter con tips exclusivos</span></li>
                         <li class="disabled" style="opacity: 0.5;"><i class="fas fa-times"></i> <span>Códigos fuente completos</span></li>
                     </ul>
-                    <a href="contacto.html" class="btn-secondary glass-btn" style="justify-content:center;">Empezar gratis</a>
+                    <a href="club-vip.html" class="btn-secondary glass-btn" style="justify-content:center;">Explorar recursos gratis</a>
                 </div>
 
                 <!-- Plan VIP (Destacado) -->
@@ -181,8 +188,54 @@
         </div>
     </section>
 
+    <!-- ===== VISTA PREVIA DE LO QUE HAY EN EL VIP ===== -->
+    <section id="vip-preview" style="background: rgba(255,255,255,0.01); padding: 80px 0;">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="label" style="color: var(--accent-1);">Vista previa del contenido</span>
+                <h2>Lo que te espera adentro</h2>
+                <p style="color: var(--text-muted);">Un vistazo a algunos de los códigos y plantillas que desbloqueas al unirte.</p>
+            </div>
+
+            <div class="vip-preview-grid">
+                <!-- Preview 1 -->
+                <div class="vip-preview-card" data-aos="fade-up" onclick="window.location.href='club-vip.html'">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="E-commerce">
+                    <div class="vip-preview-overlay">
+                        <i class="fas fa-lock"></i>
+                        <span>E-commerce Template</span>
+                    </div>
+                </div>
+                <!-- Preview 2 -->
+                <div class="vip-preview-card" data-aos="fade-up" data-aos-delay="100" onclick="window.location.href='club-vip.html'">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="Landing 3D">
+                    <div class="vip-preview-overlay">
+                        <i class="fas fa-lock"></i>
+                        <span>Landing Page 3D</span>
+                    </div>
+                </div>
+                <!-- Preview 3 -->
+                <div class="vip-preview-card" data-aos="fade-up" data-aos-delay="200" onclick="window.location.href='club-vip.html'">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Admin Dashboard">
+                    <div class="vip-preview-overlay">
+                        <i class="fas fa-lock"></i>
+                        <span>Admin Dashboard</span>
+                    </div>
+                </div>
+                <!-- Preview 4 -->
+                <div class="vip-preview-card" data-aos="fade-up" data-aos-delay="300" onclick="window.location.href='club-vip.html'">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80" alt="Botón Neón">
+                    <div class="vip-preview-overlay">
+                        <i class="fas fa-lock"></i>
+                        <span>Botón Neón (CSS)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== BENEFICIOS EXTRA ===== -->
-    <section id="benefits" style="background: rgba(255,255,255,0.01);">
+    <section id="benefits">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="label">¿Por qué unirme?</span>
@@ -288,15 +341,9 @@
     <script src="cms-content.js"></script>
     <script>
         // --- LÓGICA DEL MODAL DE LA MEMBRESÍA ---
-        function openClubModal() {
-            document.getElementById('clubModal').classList.add('open');
-        }
-        function closeClubModal() {
-            document.getElementById('clubModal').classList.remove('open');
-        }
-        document.getElementById('clubModal').addEventListener('click', function(e) {
-            if (e.target === this) closeClubModal();
-        });
+        function openClubModal() { document.getElementById('clubModal').classList.add('open'); }
+        function closeClubModal() { document.getElementById('clubModal').classList.remove('open'); }
+        document.getElementById('clubModal').addEventListener('click', function(e) { if (e.target === this) closeClubModal(); });
 
         // --- FONDO 3D ANIMADO ---
         const canvas = document.querySelector('#webgl-canvas');
