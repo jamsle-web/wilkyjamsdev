@@ -81,38 +81,90 @@
         
         .code-content { padding: 15px; color: #a8b9cc; font-family: 'Fira Code', monospace; font-size: 0.85rem; white-space: pre-wrap; max-height: 350px; overflow-y: auto; line-height: 1.5; }
 
-        /* BLOQUEO VIP REDISEÑADO */
-        .vip-lock-overlay { position: relative; background: #050505; border: 1px solid #222; border-radius: 12px; padding: 50px 20px; text-align: center; margin: 0 20px 20px 20px; overflow: hidden; }
-        .blurred-code { filter: blur(8px); opacity: 0.15; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: #fff; user-select: none; }
-        .lock-message { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(5,5,5,0.7); }
-        .lock-message i { font-size: 2.5rem; color: var(--accent-2); margin-bottom: 15px; text-shadow: 0 0 20px rgba(196, 168, 204, 0.4); }
-        .lock-message h3 { color: #fff; font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;}
-        .lock-message p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; max-width: 300px; }
+        /* BLOQUEO VIP REDISEÑADO Y CENTRADO */
+        .vip-lock-overlay { 
+            position: relative; 
+            background: linear-gradient(135deg, rgba(20,20,25,0.8), rgba(10,10,15,0.9));
+            border: 1px solid #333; 
+            border-radius: 16px; 
+            padding: 50px 30px; 
+            text-align: center; 
+            margin: 0 20px 20px 20px; 
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+        }
         
-        /* BOTÓN PREMIUM CORREGIDO */
-        .lock-message .btn-premium {
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            background: var(--accent-gradient); color: #000; 
-            padding: 14px 32px; border-radius: 50px; 
-            font-weight: 800; font-size: 0.95rem; font-family: 'Inter', sans-serif;
-            text-decoration: none; transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(168, 185, 204, 0.2);
-            text-transform: uppercase; letter-spacing: 0.5px;
+        /* El código difuminado de fondo */
+        .blurred-code { 
+            position: absolute; inset: 0;
+            filter: blur(10px); opacity: 0.1; 
+            font-family: 'Fira Code', monospace; font-size: 0.85rem; 
+            color: #fff; user-select: none;
+            overflow: hidden; padding: 20px;
+            white-space: pre-wrap;
         }
-        .lock-message .btn-premium:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(196, 168, 204, 0.4);
-            filter: brightness(1.1);
+
+        .lock-message { 
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
         }
-        .lock-message .btn-premium i { font-size: 1.1rem; color: #000; margin-bottom: 0; text-shadow: none; }
+        
+        .lock-icon-wrapper {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: rgba(196, 168, 204, 0.1); border: 1px solid rgba(196, 168, 204, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px; box-shadow: 0 0 30px rgba(196, 168, 204, 0.15);
+        }
+        
+        .lock-icon-wrapper i { font-size: 1.8rem; color: var(--accent-2); }
+        
+        .lock-message h3 { 
+            color: #fff; font-family: 'Syne', sans-serif; font-size: 1.6rem; 
+            font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        
+        .lock-message p { 
+            color: var(--text-muted); font-size: 0.95rem; 
+            margin-bottom: 30px; max-width: 400px; line-height: 1.6;
+        }
+        
+        /* BOTÓN PREMIUM GLASS (Estilo elegido) */
+        .btn-vip-glass {
+            display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+            width: 100%; max-width: 320px; padding: 18px 24px;
+            background: rgba(255,255,255,0.03); color: #fff;
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem;
+            text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px); position: relative; overflow: hidden;
+        }
+
+        .btn-vip-glass i { color: var(--accent-1); transition: all 0.4s ease; font-size: 1.1rem; }
+
+        /* EFECTO HOVER */
+        .btn-vip-glass:hover {
+            background: rgba(255,255,255,0.08); border-color: var(--accent-1);
+            transform: translateY(-3px); box-shadow: 0 10px 30px rgba(168, 185, 204, 0.2);
+        }
+        .btn-vip-glass:hover i { color: #fff; transform: scale(1.1); text-shadow: 0 0 15px var(--accent-2); }
+
+        /* Destello al pasar el ratón */
+        .btn-vip-glass::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            transform: rotate(45deg) translateX(-100%); transition: transform 0.6s ease;
+        }
+        .btn-vip-glass:hover::after { transform: rotate(45deg) translateX(100%); }
 
         @media (max-width: 768px) {
             .modal-header h2 { font-size: 1rem; }
             .live-preview-frame { height: 250px; }
             .code-tabs { flex-wrap: wrap; }
             .code-tab { padding: 10px 15px; font-size: 0.8rem; }
-            .vip-lock-overlay { padding: 40px 15px; }
-            .lock-message .btn-premium { padding: 12px 24px; font-size: 0.85rem; width: 100%; max-width: 280px; }
+            .vip-lock-overlay { padding: 40px 20px; }
+            .lock-message h3 { font-size: 1.3rem; }
+            .lock-message p { font-size: 0.85rem; }
+            .btn-vip-glass { padding: 16px 20px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -362,12 +414,16 @@
                 if (res.type === 'vip') {
                     container.innerHTML = `
                         <div class="vip-lock-overlay">
-                            <div class="blurred-code">Este código está protegido y es exclusivo para miembros.</div>
+                            <div class="blurred-code">${escapeHTML(htmlCode + '\n' + cssCode + '\n' + jsCode)}</div>
                             <div class="lock-message">
-                                <i class="fas fa-crown"></i>
-                                <h3>Recurso VIP</h3>
-                                <p>Desbloquea este código y todos los recursos premium uniéndote al Club.</p>
-                                <a href="club.html" class="btn-premium"><i class="fas fa-lock"></i> Unirme al Club</a>
+                                <div class="lock-icon-wrapper">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                <h3>Recurso Exclusivo VIP</h3>
+                                <p>Desbloquea este código y obtén acceso inmediato a todos nuestros recursos premium, plantillas y componentes.</p>
+                                <a href="club.html" class="btn-vip-glass">
+                                    <i class="fas fa-gem"></i> Tomar Plan Premium
+                                </a>
                             </div>
                         </div>
                     `;
