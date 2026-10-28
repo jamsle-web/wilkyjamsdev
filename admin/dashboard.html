@@ -8,6 +8,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="admin.css" />
+    <style>
+        /* Estilos extra para la barra superior */
+        .topbar-tools { display: flex; align-items: center; gap: 15px; }
+        .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .icon-btn:hover { background: rgba(255,255,255,0.05); }
+        .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; }
+        .profile-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .profile-info { text-align: left; font-size: 0.85rem; }
+        .profile-info strong { display: block; }
+        .profile-info span { color: var(--muted); }
+        
+        /* Modo Claro */
+        body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
+        body.light-mode .sidebar { background: var(--surface); }
+        body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
+        body.light-mode .btn-add { background: #111; color: #fff; }
+
+        /* Tabla y Botones de Acción */
+        .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
+        .action-btn:hover { color: var(--text); }
+        .action-btn.delete:hover { color: #ef4444; }
+    </style>
 </head>
 <body class="admin-body">
 
@@ -19,37 +41,45 @@
             <a data-section="products"><i class="fas fa-box"></i> Tienda</a>
             <a data-section="orders"><i class="fas fa-receipt"></i> Pedidos</a>
             <a data-section="messages"><i class="fas fa-envelope"></i> Mensajes</a>
+            <a data-section="profile"><i class="fas fa-user-gear"></i> Mi Perfil</a>
         </nav>
         <button class="logout" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Salir</button>
     </aside>
 
     <main class="main">
+        <!-- TOPBAR CON PERFIL Y NOTIFICACIONES -->
         <div class="topbar">
             <h1 id="pageTitle">Resumen</h1>
-            <a href="/" target="_blank" style="color: #fff; text-decoration: none;"><i class="fas fa-external-link-alt"></i> Ver Sitio</a>
+            <div class="topbar-tools">
+                <button class="icon-btn" id="themeToggle" title="Cambiar tema"><i class="fas fa-moon"></i></button>
+                <button class="icon-btn" title="Notificaciones"><i class="fas fa-bell"></i></button>
+                <div class="profile-btn">
+                    <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil">
+                    <div class="profile-info">
+                        <strong>Jamsle</strong>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+                <a href="/" target="_blank" style="color: var(--text); text-decoration: none; font-size: 1.2rem;" title="Ver Sitio"><i class="fas fa-external-link-alt"></i></a>
+            </div>
         </div>
 
         <!-- VISTA: RESUMEN -->
         <div class="panel" id="view-summary">
             <h3>Bienvenido al panel</h3>
-            <p style="color: #888; margin-top: 10px;">Selecciona una opción del menú izquierdo para gestionar tu sitio.</p>
+            <p style="color: var(--muted); margin-top: 10px;">Selecciona una opción del menú para gestionar tu sitio.</p>
         </div>
 
         <!-- VISTA: CLUB VIP -->
         <div class="panel" id="view-vip" hidden>
-            <div class="panel-header">
-                <h3>Agregar Recurso al Club VIP</h3>
-            </div>
+            <div class="panel-header"><h3>Agregar Recurso al Club VIP</h3></div>
             <form id="vipForm">
                 <div class="form-group"><label>Título</label><input name="title" required></div>
                 <div class="form-group"><label>Descripción</label><textarea name="description" rows="2" required></textarea></div>
-                <div class="form-group"><label>URL de la Imagen (Opcional)</label><input name="image_url" type="url"></div>
+                <div class="form-group"><label>URL de la Imagen</label><input name="image_url" type="url"></div>
                 <div class="form-group">
                     <label>Tipo</label>
-                    <select name="type">
-                        <option value="free">Gratis</option>
-                        <option value="vip">VIP</option>
-                    </select>
+                    <select name="type"><option value="free">Gratis</option><option value="vip">VIP</option></select>
                 </div>
                 <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="4"></textarea></div>
                 <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="4"></textarea></div>
@@ -58,10 +88,16 @@
             </form>
         </div>
 
-        <!-- VISTA: TIENDA -->
+        <!-- VISTA: TIENDA CON BOTONES -->
         <div class="panel" id="view-products" hidden>
-            <div class="panel-header"><h3>Productos de la Tienda</h3></div>
-            <table><thead><tr><th>Producto</th><th>Precio</th></tr></thead><tbody id="productsTableBody"></tbody></table>
+            <div class="panel-header">
+                <h3>Productos de la Tienda</h3>
+                <button class="btn-add" onclick="alert('Aquí abriremos el formulario para agregar productos')"><i class="fas fa-plus"></i> Nuevo Producto</button>
+            </div>
+            <table>
+                <thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead>
+                <tbody id="productsTableBody"></tbody>
+            </table>
         </div>
 
         <!-- VISTA: PEDIDOS -->
@@ -76,6 +112,18 @@
             <table><thead><tr><th>Nombre</th><th>Asunto</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
         </div>
 
+        <!-- VISTA: MI PERFIL -->
+        <div class="panel" id="view-profile" hidden>
+            <div class="panel-header"><h3>Mi Perfil</h3></div>
+            <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
+                <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil" style="width:100px; height:100px; border-radius:50%; object-fit:cover;">
+                <div>
+                    <h4 style="font-size:1.2rem; margin-bottom:5px;">Jamsle Porcena</h4>
+                    <p style="color:var(--muted);">porcenatjamsle07@gmail.com</p>
+                </div>
+            </div>
+            <p style="color: var(--muted);">Aquí puedes editar tu foto, nombre y contraseña (Próximamente).</p>
+        </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -86,21 +134,26 @@
         // NAVEGACIÓN
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
-                // Ocultar todo
                 document.querySelectorAll('.panel').forEach(p => p.hidden = true);
                 document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
                 
-                // Mostrar seleccionado
                 const section = link.dataset.section;
                 document.getElementById('view-' + section).hidden = false;
                 link.classList.add('active');
                 document.getElementById('pageTitle').textContent = link.textContent.trim();
 
-                // Cargar datos si es necesario
                 if(section === 'products') loadProducts();
                 if(section === 'orders') loadOrders();
                 if(section === 'messages') loadMessages();
             });
+        });
+
+        // MODO OSCURO / CLARO
+        const themeBtn = document.getElementById('themeToggle');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            themeBtn.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
         // CERRAR SESIÓN
@@ -109,31 +162,33 @@
             location.href = 'login.html';
         };
 
-        // FORMULARIO VIP (GUARDAR EN SUPABASE)
+        // GUARDAR RECURSO VIP
         document.getElementById('vipForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;
             const btn = form.querySelector('button');
             btn.textContent = 'Guardando...'; btn.disabled = true;
-
             const data = Object.fromEntries(new FormData(form).entries());
-            
             const { error } = await db.from('resources').insert([data]);
-            
-            if (error) {
-                alert('Error: ' + error.message);
-            } else {
-                alert('¡Recurso agregado con éxito al Club VIP!');
-                form.reset();
-            }
+            if (error) alert('Error: ' + error.message);
+            else { alert('¡Recurso agregado!'); form.reset(); }
             btn.textContent = 'Guardar Recurso'; btn.disabled = false;
         });
 
-        // CARGAR TIENDA
+        // CARGAR TIENDA CON BOTONES DE EDITAR Y ELIMINAR
         async function loadProducts() {
             const tbody = document.getElementById('productsTableBody');
             const { data } = await db.from('products').select('*');
-            tbody.innerHTML = data?.map(p => `<tr><td>${p.name_es}</td><td>$${p.price}</td></tr>`).join('') || '<tr><td colspan="2">No hay productos</td></tr>';
+            tbody.innerHTML = data?.map(p => `
+                <tr>
+                    <td>${p.name_es}</td>
+                    <td>$${p.price}</td>
+                    <td style="display:flex; gap:10px;">
+                        <button class="action-btn" onclick="alert('Editar: ${p.name_es}')" title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="alert('Eliminar: ${p.name_es}')" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
         }
 
         // CARGAR PEDIDOS
@@ -143,12 +198,23 @@
             tbody.innerHTML = data?.map(o => `<tr><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td></tr>`).join('') || '<tr><td colspan="2">No hay pedidos</td></tr>';
         }
 
-        // CARGAR MENSAJES
+        // CARGAR MENSAJES Y ESCUCHAR EN TIEMPO REAL
         async function loadMessages() {
             const tbody = document.getElementById('messagesTableBody');
-            const { data } = await db.from('contact_messages').select('*');
+            const { data } = await db.from('contact_messages').select('*').order('created_at', { ascending: false });
             tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td></tr>`).join('') || '<tr><td colspan="2">No hay mensajes</td></tr>';
         }
+
+        // TIEMPO REAL: Escuchar cuando entra un mensaje nuevo
+        db.channel('realtime-messages')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'contact_messages' }, payload => {
+              alert('¡Nuevo mensaje recibido de: ' + payload.new.name);
+              // Si estamos en la vista de mensajes, recargar la tabla
+              if(!document.getElementById('view-messages').hidden) {
+                  loadMessages();
+              }
+          })
+          .subscribe();
     </script>
 </body>
 </html>
