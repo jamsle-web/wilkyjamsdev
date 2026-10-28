@@ -192,144 +192,150 @@
     <script src="cms-content.js"></script>
 
     <script>
-        let allResources = [];
-        const supabase = window.portfolioSupabase;
-
-        // Cargar datos desde Supabase
-        async function loadResources() {
-            if (!supabase) {
-                document.getElementById('galleryGrid').innerHTML = '<p>Error de conexión.</p>';
-                return;
-            }
-            const { data, error } = await supabase.from('resources').select('*').order('created_at', { ascending: false });
+        // Nos aseguramos de que la conexión a Supabase exista antes de hacer nada
+        document.addEventListener('DOMContentLoaded', () => {
+            const db = window.portfolioSupabase;
             
-            if (error) {
-                console.error(error);
-                document.getElementById('galleryGrid').innerHTML = '<p>Error al cargar recursos.</p>';
+            if (!db) {
+                console.error("Supabase no está inicializado. Revisa supabase-client.js");
+                document.getElementById('galleryGrid').innerHTML = '<p style="color:red;">Error de conexión con la base de datos.</p>';
                 return;
             }
 
-            allResources = data || [];
-            renderGallery(allResources);
-        }
+            const galleryGrid = document.getElementById('galleryGrid');
+            let allResources = [];
 
-        function renderGallery(resources) {
-            const grid = document.getElementById('galleryGrid');
-            if (resources.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; width: 100%; color: #888; grid-column: 1/-1;">No hay recursos disponibles aún.</p>';
-                return;
+            // Función para cargar los recursos
+            async function loadResources() {
+                // Hacemos la consulta
+                const { data, error } = await db.from('resources').select('*').order('created_at', { ascending: false });
+                
+                // Si hay un error, lo mostramos en pantalla
+                if (error) {
+                    console.error("Error al consultar Supabase:", error);
+                    galleryGrid.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+                    return;
+                }
+
+                // Si todo sale bien, dibujamos las tarjetas
+                allResources = data || [];
+                renderGallery(allResources);
             }
 
-            grid.innerHTML = resources.map(res => `
-                <div class="gallery-card" onclick="openCodeModal('${res.id}')">
-                    <div class="gallery-img-wrapper">
-                        <span class="badge-type ${res.type === 'vip' ? 'badge-vip' : 'badge-free'}">
-                            ${res.type === 'vip' ? '<i class="fas fa-crown"></i> VIP' : 'Gratis'}
-                        </span>
-                        <img src="${res.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80'}" alt="${res.title}">
-                    </div>
-                    <div class="gallery-info">
-                        <h3>${res.title}</h3>
-                        <p>${res.description}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
+            function renderGallery(resources) {
+                if (resources.length === 0) {
+                    galleryGrid.innerHTML = '<p style="text-align: center; width: 100%; color: #888; grid-column: 1/-1;">No hay recursos disponibles aún.</p>';
+                    return;
+                }
 
-        // Filtros
-        function filterGallery(type, btn) {
-            document.querySelectorAll('.gallery-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            let filtered = allResources;
-            if (type === 'free') filtered = allResources.filter(r => r.type === 'free');
-            if (type === 'vip') filtered = allResources.filter(r => r.type === 'vip');
-            if (type === 'html') filtered = allResources.filter(r => r.language === 'html');
-            if (type === 'js') filtered = allResources.filter(r => r.language === 'js');
-
-            renderGallery(filtered);
-        }
-
-        // Abrir Modal con Pestañas
-        function openCodeModal(id) {
-            const res = allResources.find(r => String(r.id) === String(id));
-            if (!res) return;
-
-            document.getElementById('modalTitle').textContent = res.title;
-            document.getElementById('modalDesc').textContent = res.description;
-            document.getElementById('modalImg').src = res.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80';
-
-            const container = document.getElementById('codeContainer');
-
-            if (res.type === 'vip') {
-                container.innerHTML = `
-                    <div class="vip-lock-overlay">
-                        <div class="blurred-code">Este código está protegido y es exclusivo para miembros.</div>
-                        <div class="lock-message">
-                            <i class="fas fa-crown"></i>
-                            <p>Recurso VIP Exclusivo</p>
-                            <a href="club.html" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Unirme al Club</a>
+                galleryGrid.innerHTML = resources.map(res => `
+                    <div class="gallery-card" onclick="window.openCodeModal('${res.id}')">
+                        <div class="gallery-img-wrapper">
+                            <span class="badge-type ${res.type === 'vip' ? 'badge-vip' : 'badge-free'}">
+                                ${res.type === 'vip' ? '<i class="fas fa-crown"></i> VIP' : 'Gratis'}
+                            </span>
+                            <img src="${res.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80'}" alt="${res.title}">
+                        </div>
+                        <div class="gallery-info">
+                            <h3>${res.title}</h3>
+                            <p>${res.description}</p>
                         </div>
                     </div>
-                `;
-            } else {
-                // Pestañas para Gratis
-                const hasHtml = res.code_content;
-                const hasCss = res.code_css;
-                const hasJs = res.code_js;
-
-                let tabsHtml = '<div class="code-tabs">';
-                let blocksHtml = '';
-
-                if (hasHtml) {
-                    tabsHtml += `<button class="code-tab active" onclick="switchTab(event, 'tab-html')">HTML</button>`;
-                    blocksHtml += `<div id="tab-html" class="code-block-wrapper active"><div class="code-header"><span class="code-lang">HTML</span><button class="btn-copy" onclick="copyCode('content-html')"><i class="fas fa-copy"></i> Copiar</button></div><div class="code-content" id="content-html">${escapeHTML(res.code_content)}</div></div>`;
-                }
-                if (hasCss) {
-                    tabsHtml += `<button class="code-tab ${!hasHtml ? 'active' : ''}" onclick="switchTab(event, 'tab-css')">CSS</button>`;
-                    blocksHtml += `<div id="tab-css" class="code-block-wrapper ${!hasHtml ? 'active' : ''}"><div class="code-header"><span class="code-lang">CSS</span><button class="btn-copy" onclick="copyCode('content-css')"><i class="fas fa-copy"></i> Copiar</button></div><div class="code-content" id="content-css">${escapeHTML(res.code_css)}</div></div>`;
-                }
-                if (hasJs) {
-                    tabsHtml += `<button class="code-tab ${(!hasHtml && !hasCss) ? 'active' : ''}" onclick="switchTab(event, 'tab-js')">JS</button>`;
-                    blocksHtml += `<div id="tab-js" class="code-block-wrapper ${(!hasHtml && !hasCss) ? 'active' : ''}"><div class="code-header"><span class="code-lang">JS</span><button class="btn-copy" onclick="copyCode('content-js')"><i class="fas fa-copy"></i> Copiar</button></div><div class="code-content" id="content-js">${escapeHTML(res.code_js)}</div></div>`;
-                }
-                tabsHtml += '</div>';
-
-                if (!hasHtml && !hasCss && !hasJs) {
-                    container.innerHTML = '<p style="color:#fff; text-align:center;">Este recurso aún no tiene código asignado.</p>';
-                } else {
-                    container.innerHTML = tabsHtml + blocksHtml;
-                }
+                `).join('');
             }
 
-            document.getElementById('codeModal').classList.add('open');
-        }
+            // Hacemos las funciones globales para que los botones HTML las encuentren
+            window.filterGallery = function(type, btn) {
+                document.querySelectorAll('.gallery-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-        function closeCodeModal() { document.getElementById('codeModal').classList.remove('open'); }
-        document.getElementById('codeModal').addEventListener('click', function(e) { if (e.target === this) closeCodeModal(); });
+                let filtered = allResources;
+                if (type === 'free') filtered = allResources.filter(r => r.type === 'free');
+                if (type === 'vip') filtered = allResources.filter(r => r.type === 'vip');
+                if (type === 'html') filtered = allResources.filter(r => r.language === 'html');
+                if (type === 'js') filtered = allResources.filter(r => r.language === 'js');
 
-        // Funciones auxiliares
-        function switchTab(evt, tabId) {
-            document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.code-block-wrapper').forEach(b => b.classList.remove('active'));
-            evt.target.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
+                renderGallery(filtered);
+            };
 
-        function copyCode(elementId) {
-            const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('¡Código copiado al portapapeles!');
-            });
-        }
+            window.openCodeModal = function(id) {
+                const res = allResources.find(r => String(r.id) === String(id));
+                if (!res) return;
 
-        function escapeHTML(str) {
-            if (!str) return '';
-            return str.replace(/[&<>'"]/g, tag => ({'&': '&amp;','<': '&lt;','>': '&gt;',"'": '&#39;','"': '&quot;'}[tag]));
-        }
+                document.getElementById('modalTitle').textContent = res.title;
+                document.getElementById('modalDesc').textContent = res.description;
+                document.getElementById('modalImg').src = res.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80';
 
-        // Iniciar
-        document.addEventListener('DOMContentLoaded', loadResources);
+                const container = document.getElementById('codeContainer');
+
+                if (res.type === 'vip') {
+                    container.innerHTML = `
+                        <div class="vip-lock-overlay">
+                            <div class="blurred-code">Este código está protegido y es exclusivo para miembros.</div>
+                            <div class="lock-message">
+                                <i class="fas fa-crown"></i>
+                                <p>Recurso VIP Exclusivo</p>
+                                <a href="club.html" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Unirme al Club</a>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const hasHtml = res.code_content;
+                    const hasCss = res.code_css;
+                    const hasJs = res.code_js;
+
+                    let tabsHtml = '<div class="code-tabs">';
+                    let blocksHtml = '';
+
+                    if (hasHtml) {
+                        tabsHtml += `<button class="code-tab active" onclick="switchTab(event, 'tab-html')">HTML</button>`;
+                        blocksHtml += `<div id="tab-html" class="code-block-wrapper active"><div class="code-header"><span class="code-lang">HTML</span><button class="btn-copy" onclick="copyCode('content-html')"><i class="fas fa-copy"></i> Copiar</button></div><div class="code-content" id="content-html">${escapeHTML(res.code_content)}</div></div>`;
+                    }
+                    if (hasCss) {
+                        tabsHtml += `<button class="code-tab ${!hasHtml ? 'active' : ''}" onclick="switchTab(event, 'tab-css')">CSS</button>`;
+                        blocksHtml += `<div id="tab-css" class="code-block-wrapper ${!hasHtml ? 'active' : ''}"><div class="code-header"><span class="code-lang">CSS</span><button class="btn-copy" onclick="copyCode('content-css')"><i class="fas fa-copy"></i> Copiar</button></div><div class="code-content" id="content-css">${escapeHTML(res.code_css)}</div></div>`;
+                    }
+                    if (hasJs) {
+                        tabsHtml += `<button class="code-tab ${(!hasHtml && !hasCss) ? 'active' : ''}" onclick="switchTab(event, 'tab-js')">JS</button>`;
+                        blocksHtml += `<div id="tab-js" class="code-block-wrapper ${(!hasHtml && !hasCss) ? 'active' : ''}"><div class="code-header"><span class="code-lang">JS</span><button class="btn-copy" onclick="copyCode('content-js')"><i class="fas fa-copy"></i> Copiar</button></div><div class="code-content" id="content-js">${escapeHTML(res.code_js)}</div></div>`;
+                    }
+                    tabsHtml += '</div>';
+
+                    if (!hasHtml && !hasCss && !hasJs) {
+                        container.innerHTML = '<p style="color:#fff; text-align:center;">Este recurso aún no tiene código asignado.</p>';
+                    } else {
+                        container.innerHTML = tabsHtml + blocksHtml;
+                    }
+                }
+
+                document.getElementById('codeModal').classList.add('open');
+            };
+
+            window.closeCodeModal = function() { document.getElementById('codeModal').classList.remove('open'); };
+            document.getElementById('codeModal').addEventListener('click', function(e) { if (e.target === this) window.closeCodeModal(); });
+
+            window.switchTab = function(evt, tabId) {
+                document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.code-block-wrapper').forEach(b => b.classList.remove('active'));
+                evt.target.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            };
+
+            window.copyCode = function(elementId) {
+                const text = document.getElementById(elementId).innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('¡Código copiado al portapapeles!');
+                });
+            };
+
+            function escapeHTML(str) {
+                if (!str) return '';
+                return str.replace(/[&<>'"]/g, tag => ({'&': '&amp;','<': '&lt;','>': '&gt;',"'": '&#39;','"': '&quot;'}[tag]));
+            }
+
+            // Ejecutar la carga de recursos
+            loadResources();
+        });
     </script>
 </body>
 </html>
