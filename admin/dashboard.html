@@ -18,14 +18,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     
-    <!-- CSS PÚBLICO Y CSS DEL ADMIN -->
+    <!-- CSS -->
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="admin.css" />
 </head>
 <body class="admin-body">
 
     <div class="admin-layout">
-        <!-- ===== SIDEBAR ===== -->
+        <!-- SIDEBAR -->
         <aside class="admin-sidebar" id="adminSidebar">
             <div class="admin-logo">JP · Admin</div>
             <nav class="admin-nav" id="adminNav">
@@ -44,82 +44,55 @@
             <button class="admin-logout" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
         </aside>
 
-        <!-- ===== CONTENIDO PRINCIPAL ===== -->
+        <!-- MAIN -->
         <main class="admin-main">
-            <!-- TOPBAR -->
             <div class="admin-topbar">
-                <h1>Panel de Administración</h1>
+                <h1>Resumen general</h1>
                 <div class="admin-topbar-tools">
-                    <a href="/" class="admin-icon-btn" style="color:#fff; text-decoration:none;" title="Ver sitio" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                    <div class="search" style="display:flex; align-items:center; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:8px 16px;">
+                        <i class="fas fa-search" style="color:#888; margin-right:8px;"></i>
+                        <input id="adminGlobalSearch" type="search" placeholder="Buscar..." style="background:transparent; border:none; color:#fff; outline:none;">
+                    </div>
+                    <button class="admin-icon-btn" id="adminThemeToggle" style="background:transparent; border:1px solid #333; color:#fff; width:40px; height:40px; border-radius:50%;"><i class="fas fa-moon"></i></button>
+                    <a href="/" class="admin-icon-btn" style="color:#fff; text-decoration:none; display:flex; align-items:center; justify-content:center; width:40px; height:40px;" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
 
             <!-- STATS -->
             <div class="stats-row">
-                <div class="admin-stat-card">
-                    <div class="stat-top"><i class="fas fa-dollar-sign"></i></div>
-                    <div class="stat-value">$0.00</div>
-                    <div class="stat-label">Ventas registradas</div>
-                </div>
-                <div class="admin-stat-card">
-                    <div class="stat-top"><i class="fas fa-shopping-bag"></i></div>
-                    <div class="stat-value">0</div>
-                    <div class="stat-label">Pedidos totales</div>
-                </div>
-                <div class="admin-stat-card">
-                    <div class="stat-top"><i class="fas fa-users"></i></div>
-                    <div class="stat-value">0</div>
-                    <div class="stat-label">Visitas al sitio</div>
-                </div>
-                <div class="admin-stat-card">
-                    <div class="stat-top"><i class="fas fa-envelope"></i></div>
-                    <div class="stat-value">0</div>
-                    <div class="stat-label">Mensajes nuevos</div>
-                </div>
+                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-dollar-sign"></i></div><div class="stat-value">$0.00</div><div class="stat-label">Ventas</div></div>
+                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-shopping-bag"></i></div><div class="stat-value">0</div><div class="stat-label">Pedidos</div></div>
+                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Visitas</div></div>
+                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-envelope"></i></div><div class="stat-value">0</div><div class="stat-label">Mensajes</div></div>
             </div>
 
-            <!-- PANELES (Tus scripts los llenarán de información) -->
+            <!-- PANELES -->
             <div class="admin-panel" id="panelContenido" hidden>
-                <div class="panel-title"><h3>Editor de contenido</h3><button type="button" class="btn-admin-add" id="loadContentEditorBtn"><i class="fas fa-pen-to-square"></i> Cargar contenido</button></div>
+                <div class="panel-title"><h3>Editor de contenido</h3></div>
                 <div id="contentEditorFields"></div>
             </div>
 
             <div class="admin-panel" id="panelConfiguracion" hidden>
-                <div class="panel-title"><h3>Configuración del sitio</h3><button type="submit" form="siteSettingsForm" class="btn-admin-add">Guardar</button></div>
-                <form id="siteSettingsForm">
-                    <div style="display:grid; gap:15px;">
-                        <label>Nombre<input name="site_name"></label>
-                        <label>WhatsApp<input name="whatsapp"></label>
-                        <label>Email<input name="email" type="email"></label>
-                    </div>
-                </form>
+                <div class="panel-title"><h3>Configuración</h3></div>
+                <form id="siteSettingsForm"><label>Nombre<input name="site_name"></label><button type="submit" class="btn-admin-add">Guardar</button></form>
             </div>
 
             <div class="admin-panel" id="panelProductos" hidden>
-                <div class="panel-title"><h3>Productos de la tienda</h3><button class="btn-admin-add" id="newProductBtn"><i class="fas fa-plus"></i> Nuevo producto</button></div>
-                <table class="admin-table">
-                    <thead><tr><th>Producto</th><th>Precio</th><th>Estado</th><th>Acciones</th></tr></thead>
-                    <tbody id="productsTableBody"></tbody>
-                </table>
+                <div class="panel-title"><h3>Productos</h3><button class="btn-admin-add" id="newProductBtn"><i class="fas fa-plus"></i> Nuevo</button></div>
+                <table class="admin-table"><thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead><tbody id="productsTableBody"></tbody></table>
             </div>
 
             <div class="admin-panel" id="panelPedidos" hidden>
-                <div class="panel-title"><h3>Pedidos recientes</h3></div>
-                <table class="admin-table">
-                    <thead><tr><th>Cliente</th><th>Total</th><th>Estado</th></tr></thead>
-                    <tbody id="ordersTableBody"></tbody>
-                </table>
+                <div class="panel-title"><h3>Pedidos</h3></div>
+                <table class="admin-table"><thead><tr><th>Cliente</th><th>Total</th></tr></thead><tbody id="ordersTableBody"></tbody></table>
             </div>
 
             <div class="admin-panel" id="panelMensajes" hidden>
-                <div class="panel-title"><h3>Mensajes de contacto</h3></div>
-                <table class="admin-table">
-                    <thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead>
-                    <tbody id="messagesTableBody"></tbody>
-                </table>
+                <div class="panel-title"><h3>Mensajes</h3></div>
+                <table class="admin-table"><thead><tr><th>Nombre</th><th>Asunto</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
             </div>
-            
-            <!-- PANELES VACÍOS (Para que admin.js no de error) -->
+
+            <!-- PANELES VACÍOS (Para evitar errores) -->
             <div class="admin-panel" id="panelAnalitica" hidden></div>
             <div class="admin-panel" id="panelPerfilAdmin" hidden></div>
             <div class="admin-panel" id="panelTestimonios" hidden></div>
@@ -128,7 +101,7 @@
         </main>
     </div>
 
-    <!-- SCRIPTS (No se tocan, son los que hacen la magia) -->
+    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../supabase-client.js"></script>
     <script src="admin.js"></script>
