@@ -57,7 +57,7 @@
         
         /* Área de Live Preview */
         .live-preview-wrapper { padding: 20px; background: #121216; border-bottom: 1px solid #222; display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        .live-preview-frame { width: 100%; height: 350px; background: #fff; border-radius: 8px; border: 1px solid #333; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .live-preview-frame { width: 100%; height: 350px; background: #1a1a24; border-radius: 8px; border: 1px solid #333; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .live-preview-frame iframe { width: 100%; height: 100%; border: none; }
 
         /* Pestañas de Código estilo Editor */
@@ -281,7 +281,7 @@
                 document.getElementById('modalTitle').textContent = res.title;
                 document.getElementById('modalDesc').textContent = res.description;
 
-                // 1. GENERAR LIVE PREVIEW
+                // 1. GENERAR LIVE PREVIEW (CON FONDO OSCURO)
                 const htmlCode = res.code_content || '';
                 const cssCode = res.code_css || '';
                 const jsCode = res.code_js || '';
@@ -297,8 +297,8 @@
                                 margin: 0; padding: 20px; 
                                 display: flex; align-items: center; justify-content: center; 
                                 min-height: 100vh; box-sizing: border-box; 
-                                background: #fff; /* Fondo blanco para ver el componente */
-                                color: #000;
+                                background: #1a1a24; /* FONDO OSCURO PARA VER COMPONENTES CLAROS */
+                                color: #fff;
                                 font-family: sans-serif;
                             }
                             ${cssCode}
@@ -360,7 +360,6 @@
 
             window.closeCodeModal = function() { 
                 document.getElementById('codeModal').classList.remove('open'); 
-                // Limpiar iframe para detener scripts
                 previewIframe.src = 'about:blank';
             };
             
