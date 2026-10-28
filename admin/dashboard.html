@@ -115,8 +115,9 @@
 
         <!-- VISTA: CLUB VIP (CON TABLA DE RECURSOS) -->
         <div class="panel" id="view-vip" hidden>
-            <div class="panel-header"><h3>Agregar Recurso al Club VIP</h3></div>
+            <div class="panel-header"><h3 id="vipFormTitle">Agregar Recurso al Club VIP</h3></div>
             <form id="vipForm">
+                <input type="hidden" id="vipResourceId" value="">
                 <div class="form-group"><label>Título</label><input name="title" required></div>
                 <div class="form-group"><label>Descripción</label><textarea name="description" rows="2" required></textarea></div>
                 <div class="form-group">
@@ -126,7 +127,7 @@
                 <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="3"></textarea></div>
                 <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="3"></textarea></div>
                 <div class="form-group"><label>Código JS</label><textarea name="code_js" rows="3"></textarea></div>
-                <button type="submit" class="btn-add">Guardar Recurso</button>
+                <button type="submit" class="btn-add" id="vipSubmitBtn">Guardar Recurso</button>
             </form>
 
             <div class="panel-header" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px;">
@@ -302,15 +303,51 @@
         }
 
         // ===== CLUB VIP =====
+        let editingVipId = null;
+
+        window.editVipResource = function(res) {
+            editingVipId = res.id;
+            const form = document.getElementById('vipForm');
+            form.querySelector('[name="title"]').value = res.title;
+            form.querySelector('[name="description"]').value = res.description;
+            form.querySelector('[name="type"]').value = res.type;
+            form.querySelector('[name="code_content"]').value = res.code_content || '';
+            form.querySelector('[name="code_css"]').value = res.code_css || '';
+            form.querySelector('[name="code_js"]').value = res.code_js || '';
+            
+            document.getElementById('vipFormTitle').textContent = 'Editar Recurso';
+            document.getElementById('vipSubmitBtn').textContent = 'Actualizar Recurso';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
         document.getElementById('vipForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
+            const btn = document.getElementById('vipSubmitBtn');
             btn.textContent = 'Guardando...'; btn.disabled = true;
-            const data = Object.fromEntries(new FormData(e.target).entries());
-            const { error } = await db.from('resources').insert([data]);
-            if (error) showToast('Error: ' + error.message, 'error');
-            else {
-                showToast('¡Recurso agregado con éxito!');
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            delete data.id; // Por si acaso
+
+            let error;
+            if (editingVipId) {
+                const res = await db.from('resources').update(data).eq('id', editingVipId);
+                error = res.error;
+                if (!error) {
+                    showToast('Recurso actualizado con éxito');
+                    editingVipId = null;
+                    document.getElementById('vipFormTitle').textContent = 'Agregar Recurso al Club VIP';
+                    document.getElementById('vipSubmitBtn').textContent = 'Guardar Recurso';
+                }
+            } else {
+                const res = await db.from('resources').insert([data]);
+                error = res.error;
+                if (!error) showToast('¡Recurso agregado con éxito!');
+            }
+
+            if (error) {
+                showToast('Error: ' + error.message, 'error');
+            } else {
                 e.target.reset();
                 loadVipResources();
             }
@@ -324,7 +361,10 @@
                 <tr>
                     <td><div style="font-weight: 600;">${r.title}</div><div style="font-size: 0.75rem; color: var(--muted);">${r.description}</div></td>
                     <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
-                    <td><button class="action-btn delete" onclick="deleteItem('resources', '${r.id}', loadVipResources)"><i class="fas fa-trash"></i></button></td>
+                    <td style="display: flex; gap: 10px;">
+                        <button class="action-btn" onclick='editVipResource(${JSON.stringify(r)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('resources', '${r.id}', loadVipResources)" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    </td>
                 </tr>
             `).join('') || '<tr><td colspan="3">No hay recursos aún.</td></tr>';
         }
