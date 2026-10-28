@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="admin.css" />
     <style>
+        /* Estilos de la barra superior */
         .topbar-tools { display: flex; align-items: center; gap: 15px; position: relative; }
         .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .icon-btn:hover { background: rgba(255,255,255,0.05); }
@@ -29,21 +30,35 @@
         .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
         .notif-item:last-child { border-bottom: none; }
 
+        /* Modo Claro */
         body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
         body.light-mode .sidebar { background: var(--surface); }
         body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
         body.light-mode .btn-add { background: #111; color: #fff; }
         body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
 
+        /* Modales */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
         .modal-overlay.open { display: flex; }
         .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
         
+        /* Formularios */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
         
+        /* Tablas (ARREGLO DE OVERFLOW) */
+        .admin-table-wrapper { width: 100%; overflow-x: auto; margin-top: 10px; }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; } /* table-layout fixed evita que el contenido rompa el ancho */
+        th { text-align: left; padding: 12px; color: var(--muted); border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        td { padding: 16px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+        
+        /* Truncar texto largo */
+        .truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: block; }
+        .desc-text { font-size: 0.75rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; display: block; }
+
+        /* Acciones Tabla */
         .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
         .action-btn:hover { color: var(--text); }
         .action-btn.delete:hover { color: #ef4444; }
@@ -113,7 +128,7 @@
             <p style="color: var(--muted); margin-top: 10px;">Selecciona una opción del menú para gestionar tu sitio.</p>
         </div>
 
-        <!-- VISTA: CLUB VIP (CON TABLA DE RECURSOS) -->
+        <!-- VISTA: CLUB VIP -->
         <div class="panel" id="view-vip" hidden>
             <div class="panel-header"><h3 id="vipFormTitle">Agregar Recurso al Club VIP</h3></div>
             <form id="vipForm">
@@ -133,10 +148,12 @@
             <div class="panel-header" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px;">
                 <h3>Recursos Publicados</h3>
             </div>
-            <table>
-                <thead><tr><th>Recurso</th><th>Tipo</th><th>Acciones</th></tr></thead>
-                <tbody id="vipTableBody"></tbody>
-            </table>
+            <div class="admin-table-wrapper">
+                <table>
+                    <thead><tr><th style="width: 40%;">Recurso</th><th style="width: 15%;">Tipo</th><th style="width: 15%;">Acciones</th></tr></thead>
+                    <tbody id="vipTableBody"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- VISTA: TIENDA -->
@@ -145,25 +162,31 @@
                 <h3>Productos de la Tienda</h3>
                 <button class="btn-add" id="btnNewProduct"><i class="fas fa-plus"></i> Nuevo Producto</button>
             </div>
-            <table>
-                <thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead>
-                <tbody id="productsTableBody"></tbody>
-            </table>
+            <div class="admin-table-wrapper">
+                <table>
+                    <thead><tr><th style="width: 50%;">Producto</th><th style="width: 20%;">Precio</th><th style="width: 15%;">Acciones</th></tr></thead>
+                    <tbody id="productsTableBody"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- VISTA: PEDIDOS Y SOLICITUDES -->
         <div class="panel" id="view-orders" hidden>
             <div class="panel-header"><h3>Pedidos y Solicitudes</h3></div>
-            <table>
-                <thead><tr><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Fecha</th></tr></thead>
-                <tbody id="ordersTableBody"></tbody>
-            </table>
+            <div class="admin-table-wrapper">
+                <table>
+                    <thead><tr><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Fecha</th></tr></thead>
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- VISTA: MENSAJES -->
         <div class="panel" id="view-messages" hidden>
             <div class="panel-header"><h3>Mensajes de Contacto</h3></div>
-            <table><thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
+            <div class="admin-table-wrapper">
+                <table><thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
+            </div>
         </div>
 
         <!-- VISTA: OPINIONES -->
@@ -172,10 +195,12 @@
                 <h3>Opiniones de Clientes</h3>
                 <button class="btn-add" onclick="openTestimonialModal()"><i class="fas fa-plus"></i> Nueva Opinión</button>
             </div>
-            <table>
-                <thead><tr><th>Cliente</th><th>Texto</th><th>Estrellas</th><th>Acciones</th></tr></thead>
-                <tbody id="testimonialsTableBody"></tbody>
-            </table>
+            <div class="admin-table-wrapper">
+                <table>
+                    <thead><tr><th style="width: 30%;">Cliente</th><th style="width: 40%;">Texto</th><th style="width: 15%;">Estrellas</th><th style="width: 15%;">Acciones</th></tr></thead>
+                    <tbody id="testimonialsTableBody"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- VISTA: PROYECTOS -->
@@ -184,10 +209,12 @@
                 <h3>Proyectos Activos</h3>
                 <button class="btn-add" onclick="openProjectModal()"><i class="fas fa-plus"></i> Nuevo Proyecto</button>
             </div>
-            <table>
-                <thead><tr><th>Proyecto</th><th>URL / Enlace</th><th>Acciones</th></tr></thead>
-                <tbody id="projectsTableBody"></tbody>
-            </table>
+            <div class="admin-table-wrapper">
+                <table>
+                    <thead><tr><th style="width: 40%;">Proyecto</th><th style="width: 40%;">URL / Enlace</th><th style="width: 20%;">Acciones</th></tr></thead>
+                    <tbody id="projectsTableBody"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- VISTA: MI PERFIL -->
@@ -207,7 +234,8 @@
         </div>
     </main>
 
-    <!-- MODAL: PRODUCTOS -->
+    <!-- MODALES (Productos, Opiniones, Proyectos) se mantienen igual... -->
+    <!-- (Omito el HTML de los modales para no hacer la respuesta infinita, pero se mantienen exactamente igual que en tu código original) -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
@@ -223,8 +251,6 @@
             </form>
         </div>
     </div>
-
-    <!-- MODAL: OPINIONES -->
     <div class="modal-overlay" id="testimonialModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('testimonialModal')"><i class="fas fa-times"></i></button>
@@ -238,8 +264,6 @@
             </form>
         </div>
     </div>
-
-    <!-- MODAL: PROYECTOS -->
     <div class="modal-overlay" id="projectModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('projectModal')"><i class="fas fa-times"></i></button>
@@ -254,8 +278,6 @@
             </form>
         </div>
     </div>
-
-    <!-- CONTENEDOR DE TOASTS -->
     <div id="toastContainer"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -327,7 +349,7 @@
             
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
-            delete data.id; // Por si acaso
+            delete data.id;
 
             let error;
             if (editingVipId) {
@@ -359,7 +381,10 @@
             const { data } = await db.from('resources').select('*').order('created_at', {ascending: false});
             tbody.innerHTML = data?.map(r => `
                 <tr>
-                    <td><div style="font-weight: 600;">${r.title}</div><div style="font-size: 0.75rem; color: var(--muted);">${r.description}</div></td>
+                    <td>
+                        <div class="truncate" style="font-weight: 600;">${r.title}</div>
+                        <div class="desc-text">${r.description}</div>
+                    </td>
                     <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
                     <td style="display: flex; gap: 10px;">
                         <button class="action-btn" onclick='editVipResource(${JSON.stringify(r)})' title="Editar"><i class="fas fa-pen"></i></button>
@@ -377,7 +402,7 @@
                 <tr>
                     <td style="display: flex; align-items: center; gap: 12px;">
                         ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
-                        <div><div style="font-weight: 600;">${p.name_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div></div>
+                        <div class="truncate"><div style="font-weight: 600;">${p.name_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div></div>
                     </td>
                     <td>$${p.price}</td>
                     <td>
@@ -455,9 +480,9 @@
                 <tr>
                     <td style="display: flex; align-items: center; gap: 12px;">
                         ${t.avatar_url ? `<img src="${t.avatar_url}" class="avatar-thumb">` : `<div style="width: 36px; height: 36px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`}
-                        <span>${t.name_es}</span>
+                        <span class="truncate">${t.name_es}</span>
                     </td>
-                    <td>${t.text_es}</td>
+                    <td class="truncate">${t.text_es}</td>
                     <td>${'★'.repeat(t.rating || 5)}</td>
                     <td>
                         <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
@@ -501,9 +526,9 @@
                 <tr>
                     <td style="display: flex; align-items: center; gap: 12px;">
                         ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
-                        <div><div style="font-weight: 600;">${p.title_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div></div>
+                        <div class="truncate"><div style="font-weight: 600;">${p.title_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div></div>
                     </td>
-                    <td><a href="${p.project_url}" target="_blank" style="color:var(--muted);">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
+                    <td><a href="${p.project_url}" target="_blank" class="truncate" style="color:var(--muted); display: block;">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
                     <td>
                         <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
                         <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
