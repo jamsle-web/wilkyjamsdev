@@ -30,9 +30,10 @@
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
         .gallery-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; }
         .gallery-card:hover { transform: translateY(-5px); border-color: var(--accent-1); }
-        .gallery-img-wrapper { width: 100%; height: 200px; position: relative; background: #000; overflow: hidden; }
-        .gallery-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-card:hover .gallery-img-wrapper img { transform: scale(1.05); }
+        
+        /* AQUÍ ESTÁ LA MAGIA: La miniatura ahora es un iframe en vivo */
+        .gallery-thumb { width: 100%; height: 200px; position: relative; background: #1a1a24; overflow: hidden; border-bottom: 1px solid var(--glass-border); pointer-events: none; }
+        .gallery-thumb iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; border: none; pointer-events: none; }
         
         .badge-type { position: absolute; top: 12px; left: 12px; padding: 6px 12px; border-radius: 30px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; z-index: 10; }
         .badge-free { background: rgba(74, 222, 128, 0.9); color: #000; }
@@ -245,20 +246,50 @@
                     return;
                 }
 
-                galleryGrid.innerHTML = resources.map(res => `
+                galleryGrid.innerHTML = resources.map(res => {
+                    // Generar el HTML interno para la miniatura en vivo
+                    const previewHtml = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <style>
+                                body { 
+                                    margin: 0; padding: 20px; 
+                                    display: flex; align-items: center; justify-content: center; 
+                                    min-height: 100vh; box-sizing: border-box; 
+                                    background: #1a1a24;
+                                    color: #fff;
+                                    font-family: sans-serif;
+                                    transform: scale(1); 
+                                }
+                                ${res.code_css || ''}
+                            </style>
+                        </head>
+                        <body>
+                            ${res.code_content || ''}
+                        </body>
+                        </html>
+                    `;
+                    
+                    // Convertir el HTML a un Data URL para el iframe
+                    const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(previewHtml);
+
+                    return `
                     <div class="gallery-card" onclick="window.openCodeModal('${res.id}')">
-                        <div class="gallery-img-wrapper">
+                        <div class="gallery-thumb">
                             <span class="badge-type ${res.type === 'vip' ? 'badge-vip' : 'badge-free'}">
                                 ${res.type === 'vip' ? '<i class="fas fa-crown"></i> VIP' : 'Gratis'}
                             </span>
-                            <img src="${res.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80'}" alt="${res.title}">
+                            <!-- IFRAME EN VIVO COMO MINIATURA -->
+                            <iframe src="${dataUrl}" scrolling="no" sandbox="allow-scripts"></iframe>
                         </div>
                         <div class="gallery-info">
                             <h3>${res.title}</h3>
                             <p>${res.description}</p>
                         </div>
                     </div>
-                `).join('');
+                    `;
+                }).join('');
             }
 
             window.filterGallery = function(type, btn) {
@@ -281,7 +312,6 @@
                 document.getElementById('modalTitle').textContent = res.title;
                 document.getElementById('modalDesc').textContent = res.description;
 
-                // 1. GENERAR LIVE PREVIEW (CON FONDO OSCURO)
                 const htmlCode = res.code_content || '';
                 const cssCode = res.code_css || '';
                 const jsCode = res.code_js || '';
@@ -297,7 +327,7 @@
                                 margin: 0; padding: 20px; 
                                 display: flex; align-items: center; justify-content: center; 
                                 min-height: 100vh; box-sizing: border-box; 
-                                background: #1a1a24; /* FONDO OSCURO PARA VER COMPONENTES CLAROS */
+                                background: #1a1a24;
                                 color: #fff;
                                 font-family: sans-serif;
                             }
@@ -312,7 +342,6 @@
                 `);
                 iframeDoc.close();
 
-                // 2. GENERAR PESTAÑAS DE CÓDIGO
                 const container = document.getElementById('codeContainer');
 
                 if (res.type === 'vip') {
