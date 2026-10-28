@@ -13,14 +13,31 @@
         .topbar-tools { display: flex; align-items: center; gap: 15px; position: relative; }
         .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .icon-btn:hover { background: rgba(255,255,255,0.05); }
-        .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; position: relative; }
-        .profile-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
         
+        /* Perfil Topbar */
+        .profile-dropdown-wrapper { position: relative; }
+        .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; }
+        .profile-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .profile-info { text-align: left; font-size: 0.85rem; }
+        .profile-info strong { display: block; }
+        .profile-info span { color: var(--muted); }
+        .profile-menu { position: absolute; top: 50px; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; width: 200px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .profile-menu.open { display: block; }
+        .profile-menu a { display: block; padding: 10px 15px; color: var(--text); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+        .profile-menu a:hover { background: rgba(255,255,255,0.05); }
+
+        /* Notificaciones */
+        .notif-dropdown { position: absolute; top: 50px; right: 60px; width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .notif-dropdown.open { display: block; }
+        .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .notif-item:last-child { border-bottom: none; }
+
         /* Modo Claro */
         body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
         body.light-mode .sidebar { background: var(--surface); }
         body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
         body.light-mode .btn-add { background: #111; color: #fff; }
+        body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
 
         /* Modales */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
@@ -32,13 +49,6 @@
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
-        body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
-        
-        /* Notificaciones */
-        .notif-dropdown { position: absolute; top: 50px; right: 60px; width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .notif-dropdown.open { display: block; }
-        .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
-        .notif-item:last-child { border-bottom: none; }
         
         /* Acciones Tabla */
         .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
@@ -54,8 +64,10 @@
             <a data-section="summary" class="active"><i class="fas fa-chart-pie"></i> Resumen</a>
             <a data-section="vip"><i class="fas fa-crown"></i> Club VIP</a>
             <a data-section="products"><i class="fas fa-box"></i> Tienda</a>
-            <a data-section="orders"><i class="fas fa-receipt"></i> Pedidos</a>
+            <a data-section="orders"><i class="fas fa-receipt"></i> Pedidos y Solicitudes</a>
             <a data-section="messages"><i class="fas fa-envelope"></i> Mensajes</a>
+            <a data-section="testimonials"><i class="fas fa-star"></i> Opiniones</a>
+            <a data-section="projects"><i class="fas fa-layer-group"></i> Proyectos</a>
             <a data-section="profile"><i class="fas fa-user-gear"></i> Mi Perfil</a>
         </nav>
         <button class="logout" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Salir</button>
@@ -66,13 +78,31 @@
             <h1 id="pageTitle">Resumen</h1>
             <div class="topbar-tools">
                 <button class="icon-btn" id="themeToggle" title="Cambiar tema"><i class="fas fa-moon"></i></button>
+                
+                <!-- CAMPANA DE NOTIFICACIONES -->
                 <div style="position: relative;">
                     <button class="icon-btn" onclick="document.getElementById('notifDropdown').classList.toggle('open')"><i class="fas fa-bell"></i></button>
                     <div class="notif-dropdown" id="notifDropdown">
                         <h4 style="margin-bottom: 10px;">Notificaciones</h4>
-                        <div class="notif-item">No hay notificaciones nuevas.</div>
+                        <div id="notifList"><div class="notif-item">No hay notificaciones nuevas.</div></div>
                     </div>
                 </div>
+
+                <!-- AVATAR DE PERFIL EN TOPBAR -->
+                <div class="profile-dropdown-wrapper">
+                    <button class="profile-btn" onclick="document.getElementById('profileMenu').classList.toggle('open')">
+                        <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil">
+                        <div class="profile-info">
+                            <strong>Jamsle Porcena</strong>
+                            <span>Administrador</span>
+                        </div>
+                    </button>
+                    <div class="profile-menu" id="profileMenu">
+                        <a onclick="document.querySelector('[data-section=profile]').click(); document.getElementById('profileMenu').classList.remove('open');"><i class="fas fa-user"></i> Mi Perfil</a>
+                        <a onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                    </div>
+                </div>
+
                 <a href="/" target="_blank" style="color: var(--text); text-decoration: none; font-size: 1.2rem;" title="Ver Sitio"><i class="fas fa-external-link-alt"></i></a>
             </div>
         </div>
@@ -112,16 +142,43 @@
             </table>
         </div>
 
-        <!-- VISTA: PEDIDOS -->
+        <!-- VISTA: PEDIDOS Y SOLICITUDES -->
         <div class="panel" id="view-orders" hidden>
-            <div class="panel-header"><h3>Pedidos Recientes</h3></div>
-            <table><thead><tr><th>Cliente</th><th>Total</th></tr></thead><tbody id="ordersTableBody"></tbody></table>
+            <div class="panel-header"><h3>Pedidos y Solicitudes</h3></div>
+            <table>
+                <thead><tr><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Fecha</th></tr></thead>
+                <tbody id="ordersTableBody"></tbody>
+            </table>
         </div>
 
         <!-- VISTA: MENSAJES -->
         <div class="panel" id="view-messages" hidden>
             <div class="panel-header"><h3>Mensajes de Contacto</h3></div>
-            <table><thead><tr><th>Nombre</th><th>Asunto</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
+            <table><thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
+        </div>
+
+        <!-- VISTA: OPINIONES -->
+        <div class="panel" id="view-testimonials" hidden>
+            <div class="panel-header">
+                <h3>Opiniones de Clientes</h3>
+                <button class="btn-add" onclick="openTestimonialModal()"><i class="fas fa-plus"></i> Nueva Opinión</button>
+            </div>
+            <table>
+                <thead><tr><th>Cliente</th><th>Texto</th><th>Estrellas</th><th>Acciones</th></tr></thead>
+                <tbody id="testimonialsTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- VISTA: PROYECTOS -->
+        <div class="panel" id="view-projects" hidden>
+            <div class="panel-header">
+                <h3>Proyectos del Portafolio</h3>
+                <button class="btn-add" onclick="openProjectModal()"><i class="fas fa-plus"></i> Nuevo Proyecto</button>
+            </div>
+            <table>
+                <thead><tr><th>Proyecto</th><th>URL</th><th>Acciones</th></tr></thead>
+                <tbody id="projectsTableBody"></tbody>
+            </table>
         </div>
 
         <!-- VISTA: MI PERFIL -->
@@ -144,20 +201,44 @@
     <!-- MODAL: CREAR/EDITAR PRODUCTO -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-box">
-            <button class="modal-close" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
-            <h3 id="modalTitle" style="margin-bottom: 20px;">Nuevo Producto</h3>
+            <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
+            <h3 id="modalProductTitle" style="margin-bottom: 20px;">Nuevo Producto</h3>
             <form id="productForm">
                 <input type="hidden" name="id" id="productId">
-                <div class="form-group">
-                    <label>Imagen del Producto</label>
-                    <input type="file" id="productImageFile" accept="image/*">
-                    <small style="color: var(--muted); display: block; margin-top: 5px;">Tamaño recomendado: 500x500px</small>
-                    <img id="productImgPreview" style="display: none; width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-top: 10px;">
-                </div>
-                <div class="form-group"><label>Nombre del Producto</label><input name="name" required></div>
+                <div class="form-group"><label>Imagen del Producto</label><input type="file" id="productImageFile" accept="image/*"></div>
+                <div class="form-group"><label>Nombre</label><input name="name" required></div>
                 <div class="form-group"><label>Precio ($)</label><input type="number" name="price" step="0.01" required></div>
                 <div class="form-group"><label>Descripción</label><textarea name="description" rows="3"></textarea></div>
                 <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Producto</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: OPINIONES -->
+    <div class="modal-overlay" id="testimonialModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('testimonialModal')"><i class="fas fa-times"></i></button>
+            <h3 id="modalTestimonialTitle" style="margin-bottom: 20px;">Nueva Opinión</h3>
+            <form id="testimonialForm">
+                <input type="hidden" name="id" id="testimonialId">
+                <div class="form-group"><label>Nombre del Cliente</label><input name="name" required></div>
+                <div class="form-group"><label>Opinion / Texto</label><textarea name="text" rows="3" required></textarea></div>
+                <div class="form-group"><label>Estrellas (1-5)</label><input type="number" name="rating" min="1" max="5" value="5" required></div>
+                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Opinión</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: PROYECTOS -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('projectModal')"><i class="fas fa-times"></i></button>
+            <h3 id="modalProjectTitle" style="margin-bottom: 20px;">Nuevo Proyecto</h3>
+            <form id="projectForm">
+                <input type="hidden" name="id" id="projectId">
+                <div class="form-group"><label>Título</label><input name="title" required></div>
+                <div class="form-group"><label>URL del Proyecto</label><input type="url" name="url"></div>
+                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Proyecto</button>
             </form>
         </div>
     </div>
@@ -166,7 +247,6 @@
     <script src="../supabase-client.js"></script>
     <script>
         const db = window.portfolioSupabase;
-        let currentProfileImage = "https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg";
 
         // NAVEGACIÓN
         document.querySelectorAll('.nav a').forEach(link => {
@@ -181,6 +261,8 @@
                 if(section === 'products') loadProducts();
                 if(section === 'orders') loadOrders();
                 if(section === 'messages') loadMessages();
+                if(section === 'testimonials') loadTestimonials();
+                if(section === 'projects') loadProjects();
             });
         });
 
@@ -188,157 +270,162 @@
         const themeBtn = document.getElementById('themeToggle');
         themeBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            themeBtn.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            themeBtn.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
         // CERRAR SESIÓN
-        window.logoutAdmin = async () => {
-            await db.auth.signOut();
-            location.href = 'login.html';
-        };
+        window.logoutAdmin = async () => { await db.auth.signOut(); location.href = 'login.html'; };
+        window.closeModal = (id) => document.getElementById(id).classList.remove('open');
 
-        // ===== FUNCIONES DE LA TIENDA =====
-
-        // 1. Cargar Tabla
+        // ===== PRODUCTOS =====
         async function loadProducts() {
             const tbody = document.getElementById('productsTableBody');
             const { data } = await db.from('products').select('*');
             tbody.innerHTML = data?.map(p => `
                 <tr>
-                    <td style="display:flex; align-items:center; gap:10px;">
-                        ${p.image_url ? `<img src="${p.image_url}" style="width:30px; height:30px; border-radius:5px; object-fit:cover;">` : ''}
-                        ${p.name_es}
-                    </td>
-                    <td>$${p.price}</td>
+                    <td>${p.name_es}</td><td>$${p.price}</td>
                     <td>
-                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})' title="Editar"><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteProduct('${p.id}')" title="Eliminar"><i class="fas fa-trash"></i></button>
+                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
         }
-
-        // 2. Abrir Modal Nuevo
-        document.getElementById('btnNewProduct').addEventListener('click', () => {
+        document.getElementById('btnNewProduct').onclick = () => {
             document.getElementById('productForm').reset();
             document.getElementById('productId').value = '';
-            document.getElementById('modalTitle').textContent = 'Nuevo Producto';
-            document.getElementById('productImgPreview').style.display = 'none';
+            document.getElementById('modalProductTitle').textContent = 'Nuevo Producto';
             document.getElementById('productModal').classList.add('open');
-        });
-
-        // 3. Abrir Modal Editar
-        window.openEditProduct = (product) => {
-            document.getElementById('productId').value = product.id;
-            document.getElementById('modalTitle').textContent = 'Editar Producto';
+        };
+        window.openEditProduct = (p) => {
+            document.getElementById('productId').value = p.id;
+            document.getElementById('modalProductTitle').textContent = 'Editar Producto';
             const form = document.getElementById('productForm');
-            form.querySelector('[name="name"]').value = product.name_es || '';
-            form.querySelector('[name="price"]').value = product.price || 0;
-            form.querySelector('[name="description"]').value = product.description_es || '';
-            
-            if(product.image_url) {
-                const imgPreview = document.getElementById('productImgPreview');
-                imgPreview.src = product.image_url;
-                imgPreview.style.display = 'block';
-            }
+            form.querySelector('[name="name"]').value = p.name_es || '';
+            form.querySelector('[name="price"]').value = p.price || 0;
+            form.querySelector('[name="description"]').value = p.description_es || '';
             document.getElementById('productModal').classList.add('open');
         };
-
-        // 4. Guardar (Crear o Editar)
-        document.getElementById('productForm').addEventListener('submit', async (e) => {
+        document.getElementById('productForm').onsubmit = async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.textContent = 'Guardando...'; btn.disabled = true;
-
             const id = document.getElementById('productId').value;
-            const name = e.target.querySelector('[name="name"]').value;
-            const price = parseFloat(e.target.querySelector('[name="price"]').value);
-            const description = e.target.querySelector('[name="description"]').value;
-            const fileInput = document.getElementById('productImageFile');
-            
-            let imageUrl = document.getElementById('productImgPreview').src || null;
-            
-            // Subir imagen si se seleccionó una nueva
-            if(fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const fileName = `${Date.now()}-${file.name}`;
-                const { data: uploadData, error } = await db.storage.from('portfolio-media').upload(fileName, file);
-                if(!error) {
-                    const { data: urlData } = db.storage.from('portfolio-media').getPublicUrl(fileName);
-                    imageUrl = urlData.publicUrl;
-                } else {
-                    alert('Error subiendo imagen: ' + error.message);
-                }
-            }
+            const data = { name_es: e.target.name.value, price: parseFloat(e.target.price.value), description_es: e.target.description.value };
+            if(id) await db.from('products').update(data).eq('id', id);
+            else await db.from('products').insert([data]);
+            closeModal('productModal'); loadProducts();
+        };
 
-            const productData = { name_es: name, price: price, description_es: description, image_url: imageUrl };
+        // ===== PEDIDOS Y SOLICITUDES =====
+        async function loadOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            const { data } = await db.from('orders').select('*').order('created_at', {ascending: false});
+            tbody.innerHTML = data?.map(o => `
+                <tr>
+                    <td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="4">No hay pedidos</td></tr>';
+        }
 
-            if(id) {
-                await db.from('products').update(productData).eq('id', id);
-            } else {
-                await db.from('products').insert([productData]);
-            }
+        // ===== MENSAJES =====
+        async function loadMessages() {
+            const tbody = document.getElementById('messagesTableBody');
+            const { data } = await db.from('contact_messages').select('*').order('created_at', {ascending: false});
+            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td><td>${m.email}</td></tr>`).join('') || '<tr><td colspan="3">No hay mensajes</td></tr>';
+        }
 
-            closeProductModal();
-            loadProducts();
-            btn.textContent = 'Guardar Producto'; btn.disabled = false;
-        });
+        // ===== OPINIONES =====
+        async function loadTestimonials() {
+            const tbody = document.getElementById('testimonialsTableBody');
+            const { data } = await db.from('testimonials').select('*');
+            tbody.innerHTML = data?.map(t => `
+                <tr>
+                    <td>${t.name_es}</td><td>${t.text_es}</td><td>${'★'.repeat(t.rating || 5)}</td>
+                    <td>
+                        <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="4">No hay opiniones</td></tr>';
+        }
+        window.openTestimonialModal = () => {
+            document.getElementById('testimonialForm').reset();
+            document.getElementById('testimonialId').value = '';
+            document.getElementById('modalTestimonialTitle').textContent = 'Nueva Opinión';
+            document.getElementById('testimonialModal').classList.add('open');
+        };
+        window.openEditTestimonial = (t) => {
+            document.getElementById('testimonialId').value = t.id;
+            document.getElementById('modalTestimonialTitle').textContent = 'Editar Opinión';
+            const form = document.getElementById('testimonialForm');
+            form.querySelector('[name="name"]').value = t.name_es || '';
+            form.querySelector('[name="text"]').value = t.text_es || '';
+            form.querySelector('[name="rating"]').value = t.rating || 5;
+            document.getElementById('testimonialModal').classList.add('open');
+        };
+        document.getElementById('testimonialForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('testimonialId').value;
+            const data = { name_es: e.target.name.value, text_es: e.target.text.value, rating: parseInt(e.target.rating.value) };
+            if(id) await db.from('testimonials').update(data).eq('id', id);
+            else await db.from('testimonials').insert([data]);
+            closeModal('testimonialModal'); loadTestimonials();
+        };
 
-        // 5. Cerrar Modal
-        window.closeProductModal = () => document.getElementById('productModal').classList.remove('open');
+        // ===== PROYECTOS =====
+        async function loadProjects() {
+            const tbody = document.getElementById('projectsTableBody');
+            const { data } = await db.from('projects').select('*');
+            tbody.innerHTML = data?.map(p => `
+                <tr>
+                    <td>${p.title_es}</td><td><a href="${p.project_url}" target="_blank" style="color:var(--muted);">${p.project_url ? 'Ver link' : 'Sin link'}</a></td>
+                    <td>
+                        <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No hay proyectos</td></tr>';
+        }
+        window.openProjectModal = () => {
+            document.getElementById('projectForm').reset();
+            document.getElementById('projectId').value = '';
+            document.getElementById('modalProjectTitle').textContent = 'Nuevo Proyecto';
+            document.getElementById('projectModal').classList.add('open');
+        };
+        window.openEditProject = (p) => {
+            document.getElementById('projectId').value = p.id;
+            document.getElementById('modalProjectTitle').textContent = 'Editar Proyecto';
+            const form = document.getElementById('projectForm');
+            form.querySelector('[name="title"]').value = p.title_es || '';
+            form.querySelector('[name="url"]').value = p.project_url || '';
+            document.getElementById('projectModal').classList.add('open');
+        };
+        document.getElementById('projectForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('projectId').value;
+            const data = { title_es: e.target.title.value, project_url: e.target.url.value };
+            if(id) await db.from('projects').update(data).eq('id', id);
+            else await db.from('projects').insert([data]);
+            closeModal('projectModal'); loadProjects();
+        };
 
-        // 6. Eliminar
-        window.deleteProduct = async (id) => {
-            if(confirm('¿Seguro que quieres eliminar este producto?')) {
-                await db.from('products').delete().eq('id', id);
-                loadProducts();
+        // ===== FUNCIÓN GENERAL PARA BORRAR =====
+        window.deleteItem = async (table, id, callback) => {
+            if(confirm('¿Seguro que quieres eliminar esto?')) {
+                await db.from(table).delete().eq('id', id);
+                callback();
             }
         };
 
-        // ===== PERFIL =====
-        document.getElementById('profileFile').addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                const file = e.target.files[0];
-                document.getElementById('profileImgPreview').src = URL.createObjectURL(file);
-            }
-        });
-
-        document.getElementById('profileForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.textContent = 'Guardando...'; btn.disabled = true;
-
-            const fileInput = document.getElementById('profileFile');
-            let imageUrl = currentProfileImage;
-
-            if(fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const fileName = `profile-${Date.now()}-${file.name}`;
-                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
-                if(!error) {
-                    const { data: urlData } = db.storage.from('portfolio-media').getPublicUrl(fileName);
-                    imageUrl = urlData.publicUrl;
-                }
-            }
-
-            // Nota: Aquí se necesita lógica para actualizar la contraseña en Supabase Auth
-            // y guardar el perfil en la tabla correspondiente.
-            
-            setTimeout(() => {
-                btn.textContent = 'Guardar Perfil'; btn.disabled = false;
-                alert('¡Perfil actualizado con éxito! (La contraseña requiere configuración extra)');
-            }, 800);
-        });
-
-        // ===== TIEMPO REAL =====
+        // ===== NOTIFICACIONES EN TIEMPO REAL =====
         db.channel('realtime-admin')
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'contact_messages' }, payload => {
-              alert('¡Nuevo mensaje de: ' + payload.new.name);
+              const list = document.getElementById('notifList');
+              list.innerHTML = `<div class="notif-item"><strong>Nuevo mensaje</strong><br>${payload.new.name}: ${payload.new.subject}</div>` + list.innerHTML;
               if(!document.getElementById('view-messages').hidden) loadMessages();
           })
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
-              alert('¡Nuevo pedido recibido!');
+              const list = document.getElementById('notifList');
+              list.innerHTML = `<div class="notif-item"><strong>Nuevo pedido</strong><br>${payload.new.customer_name || 'Cliente'} - $${payload.new.total}</div>` + list.innerHTML;
               if(!document.getElementById('view-orders').hidden) loadOrders();
           })
           .subscribe();
