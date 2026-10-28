@@ -3,500 +3,543 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Galería de recursos y códigos de Wilkyjams Dev." />
-    <meta name="theme-color" content="#050505" />
-    <title>Wilkyjams Dev · Galería de Recursos</title>
-
-    <!-- FAVICON -->
+    <title>Wilkyjams Dev · Admin</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <link rel="stylesheet" href="style.css" />
-    
+    <link rel="stylesheet" href="admin.css" />
     <style>
-        /* Estilos de la Galería */
-        .gallery-filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
-        .gallery-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-muted); padding: 8px 20px; border-radius: 50px; cursor: pointer; transition: var(--transition); }
-        .gallery-btn.active, .gallery-btn:hover { background: #fff; color: #000; border-color: #fff; }
+        .topbar-tools { display: flex; align-items: center; gap: 15px; position: relative; }
+        .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .icon-btn:hover { background: rgba(255,255,255,0.05); }
         
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-        .gallery-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; }
-        .gallery-card:hover { transform: translateY(-5px); border-color: var(--accent-1); }
-        
-        /* Miniatura en vivo */
-        .gallery-thumb { width: 100%; height: 200px; position: relative; background: #1a1a24; overflow: hidden; border-bottom: 1px solid var(--glass-border); pointer-events: none; }
-        .gallery-thumb iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; border: none; pointer-events: none; }
-        
-        .badge-type { position: absolute; top: 12px; left: 12px; padding: 6px 12px; border-radius: 30px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; z-index: 10; }
-        .badge-free { background: rgba(74, 222, 128, 0.9); color: #000; }
-        .badge-vip { background: var(--accent-gradient); color: #000; }
+        .profile-dropdown-wrapper { position: relative; }
+        .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; }
+        .profile-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .profile-info { text-align: left; font-size: 0.85rem; }
+        .profile-info strong { display: block; }
+        .profile-info span { color: var(--muted); }
+        .profile-menu { position: absolute; top: 50px; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; width: 200px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .profile-menu.open { display: block; }
+        .profile-menu a { display: block; padding: 10px 15px; color: var(--text); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+        .profile-menu a:hover { background: rgba(255,255,255,0.05); }
 
-        .gallery-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .gallery-info h3 { font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 6px; color: #fff; }
-        .gallery-info p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0; }
+        .notif-dropdown { position: absolute; top: 50px; right: 60px; width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .notif-dropdown.open { display: block; }
+        .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .notif-item:last-child { border-bottom: none; }
 
-        /* --- MODAL DE CÓDIGO --- */
-        .code-modal { position: fixed; inset: 0; z-index: 3000; background: rgba(5,6,10,0.95); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px; }
-        .code-modal.open { opacity: 1; pointer-events: all; }
-        .code-modal-content { background: #0a0a0c; border: 1px solid #222; border-radius: 12px; width: 100%; max-width: 950px; max-height: 90vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 30px 100px rgba(0,0,0,0.8); transform: translateY(20px); transition: transform 0.3s ease; overflow: hidden;}
-        .code-modal.open .code-modal-content { transform: translateY(0); }
-        
-        .modal-header { padding: 15px 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; background: #0f111a; }
-        .modal-header h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 0; color: #fff; }
-        .code-modal-close { background: transparent; border: none; color: #888; font-size: 1.2rem; cursor: pointer; transition: var(--transition); }
-        .code-modal-close:hover { color: #ef4444; transform: rotate(90deg); }
+        body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
+        body.light-mode .sidebar { background: var(--surface); }
+        body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
+        body.light-mode .btn-add { background: #111; color: #fff; }
+        body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
 
-        .modal-body { display: flex; flex-direction: column; overflow-y: auto; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.open { display: flex; }
+        .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
         
-        /* Área de Live Preview */
-        .live-preview-wrapper { padding: 20px; background: #121216; border-bottom: 1px solid #222; display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        .live-preview-frame { width: 100%; height: 350px; background: #1a1a24; border-radius: 8px; border: 1px solid #333; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .live-preview-frame iframe { width: 100%; height: 100%; border: none; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
+        
+        .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
+        .action-btn:hover { color: var(--text); }
+        .action-btn.delete:hover { color: #ef4444; }
 
-        /* Pestañas de Código estilo Editor */
-        .code-tabs { display: flex; gap: 0; margin: 20px 20px 0 20px; border-bottom: 1px solid #333; }
-        .code-tab { background: transparent; border: none; color: #666; padding: 10px 20px; cursor: pointer; font-size: 0.9rem; font-family: 'Fira Code', monospace; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: 0.2s; }
-        .code-tab:hover { color: #ccc; }
-        .code-tab.active { color: #fff; border-bottom-color: var(--accent-1); }
-        .code-tab i { font-size: 1.1rem; }
-        .icon-html { color: #e34f26; }
-        .icon-css { color: #264de4; }
-        .icon-js { color: #f7df1e; }
-        
-        .code-block-wrapper { position: relative; background: #050505; border: 1px solid #222; border-radius: 0 0 8px 8px; overflow: hidden; display: none; margin: 0 20px 20px 20px; }
-        .code-block-wrapper.active { display: block; }
-        
-        .code-header { display: flex; justify-content: flex-end; align-items: center; padding: 8px 12px; background: #0f111a; border-bottom: 1px solid #222; }
-        .btn-copy { background: transparent; border: 1px solid #444; color: #ccc; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif; }
-        .btn-copy:hover { background: #fff; color: #000; border-color: #fff; }
-        .btn-copy.success { background: #4ade80; color: #000; border-color: #4ade80; }
-        
-        .code-content { padding: 15px; color: #a8b9cc; font-family: 'Fira Code', monospace; font-size: 0.85rem; white-space: pre-wrap; max-height: 350px; overflow-y: auto; line-height: 1.5; }
+        .thumbnail { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+        .avatar-thumb { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
 
-        /* BLOQUEO VIP REDISEÑADO Y CENTRADO */
-        .vip-lock-overlay { 
-            position: relative; 
-            background: linear-gradient(135deg, rgba(20,20,25,0.8), rgba(10,10,15,0.9));
-            border: 1px solid #333; 
-            border-radius: 16px; 
-            padding: 50px 30px; 
-            text-align: center; 
-            margin: 0 20px 20px 20px; 
-            overflow: hidden;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-        }
-        
-        /* El código difuminado de fondo */
-        .blurred-code { 
-            position: absolute; inset: 0;
-            filter: blur(10px); opacity: 0.1; 
-            font-family: 'Fira Code', monospace; font-size: 0.85rem; 
-            color: #fff; user-select: none;
-            overflow: hidden; padding: 20px;
-            white-space: pre-wrap;
-        }
-
-        .lock-message { 
-            position: relative; z-index: 2;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-        }
-        
-        .lock-icon-wrapper {
-            width: 70px; height: 70px; border-radius: 50%;
-            background: rgba(196, 168, 204, 0.1); border: 1px solid rgba(196, 168, 204, 0.2);
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 20px; box-shadow: 0 0 30px rgba(196, 168, 204, 0.15);
-        }
-        
-        .lock-icon-wrapper i { font-size: 1.8rem; color: var(--accent-2); }
-        
-        .lock-message h3 { 
-            color: #fff; font-family: 'Syne', sans-serif; font-size: 1.6rem; 
-            font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;
-        }
-        
-        .lock-message p { 
-            color: var(--text-muted); font-size: 0.95rem; 
-            margin-bottom: 30px; max-width: 400px; line-height: 1.6;
-        }
-        
-        /* BOTÓN PREMIUM GLASS (Estilo elegido) */
-        .btn-vip-glass {
-            display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-            width: 100%; max-width: 320px; padding: 18px 24px;
-            background: rgba(255,255,255,0.03); color: #fff;
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
-            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem;
-            text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px); position: relative; overflow: hidden;
-        }
-
-        .btn-vip-glass i { color: var(--accent-1); transition: all 0.4s ease; font-size: 1.1rem; }
-
-        /* EFECTO HOVER */
-        .btn-vip-glass:hover {
-            background: rgba(255,255,255,0.08); border-color: var(--accent-1);
-            transform: translateY(-3px); box-shadow: 0 10px 30px rgba(168, 185, 204, 0.2);
-        }
-        .btn-vip-glass:hover i { color: #fff; transform: scale(1.1); text-shadow: 0 0 15px var(--accent-2); }
-
-        /* Destello al pasar el ratón */
-        .btn-vip-glass::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
-            transform: rotate(45deg) translateX(-100%); transition: transform 0.6s ease;
-        }
-        .btn-vip-glass:hover::after { transform: rotate(45deg) translateX(100%); }
-
-        @media (max-width: 768px) {
-            .modal-header h2 { font-size: 1rem; }
-            .live-preview-frame { height: 250px; }
-            .code-tabs { flex-wrap: wrap; }
-            .code-tab { padding: 10px 15px; font-size: 0.8rem; }
-            .vip-lock-overlay { padding: 40px 20px; }
-            .lock-message h3 { font-size: 1.3rem; }
-            .lock-message p { font-size: 0.85rem; }
-            .btn-vip-glass { padding: 16px 20px; font-size: 0.9rem; }
-        }
+        #toastContainer { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast-msg { padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideIn 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .toast-success { background: #4ade80; color: #000; }
+        .toast-error { background: #ef4444; color: #fff; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
-<body>
+<body class="admin-body">
 
-    <canvas id="webgl-canvas"></canvas>
+    <aside class="sidebar">
+        <div class="logo">JP · Admin</div>
+        <nav class="nav" id="adminNav">
+            <a data-section="summary" class="active"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a data-section="vip"><i class="fas fa-crown"></i> Club VIP</a>
+            <a data-section="products"><i class="fas fa-box"></i> Tienda</a>
+            <a data-section="orders"><i class="fas fa-receipt"></i> Pedidos y Solicitudes</a>
+            <a data-section="messages"><i class="fas fa-envelope"></i> Mensajes</a>
+            <a data-section="testimonials"><i class="fas fa-star"></i> Opiniones</a>
+            <a data-section="projects"><i class="fas fa-layer-group"></i> Proyectos</a>
+            <a data-section="profile"><i class="fas fa-user-gear"></i> Mi Perfil</a>
+        </nav>
+        <button class="logout" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Salir</button>
+    </aside>
 
-    <!-- ===== NAVEGACIÓN ===== -->
-    <nav>
-        <div class="container">
-            <a href="index.html" class="logo" aria-label="Wilkyjams Dev — Inicio">
-                <img src="/favicon-32x32.png" alt="Wilkyjams Dev Logo" class="logo-img">
-                <span class="logo-text">Wilkyjams Dev</span>
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="servicios.html">Servicios</a></li>
-                <li><a href="tienda.html">Tienda</a></li>
-                <li><a href="club.html" style="color: var(--accent-2); font-weight: 700;">Club VIP</a></li>
-                <li><a href="blog/index.html">Blog</a></li>
-                <li><a href="contacto.html">Contáctame</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-count">0</span>
-                </button>
-                <div class="lang-dropdown">
-                    <button type="button" class="lang-toggle" data-lang-toggle><i class="fas fa-globe"></i></button>
-                    <ul class="lang-menu" data-lang-menu hidden>
-                        <li data-lang-option="es" role="option" aria-selected="true"><span class="lang-label">Español</span></li>
-                        <li data-lang-option="en" role="option" aria-selected="false"><span class="lang-label">English</span></li>
-                        <li data-lang-option="fr" role="option" aria-selected="false"><span class="lang-label">Français</span></li>
-                        <li data-lang-option="pt" role="option" aria-selected="false"><span class="lang-label">Português</span></li>
-                    </ul>
-                </div>
-                <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ===== HERO DE PÁGINA ===== -->
-    <section class="page-hero" style="padding-bottom: 40px;">
-        <div class="container" style="text-align: center;">
-            <span class="label" style="color: var(--accent-2);">Galería de Recursos</span>
-            <h1 style="font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; text-transform: uppercase; margin-bottom: 15px;">
-                Explora y Copia <span class="highlight">Código</span>
-            </h1>
-            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.05rem;">
-                Descubre plantillas gratuitas con vista previa en vivo, o desbloquea recursos VIP exclusivos.
-            </p>
-        </div>
-    </section>
-
-    <!-- ===== GALERÍA ===== -->
-    <section id="gallery" style="padding-top: 0; min-height: 60vh;">
-        <div class="container">
-            <div class="gallery-filters">
-                <button class="gallery-btn active" onclick="filterGallery('all', this)">Todos</button>
-                <button class="gallery-btn" onclick="filterGallery('free', this)">Gratis</button>
-                <button class="gallery-btn" onclick="filterGallery('vip', this)">Solo VIP</button>
-                <button class="gallery-btn" onclick="filterGallery('html', this)">HTML/CSS</button>
-                <button class="gallery-btn" onclick="filterGallery('js', this)">JavaScript</button>
-            </div>
-
-            <div class="gallery-grid" id="galleryGrid">
-                <p style="text-align: center; width: 100%; color: #888; grid-column: 1/-1;">Cargando recursos...</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== MODAL ===== -->
-    <div class="code-modal" id="codeModal">
-        <div class="code-modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Título</h2>
-                <button class="code-modal-close" onclick="closeCodeModal()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
+    <main class="main">
+        <div class="topbar">
+            <h1 id="pageTitle">Resumen</h1>
+            <div class="topbar-tools">
+                <button class="icon-btn" id="themeToggle" title="Cambiar tema"><i class="fas fa-moon"></i></button>
                 
-                <!-- ÁREA DE VISTA PREVIA EN VIVO -->
-                <div class="live-preview-wrapper">
-                    <div class="live-preview-frame">
-                        <iframe id="livePreviewIframe"></iframe>
+                <div style="position: relative;">
+                    <button class="icon-btn" onclick="document.getElementById('notifDropdown').classList.toggle('open')"><i class="fas fa-bell"></i></button>
+                    <div class="notif-dropdown" id="notifDropdown">
+                        <h4 style="margin-bottom: 10px;">Notificaciones</h4>
+                        <div id="notifList"><div class="notif-item">No hay notificaciones nuevas.</div></div>
                     </div>
                 </div>
 
-                <p style="color: var(--text-muted); margin: 0 20px 20px 20px; font-size: 0.95rem;" id="modalDesc">Descripción.</p>
-                
-                <!-- PESTAÑAS DE CÓDIGO -->
-                <div id="codeContainer"></div>
+                <div class="profile-dropdown-wrapper">
+                    <button class="profile-btn" onclick="document.getElementById('profileMenu').classList.toggle('open')">
+                        <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil">
+                        <div class="profile-info">
+                            <strong>Jamsle Porcena</strong>
+                            <span>Administrador</span>
+                        </div>
+                    </button>
+                    <div class="profile-menu" id="profileMenu">
+                        <a onclick="document.querySelector('[data-section=profile]').click(); document.getElementById('profileMenu').classList.remove('open');"><i class="fas fa-user"></i> Mi Perfil</a>
+                        <a onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                    </div>
+                </div>
 
+                <a href="/" target="_blank" style="color: var(--text); text-decoration: none; font-size: 1.2rem;" title="Ver Sitio"><i class="fas fa-external-link-alt"></i></a>
             </div>
+        </div>
+
+        <!-- VISTA: RESUMEN -->
+        <div class="panel" id="view-summary">
+            <h3>Bienvenido al panel</h3>
+            <p style="color: var(--muted); margin-top: 10px;">Selecciona una opción del menú para gestionar tu sitio.</p>
+        </div>
+
+        <!-- VISTA: CLUB VIP (CON TABLA DE RECURSOS) -->
+        <div class="panel" id="view-vip" hidden>
+            <div class="panel-header"><h3>Agregar Recurso al Club VIP</h3></div>
+            <form id="vipForm">
+                <div class="form-group"><label>Título</label><input name="title" required></div>
+                <div class="form-group"><label>Descripción</label><textarea name="description" rows="2" required></textarea></div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select name="type"><option value="free">Gratis</option><option value="vip">VIP</option></select>
+                </div>
+                <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="3"></textarea></div>
+                <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="3"></textarea></div>
+                <div class="form-group"><label>Código JS</label><textarea name="code_js" rows="3"></textarea></div>
+                <button type="submit" class="btn-add">Guardar Recurso</button>
+            </form>
+
+            <div class="panel-header" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px;">
+                <h3>Recursos Publicados</h3>
+            </div>
+            <table>
+                <thead><tr><th>Recurso</th><th>Tipo</th><th>Acciones</th></tr></thead>
+                <tbody id="vipTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- VISTA: TIENDA -->
+        <div class="panel" id="view-products" hidden>
+            <div class="panel-header">
+                <h3>Productos de la Tienda</h3>
+                <button class="btn-add" id="btnNewProduct"><i class="fas fa-plus"></i> Nuevo Producto</button>
+            </div>
+            <table>
+                <thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead>
+                <tbody id="productsTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- VISTA: PEDIDOS Y SOLICITUDES -->
+        <div class="panel" id="view-orders" hidden>
+            <div class="panel-header"><h3>Pedidos y Solicitudes</h3></div>
+            <table>
+                <thead><tr><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Fecha</th></tr></thead>
+                <tbody id="ordersTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- VISTA: MENSAJES -->
+        <div class="panel" id="view-messages" hidden>
+            <div class="panel-header"><h3>Mensajes de Contacto</h3></div>
+            <table><thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
+        </div>
+
+        <!-- VISTA: OPINIONES -->
+        <div class="panel" id="view-testimonials" hidden>
+            <div class="panel-header">
+                <h3>Opiniones de Clientes</h3>
+                <button class="btn-add" onclick="openTestimonialModal()"><i class="fas fa-plus"></i> Nueva Opinión</button>
+            </div>
+            <table>
+                <thead><tr><th>Cliente</th><th>Texto</th><th>Estrellas</th><th>Acciones</th></tr></thead>
+                <tbody id="testimonialsTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- VISTA: PROYECTOS -->
+        <div class="panel" id="view-projects" hidden>
+            <div class="panel-header">
+                <h3>Proyectos Activos</h3>
+                <button class="btn-add" onclick="openProjectModal()"><i class="fas fa-plus"></i> Nuevo Proyecto</button>
+            </div>
+            <table>
+                <thead><tr><th>Proyecto</th><th>URL / Enlace</th><th>Acciones</th></tr></thead>
+                <tbody id="projectsTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- VISTA: MI PERFIL -->
+        <div class="panel" id="view-profile" hidden>
+            <div class="panel-header"><h3>Mi Perfil de Administrador</h3></div>
+            <form id="profileForm" style="max-width: 500px;">
+                <div class="form-group" style="text-align: center; margin-bottom: 20px;">
+                    <img id="profileImgPreview" src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); margin-bottom: 10px;">
+                    <input type="file" id="profileFile" accept="image/*" style="display: none;">
+                    <button type="button" onclick="document.getElementById('profileFile').click()" class="btn-add" style="font-size: 0.8rem; padding: 5px 10px;">Cambiar Foto</button>
+                </div>
+                <div class="form-group"><label>Nombre</label><input name="name" value="Jamsle Porcena" required></div>
+                <div class="form-group"><label>Email</label><input type="email" name="email" value="porcenatjamsle07@gmail.com" required></div>
+                <div class="form-group"><label>Nueva Contraseña (Opcional)</label><input type="password" name="password" placeholder="Dejar en blanco para no cambiar"></div>
+                <button type="submit" class="btn-add"><i class="fas fa-save"></i> Guardar Perfil</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- MODAL: PRODUCTOS -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
+            <h3 id="modalProductTitle" style="margin-bottom: 20px;">Nuevo Producto</h3>
+            <form id="productForm">
+                <input type="hidden" name="id" id="productId">
+                <div class="form-group"><label>Cover / Miniatura</label><input type="file" id="productImageFile" accept="image/*"></div>
+                <div class="form-group"><label>Nombre</label><input name="name" required></div>
+                <div class="form-group"><label>Precio ($)</label><input type="number" name="price" step="0.01" required></div>
+                <div class="form-group"><label>Descripción</label><textarea name="description" rows="3"></textarea></div>
+                <div class="form-group"><label>Herramientas / Tags</label><input name="tags" placeholder="Ej. HTML, CSS, JS"></div>
+                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Producto</button>
+            </form>
         </div>
     </div>
 
-    <!-- FOOTER Y SCRIPTS -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand"><div class="logo glass-logo">JP</div><p>Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
-                <div><h5>Navegación</h5><ul><li><a href="index.html">Inicio</a></li><li><a href="sobre-mi.html">Sobre mí</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="tienda.html">Tienda</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
-                <div><h5>Legal</h5><ul><li><a href="privacy.html">Privacidad</a></li><li><a href="terms.html">Términos</a></li><li><a href="cookies.html">Cookies</a></li><li><a href="help.html">Centro de ayuda</a></li></ul></div>
-                <div><h5>Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank">WhatsApp</a></li></ul></div>
-            </div>
-            <div class="footer-bottom"><p>© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
+    <!-- MODAL: OPINIONES -->
+    <div class="modal-overlay" id="testimonialModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('testimonialModal')"><i class="fas fa-times"></i></button>
+            <h3 id="modalTestimonialTitle" style="margin-bottom: 20px;">Nueva Opinión</h3>
+            <form id="testimonialForm">
+                <input type="hidden" name="id" id="testimonialId">
+                <div class="form-group"><label>Nombre del Cliente</label><input name="name" required></div>
+                <div class="form-group"><label>Opinion / Texto</label><textarea name="text" rows="3" required></textarea></div>
+                <div class="form-group"><label>Estrellas (1-5)</label><input type="number" name="rating" min="1" max="5" value="5" required></div>
+                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Opinión</button>
+            </form>
         </div>
-    </footer>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: false });</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
+    <!-- MODAL: PROYECTOS -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('projectModal')"><i class="fas fa-times"></i></button>
+            <h3 id="modalProjectTitle" style="margin-bottom: 20px;">Nuevo Proyecto</h3>
+            <form id="projectForm">
+                <input type="hidden" name="id" id="projectId">
+                <div class="form-group"><label>Cover / Miniatura</label><input type="file" id="projectImageFile" accept="image/*"></div>
+                <div class="form-group"><label>Título</label><input name="title" required></div>
+                <div class="form-group"><label>URL del Proyecto</label><input type="url" name="url"></div>
+                <div class="form-group"><label>Herramientas / Tags</label><input name="tags" placeholder="Ej. Diseño, React, CSS"></div>
+                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Proyecto</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE TOASTS -->
+    <div id="toastContainer"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-client.js"></script>
-    <script src="common.js"></script>
-    <script src="cms-content.js"></script>
-
+    <script src="../supabase-client.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const db = window.portfolioSupabase;
-            
-            if (!db) {
-                console.error("Supabase no está inicializado.");
-                document.getElementById('galleryGrid').innerHTML = '<p style="color:red;">Error de conexión con la base de datos.</p>';
-                return;
-            }
+        const db = window.portfolioSupabase;
 
-            const galleryGrid = document.getElementById('galleryGrid');
-            const previewIframe = document.getElementById('livePreviewIframe');
-            let allResources = [];
+        // NAVEGACIÓN
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelectorAll('.panel').forEach(p => p.hidden = true);
+                document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+                const section = link.dataset.section;
+                document.getElementById('view-' + section).hidden = false;
+                link.classList.add('active');
+                document.getElementById('pageTitle').textContent = link.textContent.trim();
 
-            async function loadResources() {
-                const { data, error } = await db.from('resources').select('*').order('created_at', { ascending: false });
-                
-                if (error) {
-                    console.error("Error al consultar Supabase:", error);
-                    galleryGrid.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
-                    return;
-                }
-
-                allResources = data || [];
-                renderGallery(allResources);
-            }
-
-            function renderGallery(resources) {
-                if (resources.length === 0) {
-                    galleryGrid.innerHTML = '<p style="text-align: center; width: 100%; color: #888; grid-column: 1/-1;">No hay recursos disponibles aún.</p>';
-                    return;
-                }
-
-                galleryGrid.innerHTML = resources.map(res => {
-                    const previewHtml = `
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <style>
-                                body { 
-                                    margin: 0; padding: 20px; 
-                                    display: flex; align-items: center; justify-content: center; 
-                                    min-height: 100vh; box-sizing: border-box; 
-                                    background: #1a1a24;
-                                    color: #fff;
-                                    font-family: sans-serif;
-                                    transform: scale(1); 
-                                }
-                                ${res.code_css || ''}
-                            </style>
-                        </head>
-                        <body>
-                            ${res.code_content || ''}
-                        </body>
-                        </html>
-                    `;
-                    
-                    const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(previewHtml);
-
-                    return `
-                    <div class="gallery-card" onclick="window.openCodeModal('${res.id}')">
-                        <div class="gallery-thumb">
-                            <span class="badge-type ${res.type === 'vip' ? 'badge-vip' : 'badge-free'}">
-                                ${res.type === 'vip' ? '<i class="fas fa-crown"></i> VIP' : 'Gratis'}
-                            </span>
-                            <iframe src="${dataUrl}" scrolling="no" sandbox="allow-scripts"></iframe>
-                        </div>
-                        <div class="gallery-info">
-                            <h3>${res.title}</h3>
-                            <p>${res.description}</p>
-                        </div>
-                    </div>
-                    `;
-                }).join('');
-            }
-
-            window.filterGallery = function(type, btn) {
-                document.querySelectorAll('.gallery-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                let filtered = allResources;
-                if (type === 'free') filtered = allResources.filter(r => r.type === 'free');
-                if (type === 'vip') filtered = allResources.filter(r => r.type === 'vip');
-                if (type === 'html') filtered = allResources.filter(r => r.language === 'html');
-                if (type === 'js') filtered = allResources.filter(r => r.language === 'js');
-
-                renderGallery(filtered);
-            };
-
-            window.openCodeModal = function(id) {
-                const res = allResources.find(r => String(r.id) === String(id));
-                if (!res) return;
-
-                document.getElementById('modalTitle').textContent = res.title;
-                document.getElementById('modalDesc').textContent = res.description;
-
-                const htmlCode = res.code_content || '';
-                const cssCode = res.code_css || '';
-                const jsCode = res.code_js || '';
-
-                const iframeDoc = previewIframe.contentWindow.document;
-                iframeDoc.open();
-                iframeDoc.write(`
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <style>
-                            body { 
-                                margin: 0; padding: 20px; 
-                                display: flex; align-items: center; justify-content: center; 
-                                min-height: 100vh; box-sizing: border-box; 
-                                background: #1a1a24;
-                                color: #fff;
-                                font-family: sans-serif;
-                            }
-                            ${cssCode}
-                        </style>
-                    </head>
-                    <body>
-                        ${htmlCode}
-                        <script>${jsCode}<\/script>
-                    </body>
-                    </html>
-                `);
-                iframeDoc.close();
-
-                const container = document.getElementById('codeContainer');
-
-                // LÓGICA DE SEGURIDAD VIP
-                // Comprobamos si el usuario tiene la llave en su navegador
-                const isVipUnlocked = localStorage.getItem('jp_vip_access') === 'true';
-                
-                // Si es VIP y NO tiene la llave, bloqueamos el código
-                if (res.type === 'vip' && !isVipUnlocked) {
-                    container.innerHTML = `
-                        <div class="vip-lock-overlay">
-                            <div class="blurred-code">${escapeHTML(htmlCode + '\n' + cssCode + '\n' + jsCode)}</div>
-                            <div class="lock-message">
-                                <div class="lock-icon-wrapper"><i class="fas fa-crown"></i></div>
-                                <h3>Recurso Exclusivo VIP</h3>
-                                <p>Desbloquea este código y obtén acceso inmediato a todos nuestros recursos premium, plantillas y componentes.</p>
-                                <a href="club.html" class="btn-vip-glass"><i class="fas fa-gem"></i> Tomar Plan Premium</a>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // Si es Gratis, O si es VIP pero ya tiene la llave, mostramos el código
-                    const hasHtml = htmlCode.trim() !== '';
-                    const hasCss = cssCode.trim() !== '';
-                    const hasJs = jsCode.trim() !== '';
-
-                    let tabsHtml = '<div class="code-tabs">';
-                    let blocksHtml = '';
-
-                    if (hasHtml) {
-                        tabsHtml += `<button class="code-tab active" onclick="switchTab(event, 'tab-html')"><i class="fab fa-html5 icon-html"></i> HTML</button>`;
-                        blocksHtml += `<div id="tab-html" class="code-block-wrapper active"><div class="code-header"><button class="btn-copy" onclick="copyCode(this, 'content-html')"><i class="far fa-copy"></i> Copiar Código</button></div><div class="code-content" id="content-html">${escapeHTML(htmlCode)}</div></div>`;
-                    }
-                    if (hasCss) {
-                        tabsHtml += `<button class="code-tab ${!hasHtml ? 'active' : ''}" onclick="switchTab(event, 'tab-css')"><i class="fab fa-css3-alt icon-css"></i> CSS</button>`;
-                        blocksHtml += `<div id="tab-css" class="code-block-wrapper ${!hasHtml ? 'active' : ''}"><div class="code-header"><button class="btn-copy" onclick="copyCode(this, 'content-css')"><i class="far fa-copy"></i> Copiar Código</button></div><div class="code-content" id="content-css">${escapeHTML(cssCode)}</div></div>`;
-                    }
-                    if (hasJs) {
-                        tabsHtml += `<button class="code-tab ${(!hasHtml && !hasCss) ? 'active' : ''}" onclick="switchTab(event, 'tab-js')"><i class="fab fa-js icon-js"></i> JS</button>`;
-                        blocksHtml += `<div class="code-block-wrapper ${(!hasHtml && !hasCss) ? 'active' : ''}"><div class="code-header"><button class="btn-copy" onclick="copyCode(this, 'content-js')"><i class="far fa-copy"></i> Copiar Código</button></div><div class="code-content" id="content-js">${escapeHTML(jsCode)}</div></div>`;
-                    }
-                    tabsHtml += '</div>';
-
-                    if (!hasHtml && !hasCss && !hasJs) {
-                        container.innerHTML = '<p style="color:#fff; text-align:center;">Este recurso aún no tiene código asignado.</p>';
-                    } else {
-                        container.innerHTML = tabsHtml + blocksHtml;
-                    }
-                }
-
-                document.getElementById('codeModal').classList.add('open');
-            };
-
-            window.closeCodeModal = function() { 
-                document.getElementById('codeModal').classList.remove('open'); 
-                previewIframe.src = 'about:blank';
-            };
-            
-            document.getElementById('codeModal').addEventListener('click', function(e) { 
-                if (e.target === this) window.closeCodeModal(); 
+                if(section === 'vip') loadVipResources();
+                if(section === 'products') loadProducts();
+                if(section === 'orders') loadOrders();
+                if(section === 'messages') loadMessages();
+                if(section === 'testimonials') loadTestimonials();
+                if(section === 'projects') loadProjects();
             });
+        });
 
-            window.switchTab = function(evt, tabId) {
-                document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.code-block-wrapper').forEach(b => b.classList.remove('active'));
-                evt.currentTarget.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
-            };
+        // MODO OSCURO / CLARO
+        const themeBtn = document.getElementById('themeToggle');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            themeBtn.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
 
-            window.copyCode = function(btn, elementId) {
-                const text = document.getElementById(elementId).innerText;
-                navigator.clipboard.writeText(text).then(() => {
-                    const originalHTML = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
-                    btn.classList.add('success');
-                    setTimeout(() => {
-                        btn.innerHTML = originalHTML;
-                        btn.classList.remove('success');
-                    }, 2000);
-                });
-            };
+        window.logoutAdmin = async () => { await db.auth.signOut(); location.href = 'login.html'; };
+        window.closeModal = (id) => document.getElementById(id).classList.remove('open');
 
-            function escapeHTML(str) {
-                if (!str) return '';
-                return str.replace(/[&<>'"]/g, tag => ({'&': '&amp;','<': '&lt;','>': '&gt;',"'": '&#39;','"': '&quot;'}[tag]));
+        // ===== NOTIFICACIONES TOAST =====
+        function showToast(msg, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast-msg toast-${type}`;
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        // ===== CLUB VIP =====
+        document.getElementById('vipForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+            const data = Object.fromEntries(new FormData(e.target).entries());
+            const { error } = await db.from('resources').insert([data]);
+            if (error) showToast('Error: ' + error.message, 'error');
+            else {
+                showToast('¡Recurso agregado con éxito!');
+                e.target.reset();
+                loadVipResources();
+            }
+            btn.textContent = 'Guardar Recurso'; btn.disabled = false;
+        });
+
+        async function loadVipResources() {
+            const tbody = document.getElementById('vipTableBody');
+            const { data } = await db.from('resources').select('*').order('created_at', {ascending: false});
+            tbody.innerHTML = data?.map(r => `
+                <tr>
+                    <td><div style="font-weight: 600;">${r.title}</div><div style="font-size: 0.75rem; color: var(--muted);">${r.description}</div></td>
+                    <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
+                    <td><button class="action-btn delete" onclick="deleteItem('resources', '${r.id}', loadVipResources)"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No hay recursos aún.</td></tr>';
+        }
+
+        // ===== PRODUCTOS =====
+        async function loadProducts() {
+            const tbody = document.getElementById('productsTableBody');
+            const { data } = await db.from('products').select('*');
+            tbody.innerHTML = data?.map(p => `
+                <tr>
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
+                        <div><div style="font-weight: 600;">${p.name_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div></div>
+                    </td>
+                    <td>$${p.price}</td>
+                    <td>
+                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
+        }
+
+        document.getElementById('btnNewProduct').onclick = () => {
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            document.getElementById('modalProductTitle').textContent = 'Nuevo Producto';
+            document.getElementById('productModal').classList.add('open');
+        };
+
+        window.openEditProduct = (p) => {
+            document.getElementById('productId').value = p.id;
+            document.getElementById('modalProductTitle').textContent = 'Editar Producto';
+            const form = document.getElementById('productForm');
+            form.querySelector('[name="name"]').value = p.name_es || '';
+            form.querySelector('[name="price"]').value = p.price || 0;
+            form.querySelector('[name="description"]').value = p.description_es || '';
+            form.querySelector('[name="tags"]').value = p.category || '';
+            document.getElementById('productModal').classList.add('open');
+        };
+
+        document.getElementById('productForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('productId').value;
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+
+            let imageUrl = null;
+            const fileInput = document.getElementById('productImageFile');
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = `prod-${Date.now()}-${file.name}`;
+                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
+                if(!error) {
+                    const { data } = db.storage.from('portfolio-media').getPublicUrl(fileName);
+                    imageUrl = data.publicUrl;
+                }
             }
 
-            loadResources();
-        });
+            const data = { name_es: e.target.name.value, price: parseFloat(e.target.price.value), description_es: e.target.description.value, category: e.target.tags.value };
+            if(imageUrl) data.image_url = imageUrl;
+
+            const { error } = id ? await db.from('products').update(data).eq('id', id) : await db.from('products').insert([data]);
+            if(error) showToast('Error: ' + error.message, 'error');
+            else { showToast('Producto guardado correctamente'); closeModal('productModal'); loadProducts(); }
+            btn.textContent = 'Guardar Producto'; btn.disabled = false;
+        };
+
+        // ===== PEDIDOS =====
+        async function loadOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            const { data } = await db.from('orders').select('*').order('created_at', {ascending: false});
+            tbody.innerHTML = data?.map(o => `<tr><td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td></tr>`).join('') || '<tr><td colspan="4">No hay pedidos</td></tr>';
+        }
+
+        // ===== MENSAJES =====
+        async function loadMessages() {
+            const tbody = document.getElementById('messagesTableBody');
+            const { data } = await db.from('contact_messages').select('*').order('created_at', {ascending: false});
+            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td><td>${m.email}</td></tr>`).join('') || '<tr><td colspan="3">No hay mensajes</td></tr>';
+        }
+
+        // ===== OPINIONES =====
+        async function loadTestimonials() {
+            const tbody = document.getElementById('testimonialsTableBody');
+            const { data } = await db.from('testimonials').select('*');
+            tbody.innerHTML = data?.map(t => `
+                <tr>
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        ${t.avatar_url ? `<img src="${t.avatar_url}" class="avatar-thumb">` : `<div style="width: 36px; height: 36px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`}
+                        <span>${t.name_es}</span>
+                    </td>
+                    <td>${t.text_es}</td>
+                    <td>${'★'.repeat(t.rating || 5)}</td>
+                    <td>
+                        <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="4">No hay opiniones</td></tr>';
+        }
+
+        window.openTestimonialModal = () => {
+            document.getElementById('testimonialForm').reset();
+            document.getElementById('testimonialId').value = '';
+            document.getElementById('modalTestimonialTitle').textContent = 'Nueva Opinión';
+            document.getElementById('testimonialModal').classList.add('open');
+        };
+
+        window.openEditTestimonial = (t) => {
+            document.getElementById('testimonialId').value = t.id;
+            document.getElementById('modalTestimonialTitle').textContent = 'Editar Opinión';
+            const form = document.getElementById('testimonialForm');
+            form.querySelector('[name="name"]').value = t.name_es || '';
+            form.querySelector('[name="text"]').value = t.text_es || '';
+            form.querySelector('[name="rating"]').value = t.rating || 5;
+            document.getElementById('testimonialModal').classList.add('open');
+        };
+
+        document.getElementById('testimonialForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('testimonialId').value;
+            const data = { name_es: e.target.name.value, text_es: e.target.text.value, rating: parseInt(e.target.rating.value) };
+            const { error } = id ? await db.from('testimonials').update(data).eq('id', id) : await db.from('testimonials').insert([data]);
+            if(error) showToast('Error: ' + error.message, 'error');
+            else { showToast('Opinión guardada correctamente'); closeModal('testimonialModal'); loadTestimonials(); }
+        };
+
+        // ===== PROYECTOS =====
+        async function loadProjects() {
+            const tbody = document.getElementById('projectsTableBody');
+            const { data } = await db.from('projects').select('*');
+            tbody.innerHTML = data?.map(p => `
+                <tr>
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
+                        <div><div style="font-weight: 600;">${p.title_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div></div>
+                    </td>
+                    <td><a href="${p.project_url}" target="_blank" style="color:var(--muted);">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
+                    <td>
+                        <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No hay proyectos</td></tr>';
+        }
+
+        window.openProjectModal = () => {
+            document.getElementById('projectForm').reset();
+            document.getElementById('projectId').value = '';
+            document.getElementById('modalProjectTitle').textContent = 'Nuevo Proyecto';
+            document.getElementById('projectModal').classList.add('open');
+        };
+
+        window.openEditProject = (p) => {
+            document.getElementById('projectId').value = p.id;
+            document.getElementById('modalProjectTitle').textContent = 'Editar Proyecto';
+            const form = document.getElementById('projectForm');
+            form.querySelector('[name="title"]').value = p.title_es || '';
+            form.querySelector('[name="url"]').value = p.project_url || '';
+            form.querySelector('[name="tags"]').value = p.tags || '';
+            document.getElementById('projectModal').classList.add('open');
+        };
+
+        document.getElementById('projectForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('projectId').value;
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+
+            let imageUrl = null;
+            const fileInput = document.getElementById('projectImageFile');
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = `proj-${Date.now()}-${file.name}`;
+                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
+                if(!error) {
+                    const { data } = db.storage.from('portfolio-media').getPublicUrl(fileName);
+                    imageUrl = data.publicUrl;
+                }
+            }
+
+            const data = { title_es: e.target.title.value, project_url: e.target.url.value, tags: e.target.tags.value };
+            if(imageUrl) data.image_url = imageUrl;
+
+            const { error } = id ? await db.from('projects').update(data).eq('id', id) : await db.from('projects').insert([data]);
+            if(error) showToast('Error: ' + error.message, 'error');
+            else { showToast('Proyecto guardado correctamente'); closeModal('projectModal'); loadProjects(); }
+            btn.textContent = 'Guardar Proyecto'; btn.disabled = false;
+        };
+
+        // ===== FUNCIÓN GENERAL PARA BORRAR =====
+        window.deleteItem = async (table, id, callback) => {
+            if(confirm('¿Seguro que quieres eliminar esto?')) {
+                const { error } = await db.from(table).delete().eq('id', id);
+                if(error) showToast('Error al eliminar', 'error');
+                else { showToast('Eliminado correctamente'); callback(); }
+            }
+        };
+
+        // ===== NOTIFICACIONES EN TIEMPO REAL =====
+        db.channel('realtime-admin')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'contact_messages' }, payload => {
+              const list = document.getElementById('notifList');
+              list.innerHTML = `<div class="notif-item"><strong>Nuevo mensaje</strong><br>${payload.new.name}: ${payload.new.subject}</div>` + list.innerHTML;
+              showToast('¡Nuevo mensaje recibido!');
+              if(!document.getElementById('view-messages').hidden) loadMessages();
+          })
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
+              const list = document.getElementById('notifList');
+              list.innerHTML = `<div class="notif-item"><strong>Nuevo pedido</strong><br>${payload.new.customer_name || 'Cliente'} - $${payload.new.total}</div>` + list.innerHTML;
+              showToast('¡Nuevo pedido recibido!');
+              if(!document.getElementById('view-orders').hidden) loadOrders();
+          })
+          .subscribe();
     </script>
 </body>
 </html>
