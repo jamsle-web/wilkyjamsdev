@@ -48,23 +48,23 @@
         .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
         
-        /* Tablas (ARREGLO DE OVERFLOW) */
+        /* Tablas (DISEÑO LIMPIO) */
         .admin-table-wrapper { width: 100%; overflow-x: auto; margin-top: 10px; }
-        table { width: 100%; border-collapse: collapse; table-layout: fixed; } /* table-layout fixed evita que el contenido rompa el ancho */
-        th { text-align: left; padding: 12px; color: var(--muted); border-bottom: 1px solid var(--border); font-size: 0.85rem; }
-        td { padding: 16px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 16px; color: var(--muted); border-bottom: 1px solid var(--border); font-size: 0.85rem; font-weight: 500; }
+        td { padding: 20px 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
         
-        /* Truncar texto largo */
-        .truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: block; }
-        .desc-text { font-size: 0.75rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; display: block; }
+        /* Truncar texto */
+        .cell-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .cell-desc { font-size: 0.8rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px; display: block; }
 
         /* Acciones Tabla */
-        .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
-        .action-btn:hover { color: var(--text); }
-        .action-btn.delete:hover { color: #ef4444; }
+        .action-btn { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--muted); cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; }
+        .action-btn:hover { color: var(--text); background: rgba(255,255,255,0.08); }
+        .action-btn.delete:hover { color: #ef4444; border-color: rgba(239,68,68,0.3); }
 
-        .thumbnail { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
-        .avatar-thumb { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
+        .thumbnail { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+        .avatar-thumb { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
 
         #toastContainer { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
         .toast-msg { padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideIn 0.3s ease; display: flex; align-items: center; gap: 8px; }
@@ -150,7 +150,13 @@
             </div>
             <div class="admin-table-wrapper">
                 <table>
-                    <thead><tr><th style="width: 40%;">Recurso</th><th style="width: 15%;">Tipo</th><th style="width: 15%;">Acciones</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th style="width: 60%;">Recurso</th>
+                            <th style="width: 20%;">Tipo</th>
+                            <th style="width: 20%; text-align: right;">Acciones</th>
+                        </tr>
+                    </thead>
                     <tbody id="vipTableBody"></tbody>
                 </table>
             </div>
@@ -164,7 +170,13 @@
             </div>
             <div class="admin-table-wrapper">
                 <table>
-                    <thead><tr><th style="width: 50%;">Producto</th><th style="width: 20%;">Precio</th><th style="width: 15%;">Acciones</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Producto</th>
+                            <th style="width: 25%;">Precio</th>
+                            <th style="width: 25%; text-align: right;">Acciones</th>
+                        </tr>
+                    </thead>
                     <tbody id="productsTableBody"></tbody>
                 </table>
             </div>
@@ -197,7 +209,14 @@
             </div>
             <div class="admin-table-wrapper">
                 <table>
-                    <thead><tr><th style="width: 30%;">Cliente</th><th style="width: 40%;">Texto</th><th style="width: 15%;">Estrellas</th><th style="width: 15%;">Acciones</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Cliente</th>
+                            <th style="width: 40%;">Texto</th>
+                            <th style="width: 15%;">Estrellas</th>
+                            <th style="width: 15%; text-align: right;">Acciones</th>
+                        </tr>
+                    </thead>
                     <tbody id="testimonialsTableBody"></tbody>
                 </table>
             </div>
@@ -211,7 +230,13 @@
             </div>
             <div class="admin-table-wrapper">
                 <table>
-                    <thead><tr><th style="width: 40%;">Proyecto</th><th style="width: 40%;">URL / Enlace</th><th style="width: 20%;">Acciones</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Proyecto</th>
+                            <th style="width: 30%;">URL / Enlace</th>
+                            <th style="width: 20%; text-align: right;">Acciones</th>
+                        </tr>
+                    </thead>
                     <tbody id="projectsTableBody"></tbody>
                 </table>
             </div>
@@ -234,8 +259,7 @@
         </div>
     </main>
 
-    <!-- MODALES (Productos, Opiniones, Proyectos) se mantienen igual... -->
-    <!-- (Omito el HTML de los modales para no hacer la respuesta infinita, pero se mantienen exactamente igual que en tu código original) -->
+    <!-- MODALES (Productos, Opiniones, Proyectos) -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
@@ -382,16 +406,18 @@
             tbody.innerHTML = data?.map(r => `
                 <tr>
                     <td>
-                        <div class="truncate" style="font-weight: 600;">${r.title}</div>
-                        <div class="desc-text">${r.description}</div>
+                        <div class="cell-title">${r.title}</div>
+                        <div class="cell-desc">${r.description}</div>
                     </td>
-                    <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
-                    <td style="display: flex; gap: 10px;">
-                        <button class="action-btn" onclick='editVipResource(${JSON.stringify(r)})' title="Editar"><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('resources', '${r.id}', loadVipResources)" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600; text-transform: capitalize;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
+                    <td style="text-align: right;">
+                        <div style="display: inline-flex; gap: 8px;">
+                            <button class="action-btn" onclick='editVipResource(${JSON.stringify(r)})' title="Editar"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="deleteItem('resources', '${r.id}', loadVipResources)" title="Eliminar"><i class="fas fa-trash"></i></button>
+                        </div>
                     </td>
                 </tr>
-            `).join('') || '<tr><td colspan="3">No hay recursos aún.</td></tr>';
+            `).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay recursos aún.</td></tr>';
         }
 
         // ===== PRODUCTOS =====
@@ -400,17 +426,22 @@
             const { data } = await db.from('products').select('*');
             tbody.innerHTML = data?.map(p => `
                 <tr>
-                    <td style="display: flex; align-items: center; gap: 12px;">
-                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
-                        <div class="truncate"><div style="font-weight: 600;">${p.name_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div></div>
+                    <td style="display: flex; align-items: center; gap: 16px;">
+                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 48px; height: 48px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
+                        <div>
+                            <div class="cell-title">${p.name_es}</div>
+                            <div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div>
+                        </div>
                     </td>
                     <td>$${p.price}</td>
-                    <td>
-                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)"><i class="fas fa-trash"></i></button>
+                    <td style="text-align: right;">
+                        <div style="display: inline-flex; gap: 8px;">
+                            <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)"><i class="fas fa-trash"></i></button>
+                        </div>
                     </td>
                 </tr>
-            `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
+            `).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay productos</td></tr>';
         }
 
         document.getElementById('btnNewProduct').onclick = () => {
@@ -462,14 +493,14 @@
         async function loadOrders() {
             const tbody = document.getElementById('ordersTableBody');
             const { data } = await db.from('orders').select('*').order('created_at', {ascending: false});
-            tbody.innerHTML = data?.map(o => `<tr><td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td></tr>`).join('') || '<tr><td colspan="4">No hay pedidos</td></tr>';
+            tbody.innerHTML = data?.map(o => `<tr><td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td></tr>`).join('') || '<tr><td colspan="4" style="text-align:center; color: var(--muted);">No hay pedidos</td></tr>';
         }
 
         // ===== MENSAJES =====
         async function loadMessages() {
             const tbody = document.getElementById('messagesTableBody');
             const { data } = await db.from('contact_messages').select('*').order('created_at', {ascending: false});
-            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td><td>${m.email}</td></tr>`).join('') || '<tr><td colspan="3">No hay mensajes</td></tr>';
+            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td><td>${m.email}</td></tr>`).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay mensajes</td></tr>';
         }
 
         // ===== OPINIONES =====
@@ -479,17 +510,19 @@
             tbody.innerHTML = data?.map(t => `
                 <tr>
                     <td style="display: flex; align-items: center; gap: 12px;">
-                        ${t.avatar_url ? `<img src="${t.avatar_url}" class="avatar-thumb">` : `<div style="width: 36px; height: 36px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`}
-                        <span class="truncate">${t.name_es}</span>
+                        ${t.avatar_url ? `<img src="${t.avatar_url}" class="avatar-thumb">` : `<div style="width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`}
+                        <span class="cell-title">${t.name_es}</span>
                     </td>
-                    <td class="truncate">${t.text_es}</td>
+                    <td><div class="cell-desc">${t.text_es}</div></td>
                     <td>${'★'.repeat(t.rating || 5)}</td>
-                    <td>
-                        <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)"><i class="fas fa-trash"></i></button>
+                    <td style="text-align: right;">
+                        <div style="display: inline-flex; gap: 8px;">
+                            <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)"><i class="fas fa-trash"></i></button>
+                        </div>
                     </td>
                 </tr>
-            `).join('') || '<tr><td colspan="4">No hay opiniones</td></tr>';
+            `).join('') || '<tr><td colspan="4" style="text-align:center; color: var(--muted);">No hay opiniones</td></tr>';
         }
 
         window.openTestimonialModal = () => {
@@ -525,16 +558,21 @@
             tbody.innerHTML = data?.map(p => `
                 <tr>
                     <td style="display: flex; align-items: center; gap: 12px;">
-                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
-                        <div class="truncate"><div style="font-weight: 600;">${p.title_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div></div>
+                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 48px; height: 48px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
+                        <div>
+                            <div class="cell-title">${p.title_es}</div>
+                            <div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div>
+                        </div>
                     </td>
-                    <td><a href="${p.project_url}" target="_blank" class="truncate" style="color:var(--muted); display: block;">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
-                    <td>
-                        <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
+                    <td><a href="${p.project_url}" target="_blank" class="cell-desc" style="color:var(--muted); display: block;">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
+                    <td style="text-align: right;">
+                        <div style="display: inline-flex; gap: 8px;">
+                            <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
+                        </div>
                     </td>
                 </tr>
-            `).join('') || '<tr><td colspan="3">No hay proyectos</td></tr>';
+            `).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay proyectos</td></tr>';
         }
 
         window.openProjectModal = () => {
