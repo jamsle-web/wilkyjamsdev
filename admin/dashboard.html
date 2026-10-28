@@ -56,16 +56,12 @@
         
         /* Truncar texto */
         .cell-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
-        .cell-desc { font-size: 0.8rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; display: block; }
+        .cell-desc { font-size: 0.8rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px; display: block; }
 
         /* Botones de acción */
         .action-btn { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--muted); cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; }
         .action-btn:hover { color: var(--text); background: rgba(255,255,255,0.08); }
         .action-btn.delete:hover { color: #ef4444; border-color: rgba(239,68,68,0.3); }
-
-        /* Miniatura en vivo para el Club VIP */
-        .vip-thumb { width: 60px; height: 60px; border-radius: 8px; border: 1px solid var(--border); background: #1a1a24; overflow: hidden; position: relative; }
-        .vip-thumb iframe { width: 300%; height: 300%; transform: scale(0.33); transform-origin: top left; border: none; pointer-events: none; }
 
         .thumbnail { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
         .avatar-thumb { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
@@ -132,7 +128,7 @@
             <p style="color: var(--muted); margin-top: 10px;">Selecciona una opción del menú para gestionar tu sitio.</p>
         </div>
 
-        <!-- VISTA: CLUB VIP (CON MINIATURAS) -->
+        <!-- VISTA: CLUB VIP (DISEÑO LIMPIO) -->
         <div class="panel" id="view-vip" hidden>
             <div class="panel-header"><h3 id="vipFormTitle">Agregar Recurso al Club VIP</h3></div>
             <form id="vipForm">
@@ -408,42 +404,11 @@
             const tbody = document.getElementById('vipTableBody');
             const { data } = await db.from('resources').select('*').order('created_at', {ascending: false});
             
-            tbody.innerHTML = data?.map(r => {
-                // Generar miniatura en vivo
-                const previewHtml = `
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <style>
-                            body { 
-                                margin: 0; padding: 10px; 
-                                display: flex; align-items: center; justify-content: center; 
-                                min-height: 100vh; box-sizing: border-box; 
-                                background: #1a1a24;
-                                color: #fff;
-                                font-family: sans-serif;
-                                transform: scale(1); 
-                            }
-                            ${r.code_css || ''}
-                        </style>
-                    </head>
-                    <body>
-                        ${r.code_content || ''}
-                    </body>
-                    </html>
-                `;
-                const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(previewHtml);
-
-                return `
+            tbody.innerHTML = data?.map(r => `
                 <tr>
-                    <td style="display: flex; align-items: center; gap: 16px;">
-                        <div class="vip-thumb">
-                            <iframe src="${dataUrl}" scrolling="no" sandbox="allow-scripts"></iframe>
-                        </div>
-                        <div>
-                            <div class="cell-title">${r.title}</div>
-                            <div class="cell-desc">${r.description}</div>
-                        </div>
+                    <td>
+                        <div class="cell-title">${r.title}</div>
+                        <div class="cell-desc">${r.description}</div>
                     </td>
                     <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600; text-transform: capitalize;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
                     <td style="text-align: right;">
@@ -453,8 +418,7 @@
                         </div>
                     </td>
                 </tr>
-                `;
-            }).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay recursos aún.</td></tr>';
+            `).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay recursos aún.</td></tr>';
         }
 
         // ===== PRODUCTOS =====
