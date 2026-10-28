@@ -31,7 +31,7 @@
         .gallery-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; }
         .gallery-card:hover { transform: translateY(-5px); border-color: var(--accent-1); }
         
-        /* AQUÍ ESTÁ LA MAGIA: La miniatura ahora es un iframe en vivo */
+        /* Miniatura en vivo */
         .gallery-thumb { width: 100%; height: 200px; position: relative; background: #1a1a24; overflow: hidden; border-bottom: 1px solid var(--glass-border); pointer-events: none; }
         .gallery-thumb iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; border: none; pointer-events: none; }
         
@@ -81,20 +81,38 @@
         
         .code-content { padding: 15px; color: #a8b9cc; font-family: 'Fira Code', monospace; font-size: 0.85rem; white-space: pre-wrap; max-height: 350px; overflow-y: auto; line-height: 1.5; }
 
-        /* Bloqueo VIP */
-        .vip-lock-overlay { position: relative; background: #050505; border: 1px solid #222; border-radius: 8px; padding: 40px 20px; text-align: center; margin: 0 20px 20px 20px; overflow: hidden; }
-        .blurred-code { filter: blur(6px); opacity: 0.2; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: #fff; user-select: none; }
-        .lock-message { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(5,5,5,0.4); }
-        .lock-message i { font-size: 2rem; color: var(--accent-2); margin-bottom: 10px; }
-        .lock-message p { color: #fff; font-weight: 600; margin-bottom: 15px; font-family: 'Syne', sans-serif; text-transform: uppercase; letter-spacing: 1px;}
-        .lock-message .btn-primary { background: #fff; color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
-        .lock-message .btn-primary:hover { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        /* BLOQUEO VIP REDISEÑADO */
+        .vip-lock-overlay { position: relative; background: #050505; border: 1px solid #222; border-radius: 12px; padding: 50px 20px; text-align: center; margin: 0 20px 20px 20px; overflow: hidden; }
+        .blurred-code { filter: blur(8px); opacity: 0.15; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: #fff; user-select: none; }
+        .lock-message { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(5,5,5,0.7); }
+        .lock-message i { font-size: 2.5rem; color: var(--accent-2); margin-bottom: 15px; text-shadow: 0 0 20px rgba(196, 168, 204, 0.4); }
+        .lock-message h3 { color: #fff; font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;}
+        .lock-message p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; max-width: 300px; }
+        
+        /* BOTÓN PREMIUM CORREGIDO */
+        .lock-message .btn-premium {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            background: var(--accent-gradient); color: #000; 
+            padding: 14px 32px; border-radius: 50px; 
+            font-weight: 800; font-size: 0.95rem; font-family: 'Inter', sans-serif;
+            text-decoration: none; transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(168, 185, 204, 0.2);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .lock-message .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(196, 168, 204, 0.4);
+            filter: brightness(1.1);
+        }
+        .lock-message .btn-premium i { font-size: 1.1rem; color: #000; margin-bottom: 0; text-shadow: none; }
 
         @media (max-width: 768px) {
             .modal-header h2 { font-size: 1rem; }
             .live-preview-frame { height: 250px; }
             .code-tabs { flex-wrap: wrap; }
             .code-tab { padding: 10px 15px; font-size: 0.8rem; }
+            .vip-lock-overlay { padding: 40px 15px; }
+            .lock-message .btn-premium { padding: 12px 24px; font-size: 0.85rem; width: 100%; max-width: 280px; }
         }
     </style>
 </head>
@@ -247,7 +265,6 @@
                 }
 
                 galleryGrid.innerHTML = resources.map(res => {
-                    // Generar el HTML interno para la miniatura en vivo
                     const previewHtml = `
                         <!DOCTYPE html>
                         <html>
@@ -271,7 +288,6 @@
                         </html>
                     `;
                     
-                    // Convertir el HTML a un Data URL para el iframe
                     const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(previewHtml);
 
                     return `
@@ -280,7 +296,6 @@
                             <span class="badge-type ${res.type === 'vip' ? 'badge-vip' : 'badge-free'}">
                                 ${res.type === 'vip' ? '<i class="fas fa-crown"></i> VIP' : 'Gratis'}
                             </span>
-                            <!-- IFRAME EN VIVO COMO MINIATURA -->
                             <iframe src="${dataUrl}" scrolling="no" sandbox="allow-scripts"></iframe>
                         </div>
                         <div class="gallery-info">
@@ -350,8 +365,9 @@
                             <div class="blurred-code">Este código está protegido y es exclusivo para miembros.</div>
                             <div class="lock-message">
                                 <i class="fas fa-crown"></i>
-                                <p>Recurso VIP Exclusivo</p>
-                                <a href="club.html" class="btn-primary"><i class="fas fa-lock"></i> Unirme al Club</a>
+                                <h3>Recurso VIP</h3>
+                                <p>Desbloquea este código y todos los recursos premium uniéndote al Club.</p>
+                                <a href="club.html" class="btn-premium"><i class="fas fa-lock"></i> Unirme al Club</a>
                             </div>
                         </div>
                     `;
