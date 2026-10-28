@@ -1,104 +1,38 @@
 /* ============================================================
-   WILKYJAMS DEV ADMIN — DISEÑO PREMIUM (CERO ERRORES)
+   WILKYJAMS ADMIN - DISEÑO PREMIUM (CERO ERRORES)
    ============================================================ */
-
-/* Reseteo total para aislar el admin del sitio público */
-body.admin-body {
-    margin: 0 !important;
-    padding: 0 !important;
-    background: #050505 !important;
-    color: #ffffff !important;
-    font-family: 'Inter', sans-serif !important;
-    display: flex !important;
-    min-height: 100vh !important;
-    overflow-x: hidden !important;
+:root {
+    --bg: #050505; --surface: #0f0f13; --border: rgba(255,255,255,0.08);
+    --text: #fff; --muted: #888; --gradient: linear-gradient(135deg, #a8b9cc, #c4a8cc);
 }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body.admin-body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; min-height: 100vh; }
 
-/* ===== SIDEBAR ===== */
-.admin-sidebar {
-    width: 260px !important;
-    background: #0f0f13 !important;
-    border-right: 1px solid rgba(255,255,255,0.08) !important;
-    position: fixed !important;
-    top: 0 !important; left: 0 !important; bottom: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    z-index: 1000 !important;
-}
-.admin-sidebar .admin-logo {
-    padding: 30px 24px !important;
-    font-family: 'Syne', sans-serif !important;
-    font-size: 1.5rem !important;
-    font-weight: 800 !important;
-    color: #fff !important;
-    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-}
-.admin-nav {
-    padding: 20px 12px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 4px !important;
-    flex-grow: 1 !important;
-    overflow-y: auto !important;
-}
-.admin-nav a {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 12px 16px !important;
-    border-radius: 10px !important;
-    color: #888 !important;
-    text-decoration: none !important;
-    font-size: 0.9rem !important;
-    font-weight: 500 !important;
-    transition: 0.2s !important;
-}
-.admin-nav a i { width: 20px !important; text-align: center !important; }
-.admin-nav a:hover { background: rgba(255,255,255,0.05) !important; color: #fff !important; }
-.admin-nav a.active { background: linear-gradient(135deg, #a8b9cc, #c4a8cc) !important; color: #000 !important; font-weight: 700 !important; }
+/* Sidebar */
+.sidebar { width: 260px; background: var(--surface); border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; bottom: 0; display: flex; flex-direction: column; z-index: 1000; }
+.sidebar .logo { padding: 30px 24px; font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid var(--border); }
+.nav { padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1; overflow-y: auto; }
+.nav a { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.2s; cursor: pointer; }
+.nav a:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.nav a.active { background: var(--gradient); color: #000; font-weight: 700; }
+.logout { margin: 20px; padding: 12px; border-radius: 10px; background: transparent; border: 1px solid rgba(239,68,68,0.3); color: #ef4444; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-.admin-logout {
-    margin: 20px !important; padding: 12px !important; border-radius: 10px !important;
-    background: transparent !important; border: 1px solid rgba(239,68,68,0.3) !important;
-    color: #ef4444 !important; font-weight: 600 !important; cursor: pointer !important;
-    display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important;
-}
+/* Main */
+.main { margin-left: 260px; width: calc(100% - 260px); padding: 30px 40px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.topbar h1 { font-family: 'Syne', sans-serif; font-size: 1.8rem; }
+.btn-add { background: #fff; color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
 
-/* ===== CONTENIDO PRINCIPAL ===== */
-.admin-main {
-    margin-left: 260px !important; 
-    width: calc(100% - 260px) !important;
-    padding: 30px 40px !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
+/* Panels */
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 30px; }
+.panel[hidden] { display: none !important; }
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.panel-header h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; }
 
-/* ===== TOPBAR ===== */
-.admin-topbar {
-    display: flex !important; justify-content: space-between !important; align-items: center !important;
-    margin-bottom: 30px !important; padding-bottom: 20px !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-}
-.admin-topbar h1 { font-family: 'Syne', sans-serif !important; font-size: 1.8rem !important; margin: 0 !important; }
-.admin-topbar-tools { display: flex !important; align-items: center !important; gap: 15px !important; }
-
-/* ===== STATS ===== */
-.stats-row { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 20px !important; margin-bottom: 30px !important; }
-.admin-stat-card { background: #0f0f13 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 16px !important; padding: 24px !important; }
-.stat-value { font-family: 'Syne', sans-serif !important; font-size: 2rem !important; font-weight: 700 !important; color: #fff !important; }
-
-/* ===== PANELES Y TABLAS ===== */
-.admin-panel { background: #0f0f13 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 16px !important; padding: 24px !important; margin-bottom: 30px !important; }
-.panel-title { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 20px !important; }
-.panel-title h3 { font-family: 'Syne', sans-serif !important; font-size: 1.2rem !important; color: #fff !important; margin: 0 !important; }
-.btn-admin-add { background: #fff !important; color: #000 !important; border: none !important; padding: 10px 20px !important; border-radius: 8px !important; font-weight: 600 !important; cursor: pointer !important; }
-
-.admin-table { width: 100% !important; border-collapse: collapse !important; }
-.admin-table th { text-align: left !important; padding: 12px !important; color: #888 !important; font-size: 0.85rem !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
-.admin-table td { padding: 16px 12px !important; font-size: 0.9rem !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; color: #fff !important; }
-.prod-cell { display: flex !important; align-items: center !important; gap: 12px !important; }
-.prod-cell img { width: 40px !important; height: 40px !important; border-radius: 8px !important; object-fit: cover !important; }
-.status-pill { padding: 4px 10px !important; border-radius: 20px !important; font-size: 0.75rem !important; font-weight: 600 !important; }
-.status-pill.active { background: rgba(74,222,128,0.1) !important; color: #4ade80 !important; border: 1px solid rgba(74,222,128,0.2) !important; }
-
-/* Ocultar paneles que no estén activos (Evita duplicados) */
-.admin-panel[hidden] { display: none !important; }
+/* Forms & Tables */
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-family: 'Inter', sans-serif; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 12px; color: var(--muted); border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+td { padding: 16px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
