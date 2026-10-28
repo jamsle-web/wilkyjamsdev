@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="admin.css" />
     <style>
-        /* Estilos de la barra superior */
         .topbar-tools { display: flex; align-items: center; gap: 15px; position: relative; }
         .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .icon-btn:hover { background: rgba(255,255,255,0.05); }
@@ -30,47 +29,27 @@
         .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
         .notif-item:last-child { border-bottom: none; }
 
-        /* Modo Claro */
         body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
         body.light-mode .sidebar { background: var(--surface); }
         body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
         body.light-mode .btn-add { background: #111; color: #fff; }
         body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
 
-        /* Modales */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
         .modal-overlay.open { display: flex; }
         .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
         
-        /* Formularios */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
         
-        /* Tablas (DISEÑO LIMPIO) */
-        .admin-table-wrapper { width: 100%; overflow-x: auto; margin-top: 10px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 16px; color: var(--muted); border-bottom: 1px solid var(--border); font-size: 0.85rem; font-weight: 500; }
-        td { padding: 20px 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
-        
-        /* Truncar texto */
-        .cell-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
-        .cell-desc { font-size: 0.8rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px; display: block; }
+        .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
+        .action-btn:hover { color: var(--text); }
+        .action-btn.delete:hover { color: #ef4444; }
 
-        /* Botones de acción */
-        .action-btn { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--muted); cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; }
-        .action-btn:hover { color: var(--text); background: rgba(255,255,255,0.08); }
-        .action-btn.delete:hover { color: #ef4444; border-color: rgba(239,68,68,0.3); }
-
-        .thumbnail { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
-        .avatar-thumb { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
-
-        #toastContainer { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast-msg { padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideIn 0.3s ease; display: flex; align-items: center; gap: 8px; }
-        .toast-success { background: #4ade80; color: #000; }
-        .toast-error { background: #ef4444; color: #fff; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .thumbnail { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+        .avatar-thumb { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
     </style>
 </head>
 <body class="admin-body">
@@ -130,9 +109,8 @@
 
         <!-- VISTA: CLUB VIP -->
         <div class="panel" id="view-vip" hidden>
-            <div class="panel-header"><h3 id="vipFormTitle">Agregar Recurso al Club VIP</h3></div>
+            <div class="panel-header"><h3>Agregar Recurso al Club VIP</h3></div>
             <form id="vipForm">
-                <input type="hidden" id="vipResourceId" value="">
                 <div class="form-group"><label>Título</label><input name="title" required></div>
                 <div class="form-group"><label>Descripción</label><textarea name="description" rows="2" required></textarea></div>
                 <div class="form-group">
@@ -142,24 +120,8 @@
                 <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="3"></textarea></div>
                 <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="3"></textarea></div>
                 <div class="form-group"><label>Código JS</label><textarea name="code_js" rows="3"></textarea></div>
-                <button type="submit" class="btn-add" id="vipSubmitBtn">Guardar Recurso</button>
+                <button type="submit" class="btn-add">Guardar Recurso</button>
             </form>
-
-            <div class="panel-header" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px;">
-                <h3>Recursos Publicados</h3>
-            </div>
-            <div class="admin-table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 60%;">Recurso</th>
-                            <th style="width: 20%;">Tipo</th>
-                            <th style="width: 20%; text-align: right;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="vipTableBody"></tbody>
-                </table>
-            </div>
         </div>
 
         <!-- VISTA: TIENDA -->
@@ -168,37 +130,25 @@
                 <h3>Productos de la Tienda</h3>
                 <button class="btn-add" id="btnNewProduct"><i class="fas fa-plus"></i> Nuevo Producto</button>
             </div>
-            <div class="admin-table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 50%;">Producto</th>
-                            <th style="width: 25%;">Precio</th>
-                            <th style="width: 25%; text-align: right;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody"></tbody>
-                </table>
-            </div>
+            <table>
+                <thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead>
+                <tbody id="productsTableBody"></tbody>
+            </table>
         </div>
 
         <!-- VISTA: PEDIDOS Y SOLICITUDES -->
         <div class="panel" id="view-orders" hidden>
             <div class="panel-header"><h3>Pedidos y Solicitudes</h3></div>
-            <div class="admin-table-wrapper">
-                <table>
-                    <thead><tr><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Fecha</th></tr></thead>
-                    <tbody id="ordersTableBody"></tbody>
-                </table>
-            </div>
+            <table>
+                <thead><tr><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Fecha</th></tr></thead>
+                <tbody id="ordersTableBody"></tbody>
+            </table>
         </div>
 
         <!-- VISTA: MENSAJES -->
         <div class="panel" id="view-messages" hidden>
             <div class="panel-header"><h3>Mensajes de Contacto</h3></div>
-            <div class="admin-table-wrapper">
-                <table><thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
-            </div>
+            <table><thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
         </div>
 
         <!-- VISTA: OPINIONES -->
@@ -207,19 +157,10 @@
                 <h3>Opiniones de Clientes</h3>
                 <button class="btn-add" onclick="openTestimonialModal()"><i class="fas fa-plus"></i> Nueva Opinión</button>
             </div>
-            <div class="admin-table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 30%;">Cliente</th>
-                            <th style="width: 40%;">Texto</th>
-                            <th style="width: 15%;">Estrellas</th>
-                            <th style="width: 15%; text-align: right;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="testimonialsTableBody"></tbody>
-                </table>
-            </div>
+            <table>
+                <thead><tr><th>Cliente</th><th>Texto</th><th>Estrellas</th><th>Acciones</th></tr></thead>
+                <tbody id="testimonialsTableBody"></tbody>
+            </table>
         </div>
 
         <!-- VISTA: PROYECTOS -->
@@ -228,18 +169,10 @@
                 <h3>Proyectos Activos</h3>
                 <button class="btn-add" onclick="openProjectModal()"><i class="fas fa-plus"></i> Nuevo Proyecto</button>
             </div>
-            <div class="admin-table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 50%;">Proyecto</th>
-                            <th style="width: 30%;">URL / Enlace</th>
-                            <th style="width: 20%; text-align: right;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="projectsTableBody"></tbody>
-                </table>
-            </div>
+            <table>
+                <thead><tr><th>Proyecto</th><th>URL / Enlace</th><th>Acciones</th></tr></thead>
+                <tbody id="projectsTableBody"></tbody>
+            </table>
         </div>
 
         <!-- VISTA: MI PERFIL -->
@@ -259,7 +192,7 @@
         </div>
     </main>
 
-    <!-- MODALES (Productos, Opiniones, Proyectos) -->
+    <!-- MODAL: PRODUCTOS -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
@@ -275,6 +208,8 @@
             </form>
         </div>
     </div>
+
+    <!-- MODAL: OPINIONES -->
     <div class="modal-overlay" id="testimonialModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('testimonialModal')"><i class="fas fa-times"></i></button>
@@ -288,6 +223,8 @@
             </form>
         </div>
     </div>
+
+    <!-- MODAL: PROYECTOS -->
     <div class="modal-overlay" id="projectModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('projectModal')"><i class="fas fa-times"></i></button>
@@ -302,7 +239,6 @@
             </form>
         </div>
     </div>
-    <div id="toastContainer"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../supabase-client.js"></script>
@@ -319,7 +255,6 @@
                 link.classList.add('active');
                 document.getElementById('pageTitle').textContent = link.textContent.trim();
 
-                if(section === 'vip') loadVipResources();
                 if(section === 'products') loadProducts();
                 if(section === 'orders') loadOrders();
                 if(section === 'messages') loadMessages();
@@ -338,112 +273,29 @@
         window.logoutAdmin = async () => { await db.auth.signOut(); location.href = 'login.html'; };
         window.closeModal = (id) => document.getElementById(id).classList.remove('open');
 
-        // ===== NOTIFICACIONES TOAST =====
-        function showToast(msg, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast-msg toast-${type}`;
-            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3500);
-        }
-
-        // ===== CLUB VIP =====
-        let editingVipId = null;
-
-        window.editVipResource = function(res) {
-            editingVipId = res.id;
-            const form = document.getElementById('vipForm');
-            form.querySelector('[name="title"]').value = res.title;
-            form.querySelector('[name="description"]').value = res.description;
-            form.querySelector('[name="type"]').value = res.type;
-            form.querySelector('[name="code_content"]').value = res.code_content || '';
-            form.querySelector('[name="code_css"]').value = res.code_css || '';
-            form.querySelector('[name="code_js"]').value = res.code_js || '';
-            
-            document.getElementById('vipFormTitle').textContent = 'Editar Recurso';
-            document.getElementById('vipSubmitBtn').textContent = 'Actualizar Recurso';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
-        document.getElementById('vipForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('vipSubmitBtn');
-            btn.textContent = 'Guardando...'; btn.disabled = true;
-            
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-            delete data.id;
-
-            let error;
-            if (editingVipId) {
-                const res = await db.from('resources').update(data).eq('id', editingVipId);
-                error = res.error;
-                if (!error) {
-                    showToast('Recurso actualizado con éxito');
-                    editingVipId = null;
-                    document.getElementById('vipFormTitle').textContent = 'Agregar Recurso al Club VIP';
-                    document.getElementById('vipSubmitBtn').textContent = 'Guardar Recurso';
-                }
-            } else {
-                const res = await db.from('resources').insert([data]);
-                error = res.error;
-                if (!error) showToast('¡Recurso agregado con éxito!');
-            }
-
-            if (error) {
-                showToast('Error: ' + error.message, 'error');
-            } else {
-                e.target.reset();
-                loadVipResources();
-            }
-            btn.textContent = 'Guardar Recurso'; btn.disabled = false;
-        });
-
-        async function loadVipResources() {
-            const tbody = document.getElementById('vipTableBody');
-            const { data } = await db.from('resources').select('*').order('created_at', {ascending: false});
-            
-            // DISEÑO LIMPIO: Sin código, solo título y descripción
-            tbody.innerHTML = data?.map(r => `
-                <tr>
-                    <td>
-                        <div class="cell-title">${r.title}</div>
-                        <div class="cell-desc">${r.description}</div>
-                    </td>
-                    <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600; text-transform: capitalize;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
-                    <td style="text-align: right;">
-                        <div style="display: inline-flex; gap: 8px;">
-                            <button class="action-btn" onclick='editVipResource(${JSON.stringify(r)})' title="Editar"><i class="fas fa-pen"></i></button>
-                            <button class="action-btn delete" onclick="deleteItem('resources', '${r.id}', loadVipResources)" title="Eliminar"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay recursos aún.</td></tr>';
-        }
-
         // ===== PRODUCTOS =====
         async function loadProducts() {
             const tbody = document.getElementById('productsTableBody');
             const { data } = await db.from('products').select('*');
             tbody.innerHTML = data?.map(p => `
                 <tr>
-                    <td style="display: flex; align-items: center; gap: 16px;">
-                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 48px; height: 48px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        ${p.image_url 
+                            ? `<img src="${p.image_url}" class="thumbnail">` 
+                            : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`
+                        }
                         <div>
-                            <div class="cell-title">${p.name_es}</div>
+                            <div style="font-weight: 600; color: var(--text);">${p.name_es}</div>
                             <div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div>
                         </div>
                     </td>
                     <td>$${p.price}</td>
-                    <td style="text-align: right;">
-                        <div style="display: inline-flex; gap: 8px;">
-                            <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                            <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)"><i class="fas fa-trash"></i></button>
-                        </div>
+                    <td>
+                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
-            `).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay productos</td></tr>';
+            `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
         }
 
         document.getElementById('btnNewProduct').onclick = () => {
@@ -482,12 +334,18 @@
                 }
             }
 
-            const data = { name_es: e.target.name.value, price: parseFloat(e.target.price.value), description_es: e.target.description.value, category: e.target.tags.value };
+            const data = { 
+                name_es: e.target.name.value, 
+                price: parseFloat(e.target.price.value), 
+                description_es: e.target.description.value,
+                category: e.target.tags.value
+            };
             if(imageUrl) data.image_url = imageUrl;
 
-            const { error } = id ? await db.from('products').update(data).eq('id', id) : await db.from('products').insert([data]);
-            if(error) showToast('Error: ' + error.message, 'error');
-            else { showToast('Producto guardado correctamente'); closeModal('productModal'); loadProducts(); }
+            if(id) await db.from('products').update(data).eq('id', id);
+            else await db.from('products').insert([data]);
+            
+            closeModal('productModal'); loadProducts();
             btn.textContent = 'Guardar Producto'; btn.disabled = false;
         };
 
@@ -495,14 +353,16 @@
         async function loadOrders() {
             const tbody = document.getElementById('ordersTableBody');
             const { data } = await db.from('orders').select('*').order('created_at', {ascending: false});
-            tbody.innerHTML = data?.map(o => `<tr><td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td></tr>`).join('') || '<tr><td colspan="4" style="text-align:center; color: var(--muted);">No hay pedidos</td></tr>';
+            tbody.innerHTML = data?.map(o => `
+                <tr><td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td></tr>
+            `).join('') || '<tr><td colspan="4">No hay pedidos</td></tr>';
         }
 
         // ===== MENSAJES =====
         async function loadMessages() {
             const tbody = document.getElementById('messagesTableBody');
             const { data } = await db.from('contact_messages').select('*').order('created_at', {ascending: false});
-            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td><td>${m.email}</td></tr>`).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay mensajes</td></tr>';
+            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td><td>${m.email}</td></tr>`).join('') || '<tr><td colspan="3">No hay mensajes</td></tr>';
         }
 
         // ===== OPINIONES =====
@@ -512,19 +372,20 @@
             tbody.innerHTML = data?.map(t => `
                 <tr>
                     <td style="display: flex; align-items: center; gap: 12px;">
-                        ${t.avatar_url ? `<img src="${t.avatar_url}" class="avatar-thumb">` : `<div style="width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`}
-                        <span class="cell-title">${t.name_es}</span>
+                        ${t.avatar_url 
+                            ? `<img src="${t.avatar_url}" class="avatar-thumb">` 
+                            : `<div style="width: 36px; height: 36px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`
+                        }
+                        <span>${t.name_es}</span>
                     </td>
-                    <td><div class="cell-desc">${t.text_es}</div></td>
+                    <td>${t.text_es}</td>
                     <td>${'★'.repeat(t.rating || 5)}</td>
-                    <td style="text-align: right;">
-                        <div style="display: inline-flex; gap: 8px;">
-                            <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
-                            <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)"><i class="fas fa-trash"></i></button>
-                        </div>
+                    <td>
+                        <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
-            `).join('') || '<tr><td colspan="4" style="text-align:center; color: var(--muted);">No hay opiniones</td></tr>';
+            `).join('') || '<tr><td colspan="4">No hay opiniones</td></tr>';
         }
 
         window.openTestimonialModal = () => {
@@ -548,9 +409,9 @@
             e.preventDefault();
             const id = document.getElementById('testimonialId').value;
             const data = { name_es: e.target.name.value, text_es: e.target.text.value, rating: parseInt(e.target.rating.value) };
-            const { error } = id ? await db.from('testimonials').update(data).eq('id', id) : await db.from('testimonials').insert([data]);
-            if(error) showToast('Error: ' + error.message, 'error');
-            else { showToast('Opinión guardada correctamente'); closeModal('testimonialModal'); loadTestimonials(); }
+            if(id) await db.from('testimonials').update(data).eq('id', id);
+            else await db.from('testimonials').insert([data]);
+            closeModal('testimonialModal'); loadTestimonials();
         };
 
         // ===== PROYECTOS =====
@@ -560,21 +421,22 @@
             tbody.innerHTML = data?.map(p => `
                 <tr>
                     <td style="display: flex; align-items: center; gap: 12px;">
-                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 48px; height: 48px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
+                        ${p.image_url 
+                            ? `<img src="${p.image_url}" class="thumbnail">` 
+                            : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`
+                        }
                         <div>
-                            <div class="cell-title">${p.title_es}</div>
+                            <div style="font-weight: 600; color: var(--text);">${p.title_es}</div>
                             <div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div>
                         </div>
                     </td>
-                    <td><a href="${p.project_url}" target="_blank" class="cell-desc" style="color:var(--muted); display: block;">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
-                    <td style="text-align: right;">
-                        <div style="display: inline-flex; gap: 8px;">
-                            <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                            <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
-                        </div>
+                    <td><a href="${p.project_url}" target="_blank" style="color:var(--muted);">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
+                    <td>
+                        <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
-            `).join('') || '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No hay proyectos</td></tr>';
+            `).join('') || '<tr><td colspan="3">No hay proyectos</td></tr>';
         }
 
         window.openProjectModal = () => {
@@ -612,36 +474,38 @@
                 }
             }
 
-            const data = { title_es: e.target.title.value, project_url: e.target.url.value, tags: e.target.tags.value };
+            const data = { 
+                title_es: e.target.title.value, 
+                project_url: e.target.url.value,
+                tags: e.target.tags.value
+            };
             if(imageUrl) data.image_url = imageUrl;
 
-            const { error } = id ? await db.from('projects').update(data).eq('id', id) : await db.from('projects').insert([data]);
-            if(error) showToast('Error: ' + error.message, 'error');
-            else { showToast('Proyecto guardado correctamente'); closeModal('projectModal'); loadProjects(); }
+            if(id) await db.from('projects').update(data).eq('id', id);
+            else await db.from('projects').insert([data]);
+            
+            closeModal('projectModal'); loadProjects();
             btn.textContent = 'Guardar Proyecto'; btn.disabled = false;
         };
 
-        // ===== FUNCIÓN GENERAL PARA BORRAR =====
+        // FUNCIÓN GENERAL PARA BORRAR
         window.deleteItem = async (table, id, callback) => {
             if(confirm('¿Seguro que quieres eliminar esto?')) {
-                const { error } = await db.from(table).delete().eq('id', id);
-                if(error) showToast('Error al eliminar', 'error');
-                else { showToast('Eliminado correctamente'); callback(); }
+                await db.from(table).delete().eq('id', id);
+                callback();
             }
         };
 
-        // ===== NOTIFICACIONES EN TIEMPO REAL =====
+        // NOTIFICACIONES EN TIEMPO REAL
         db.channel('realtime-admin')
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'contact_messages' }, payload => {
               const list = document.getElementById('notifList');
               list.innerHTML = `<div class="notif-item"><strong>Nuevo mensaje</strong><br>${payload.new.name}: ${payload.new.subject}</div>` + list.innerHTML;
-              showToast('¡Nuevo mensaje recibido!');
               if(!document.getElementById('view-messages').hidden) loadMessages();
           })
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
               const list = document.getElementById('notifList');
               list.innerHTML = `<div class="notif-item"><strong>Nuevo pedido</strong><br>${payload.new.customer_name || 'Cliente'} - $${payload.new.total}</div>` + list.innerHTML;
-              showToast('¡Nuevo pedido recibido!');
               if(!document.getElementById('view-orders').hidden) loadOrders();
           })
           .subscribe();
