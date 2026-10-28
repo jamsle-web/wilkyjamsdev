@@ -4,107 +4,151 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wilkyjams Dev · Admin</title>
-    <meta name="robots" content="noindex, nofollow" />
-
-    <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="admin.css" />
 </head>
 <body class="admin-body">
 
-    <div class="admin-layout">
-        <!-- SIDEBAR -->
-        <aside class="admin-sidebar" id="adminSidebar">
-            <div class="admin-logo">JP · Admin</div>
-            <nav class="admin-nav" id="adminNav">
-                <a data-admin-section="summary" class="active"><i class="fas fa-chart-pie"></i> Resumen</a>
-                <a data-admin-section="panelAnalitica"><i class="fas fa-chart-line"></i> Analítica</a>
-                <a data-admin-section="panelProductos"><i class="fas fa-box"></i> Productos</a>
-                <a data-admin-section="panelContenido"><i class="fas fa-pen-to-square"></i> Contenido</a>
-                <a data-admin-section="panelConfiguracion"><i class="fas fa-sliders-h"></i> Configuración</a>
-                <a data-admin-section="panelPerfilAdmin"><i class="fas fa-user-gear"></i> Mi perfil</a>
-                <a data-admin-section="panelTestimonios"><i class="fas fa-star"></i> Opiniones</a>
-                <a data-admin-section="panelProyectos"><i class="fas fa-layer-group"></i> Proyectos</a>
-                <a data-admin-section="panelServicios"><i class="fas fa-briefcase"></i> Servicios</a>
-                <a data-admin-section="panelPedidos"><i class="fas fa-receipt"></i> Pedidos</a>
-                <a data-admin-section="panelMensajes"><i class="fas fa-envelope"></i> Mensajes</a>
-            </nav>
-            <button class="admin-logout" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
-        </aside>
+    <aside class="sidebar">
+        <div class="logo">JP · Admin</div>
+        <nav class="nav" id="adminNav">
+            <a data-section="summary" class="active"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a data-section="vip"><i class="fas fa-crown"></i> Club VIP</a>
+            <a data-section="products"><i class="fas fa-box"></i> Tienda</a>
+            <a data-section="orders"><i class="fas fa-receipt"></i> Pedidos</a>
+            <a data-section="messages"><i class="fas fa-envelope"></i> Mensajes</a>
+        </nav>
+        <button class="logout" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Salir</button>
+    </aside>
 
-        <!-- MAIN -->
-        <main class="admin-main">
-            <div class="admin-topbar">
-                <h1>Resumen general</h1>
-                <div class="admin-topbar-tools">
-                    <div class="search" style="display:flex; align-items:center; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:8px 16px;">
-                        <i class="fas fa-search" style="color:#888; margin-right:8px;"></i>
-                        <input id="adminGlobalSearch" type="search" placeholder="Buscar..." style="background:transparent; border:none; color:#fff; outline:none;">
-                    </div>
-                    <button class="admin-icon-btn" id="adminThemeToggle" style="background:transparent; border:1px solid #333; color:#fff; width:40px; height:40px; border-radius:50%;"><i class="fas fa-moon"></i></button>
-                    <a href="/" class="admin-icon-btn" style="color:#fff; text-decoration:none; display:flex; align-items:center; justify-content:center; width:40px; height:40px;" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+    <main class="main">
+        <div class="topbar">
+            <h1 id="pageTitle">Resumen</h1>
+            <a href="/" target="_blank" style="color: #fff; text-decoration: none;"><i class="fas fa-external-link-alt"></i> Ver Sitio</a>
+        </div>
+
+        <!-- VISTA: RESUMEN -->
+        <div class="panel" id="view-summary">
+            <h3>Bienvenido al panel</h3>
+            <p style="color: #888; margin-top: 10px;">Selecciona una opción del menú izquierdo para gestionar tu sitio.</p>
+        </div>
+
+        <!-- VISTA: CLUB VIP -->
+        <div class="panel" id="view-vip" hidden>
+            <div class="panel-header">
+                <h3>Agregar Recurso al Club VIP</h3>
+            </div>
+            <form id="vipForm">
+                <div class="form-group"><label>Título</label><input name="title" required></div>
+                <div class="form-group"><label>Descripción</label><textarea name="description" rows="2" required></textarea></div>
+                <div class="form-group"><label>URL de la Imagen (Opcional)</label><input name="image_url" type="url"></div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select name="type">
+                        <option value="free">Gratis</option>
+                        <option value="vip">VIP</option>
+                    </select>
                 </div>
-            </div>
+                <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="4"></textarea></div>
+                <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="4"></textarea></div>
+                <div class="form-group"><label>Código JS</label><textarea name="code_js" rows="4"></textarea></div>
+                <button type="submit" class="btn-add">Guardar Recurso</button>
+            </form>
+        </div>
 
-            <!-- STATS -->
-            <div class="stats-row">
-                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-dollar-sign"></i></div><div class="stat-value">$0.00</div><div class="stat-label">Ventas</div></div>
-                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-shopping-bag"></i></div><div class="stat-value">0</div><div class="stat-label">Pedidos</div></div>
-                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Visitas</div></div>
-                <div class="admin-stat-card"><div class="stat-top"><i class="fas fa-envelope"></i></div><div class="stat-value">0</div><div class="stat-label">Mensajes</div></div>
-            </div>
+        <!-- VISTA: TIENDA -->
+        <div class="panel" id="view-products" hidden>
+            <div class="panel-header"><h3>Productos de la Tienda</h3></div>
+            <table><thead><tr><th>Producto</th><th>Precio</th></tr></thead><tbody id="productsTableBody"></tbody></table>
+        </div>
 
-            <!-- PANELES -->
-            <div class="admin-panel" id="panelContenido" hidden>
-                <div class="panel-title"><h3>Editor de contenido</h3></div>
-                <div id="contentEditorFields"></div>
-            </div>
+        <!-- VISTA: PEDIDOS -->
+        <div class="panel" id="view-orders" hidden>
+            <div class="panel-header"><h3>Pedidos Recientes</h3></div>
+            <table><thead><tr><th>Cliente</th><th>Total</th></tr></thead><tbody id="ordersTableBody"></tbody></table>
+        </div>
 
-            <div class="admin-panel" id="panelConfiguracion" hidden>
-                <div class="panel-title"><h3>Configuración</h3></div>
-                <form id="siteSettingsForm"><label>Nombre<input name="site_name"></label><button type="submit" class="btn-admin-add">Guardar</button></form>
-            </div>
+        <!-- VISTA: MENSAJES -->
+        <div class="panel" id="view-messages" hidden>
+            <div class="panel-header"><h3>Mensajes de Contacto</h3></div>
+            <table><thead><tr><th>Nombre</th><th>Asunto</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
+        </div>
 
-            <div class="admin-panel" id="panelProductos" hidden>
-                <div class="panel-title"><h3>Productos</h3><button class="btn-admin-add" id="newProductBtn"><i class="fas fa-plus"></i> Nuevo</button></div>
-                <table class="admin-table"><thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead><tbody id="productsTableBody"></tbody></table>
-            </div>
+    </main>
 
-            <div class="admin-panel" id="panelPedidos" hidden>
-                <div class="panel-title"><h3>Pedidos</h3></div>
-                <table class="admin-table"><thead><tr><th>Cliente</th><th>Total</th></tr></thead><tbody id="ordersTableBody"></tbody></table>
-            </div>
-
-            <div class="admin-panel" id="panelMensajes" hidden>
-                <div class="panel-title"><h3>Mensajes</h3></div>
-                <table class="admin-table"><thead><tr><th>Nombre</th><th>Asunto</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
-            </div>
-
-            <!-- PANELES VACÍOS (Para evitar errores) -->
-            <div class="admin-panel" id="panelAnalitica" hidden></div>
-            <div class="admin-panel" id="panelPerfilAdmin" hidden></div>
-            <div class="admin-panel" id="panelTestimonios" hidden></div>
-            <div class="admin-panel" id="panelProyectos" hidden></div>
-            <div class="admin-panel" id="panelServicios" hidden></div>
-        </main>
-    </div>
-
-    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../supabase-client.js"></script>
-    <script src="admin.js"></script>
-    <script src="admin-ui.js"></script>
+    <script>
+        const db = window.portfolioSupabase;
+
+        // NAVEGACIÓN
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                // Ocultar todo
+                document.querySelectorAll('.panel').forEach(p => p.hidden = true);
+                document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+                
+                // Mostrar seleccionado
+                const section = link.dataset.section;
+                document.getElementById('view-' + section).hidden = false;
+                link.classList.add('active');
+                document.getElementById('pageTitle').textContent = link.textContent.trim();
+
+                // Cargar datos si es necesario
+                if(section === 'products') loadProducts();
+                if(section === 'orders') loadOrders();
+                if(section === 'messages') loadMessages();
+            });
+        });
+
+        // CERRAR SESIÓN
+        window.logoutAdmin = async () => {
+            await db.auth.signOut();
+            location.href = 'login.html';
+        };
+
+        // FORMULARIO VIP (GUARDAR EN SUPABASE)
+        document.getElementById('vipForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+
+            const data = Object.fromEntries(new FormData(form).entries());
+            
+            const { error } = await db.from('resources').insert([data]);
+            
+            if (error) {
+                alert('Error: ' + error.message);
+            } else {
+                alert('¡Recurso agregado con éxito al Club VIP!');
+                form.reset();
+            }
+            btn.textContent = 'Guardar Recurso'; btn.disabled = false;
+        });
+
+        // CARGAR TIENDA
+        async function loadProducts() {
+            const tbody = document.getElementById('productsTableBody');
+            const { data } = await db.from('products').select('*');
+            tbody.innerHTML = data?.map(p => `<tr><td>${p.name_es}</td><td>$${p.price}</td></tr>`).join('') || '<tr><td colspan="2">No hay productos</td></tr>';
+        }
+
+        // CARGAR PEDIDOS
+        async function loadOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            const { data } = await db.from('orders').select('*');
+            tbody.innerHTML = data?.map(o => `<tr><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td></tr>`).join('') || '<tr><td colspan="2">No hay pedidos</td></tr>';
+        }
+
+        // CARGAR MENSAJES
+        async function loadMessages() {
+            const tbody = document.getElementById('messagesTableBody');
+            const { data } = await db.from('contact_messages').select('*');
+            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td></tr>`).join('') || '<tr><td colspan="2">No hay mensajes</td></tr>';
+        }
+    </script>
 </body>
 </html>
