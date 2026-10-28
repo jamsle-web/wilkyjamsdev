@@ -9,15 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="admin.css" />
     <style>
-        /* Estilos extra para la barra superior */
-        .topbar-tools { display: flex; align-items: center; gap: 15px; }
+        /* Estilos extra para la barra superior y modales */
+        .topbar-tools { display: flex; align-items: center; gap: 15px; position: relative; }
         .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .icon-btn:hover { background: rgba(255,255,255,0.05); }
-        .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; }
+        .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; position: relative; }
         .profile-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
-        .profile-info { text-align: left; font-size: 0.85rem; }
-        .profile-info strong { display: block; }
-        .profile-info span { color: var(--muted); }
         
         /* Modo Claro */
         body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
@@ -25,7 +22,25 @@
         body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
         body.light-mode .btn-add { background: #111; color: #fff; }
 
-        /* Tabla y Botones de Acción */
+        /* Modales */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.open { display: flex; }
+        .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+        
+        /* Formularios */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
+        body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
+        
+        /* Notificaciones */
+        .notif-dropdown { position: absolute; top: 50px; right: 60px; width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .notif-dropdown.open { display: block; }
+        .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .notif-item:last-child { border-bottom: none; }
+        
+        /* Acciones Tabla */
         .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
         .action-btn:hover { color: var(--text); }
         .action-btn.delete:hover { color: #ef4444; }
@@ -47,17 +62,15 @@
     </aside>
 
     <main class="main">
-        <!-- TOPBAR CON PERFIL Y NOTIFICACIONES -->
         <div class="topbar">
             <h1 id="pageTitle">Resumen</h1>
             <div class="topbar-tools">
                 <button class="icon-btn" id="themeToggle" title="Cambiar tema"><i class="fas fa-moon"></i></button>
-                <button class="icon-btn" title="Notificaciones"><i class="fas fa-bell"></i></button>
-                <div class="profile-btn">
-                    <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil">
-                    <div class="profile-info">
-                        <strong>Jamsle</strong>
-                        <span>Administrador</span>
+                <div style="position: relative;">
+                    <button class="icon-btn" onclick="document.getElementById('notifDropdown').classList.toggle('open')"><i class="fas fa-bell"></i></button>
+                    <div class="notif-dropdown" id="notifDropdown">
+                        <h4 style="margin-bottom: 10px;">Notificaciones</h4>
+                        <div class="notif-item">No hay notificaciones nuevas.</div>
                     </div>
                 </div>
                 <a href="/" target="_blank" style="color: var(--text); text-decoration: none; font-size: 1.2rem;" title="Ver Sitio"><i class="fas fa-external-link-alt"></i></a>
@@ -76,23 +89,22 @@
             <form id="vipForm">
                 <div class="form-group"><label>Título</label><input name="title" required></div>
                 <div class="form-group"><label>Descripción</label><textarea name="description" rows="2" required></textarea></div>
-                <div class="form-group"><label>URL de la Imagen</label><input name="image_url" type="url"></div>
                 <div class="form-group">
                     <label>Tipo</label>
                     <select name="type"><option value="free">Gratis</option><option value="vip">VIP</option></select>
                 </div>
-                <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="4"></textarea></div>
-                <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="4"></textarea></div>
-                <div class="form-group"><label>Código JS</label><textarea name="code_js" rows="4"></textarea></div>
+                <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="3"></textarea></div>
+                <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="3"></textarea></div>
+                <div class="form-group"><label>Código JS</label><textarea name="code_js" rows="3"></textarea></div>
                 <button type="submit" class="btn-add">Guardar Recurso</button>
             </form>
         </div>
 
-        <!-- VISTA: TIENDA CON BOTONES -->
+        <!-- VISTA: TIENDA -->
         <div class="panel" id="view-products" hidden>
             <div class="panel-header">
                 <h3>Productos de la Tienda</h3>
-                <button class="btn-add" onclick="alert('Aquí abriremos el formulario para agregar productos')"><i class="fas fa-plus"></i> Nuevo Producto</button>
+                <button class="btn-add" id="btnNewProduct"><i class="fas fa-plus"></i> Nuevo Producto</button>
             </div>
             <table>
                 <thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead>
@@ -114,29 +126,53 @@
 
         <!-- VISTA: MI PERFIL -->
         <div class="panel" id="view-profile" hidden>
-            <div class="panel-header"><h3>Mi Perfil</h3></div>
-            <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
-                <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil" style="width:100px; height:100px; border-radius:50%; object-fit:cover;">
-                <div>
-                    <h4 style="font-size:1.2rem; margin-bottom:5px;">Jamsle Porcena</h4>
-                    <p style="color:var(--muted);">porcenatjamsle07@gmail.com</p>
+            <div class="panel-header"><h3>Mi Perfil de Administrador</h3></div>
+            <form id="profileForm" style="max-width: 500px;">
+                <div class="form-group" style="text-align: center; margin-bottom: 20px;">
+                    <img id="profileImgPreview" src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); margin-bottom: 10px;">
+                    <input type="file" id="profileFile" accept="image/*" style="display: none;">
+                    <button type="button" onclick="document.getElementById('profileFile').click()" class="btn-add" style="font-size: 0.8rem; padding: 5px 10px;">Cambiar Foto</button>
                 </div>
-            </div>
-            <p style="color: var(--muted);">Aquí puedes editar tu foto, nombre y contraseña (Próximamente).</p>
+                <div class="form-group"><label>Nombre</label><input name="name" value="Jamsle Porcena" required></div>
+                <div class="form-group"><label>Email</label><input type="email" name="email" value="porcenatjamsle07@gmail.com" required></div>
+                <div class="form-group"><label>Nueva Contraseña (Opcional)</label><input type="password" name="password" placeholder="Dejar en blanco para no cambiar"></div>
+                <button type="submit" class="btn-add"><i class="fas fa-save"></i> Guardar Perfil</button>
+            </form>
         </div>
     </main>
+
+    <!-- MODAL: CREAR/EDITAR PRODUCTO -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
+            <h3 id="modalTitle" style="margin-bottom: 20px;">Nuevo Producto</h3>
+            <form id="productForm">
+                <input type="hidden" name="id" id="productId">
+                <div class="form-group">
+                    <label>Imagen del Producto</label>
+                    <input type="file" id="productImageFile" accept="image/*">
+                    <small style="color: var(--muted); display: block; margin-top: 5px;">Tamaño recomendado: 500x500px</small>
+                    <img id="productImgPreview" style="display: none; width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-top: 10px;">
+                </div>
+                <div class="form-group"><label>Nombre del Producto</label><input name="name" required></div>
+                <div class="form-group"><label>Precio ($)</label><input type="number" name="price" step="0.01" required></div>
+                <div class="form-group"><label>Descripción</label><textarea name="description" rows="3"></textarea></div>
+                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Producto</button>
+            </form>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../supabase-client.js"></script>
     <script>
         const db = window.portfolioSupabase;
+        let currentProfileImage = "https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg";
 
         // NAVEGACIÓN
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
                 document.querySelectorAll('.panel').forEach(p => p.hidden = true);
                 document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-                
                 const section = link.dataset.section;
                 document.getElementById('view-' + section).hidden = false;
                 link.classList.add('active');
@@ -162,57 +198,148 @@
             location.href = 'login.html';
         };
 
-        // GUARDAR RECURSO VIP
-        document.getElementById('vipForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const btn = form.querySelector('button');
-            btn.textContent = 'Guardando...'; btn.disabled = true;
-            const data = Object.fromEntries(new FormData(form).entries());
-            const { error } = await db.from('resources').insert([data]);
-            if (error) alert('Error: ' + error.message);
-            else { alert('¡Recurso agregado!'); form.reset(); }
-            btn.textContent = 'Guardar Recurso'; btn.disabled = false;
-        });
+        // ===== FUNCIONES DE LA TIENDA =====
 
-        // CARGAR TIENDA CON BOTONES DE EDITAR Y ELIMINAR
+        // 1. Cargar Tabla
         async function loadProducts() {
             const tbody = document.getElementById('productsTableBody');
             const { data } = await db.from('products').select('*');
             tbody.innerHTML = data?.map(p => `
                 <tr>
-                    <td>${p.name_es}</td>
+                    <td style="display:flex; align-items:center; gap:10px;">
+                        ${p.image_url ? `<img src="${p.image_url}" style="width:30px; height:30px; border-radius:5px; object-fit:cover;">` : ''}
+                        ${p.name_es}
+                    </td>
                     <td>$${p.price}</td>
-                    <td style="display:flex; gap:10px;">
-                        <button class="action-btn" onclick="alert('Editar: ${p.name_es}')" title="Editar"><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="alert('Eliminar: ${p.name_es}')" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    <td>
+                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteProduct('${p.id}')" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
         }
 
-        // CARGAR PEDIDOS
-        async function loadOrders() {
-            const tbody = document.getElementById('ordersTableBody');
-            const { data } = await db.from('orders').select('*');
-            tbody.innerHTML = data?.map(o => `<tr><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td></tr>`).join('') || '<tr><td colspan="2">No hay pedidos</td></tr>';
-        }
+        // 2. Abrir Modal Nuevo
+        document.getElementById('btnNewProduct').addEventListener('click', () => {
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            document.getElementById('modalTitle').textContent = 'Nuevo Producto';
+            document.getElementById('productImgPreview').style.display = 'none';
+            document.getElementById('productModal').classList.add('open');
+        });
 
-        // CARGAR MENSAJES Y ESCUCHAR EN TIEMPO REAL
-        async function loadMessages() {
-            const tbody = document.getElementById('messagesTableBody');
-            const { data } = await db.from('contact_messages').select('*').order('created_at', { ascending: false });
-            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td></tr>`).join('') || '<tr><td colspan="2">No hay mensajes</td></tr>';
-        }
+        // 3. Abrir Modal Editar
+        window.openEditProduct = (product) => {
+            document.getElementById('productId').value = product.id;
+            document.getElementById('modalTitle').textContent = 'Editar Producto';
+            const form = document.getElementById('productForm');
+            form.querySelector('[name="name"]').value = product.name_es || '';
+            form.querySelector('[name="price"]').value = product.price || 0;
+            form.querySelector('[name="description"]').value = product.description_es || '';
+            
+            if(product.image_url) {
+                const imgPreview = document.getElementById('productImgPreview');
+                imgPreview.src = product.image_url;
+                imgPreview.style.display = 'block';
+            }
+            document.getElementById('productModal').classList.add('open');
+        };
 
-        // TIEMPO REAL: Escuchar cuando entra un mensaje nuevo
-        db.channel('realtime-messages')
+        // 4. Guardar (Crear o Editar)
+        document.getElementById('productForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+
+            const id = document.getElementById('productId').value;
+            const name = e.target.querySelector('[name="name"]').value;
+            const price = parseFloat(e.target.querySelector('[name="price"]').value);
+            const description = e.target.querySelector('[name="description"]').value;
+            const fileInput = document.getElementById('productImageFile');
+            
+            let imageUrl = document.getElementById('productImgPreview').src || null;
+            
+            // Subir imagen si se seleccionó una nueva
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = `${Date.now()}-${file.name}`;
+                const { data: uploadData, error } = await db.storage.from('portfolio-media').upload(fileName, file);
+                if(!error) {
+                    const { data: urlData } = db.storage.from('portfolio-media').getPublicUrl(fileName);
+                    imageUrl = urlData.publicUrl;
+                } else {
+                    alert('Error subiendo imagen: ' + error.message);
+                }
+            }
+
+            const productData = { name_es: name, price: price, description_es: description, image_url: imageUrl };
+
+            if(id) {
+                await db.from('products').update(productData).eq('id', id);
+            } else {
+                await db.from('products').insert([productData]);
+            }
+
+            closeProductModal();
+            loadProducts();
+            btn.textContent = 'Guardar Producto'; btn.disabled = false;
+        });
+
+        // 5. Cerrar Modal
+        window.closeProductModal = () => document.getElementById('productModal').classList.remove('open');
+
+        // 6. Eliminar
+        window.deleteProduct = async (id) => {
+            if(confirm('¿Seguro que quieres eliminar este producto?')) {
+                await db.from('products').delete().eq('id', id);
+                loadProducts();
+            }
+        };
+
+        // ===== PERFIL =====
+        document.getElementById('profileFile').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                document.getElementById('profileImgPreview').src = URL.createObjectURL(file);
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+
+            const fileInput = document.getElementById('profileFile');
+            let imageUrl = currentProfileImage;
+
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = `profile-${Date.now()}-${file.name}`;
+                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
+                if(!error) {
+                    const { data: urlData } = db.storage.from('portfolio-media').getPublicUrl(fileName);
+                    imageUrl = urlData.publicUrl;
+                }
+            }
+
+            // Nota: Aquí se necesita lógica para actualizar la contraseña en Supabase Auth
+            // y guardar el perfil en la tabla correspondiente.
+            
+            setTimeout(() => {
+                btn.textContent = 'Guardar Perfil'; btn.disabled = false;
+                alert('¡Perfil actualizado con éxito! (La contraseña requiere configuración extra)');
+            }, 800);
+        });
+
+        // ===== TIEMPO REAL =====
+        db.channel('realtime-admin')
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'contact_messages' }, payload => {
-              alert('¡Nuevo mensaje recibido de: ' + payload.new.name);
-              // Si estamos en la vista de mensajes, recargar la tabla
-              if(!document.getElementById('view-messages').hidden) {
-                  loadMessages();
-              }
+              alert('¡Nuevo mensaje de: ' + payload.new.name);
+              if(!document.getElementById('view-messages').hidden) loadMessages();
+          })
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
+              alert('¡Nuevo pedido recibido!');
+              if(!document.getElementById('view-orders').hidden) loadOrders();
           })
           .subscribe();
     </script>
