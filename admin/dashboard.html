@@ -9,12 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="admin.css" />
     <style>
-        /* Estilos extra para la barra superior y modales */
         .topbar-tools { display: flex; align-items: center; gap: 15px; position: relative; }
         .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .icon-btn:hover { background: rgba(255,255,255,0.05); }
         
-        /* Perfil Topbar */
         .profile-dropdown-wrapper { position: relative; }
         .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; }
         .profile-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
@@ -26,34 +24,32 @@
         .profile-menu a { display: block; padding: 10px 15px; color: var(--text); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
         .profile-menu a:hover { background: rgba(255,255,255,0.05); }
 
-        /* Notificaciones */
         .notif-dropdown { position: absolute; top: 50px; right: 60px; width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .notif-dropdown.open { display: block; }
         .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
         .notif-item:last-child { border-bottom: none; }
 
-        /* Modo Claro */
         body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
         body.light-mode .sidebar { background: var(--surface); }
         body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
         body.light-mode .btn-add { background: #111; color: #fff; }
         body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
 
-        /* Modales */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
         .modal-overlay.open { display: flex; }
-        .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
         
-        /* Formularios */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
         
-        /* Acciones Tabla */
         .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
         .action-btn:hover { color: var(--text); }
         .action-btn.delete:hover { color: #ef4444; }
+
+        .thumbnail { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+        .avatar-thumb { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
     </style>
 </head>
 <body class="admin-body">
@@ -79,7 +75,6 @@
             <div class="topbar-tools">
                 <button class="icon-btn" id="themeToggle" title="Cambiar tema"><i class="fas fa-moon"></i></button>
                 
-                <!-- CAMPANA DE NOTIFICACIONES -->
                 <div style="position: relative;">
                     <button class="icon-btn" onclick="document.getElementById('notifDropdown').classList.toggle('open')"><i class="fas fa-bell"></i></button>
                     <div class="notif-dropdown" id="notifDropdown">
@@ -88,7 +83,6 @@
                     </div>
                 </div>
 
-                <!-- AVATAR DE PERFIL EN TOPBAR -->
                 <div class="profile-dropdown-wrapper">
                     <button class="profile-btn" onclick="document.getElementById('profileMenu').classList.toggle('open')">
                         <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil">
@@ -172,11 +166,11 @@
         <!-- VISTA: PROYECTOS -->
         <div class="panel" id="view-projects" hidden>
             <div class="panel-header">
-                <h3>Proyectos del Portafolio</h3>
+                <h3>Proyectos Activos</h3>
                 <button class="btn-add" onclick="openProjectModal()"><i class="fas fa-plus"></i> Nuevo Proyecto</button>
             </div>
             <table>
-                <thead><tr><th>Proyecto</th><th>URL</th><th>Acciones</th></tr></thead>
+                <thead><tr><th>Proyecto</th><th>URL / Enlace</th><th>Acciones</th></tr></thead>
                 <tbody id="projectsTableBody"></tbody>
             </table>
         </div>
@@ -198,17 +192,18 @@
         </div>
     </main>
 
-    <!-- MODAL: CREAR/EDITAR PRODUCTO -->
+    <!-- MODAL: PRODUCTOS -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
             <h3 id="modalProductTitle" style="margin-bottom: 20px;">Nuevo Producto</h3>
             <form id="productForm">
                 <input type="hidden" name="id" id="productId">
-                <div class="form-group"><label>Imagen del Producto</label><input type="file" id="productImageFile" accept="image/*"></div>
+                <div class="form-group"><label>Cover / Miniatura</label><input type="file" id="productImageFile" accept="image/*"></div>
                 <div class="form-group"><label>Nombre</label><input name="name" required></div>
                 <div class="form-group"><label>Precio ($)</label><input type="number" name="price" step="0.01" required></div>
                 <div class="form-group"><label>Descripción</label><textarea name="description" rows="3"></textarea></div>
+                <div class="form-group"><label>Herramientas / Tags</label><input name="tags" placeholder="Ej. HTML, CSS, JS"></div>
                 <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Producto</button>
             </form>
         </div>
@@ -236,8 +231,10 @@
             <h3 id="modalProjectTitle" style="margin-bottom: 20px;">Nuevo Proyecto</h3>
             <form id="projectForm">
                 <input type="hidden" name="id" id="projectId">
+                <div class="form-group"><label>Cover / Miniatura</label><input type="file" id="projectImageFile" accept="image/*"></div>
                 <div class="form-group"><label>Título</label><input name="title" required></div>
                 <div class="form-group"><label>URL del Proyecto</label><input type="url" name="url"></div>
+                <div class="form-group"><label>Herramientas / Tags</label><input name="tags" placeholder="Ej. Diseño, React, CSS"></div>
                 <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Proyecto</button>
             </form>
         </div>
@@ -273,7 +270,6 @@
             themeBtn.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
-        // CERRAR SESIÓN
         window.logoutAdmin = async () => { await db.auth.signOut(); location.href = 'login.html'; };
         window.closeModal = (id) => document.getElementById(id).classList.remove('open');
 
@@ -283,20 +279,32 @@
             const { data } = await db.from('products').select('*');
             tbody.innerHTML = data?.map(p => `
                 <tr>
-                    <td>${p.name_es}</td><td>$${p.price}</td>
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        ${p.image_url 
+                            ? `<img src="${p.image_url}" class="thumbnail">` 
+                            : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`
+                        }
+                        <div>
+                            <div style="font-weight: 600; color: var(--text);">${p.name_es}</div>
+                            <div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div>
+                        </div>
+                    </td>
+                    <td>$${p.price}</td>
                     <td>
-                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)"><i class="fas fa-trash"></i></button>
+                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
         }
+
         document.getElementById('btnNewProduct').onclick = () => {
             document.getElementById('productForm').reset();
             document.getElementById('productId').value = '';
             document.getElementById('modalProductTitle').textContent = 'Nuevo Producto';
             document.getElementById('productModal').classList.add('open');
         };
+
         window.openEditProduct = (p) => {
             document.getElementById('productId').value = p.id;
             document.getElementById('modalProductTitle').textContent = 'Editar Producto';
@@ -304,25 +312,49 @@
             form.querySelector('[name="name"]').value = p.name_es || '';
             form.querySelector('[name="price"]').value = p.price || 0;
             form.querySelector('[name="description"]').value = p.description_es || '';
+            form.querySelector('[name="tags"]').value = p.category || '';
             document.getElementById('productModal').classList.add('open');
         };
+
         document.getElementById('productForm').onsubmit = async (e) => {
             e.preventDefault();
             const id = document.getElementById('productId').value;
-            const data = { name_es: e.target.name.value, price: parseFloat(e.target.price.value), description_es: e.target.description.value };
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+
+            let imageUrl = null;
+            const fileInput = document.getElementById('productImageFile');
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = `prod-${Date.now()}-${file.name}`;
+                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
+                if(!error) {
+                    const { data } = db.storage.from('portfolio-media').getPublicUrl(fileName);
+                    imageUrl = data.publicUrl;
+                }
+            }
+
+            const data = { 
+                name_es: e.target.name.value, 
+                price: parseFloat(e.target.price.value), 
+                description_es: e.target.description.value,
+                category: e.target.tags.value
+            };
+            if(imageUrl) data.image_url = imageUrl;
+
             if(id) await db.from('products').update(data).eq('id', id);
             else await db.from('products').insert([data]);
+            
             closeModal('productModal'); loadProducts();
+            btn.textContent = 'Guardar Producto'; btn.disabled = false;
         };
 
-        // ===== PEDIDOS Y SOLICITUDES =====
+        // ===== PEDIDOS =====
         async function loadOrders() {
             const tbody = document.getElementById('ordersTableBody');
             const { data } = await db.from('orders').select('*').order('created_at', {ascending: false});
             tbody.innerHTML = data?.map(o => `
-                <tr>
-                    <td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td>
-                </tr>
+                <tr><td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td></tr>
             `).join('') || '<tr><td colspan="4">No hay pedidos</td></tr>';
         }
 
@@ -339,20 +371,30 @@
             const { data } = await db.from('testimonials').select('*');
             tbody.innerHTML = data?.map(t => `
                 <tr>
-                    <td>${t.name_es}</td><td>${t.text_es}</td><td>${'★'.repeat(t.rating || 5)}</td>
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        ${t.avatar_url 
+                            ? `<img src="${t.avatar_url}" class="avatar-thumb">` 
+                            : `<div style="width: 36px; height: 36px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`
+                        }
+                        <span>${t.name_es}</span>
+                    </td>
+                    <td>${t.text_es}</td>
+                    <td>${'★'.repeat(t.rating || 5)}</td>
                     <td>
-                        <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)"><i class="fas fa-trash"></i></button>
+                        <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             `).join('') || '<tr><td colspan="4">No hay opiniones</td></tr>';
         }
+
         window.openTestimonialModal = () => {
             document.getElementById('testimonialForm').reset();
             document.getElementById('testimonialId').value = '';
             document.getElementById('modalTestimonialTitle').textContent = 'Nueva Opinión';
             document.getElementById('testimonialModal').classList.add('open');
         };
+
         window.openEditTestimonial = (t) => {
             document.getElementById('testimonialId').value = t.id;
             document.getElementById('modalTestimonialTitle').textContent = 'Editar Opinión';
@@ -362,6 +404,7 @@
             form.querySelector('[name="rating"]').value = t.rating || 5;
             document.getElementById('testimonialModal').classList.add('open');
         };
+
         document.getElementById('testimonialForm').onsubmit = async (e) => {
             e.preventDefault();
             const id = document.getElementById('testimonialId').value;
@@ -377,38 +420,75 @@
             const { data } = await db.from('projects').select('*');
             tbody.innerHTML = data?.map(p => `
                 <tr>
-                    <td>${p.title_es}</td><td><a href="${p.project_url}" target="_blank" style="color:var(--muted);">${p.project_url ? 'Ver link' : 'Sin link'}</a></td>
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        ${p.image_url 
+                            ? `<img src="${p.image_url}" class="thumbnail">` 
+                            : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`
+                        }
+                        <div>
+                            <div style="font-weight: 600; color: var(--text);">${p.title_es}</div>
+                            <div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div>
+                        </div>
+                    </td>
+                    <td><a href="${p.project_url}" target="_blank" style="color:var(--muted);">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
                     <td>
-                        <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
+                        <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})' title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             `).join('') || '<tr><td colspan="3">No hay proyectos</td></tr>';
         }
+
         window.openProjectModal = () => {
             document.getElementById('projectForm').reset();
             document.getElementById('projectId').value = '';
             document.getElementById('modalProjectTitle').textContent = 'Nuevo Proyecto';
             document.getElementById('projectModal').classList.add('open');
         };
+
         window.openEditProject = (p) => {
             document.getElementById('projectId').value = p.id;
             document.getElementById('modalProjectTitle').textContent = 'Editar Proyecto';
             const form = document.getElementById('projectForm');
             form.querySelector('[name="title"]').value = p.title_es || '';
             form.querySelector('[name="url"]').value = p.project_url || '';
+            form.querySelector('[name="tags"]').value = p.tags || '';
             document.getElementById('projectModal').classList.add('open');
         };
+
         document.getElementById('projectForm').onsubmit = async (e) => {
             e.preventDefault();
             const id = document.getElementById('projectId').value;
-            const data = { title_es: e.target.title.value, project_url: e.target.url.value };
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Guardando...'; btn.disabled = true;
+
+            let imageUrl = null;
+            const fileInput = document.getElementById('projectImageFile');
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = `proj-${Date.now()}-${file.name}`;
+                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
+                if(!error) {
+                    const { data } = db.storage.from('portfolio-media').getPublicUrl(fileName);
+                    imageUrl = data.publicUrl;
+                }
+            }
+
+            const data = { 
+                title_es: e.target.title.value, 
+                project_url: e.target.url.value,
+                tags: e.target.tags.value
+            };
+            if(imageUrl) data.image_url = imageUrl;
+
             if(id) await db.from('projects').update(data).eq('id', id);
             else await db.from('projects').insert([data]);
+            
             closeModal('projectModal'); loadProjects();
+            btn.textContent = 'Guardar Proyecto'; btn.disabled = false;
         };
 
-        // ===== FUNCIÓN GENERAL PARA BORRAR =====
+        // FUNCIÓN GENERAL PARA BORRAR
         window.deleteItem = async (table, id, callback) => {
             if(confirm('¿Seguro que quieres eliminar esto?')) {
                 await db.from(table).delete().eq('id', id);
@@ -416,7 +496,7 @@
             }
         };
 
-        // ===== NOTIFICACIONES EN TIEMPO REAL =====
+        // NOTIFICACIONES EN TIEMPO REAL
         db.channel('realtime-admin')
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'contact_messages' }, payload => {
               const list = document.getElementById('notifList');
