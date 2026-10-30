@@ -3,543 +3,573 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wilkyjams Dev · Admin</title>
+    <meta name="description" content="Accede a recursos gratuitos y premium de diseño web y código. Desbloquea el Club VIP." />
+    <meta name="theme-color" content="#050505" />
+    <title>Wilkyjams Dev · Recursos Club</title>
+
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="stylesheet" href="style.css" />
+    
     <style>
-        .topbar-tools { display: flex; align-items: center; gap: 15px; position: relative; }
-        .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .icon-btn:hover { background: rgba(255,255,255,0.05); }
+        /* ==== ESTILOS PROFESIONALES PARA LA GALERÍA DE RECURSOS ==== */
+        .resources-section {
+            padding: 60px 0 100px;
+            position: relative;
+            z-index: 2;
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .resource-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .resource-card:hover:not(.locked) {
+            transform: translateY(-8px);
+            border-color: var(--accent-1, #a8b9cc);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(168, 185, 204, 0.1);
+        }
+        .resource-card.locked {
+            cursor: default;
+            border-color: rgba(196, 168, 204, 0.2);
+        }
         
-        .profile-dropdown-wrapper { position: relative; }
-        .profile-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text); cursor: pointer; }
-        .profile-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
-        .profile-info { text-align: left; font-size: 0.85rem; }
-        .profile-info strong { display: block; }
-        .profile-info span { color: var(--muted); }
-        .profile-menu { position: absolute; top: 50px; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; width: 200px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .profile-menu.open { display: block; }
-        .profile-menu a { display: block; padding: 10px 15px; color: var(--text); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
-        .profile-menu a:hover { background: rgba(255,255,255,0.05); }
-
-        .notif-dropdown { position: absolute; top: 50px; right: 60px; width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .notif-dropdown.open { display: block; }
-        .notif-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
-        .notif-item:last-child { border-bottom: none; }
-
-        body.light-mode { --bg: #f5f5f7; --surface: #ffffff; --border: rgba(0,0,0,0.08); --text: #111; --muted: #666; }
-        body.light-mode .sidebar { background: var(--surface); }
-        body.light-mode .nav a:hover { background: rgba(0,0,0,0.05); }
-        body.light-mode .btn-add { background: #111; color: #fff; }
-        body.light-mode .form-group input, body.light-mode .form-group textarea, body.light-mode .form-group select { background: rgba(0,0,0,0.05); }
-
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .modal-overlay.open { display: flex; }
-        .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative; }
-        .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+        /* Overlay de Bloqueo VIP */
+        .locked-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(5,6,10,0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            gap: 12px;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .locked-overlay .lock-icon-wrap {
+            width: 60px; height: 60px;
+            background: rgba(196, 168, 204, 0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 8px;
+            border: 1px solid rgba(196, 168, 204, 0.3);
+        }
+        .locked-overlay .lock-icon-wrap i {
+            font-size: 1.8rem;
+            color: var(--accent-2, #c4a8cc);
+        }
+        .locked-overlay span {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
         
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; }
+        /* Badges */
+        .resource-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            width: fit-content;
+        }
+        .badge-free {
+            background: rgba(74, 222, 128, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.25);
+        }
+        .badge-vip {
+            background: rgba(196, 168, 204, 0.1);
+            color: var(--accent-2, #c4a8cc);
+            border: 1px solid rgba(196, 168, 204, 0.25);
+        }
         
-        .action-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; transition: 0.2s; }
-        .action-btn:hover { color: var(--text); }
-        .action-btn.delete:hover { color: #ef4444; }
+        /* Contenido de la tarjeta */
+        .resource-title {
+            font-family: var(--font-display, 'Syne', sans-serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .resource-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted, #888);
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        /* Botones de acción */
+        .code-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 18px;
+        }
+        .action-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-copy-code, .btn-download-zip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            text-decoration: none;
+            flex: 1;
+        }
+        .btn-copy-code:hover, .btn-download-zip:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: var(--accent-1, #a8b9cc);
+            transform: translateY(-2px);
+        }
+        .btn-download-zip {
+            background: var(--accent-1, #a8b9cc);
+            color: #000;
+            border: none;
+            font-weight: 700;
+        }
+        .btn-download-zip:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+        }
 
-        .thumbnail { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
-        .avatar-thumb { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
-
-        #toastContainer { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast-msg { padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideIn 0.3s ease; display: flex; align-items: center; gap: 8px; }
-        .toast-success { background: #4ade80; color: #000; }
-        .toast-error { background: #ef4444; color: #fff; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        /* Modal de llave VIP */
+        .vip-key-modal {
+            position: fixed; inset: 0; z-index: 3000;
+            background: rgba(5,6,10,0.9); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
+        }
+        .vip-key-modal.open { opacity: 1; pointer-events: all; }
+        .vip-key-content {
+            background: #0f0f13; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; width: 100%; max-width: 460px; padding: 45px;
+            position: relative; box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+            text-align: center;
+        }
+        .vip-key-content .close-modal-btn {
+            position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.05); 
+            border: none; color: #888; width: 36px; height: 36px; border-radius: 50%; 
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .vip-key-content .close-modal-btn:hover { background: rgba(255,255,255,0.1); color: #fff; transform: rotate(90deg); }
+        .vip-key-content h3 { font-family: var(--font-display, 'Syne', sans-serif); font-size: 1.6rem; margin-bottom: 10px; color: #fff; }
+        .vip-key-content p { color: var(--text-muted, #888); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
+        .vip-key-content input {
+            width: 100%; padding: 16px; background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px; color: #fff; font-family: inherit;
+            font-size: 1.1rem; text-align: center; letter-spacing: 3px; margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        .vip-key-content input:focus { outline: none; border-color: var(--accent-1, #a8b9cc); }
+        .vip-key-content .key-error { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; }
+        .vip-key-content .btn-submit-key {
+            width: 100%; padding: 16px; background: var(--accent-1, #a8b9cc);
+            color: #000; border: none; border-radius: 12px;
+            font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s;
+        }
+        .vip-key-content .btn-submit-key:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
+        .vip-key-content .cancel-link {
+            display: block; margin-top: 20px; color: var(--text-muted, #888);
+            font-size: 0.9rem; cursor: pointer; text-decoration: underline;
+        }
+        
+        .empty-state {
+            text-align: center; padding: 80px 20px; color: var(--text-muted, #888);
+            grid-column: 1 / -1; background: rgba(255,255,255,0.02); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.1);
+        }
+        .empty-state i { font-size: 3.5rem; margin-bottom: 20px; color: rgba(255,255,255,0.1); }
+        .empty-state p { font-size: 1.1rem; }
+        
+        @media (max-width: 768px) {
+            .resources-grid { grid-template-columns: 1fr; }
+            .vip-key-content { padding: 30px 20px; }
+        }
     </style>
 </head>
-<body class="admin-body">
+<body>
 
-    <aside class="sidebar">
-        <div class="logo">JP · Admin</div>
-        <nav class="nav" id="adminNav">
-            <a data-section="summary" class="active"><i class="fas fa-chart-pie"></i> Resumen</a>
-            <a data-section="vip"><i class="fas fa-crown"></i> Club VIP</a>
-            <a data-section="products"><i class="fas fa-box"></i> Tienda</a>
-            <a data-section="orders"><i class="fas fa-receipt"></i> Pedidos y Solicitudes</a>
-            <a data-section="messages"><i class="fas fa-envelope"></i> Mensajes</a>
-            <a data-section="testimonials"><i class="fas fa-star"></i> Opiniones</a>
-            <a data-section="projects"><i class="fas fa-layer-group"></i> Proyectos</a>
-            <a data-section="profile"><i class="fas fa-user-gear"></i> Mi Perfil</a>
-        </nav>
-        <button class="logout" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> Salir</button>
-    </aside>
+    <canvas id="webgl-canvas"></canvas>
 
-    <main class="main">
-        <div class="topbar">
-            <h1 id="pageTitle">Resumen</h1>
-            <div class="topbar-tools">
-                <button class="icon-btn" id="themeToggle" title="Cambiar tema"><i class="fas fa-moon"></i></button>
-                
-                <div style="position: relative;">
-                    <button class="icon-btn" onclick="document.getElementById('notifDropdown').classList.toggle('open')"><i class="fas fa-bell"></i></button>
-                    <div class="notif-dropdown" id="notifDropdown">
-                        <h4 style="margin-bottom: 10px;">Notificaciones</h4>
-                        <div id="notifList"><div class="notif-item">No hay notificaciones nuevas.</div></div>
-                    </div>
-                </div>
-
-                <div class="profile-dropdown-wrapper">
-                    <button class="profile-btn" onclick="document.getElementById('profileMenu').classList.toggle('open')">
-                        <img src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" alt="Perfil">
-                        <div class="profile-info">
-                            <strong>Jamsle Porcena</strong>
-                            <span>Administrador</span>
-                        </div>
+    <!-- ===== NAVEGACIÓN ===== -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
+                <img src="/favicon-32x32.png" alt="Wilkyjams Dev Logo" class="logo-img">
+                <span class="logo-text">Wilkyjams Dev</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+                <li><a href="club.html">Club VIP</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="contacto.html">Contáctame</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false">
+                        <i class="fas fa-globe"></i>
                     </button>
-                    <div class="profile-menu" id="profileMenu">
-                        <a onclick="document.querySelector('[data-section=profile]').click(); document.getElementById('profileMenu').classList.remove('open');"><i class="fas fa-user"></i> Mi Perfil</a>
-                        <a onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                    </div>
+                    <ul class="lang-menu" data-lang-menu role="listbox" hidden>
+                        <li data-lang-option="es" role="option" aria-selected="true"><span class="lang-label">Español</span></li>
+                        <li data-lang-option="en" role="option" aria-selected="false"><span class="lang-label">English</span></li>
+                        <li data-lang-option="fr" role="option" aria-selected="false"><span class="lang-label">Français</span></li>
+                        <li data-lang-option="pt" role="option" aria-selected="false"><span class="lang-label">Português</span></li>
+                    </ul>
                 </div>
-
-                <a href="/" target="_blank" style="color: var(--text); text-decoration: none; font-size: 1.2rem;" title="Ver Sitio"><i class="fas fa-external-link-alt"></i></a>
+                <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
+    </nav>
 
-        <!-- VISTA: RESUMEN -->
-        <div class="panel" id="view-summary">
-            <h3>Bienvenido al panel</h3>
-            <p style="color: var(--muted); margin-top: 10px;">Selecciona una opción del menú para gestionar tu sitio.</p>
+    <!-- ===== HERO DE PÁGINA ===== -->
+    <section class="page-hero">
+        <div class="container" style="text-align: center;">
+            <span class="label" style="color: var(--accent-2);">Biblioteca de Recursos</span>
+            <h1 style="font-family: var(--font-display); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
+                Explora el <span class="highlight">Club VIP</span>
+            </h1>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem;">
+                Descarga plantillas y códigos exclusivos. Los recursos marcados como VIP requieren una llave de acceso.
+            </p>
+            
+            <!-- Botón para abrir el modal de la llave -->
+            <button onclick="openVipModal()" class="btn-secondary glass-btn" style="justify-content:center; display: inline-flex; gap: 8px; padding: 14px 28px; font-weight: 600;">
+                <i class="fas fa-key"></i> Ya soy VIP, ingresar llave
+            </button>
         </div>
+    </section>
 
-        <!-- VISTA: CLUB VIP (CON TABLA DE RECURSOS) -->
-        <div class="panel" id="view-vip" hidden>
-            <div class="panel-header"><h3>Agregar Recurso al Club VIP</h3></div>
-            <form id="vipForm">
-                <div class="form-group"><label>Título</label><input name="title" required></div>
-                <div class="form-group"><label>Descripción</label><textarea name="description" rows="2" required></textarea></div>
-                <div class="form-group">
-                    <label>Tipo</label>
-                    <select name="type"><option value="free">Gratis</option><option value="vip">VIP</option></select>
+    <!-- ===== GALERÍA DE RECURSOS ===== -->
+    <section class="resources-section">
+        <div class="container">
+            <div class="resources-grid" id="resourcesGrid">
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando recursos...</p>
                 </div>
-                <div class="form-group"><label>Código HTML</label><textarea name="code_content" rows="3"></textarea></div>
-                <div class="form-group"><label>Código CSS</label><textarea name="code_css" rows="3"></textarea></div>
-                <div class="form-group"><label>Código JS</label><textarea name="code_js" rows="3"></textarea></div>
-                <button type="submit" class="btn-add">Guardar Recurso</button>
-            </form>
-
-            <div class="panel-header" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px;">
-                <h3>Recursos Publicados</h3>
             </div>
-            <table>
-                <thead><tr><th>Recurso</th><th>Tipo</th><th>Acciones</th></tr></thead>
-                <tbody id="vipTableBody"></tbody>
-            </table>
         </div>
+    </section>
 
-        <!-- VISTA: TIENDA -->
-        <div class="panel" id="view-products" hidden>
-            <div class="panel-header">
-                <h3>Productos de la Tienda</h3>
-                <button class="btn-add" id="btnNewProduct"><i class="fas fa-plus"></i> Nuevo Producto</button>
-            </div>
-            <table>
-                <thead><tr><th>Producto</th><th>Precio</th><th>Acciones</th></tr></thead>
-                <tbody id="productsTableBody"></tbody>
-            </table>
-        </div>
-
-        <!-- VISTA: PEDIDOS Y SOLICITUDES -->
-        <div class="panel" id="view-orders" hidden>
-            <div class="panel-header"><h3>Pedidos y Solicitudes</h3></div>
-            <table>
-                <thead><tr><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Fecha</th></tr></thead>
-                <tbody id="ordersTableBody"></tbody>
-            </table>
-        </div>
-
-        <!-- VISTA: MENSAJES -->
-        <div class="panel" id="view-messages" hidden>
-            <div class="panel-header"><h3>Mensajes de Contacto</h3></div>
-            <table><thead><tr><th>Nombre</th><th>Asunto</th><th>Correo</th></tr></thead><tbody id="messagesTableBody"></tbody></table>
-        </div>
-
-        <!-- VISTA: OPINIONES -->
-        <div class="panel" id="view-testimonials" hidden>
-            <div class="panel-header">
-                <h3>Opiniones de Clientes</h3>
-                <button class="btn-add" onclick="openTestimonialModal()"><i class="fas fa-plus"></i> Nueva Opinión</button>
-            </div>
-            <table>
-                <thead><tr><th>Cliente</th><th>Texto</th><th>Estrellas</th><th>Acciones</th></tr></thead>
-                <tbody id="testimonialsTableBody"></tbody>
-            </table>
-        </div>
-
-        <!-- VISTA: PROYECTOS -->
-        <div class="panel" id="view-projects" hidden>
-            <div class="panel-header">
-                <h3>Proyectos Activos</h3>
-                <button class="btn-add" onclick="openProjectModal()"><i class="fas fa-plus"></i> Nuevo Proyecto</button>
-            </div>
-            <table>
-                <thead><tr><th>Proyecto</th><th>URL / Enlace</th><th>Acciones</th></tr></thead>
-                <tbody id="projectsTableBody"></tbody>
-            </table>
-        </div>
-
-        <!-- VISTA: MI PERFIL -->
-        <div class="panel" id="view-profile" hidden>
-            <div class="panel-header"><h3>Mi Perfil de Administrador</h3></div>
-            <form id="profileForm" style="max-width: 500px;">
-                <div class="form-group" style="text-align: center; margin-bottom: 20px;">
-                    <img id="profileImgPreview" src="https://i.postimg.cc/XY9qCCPS/file-0000000098a071f5b85996216348794a.jpg" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); margin-bottom: 10px;">
-                    <input type="file" id="profileFile" accept="image/*" style="display: none;">
-                    <button type="button" onclick="document.getElementById('profileFile').click()" class="btn-add" style="font-size: 0.8rem; padding: 5px 10px;">Cambiar Foto</button>
-                </div>
-                <div class="form-group"><label>Nombre</label><input name="name" value="Jamsle Porcena" required></div>
-                <div class="form-group"><label>Email</label><input type="email" name="email" value="porcenatjamsle07@gmail.com" required></div>
-                <div class="form-group"><label>Nueva Contraseña (Opcional)</label><input type="password" name="password" placeholder="Dejar en blanco para no cambiar"></div>
-                <button type="submit" class="btn-add"><i class="fas fa-save"></i> Guardar Perfil</button>
-            </form>
-        </div>
-    </main>
-
-    <!-- MODAL: PRODUCTOS -->
-    <div class="modal-overlay" id="productModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
-            <h3 id="modalProductTitle" style="margin-bottom: 20px;">Nuevo Producto</h3>
-            <form id="productForm">
-                <input type="hidden" name="id" id="productId">
-                <div class="form-group"><label>Cover / Miniatura</label><input type="file" id="productImageFile" accept="image/*"></div>
-                <div class="form-group"><label>Nombre</label><input name="name" required></div>
-                <div class="form-group"><label>Precio ($)</label><input type="number" name="price" step="0.01" required></div>
-                <div class="form-group"><label>Descripción</label><textarea name="description" rows="3"></textarea></div>
-                <div class="form-group"><label>Herramientas / Tags</label><input name="tags" placeholder="Ej. HTML, CSS, JS"></div>
-                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Producto</button>
-            </form>
+    <!-- ===== MODAL DE LLAVE VIP ===== -->
+    <div class="vip-key-modal" id="vipKeyModal">
+        <div class="vip-key-content">
+            <button class="close-modal-btn" onclick="closeVipModal()"><i class="fas fa-times"></i></button>
+            <i class="fas fa-crown" style="font-size: 2.5rem; color: var(--accent-2); margin-bottom: 15px;"></i>
+            <h3>Ingresa tu Llave VIP</h3>
+            <p>Ingresa la llave que recibiste al unirte al Club VIP para desbloquear todos los recursos premium.</p>
+            <input type="text" id="vipKeyInput" placeholder="Ej: WJ-VIP-9f3a7b" autocomplete="off">
+            <div class="key-error" id="vipKeyError"><i class="fas fa-exclamation-circle"></i> Llave inválida. Verifica e intenta de nuevo.</div>
+            <button class="btn-submit-key" onclick="validateVipKey()">Desbloquear Recursos VIP</button>
+            <span class="cancel-link" onclick="closeVipModal()">Cancelar</span>
         </div>
     </div>
 
-    <!-- MODAL: OPINIONES -->
-    <div class="modal-overlay" id="testimonialModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeModal('testimonialModal')"><i class="fas fa-times"></i></button>
-            <h3 id="modalTestimonialTitle" style="margin-bottom: 20px;">Nueva Opinión</h3>
-            <form id="testimonialForm">
-                <input type="hidden" name="id" id="testimonialId">
-                <div class="form-group"><label>Nombre del Cliente</label><input name="name" required></div>
-                <div class="form-group"><label>Opinion / Texto</label><textarea name="text" rows="3" required></textarea></div>
-                <div class="form-group"><label>Estrellas (1-5)</label><input type="number" name="rating" min="1" max="5" value="5" required></div>
-                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Opinión</button>
-            </form>
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><div class="logo glass-logo">JP</div><p>Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
+                <div><h5>Navegación</h5><ul><li><a href="index.html">Inicio</a></li><li><a href="sobre-mi.html">Sobre mí</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="tienda.html">Tienda</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+                <div><h5>Legal</h5><ul><li><a href="privacy.html">Privacidad</a></li><li><a href="terms.html">Términos</a></li><li><a href="cookies.html">Cookies</a></li><li><a href="help.html">Centro de ayuda</a></li></ul></div>
+                <div><h5>Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank">WhatsApp</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
+        </div>
+    </footer>
+
+    <!-- ===== CARRITO LATERAL ===== -->
+    <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> <span>Tu carrito</span></h3><button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button></div>
+        <div class="cart-items" id="cartItemsWrap"></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotalValue">$0.00</span></div>
+            <div style="display: flex; gap: 10px; flex-direction: column;">
+                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-airtm"><i class="fas fa-credit-card"></i> Pagar con Airtm</a>
+                <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()"><i class="fab fa-whatsapp"></i> Coordinar por WhatsApp</button>
+            </div>
         </div>
     </div>
 
-    <!-- MODAL: PROYECTOS -->
-    <div class="modal-overlay" id="projectModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeModal('projectModal')"><i class="fas fa-times"></i></button>
-            <h3 id="modalProjectTitle" style="margin-bottom: 20px;">Nuevo Proyecto</h3>
-            <form id="projectForm">
-                <input type="hidden" name="id" id="projectId">
-                <div class="form-group"><label>Cover / Miniatura</label><input type="file" id="projectImageFile" accept="image/*"></div>
-                <div class="form-group"><label>Título</label><input name="title" required></div>
-                <div class="form-group"><label>URL del Proyecto</label><input type="url" name="url"></div>
-                <div class="form-group"><label>Herramientas / Tags</label><input name="tags" placeholder="Ej. Diseño, React, CSS"></div>
-                <button type="submit" class="btn-add" style="width: 100%; justify-content: center;">Guardar Proyecto</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- CONTENEDOR DE TOASTS -->
-    <div id="toastContainer"></div>
-
+    <!-- ===== SCRIPTS BASE (INTEGRADOS Y VERIFICADOS) ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: false, mirror: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../supabase-client.js"></script>
+    <script src="supabase-client.js"></script>
+    <script src="common.js"></script>
+    <script src="cms-content.js"></script>
+    <!-- JSZip para generar el .ZIP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
     <script>
-        const db = window.portfolioSupabase;
+        // ==== CONFIGURACIÓN DE LLAVE VIP ====
+        const VIP_KEY = "WJ-VIP-9f3a7b"; 
+        const VIP_STORAGE_KEY = "wilkyjams_vip_unlocked";
+        let isVipUnlocked = localStorage.getItem(VIP_STORAGE_KEY) === "true";
+        let resourcesCache = []; // Caché global para copiar y descargar
 
-        // NAVEGACIÓN
-        document.querySelectorAll('.nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelectorAll('.panel').forEach(p => p.hidden = true);
-                document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-                const section = link.dataset.section;
-                document.getElementById('view-' + section).hidden = false;
-                link.classList.add('active');
-                document.getElementById('pageTitle').textContent = link.textContent.trim();
+        // ==== MODAL DE LLAVE VIP ====
+        function openVipModal() { document.getElementById('vipKeyModal').classList.add('open'); }
+        function closeVipModal() { 
+            document.getElementById('vipKeyModal').classList.remove('open'); 
+            document.getElementById('vipKeyError').style.display = 'none';
+            document.getElementById('vipKeyInput').value = '';
+        }
+        
+        function validateVipKey() {
+            const input = document.getElementById('vipKeyInput').value.trim();
+            if (input === VIP_KEY) {
+                localStorage.setItem(VIP_STORAGE_KEY, "true");
+                isVipUnlocked = true;
+                closeVipModal();
+                renderResources(); // Re-renderizar sin recargar la página
+            } else {
+                document.getElementById('vipKeyError').style.display = 'block';
+            }
+        }
 
-                if(section === 'vip') loadVipResources();
-                if(section === 'products') loadProducts();
-                if(section === 'orders') loadOrders();
-                if(section === 'messages') loadMessages();
-                if(section === 'testimonials') loadTestimonials();
-                if(section === 'projects') loadProjects();
+        document.getElementById('vipKeyModal').addEventListener('click', function(e) { if (e.target === this) closeVipModal(); });
+
+        // ==== FONDO 3D ====
+        const canvas = document.querySelector('#webgl-canvas');
+        if (canvas && typeof THREE !== 'undefined') {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            const particlesGeo = new THREE.BufferGeometry();
+            const particlesCount = 400;
+            const posArray = new Float32Array(particlesCount * 3);
+            for (let i = 0; i < particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
+            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+            const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+            scene.add(particlesMesh);
+            const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), new THREE.MeshBasicMaterial({ color: 0xa8b9cc, wireframe: true, transparent: true, opacity: 0.15 }));
+            sphere.position.set(2.5, 0, -2);
+            scene.add(sphere);
+            const clock = new THREE.Clock();
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+                particlesMesh.rotation.y = t * 0.04;
+                sphere.rotation.y = t * 0.12;
+                renderer.render(scene, camera);
+            }
+            animate();
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
             });
+        }
+
+        // ==== CARGAR RECURSOS DE SUPABASE ====
+        async function fetchResources() {
+            const grid = document.getElementById('resourcesGrid');
+            grid.innerHTML = `<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Cargando recursos...</p></div>`;
+            
+            const db = window.portfolioSupabase;
+            if (!db) {
+                grid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error de conexión con el servidor.</p></div>`;
+                return;
+            }
+
+            try {
+                const { data, error } = await db.from('resources').select('*').order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                resourcesCache = data || [];
+                renderResources();
+
+            } catch (err) {
+                console.error("Error cargando recursos:", err);
+                grid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>No se pudieron cargar los recursos. Verifica tu conexión.</p></div>`;
+            }
+        }
+
+        // ==== RENDERIZAR TARJETAS ====
+        function renderResources() {
+            const grid = document.getElementById('resourcesGrid');
+            
+            if (resourcesCache.length === 0) {
+                grid.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><p>Aún no hay recursos publicados. Vuelve pronto.</p></div>`;
+                return;
+            }
+
+            grid.innerHTML = resourcesCache.map(r => {
+                const isVip = r.type === 'vip';
+                const isLocked = isVip && !isVipUnlocked;
+                
+                // Botones de código (solo si no está bloqueado)
+                const htmlBtns = r.code_content ? `<button class="btn-copy-code" onclick="copyCode(this, 'html', '${r.id}')"><i class="fab fa-html5"></i> HTML</button>` : '';
+                const cssBtns = r.code_css ? `<button class="btn-copy-code" onclick="copyCode(this, 'css', '${r.id}')"><i class="fab fa-css3-alt"></i> CSS</button>` : '';
+                const jsBtns = r.code_js ? `<button class="btn-copy-code" onclick="copyCode(this, 'js', '${r.id}')"><i class="fab fa-js"></i> JS</button>` : '';
+                
+                return `
+                <div class="resource-card ${isLocked ? 'locked' : ''}" data-aos="fade-up">
+                    ${isLocked ? `
+                    <div class="locked-overlay">
+                        <div class="lock-icon-wrap"><i class="fas fa-lock"></i></div>
+                        <span>Recurso Premium VIP</span>
+                        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Hazte miembro para desbloquear</p>
+                        <button onclick="openVipModal()" class="btn-secondary glass-btn" style="font-size: 0.85rem; padding: 10px 20px;"><i class="fas fa-key"></i> Desbloquear</button>
+                    </div>` : ''}
+                    
+                    <span class="resource-badge ${isVip ? 'badge-vip' : 'badge-free'}">
+                        ${isVip ? '<i class="fas fa-crown"></i> VIP' : '<i class="fas fa-unlock"></i> Gratis'}
+                    </span>
+                    <h3 class="resource-title">${r.title}</h3>
+                    <p class="resource-desc">${r.description || 'Sin descripción disponible.'}</p>
+                    
+                    ${!isLocked ? `
+                    <div class="code-actions">
+                        <div class="action-group">
+                            ${htmlBtns} ${cssBtns} ${jsBtns}
+                        </div>
+                        <button class="btn-download-zip" onclick="downloadZip('${r.id}')">
+                            <i class="fas fa-file-archive"></i> Descargar todo (.zip)
+                        </button>
+                    </div>` : ''}
+                </div>
+                `;
+            }).join('');
+            
+            if (typeof AOS !== 'undefined') AOS.refresh();
+        }
+
+        // ==== FUNCIÓN COPIAR CÓDIGO ====
+        function copyCode(btn, type, id) {
+            const resource = resourcesCache.find(r => r.id === id);
+            if (!resource) return;
+
+            let codeToCopy = '';
+            if (type === 'html') codeToCopy = resource.code_content;
+            if (type === 'css') codeToCopy = resource.code_css;
+            if (type === 'js') codeToCopy = resource.code_js;
+
+            if (!codeToCopy) {
+                alert('Este código no está disponible.');
+                return;
+            }
+
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                btn.style.background = 'rgba(74, 222, 128, 0.2)';
+                btn.style.borderColor = '#4ade80';
+                btn.style.color = '#4ade80';
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                    btn.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                alert('Error al copiar. Tu navegador puede no soportar esta función.');
+            });
+        }
+
+        // ==== FUNCIÓN DESCARGAR .ZIP ====
+        function downloadZip(id) {
+            const resource = resourcesCache.find(r => r.id === id);
+            if (!resource) return;
+
+            if (typeof JSZip === 'undefined') {
+                alert('Error: La librería ZIP no se cargó correctamente.');
+                return;
+            }
+
+            const zip = new JSZip();
+            let hasFiles = false;
+
+            if (resource.code_content) { zip.file('index.html', resource.code_content); hasFiles = true; }
+            if (resource.code_css) { zip.file('style.css', resource.code_css); hasFiles = true; }
+            if (resource.code_js) { zip.file('script.js', resource.code_js); hasFiles = true; }
+
+            if (!hasFiles) {
+                alert('Este recurso no tiene archivos para descargar.');
+                return;
+            }
+
+            zip.generateAsync({ type: 'blob' }).then(content => {
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${resource.title.replace(/\s+/g, '-').toLowerCase()}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        // ==== INICIALIZACIÓN ====
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchResources();
         });
-
-        // MODO OSCURO / CLARO
-        const themeBtn = document.getElementById('themeToggle');
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            themeBtn.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-        });
-
-        window.logoutAdmin = async () => { await db.auth.signOut(); location.href = 'login.html'; };
-        window.closeModal = (id) => document.getElementById(id).classList.remove('open');
-
-        // ===== NOTIFICACIONES TOAST =====
-        function showToast(msg, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast-msg toast-${type}`;
-            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3500);
-        }
-
-        // ===== CLUB VIP =====
-        document.getElementById('vipForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.textContent = 'Guardando...'; btn.disabled = true;
-            const data = Object.fromEntries(new FormData(e.target).entries());
-            const { error } = await db.from('resources').insert([data]);
-            if (error) showToast('Error: ' + error.message, 'error');
-            else {
-                showToast('¡Recurso agregado con éxito!');
-                e.target.reset();
-                loadVipResources();
-            }
-            btn.textContent = 'Guardar Recurso'; btn.disabled = false;
-        });
-
-        async function loadVipResources() {
-            const tbody = document.getElementById('vipTableBody');
-            const { data } = await db.from('resources').select('*').order('created_at', {ascending: false});
-            tbody.innerHTML = data?.map(r => `
-                <tr>
-                    <td><div style="font-weight: 600;">${r.title}</div><div style="font-size: 0.75rem; color: var(--muted);">${r.description}</div></td>
-                    <td><span style="color: ${r.type === 'vip' ? '#c4a8cc' : '#4ade80'}; font-weight: 600;">${r.type === 'vip' ? 'VIP' : 'Gratis'}</span></td>
-                    <td><button class="action-btn delete" onclick="deleteItem('resources', '${r.id}', loadVipResources)"><i class="fas fa-trash"></i></button></td>
-                </tr>
-            `).join('') || '<tr><td colspan="3">No hay recursos aún.</td></tr>';
-        }
-
-        // ===== PRODUCTOS =====
-        async function loadProducts() {
-            const tbody = document.getElementById('productsTableBody');
-            const { data } = await db.from('products').select('*');
-            tbody.innerHTML = data?.map(p => `
-                <tr>
-                    <td style="display: flex; align-items: center; gap: 12px;">
-                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
-                        <div><div style="font-weight: 600;">${p.name_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.category || 'Sin categoría'}</div></div>
-                    </td>
-                    <td>$${p.price}</td>
-                    <td>
-                        <button class="action-btn" onclick='openEditProduct(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('products', '${p.id}', loadProducts)"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('') || '<tr><td colspan="3">No hay productos</td></tr>';
-        }
-
-        document.getElementById('btnNewProduct').onclick = () => {
-            document.getElementById('productForm').reset();
-            document.getElementById('productId').value = '';
-            document.getElementById('modalProductTitle').textContent = 'Nuevo Producto';
-            document.getElementById('productModal').classList.add('open');
-        };
-
-        window.openEditProduct = (p) => {
-            document.getElementById('productId').value = p.id;
-            document.getElementById('modalProductTitle').textContent = 'Editar Producto';
-            const form = document.getElementById('productForm');
-            form.querySelector('[name="name"]').value = p.name_es || '';
-            form.querySelector('[name="price"]').value = p.price || 0;
-            form.querySelector('[name="description"]').value = p.description_es || '';
-            form.querySelector('[name="tags"]').value = p.category || '';
-            document.getElementById('productModal').classList.add('open');
-        };
-
-        document.getElementById('productForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('productId').value;
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.textContent = 'Guardando...'; btn.disabled = true;
-
-            let imageUrl = null;
-            const fileInput = document.getElementById('productImageFile');
-            if(fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const fileName = `prod-${Date.now()}-${file.name}`;
-                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
-                if(!error) {
-                    const { data } = db.storage.from('portfolio-media').getPublicUrl(fileName);
-                    imageUrl = data.publicUrl;
-                }
-            }
-
-            const data = { name_es: e.target.name.value, price: parseFloat(e.target.price.value), description_es: e.target.description.value, category: e.target.tags.value };
-            if(imageUrl) data.image_url = imageUrl;
-
-            const { error } = id ? await db.from('products').update(data).eq('id', id) : await db.from('products').insert([data]);
-            if(error) showToast('Error: ' + error.message, 'error');
-            else { showToast('Producto guardado correctamente'); closeModal('productModal'); loadProducts(); }
-            btn.textContent = 'Guardar Producto'; btn.disabled = false;
-        };
-
-        // ===== PEDIDOS =====
-        async function loadOrders() {
-            const tbody = document.getElementById('ordersTableBody');
-            const { data } = await db.from('orders').select('*').order('created_at', {ascending: false});
-            tbody.innerHTML = data?.map(o => `<tr><td>Producto</td><td>${o.customer_name || 'Cliente'}</td><td>$${o.total}</td><td>${new Date(o.created_at).toLocaleDateString()}</td></tr>`).join('') || '<tr><td colspan="4">No hay pedidos</td></tr>';
-        }
-
-        // ===== MENSAJES =====
-        async function loadMessages() {
-            const tbody = document.getElementById('messagesTableBody');
-            const { data } = await db.from('contact_messages').select('*').order('created_at', {ascending: false});
-            tbody.innerHTML = data?.map(m => `<tr><td>${m.name}</td><td>${m.subject}</td><td>${m.email}</td></tr>`).join('') || '<tr><td colspan="3">No hay mensajes</td></tr>';
-        }
-
-        // ===== OPINIONES =====
-        async function loadTestimonials() {
-            const tbody = document.getElementById('testimonialsTableBody');
-            const { data } = await db.from('testimonials').select('*');
-            tbody.innerHTML = data?.map(t => `
-                <tr>
-                    <td style="display: flex; align-items: center; gap: 12px;">
-                        ${t.avatar_url ? `<img src="${t.avatar_url}" class="avatar-thumb">` : `<div style="width: 36px; height: 36px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-user"></i></div>`}
-                        <span>${t.name_es}</span>
-                    </td>
-                    <td>${t.text_es}</td>
-                    <td>${'★'.repeat(t.rating || 5)}</td>
-                    <td>
-                        <button class="action-btn" onclick='openEditTestimonial(${JSON.stringify(t)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('testimonials', '${t.id}', loadTestimonials)"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('') || '<tr><td colspan="4">No hay opiniones</td></tr>';
-        }
-
-        window.openTestimonialModal = () => {
-            document.getElementById('testimonialForm').reset();
-            document.getElementById('testimonialId').value = '';
-            document.getElementById('modalTestimonialTitle').textContent = 'Nueva Opinión';
-            document.getElementById('testimonialModal').classList.add('open');
-        };
-
-        window.openEditTestimonial = (t) => {
-            document.getElementById('testimonialId').value = t.id;
-            document.getElementById('modalTestimonialTitle').textContent = 'Editar Opinión';
-            const form = document.getElementById('testimonialForm');
-            form.querySelector('[name="name"]').value = t.name_es || '';
-            form.querySelector('[name="text"]').value = t.text_es || '';
-            form.querySelector('[name="rating"]').value = t.rating || 5;
-            document.getElementById('testimonialModal').classList.add('open');
-        };
-
-        document.getElementById('testimonialForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('testimonialId').value;
-            const data = { name_es: e.target.name.value, text_es: e.target.text.value, rating: parseInt(e.target.rating.value) };
-            const { error } = id ? await db.from('testimonials').update(data).eq('id', id) : await db.from('testimonials').insert([data]);
-            if(error) showToast('Error: ' + error.message, 'error');
-            else { showToast('Opinión guardada correctamente'); closeModal('testimonialModal'); loadTestimonials(); }
-        };
-
-        // ===== PROYECTOS =====
-        async function loadProjects() {
-            const tbody = document.getElementById('projectsTableBody');
-            const { data } = await db.from('projects').select('*');
-            tbody.innerHTML = data?.map(p => `
-                <tr>
-                    <td style="display: flex; align-items: center; gap: 12px;">
-                        ${p.image_url ? `<img src="${p.image_url}" class="thumbnail">` : `<div style="width: 40px; height: 40px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;"><i class="fas fa-image"></i></div>`}
-                        <div><div style="font-weight: 600;">${p.title_es}</div><div style="font-size: 0.75rem; color: var(--muted);">${p.tags || 'Sin tags'}</div></div>
-                    </td>
-                    <td><a href="${p.project_url}" target="_blank" style="color:var(--muted);">${p.project_url ? 'Ver enlace' : 'Sin enlace'}</a></td>
-                    <td>
-                        <button class="action-btn" onclick='openEditProject(${JSON.stringify(p)})'><i class="fas fa-pen"></i></button>
-                        <button class="action-btn delete" onclick="deleteItem('projects', '${p.id}', loadProjects)"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('') || '<tr><td colspan="3">No hay proyectos</td></tr>';
-        }
-
-        window.openProjectModal = () => {
-            document.getElementById('projectForm').reset();
-            document.getElementById('projectId').value = '';
-            document.getElementById('modalProjectTitle').textContent = 'Nuevo Proyecto';
-            document.getElementById('projectModal').classList.add('open');
-        };
-
-        window.openEditProject = (p) => {
-            document.getElementById('projectId').value = p.id;
-            document.getElementById('modalProjectTitle').textContent = 'Editar Proyecto';
-            const form = document.getElementById('projectForm');
-            form.querySelector('[name="title"]').value = p.title_es || '';
-            form.querySelector('[name="url"]').value = p.project_url || '';
-            form.querySelector('[name="tags"]').value = p.tags || '';
-            document.getElementById('projectModal').classList.add('open');
-        };
-
-        document.getElementById('projectForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('projectId').value;
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.textContent = 'Guardando...'; btn.disabled = true;
-
-            let imageUrl = null;
-            const fileInput = document.getElementById('projectImageFile');
-            if(fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const fileName = `proj-${Date.now()}-${file.name}`;
-                const { error } = await db.storage.from('portfolio-media').upload(fileName, file);
-                if(!error) {
-                    const { data } = db.storage.from('portfolio-media').getPublicUrl(fileName);
-                    imageUrl = data.publicUrl;
-                }
-            }
-
-            const data = { title_es: e.target.title.value, project_url: e.target.url.value, tags: e.target.tags.value };
-            if(imageUrl) data.image_url = imageUrl;
-
-            const { error } = id ? await db.from('projects').update(data).eq('id', id) : await db.from('projects').insert([data]);
-            if(error) showToast('Error: ' + error.message, 'error');
-            else { showToast('Proyecto guardado correctamente'); closeModal('projectModal'); loadProjects(); }
-            btn.textContent = 'Guardar Proyecto'; btn.disabled = false;
-        };
-
-        // ===== FUNCIÓN GENERAL PARA BORRAR =====
-        window.deleteItem = async (table, id, callback) => {
-            if(confirm('¿Seguro que quieres eliminar esto?')) {
-                const { error } = await db.from(table).delete().eq('id', id);
-                if(error) showToast('Error al eliminar', 'error');
-                else { showToast('Eliminado correctamente'); callback(); }
-            }
-        };
-
-        // ===== NOTIFICACIONES EN TIEMPO REAL =====
-        db.channel('realtime-admin')
-          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'contact_messages' }, payload => {
-              const list = document.getElementById('notifList');
-              list.innerHTML = `<div class="notif-item"><strong>Nuevo mensaje</strong><br>${payload.new.name}: ${payload.new.subject}</div>` + list.innerHTML;
-              showToast('¡Nuevo mensaje recibido!');
-              if(!document.getElementById('view-messages').hidden) loadMessages();
-          })
-          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
-              const list = document.getElementById('notifList');
-              list.innerHTML = `<div class="notif-item"><strong>Nuevo pedido</strong><br>${payload.new.customer_name || 'Cliente'} - $${payload.new.total}</div>` + list.innerHTML;
-              showToast('¡Nuevo pedido recibido!');
-              if(!document.getElementById('view-orders').hidden) loadOrders();
-          })
-          .subscribe();
     </script>
 </body>
 </html>
