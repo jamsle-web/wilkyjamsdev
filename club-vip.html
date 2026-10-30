@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Accede a recursos gratuitos y premium de diseño web y código. Desbloquea el Club VIP." />
-    <meta name="theme-color" content="#050505" />
-    <title>Wilkyjams Dev · Recursos Club</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explora Club VIP de WilkyJamsDev: componentes, interfaces y recursos de desarrollo web con vistas previas interactivas.">
+    <meta name="theme-color" content="#050505">
+    <title>WilkyJamsDev · Club VIP</title>
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -13,123 +13,645 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <link rel="stylesheet" href="style.css" />
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        /* ==== ESTILOS PROFESIONALES DE LA GALERÍA ==== */
-        .resources-section { padding: 60px 0 100px; position: relative; z-index: 2; }
-        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; margin-top: 50px; }
-        
+        :root {
+            --club-bg: #050505;
+            --club-surface: #101014;
+            --club-border: rgba(255,255,255,.09);
+            --club-muted: #a1a1aa;
+            --club-accent: #c4a8cc;
+            --club-green: #4ade80;
+        }
+
+        .resources-section {
+            position: relative;
+            z-index: 2;
+            padding: 45px 0 110px;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 25px;
+            align-items: stretch;
+        }
+
         .resource-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px;
-            position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; flex-direction: column; gap: 16px; backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .resource-card:hover:not(.locked) { 
-            transform: translateY(-8px); 
-            border-color: var(--accent-1, #a8b9cc); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(168, 185, 204, 0.1); 
-        }
-        
-        /* Candado de Bloqueo VIP */
-        .locked-overlay {
-            position: absolute; inset: 0; background: rgba(5,6,10,0.85); backdrop-filter: blur(8px);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 10; gap: 12px; border-radius: 20px; padding: 20px; text-align: center;
-        }
-        .lock-icon-wrap { 
-            width: 60px; height: 60px; background: rgba(196, 168, 204, 0.1); 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            border: 1px solid rgba(196, 168, 204, 0.3); margin-bottom: 8px;
-        }
-        .lock-icon-wrap i { font-size: 1.8rem; color: var(--accent-2, #c4a8cc); }
-        
-        .resource-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; width: fit-content; }
-        .badge-free { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.25); }
-        .badge-vip { background: rgba(196, 168, 204, 0.1); color: var(--accent-2, #c4a8cc); border: 1px solid rgba(196, 168, 204, 0.25); }
-        
-        .resource-title { font-family: var(--font-display, 'Syne', sans-serif); font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0; line-height: 1.3; }
-        .resource-desc { font-size: 0.9rem; color: var(--text-muted, #888); line-height: 1.6; margin: 0; flex-grow: 1; }
-        
-        .code-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 18px; }
-        .action-row { display: flex; gap: 10px; }
-        
-        /* Botones de acción */
-        .btn-preview { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 12px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
-        .btn-preview:hover { background: #fff; color: #000; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.1); }
-
-        .btn-copy-code, .btn-download-zip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; flex: 1; }
-        .btn-copy-code:hover { background: rgba(255,255,255,0.12); border-color: var(--accent-1, #a8b9cc); transform: translateY(-2px); }
-        .btn-download-zip { background: var(--accent-1, #a8b9cc); color: #000; border: none; font-weight: 700; }
-        .btn-download-zip:hover { background: #fff; box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
-
-        /* Modal de Vista Previa */
-        .preview-modal { position: fixed; inset: 0; z-index: 4000; background: rgba(5,6,10,0.9); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
-        .preview-modal.open { opacity: 1; pointer-events: all; }
-        .preview-content { background: #111; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; width: 100%; max-width: 900px; height: 80vh; display: flex; flex-direction: column; overflow: hidden; position: relative; box-shadow: 0 30px 100px rgba(0,0,0,0.8); }
-        .preview-header { padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; background: #0a0a0a; }
-        .preview-header h3 { margin: 0; font-size: 1.1rem; color: #fff; font-family: var(--font-display); }
-        .preview-header button { background: rgba(255,255,255,0.05); border: none; color: #888; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-        .preview-header button:hover { background: rgba(255,255,255,0.1); color: #fff; transform: rotate(90deg); }
-        .preview-body { flex: 1; background: #fff; position: relative; }
-        .preview-body iframe { width: 100%; height: 100%; border: none; background: #fff; }
-
-        /* Modal de Llave VIP */
-        .vip-key-modal { position: fixed; inset: 0; z-index: 3000; background: rgba(5,6,10,0.9); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
-        .vip-key-modal.open { opacity: 1; pointer-events: all; }
-        .vip-key-content { background: #0f0f13; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; width: 100%; max-width: 460px; padding: 45px; position: relative; text-align: center; box-shadow: 0 30px 100px rgba(0,0,0,0.8); }
-        .vip-key-content input { width: 100%; padding: 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: #fff; text-align: center; letter-spacing: 3px; margin-bottom: 20px; font-size: 1.1rem; transition: border-color 0.3s; }
-        .vip-key-content input:focus { outline: none; border-color: var(--accent-1); }
-        .vip-key-content .btn-submit-key { width: 100%; padding: 16px; background: var(--accent-1); color: #000; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; }
-        .vip-key-content .btn-submit-key:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
-        .key-error { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; }
-        
-        .empty-state { text-align: center; padding: 80px 20px; color: var(--text-muted); grid-column: 1 / -1; background: rgba(255,255,255,0.02); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.1); }
-        .empty-state i { font-size: 3.5rem; margin-bottom: 20px; color: rgba(255,255,255,0.1); }
-        
-
-        /* ==== BUSCADOR Y FILTROS DEL CATÁLOGO ==== */
-        .resource-toolbar { margin: 0 auto 34px; max-width: 1120px; }
-        .resource-toolbar-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-        .resource-search-wrap { position: relative; flex: 1 1 280px; max-width: 520px; }
-        .resource-search-wrap > i { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); color: #9ca3af; pointer-events: none; }
-        .resource-search { width: 100%; min-height: 50px; padding: 13px 48px 13px 46px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(255,255,255,.045); color: #fff; font: inherit; outline: none; transition: border-color .25s, background .25s, box-shadow .25s; }
-        .resource-search::placeholder { color: #888; }
-        .resource-search:focus { border-color: var(--accent-1, #a8b9cc); background: rgba(255,255,255,.07); box-shadow: 0 0 0 3px rgba(168,185,204,.09); }
-        .resource-search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border: 0; border-radius: 50%; color: #aaa; background: transparent; cursor: pointer; display: none; }
-        .resource-search-clear.visible { display: grid; place-items: center; }
-        .resource-results-count { color: var(--text-muted, #999); font-size: .88rem; white-space: nowrap; }
-        .resource-categories { display: flex; flex-wrap: wrap; gap: 9px; }
-        .resource-category-btn { border: 1px solid rgba(255,255,255,.11); border-radius: 999px; padding: 9px 15px; color: #aaa; background: rgba(255,255,255,.035); font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer; transition: color .2s, border-color .2s, background .2s, transform .2s; }
-        .resource-category-btn:hover { color: #fff; border-color: rgba(255,255,255,.28); transform: translateY(-1px); }
-        .resource-category-btn.active { color: #08090b; background: var(--accent-1, #a8b9cc); border-color: var(--accent-1, #a8b9cc); }
-        .resource-no-results { grid-column: 1 / -1; text-align: center; padding: 64px 20px; border: 1px dashed rgba(255,255,255,.14); border-radius: 20px; background: rgba(255,255,255,.02); color: var(--text-muted, #999); }
-        .resource-no-results i { display: block; margin-bottom: 16px; font-size: 2rem; opacity: .55; }
-        .resource-no-results h3 { color: #fff; margin: 0 0 8px; font: 700 1.1rem var(--font-display, 'Syne', sans-serif); }
-        .resource-no-results p { margin: 0 0 18px; }
-        .resource-reset-btn { border: 1px solid rgba(255,255,255,.18); border-radius: 10px; padding: 10px 16px; background: rgba(255,255,255,.07); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
-        .resource-reset-btn:hover { background: rgba(255,255,255,.13); }
-        @media (max-width: 600px) {
-            .resource-toolbar-top { align-items: stretch; }
-            .resource-search-wrap { max-width: none; flex-basis: 100%; }
-            .resource-results-count { padding-left: 2px; }
-            .resource-categories { flex-wrap: nowrap; overflow-x: auto; padding: 2px 1px 10px; scrollbar-width: thin; }
-            .resource-category-btn { flex: 0 0 auto; }
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            min-width: 0;
+            padding: 19px;
+            overflow: hidden;
+            border: 1px solid var(--club-border);
+            border-radius: 19px;
+            background:
+                radial-gradient(ellipse at 0 0, rgba(196,168,204,.08), transparent 55%),
+                linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012));
+            box-shadow: 0 12px 35px rgba(0,0,0,.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
         }
 
-        @media (max-width: 768px) {
-            .resources-grid { grid-template-columns: 1fr; }
-            .vip-key-content { padding: 30px 20px; }
+        .resource-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(196,168,204,.35);
+            box-shadow: 0 20px 45px rgba(0,0,0,.32);
+        }
+
+        .resource-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 12%;
+            width: 76%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+            pointer-events: none;
+        }
+
+        .resource-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            width: fit-content;
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-size: .66rem;
+            font-weight: 800;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+        }
+
+        .badge-free {
+            color: var(--club-green);
+            background: rgba(74,222,128,.08);
+            border: 1px solid rgba(74,222,128,.2);
+        }
+
+        .badge-vip {
+            color: #e4c9ed;
+            background: rgba(196,168,204,.12);
+            border: 1px solid rgba(196,168,204,.27);
+        }
+
+        .resource-title {
+            margin: 0;
+            color: #fff;
+            font-family: var(--font-display, 'Syne', sans-serif);
+            font-size: 1.08rem;
+            font-weight: 800;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+
+        .resource-desc {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            min-height: 3.9em;
+            margin: 0;
+            color: var(--club-muted);
+            font-size: .81rem;
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+            white-space: normal;
+        }
+
+        .resource-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            color: #aaa;
+            font-size: .68rem;
+        }
+
+        .resource-meta span {
+            padding: 5px 8px;
+            border: 1px solid rgba(255,255,255,.055);
+            border-radius: 7px;
+            background: rgba(255,255,255,.04);
+        }
+
+        .resource-preview-area {
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.11);
+            border-radius: 13px;
+            background: #101014;
+        }
+
+        .preview-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 11px;
+            color: #aaa;
+            font-size: .69rem;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .preview-label span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preview-status {
+            color: var(--club-green);
+            white-space: nowrap;
+            font-size: .65rem;
+        }
+
+        .resource-preview-frame {
+            display: block;
+            width: 100%;
+            height: 230px;
+            border: 0;
+            background: #fff;
+            pointer-events: auto;
+        }
+
+        .resource-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            margin-top: auto;
+            padding-top: 13px;
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
+
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .club-btn {
+            min-height: 41px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 12px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 10px;
+            background: rgba(255,255,255,.05);
+            color: #fff;
+            font-family: inherit;
+            font-size: .77rem;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background .2s ease, border-color .2s ease, transform .2s ease;
+        }
+
+        .club-btn svg {
+            width: 16px;
+            height: 16px;
+            flex: 0 0 auto;
+        }
+
+        .club-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,.12);
+            border-color: rgba(255,255,255,.3);
+        }
+
+        .club-btn:focus-visible,
+        .vip-glass-cta:focus-visible {
+            outline: 2px solid var(--club-accent);
+            outline-offset: 3px;
+        }
+
+        .club-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn-preview {
+            width: 100%;
+            min-height: 43px;
+            background: rgba(255,255,255,.09);
+        }
+
+        .btn-copy-code {
+            flex: 1 1 65px;
+        }
+
+        .btn-download-zip {
+            width: 100%;
+            color: #050505;
+            background: var(--accent-1, #a8b9cc);
+            border-color: transparent;
+            font-weight: 800;
+        }
+
+        .btn-download-zip:hover:not(:disabled) {
+            background: #fff;
+            color: #050505;
+        }
+
+        .vip-unlock-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
+
+        .vip-unlock-description {
+            margin: 0;
+            color: #aaa;
+            font-size: .76rem;
+            line-height: 1.5;
+        }
+
+        .vip-glass-cta {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            width: 100%;
+            min-height: 46px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 15px;
+            border: 1px solid rgba(224,210,245,.3);
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(196,168,204,.2), rgba(255,255,255,.055));
+            color: #f7efff;
+            font-family: inherit;
+            font-size: .8rem;
+            font-weight: 800;
+            text-align: center;
+            text-decoration: none;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+        }
+
+        .vip-glass-cta:hover {
+            transform: translateY(-2px);
+            border-color: rgba(232,213,255,.65);
+            box-shadow: 0 10px 30px rgba(196,168,204,.15);
+        }
+
+        .vip-glass-cta svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .vip-member-status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 11px;
+            border: 1px solid rgba(74,222,128,.2);
+            border-radius: 10px;
+            color: var(--club-green);
+            background: rgba(74,222,128,.07);
+            font-size: .78rem;
+            font-weight: 700;
+        }
+
+        /* PLANES */
+
+        .vip-plans-section {
+            position: relative;
+            z-index: 2;
+            padding: 35px 0 55px;
+        }
+
+        .vip-plans-heading {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .vip-plans-heading h2 {
+            color: #fff;
+            font-family: var(--font-display, 'Syne', sans-serif);
+            font-size: clamp(1.5rem, 4vw, 2.1rem);
+            font-weight: 800;
+        }
+
+        .vip-plans-heading p {
+            color: var(--text-muted, #999);
+            font-size: .88rem;
+        }
+
+        .vip-plans-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .vip-plan-card {
+            position: relative;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 19px;
+            background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012));
+            backdrop-filter: blur(15px);
+        }
+
+        .vip-plan-card.featured {
+            border-color: rgba(196,168,204,.45);
+            box-shadow: 0 12px 40px rgba(196,168,204,.08);
+        }
+
+        .vip-plan-name {
+            color: #fff;
+            font-family: var(--font-display, 'Syne', sans-serif);
+            font-size: 1.05rem;
+            font-weight: 800;
+        }
+
+        .vip-plan-price {
+            margin: 12px 0 5px;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .vip-plan-period {
+            color: #999;
+            font-size: .75rem;
+        }
+
+        .vip-plan-description {
+            min-height: 38px;
+            margin: 14px 0;
+            color: #aaa;
+            font-size: .8rem;
+            line-height: 1.5;
+        }
+
+        .vip-plan-button {
+            width: 100%;
+        }
+
+        .vip-payment-note {
+            max-width: 650px;
+            margin: 20px auto 0;
+            color: #999;
+            font-size: .75rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* MODALES */
+
+        .club-modal {
+            position: fixed;
+            z-index: 5000;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            background: rgba(4,5,10,.9);
+            backdrop-filter: blur(13px);
+            -webkit-backdrop-filter: blur(13px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .25s ease, visibility .25s ease;
+        }
+
+        .club-modal.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .club-modal-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1100px;
+            max-height: 92dvh;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 18px;
+            background: #101014;
+            box-shadow: 0 30px 100px rgba(0,0,0,.7);
+            transform: translateY(12px) scale(.99);
+            transition: transform .25s ease;
+        }
+
+        .club-modal.open .club-modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .club-modal-header {
+            min-height: 57px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 17px;
+            border-bottom: 1px solid rgba(255,255,255,.09);
+            background: #0a0a0d;
+        }
+
+        .club-modal-header h3 {
+            margin: 0;
+            color: #fff;
+            font-family: var(--font-display, 'Syne', sans-serif);
+            font-size: .98rem;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 50%;
+            background: rgba(255,255,255,.05);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,.15);
+            transform: rotate(90deg);
+        }
+
+        .preview-modal-body {
+            flex: 1;
+            min-height: 300px;
+            background: #fff;
+        }
+
+        .preview-modal-body iframe {
+            display: block;
+            width: 100%;
+            height: min(82dvh, 850px);
+            border: 0;
+            background: #fff;
+        }
+
+        .vip-key-content {
+            max-width: 460px;
+            padding: 38px 30px;
+            text-align: center;
+        }
+
+        .vip-key-content h3 {
+            margin: 12px 0 9px;
+            color: #fff;
+            font-family: var(--font-display, 'Syne', sans-serif);
+            font-size: 1.45rem;
+        }
+
+        .vip-key-content > p {
+            margin: 0 0 22px;
+            color: #aaa;
+            font-size: .85rem;
+            line-height: 1.6;
+        }
+
+        .vip-key-input {
+            width: 100%;
+            min-height: 50px;
+            margin-bottom: 13px;
+            padding: 13px;
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 11px;
+            outline: none;
+            background: rgba(0,0,0,.3);
+            color: #fff;
+            font: inherit;
+            text-align: center;
+            letter-spacing: 1.5px;
+        }
+
+        .vip-key-input:focus {
+            border-color: var(--accent-1, #a8b9cc);
+        }
+
+        .vip-key-error {
+            display: none;
+            margin: 0 0 13px;
+            color: #fb7185;
+            font-size: .8rem;
+            line-height: 1.5;
+        }
+
+        .vip-key-error.visible {
+            display: block;
+        }
+
+        .btn-submit-key {
+            width: 100%;
+            min-height: 49px;
+            border: 0;
+            border-radius: 11px;
+            background: var(--accent-1, #a8b9cc);
+            color: #050505;
+            font: inherit;
+            font-size: .9rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-submit-key:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 65px 20px;
+            border: 1px dashed rgba(255,255,255,.12);
+            border-radius: 18px;
+            color: #999;
+            text-align: center;
+        }
+
+        .empty-state i {
+            display: block;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,.25);
+            font-size: 2.2rem;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        @media (max-width: 1024px) {
+            .resources-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 17px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .resources-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 15px;
+            }
+
+            .resource-card {
+                padding: 17px;
+            }
+
+            .resource-preview-frame {
+                height: 245px;
+            }
+
+            .vip-plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vip-plan-card {
+                padding: 22px;
+            }
+
+            .club-modal-content {
+                max-height: 94dvh;
+            }
+
+            .vip-key-content {
+                padding: 32px 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <canvas id="webgl-canvas"></canvas>
@@ -141,6 +663,7 @@
                 <img src="/favicon-32x32.png" alt="Wilkyjams Dev Logo" class="logo-img">
                 <span class="logo-text">Wilkyjams Dev</span>
             </a>
+
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="servicios.html">Servicios</a></li>
@@ -149,11 +672,13 @@
                 <li><a href="blog/index.html">Blog</a></li>
                 <li><a href="contacto.html">Contáctame</a></li>
             </ul>
+
             <div class="nav-actions">
                 <button class="cart-btn" onclick="handleCartClick()" aria-label="Carrito">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count">0</span>
                 </button>
+
                 <div class="lang-dropdown">
                     <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="listbox" aria-expanded="false">
                         <i class="fas fa-globe"></i>
@@ -165,6 +690,7 @@
                         <li data-lang-option="pt" role="option" aria-selected="false"><span class="lang-label">Português</span></li>
                     </ul>
                 </div>
+
                 <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
                     <span></span><span></span><span></span>
                 </button>
@@ -172,55 +698,78 @@
         </div>
     </nav>
 
-    <!-- HERO DE PÁGINA -->
+    <!-- HERO -->
     <section class="page-hero">
-        <div class="container" style="text-align: center;">
-            <span class="label" style="color: var(--accent-2);">Biblioteca de Recursos</span>
-            <h1 style="font-family: var(--font-display); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
+        <div class="container" style="text-align:center;">
+            <span class="label" style="color:var(--accent-2);">Biblioteca de recursos</span>
+
+            <h1 style="font-family:var(--font-display);font-weight:800;text-transform:uppercase;margin-bottom:18px;">
                 Explora el <span class="highlight">Club VIP</span>
             </h1>
-            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem;">
-                Descarga plantillas y códigos exclusivos. Los recursos VIP requieren una llave de acceso.
+
+            <p style="color:var(--text-muted);max-width:680px;margin:0 auto 27px;font-size:1rem;">
+                Explora componentes, interfaces y experiencias web. Prueba cada recurso antes de acceder a su código.
             </p>
-            
-            <!-- BOTONES DE ACCIÓN -->
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-weight: 700; text-decoration: none;">
-                    <i class="fas fa-crown"></i> Suscribirme al Premium ($15/mes)
+
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                <a href="#vip-plans" class="btn-primary" style="display:inline-flex;align-items:center;gap:9px;padding:14px 24px;text-decoration:none;">
+                    <i class="fas fa-crown"></i>
+                    Ver planes VIP
                 </a>
-                <button onclick="openVipModal()" class="btn-secondary glass-btn" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-weight: 600;">
-                    <i class="fas fa-key"></i> Ya soy VIP, ingresar llave
+
+                <button type="button" onclick="openVipModal()" class="btn-secondary glass-btn" style="display:inline-flex;align-items:center;gap:9px;padding:14px 24px;">
+                    <i class="fas fa-key"></i>
+                    Ya soy VIP
                 </button>
             </div>
+
+            <div id="membershipIndicator" style="margin-top:17px;color:#999;font-size:.8rem;" aria-live="polite"></div>
         </div>
     </section>
 
-    <!-- GALERÍA DE RECURSOS -->
+    <!-- PLANES -->
+    <section class="vip-plans-section" id="vip-plans">
+        <div class="container">
+            <div class="vip-plans-heading">
+                <span class="label" style="color:var(--accent-2);">Acceso exclusivo</span>
+                <h2>Elige tu membresía</h2>
+                <p>Explora todas las vistas previas. La membresía desbloquea el acceso al código fuente.</p>
+            </div>
+
+            <div class="vip-plans-grid" id="vipPlansGrid">
+                <article class="vip-plan-card">
+                    <div class="vip-plan-name">VIP Mensual</div>
+                    <div class="vip-plan-price">$9.99</div>
+                    <div class="vip-plan-period">USD · 30 días</div>
+                    <p class="vip-plan-description">Acceso VIP durante 30 días.</p>
+                    <a class="vip-glass-cta vip-plan-button" href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-crown"></i>
+                        Suscribirme
+                    </a>
+                </article>
+
+                <article class="vip-plan-card featured">
+                    <div class="vip-plan-name">VIP Anual</div>
+                    <div class="vip-plan-price">$89.99</div>
+                    <div class="vip-plan-period">USD · 365 días</div>
+                    <p class="vip-plan-description">Acceso VIP durante 365 días.</p>
+                    <a class="vip-glass-cta vip-plan-button" href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-gem"></i>
+                        Elegir plan anual
+                    </a>
+                </article>
+            </div>
+
+            <p class="vip-payment-note">
+                El pago se realiza mediante Airtm. Después de pagar, envía tu referencia para que el administrador pueda verificarla y activar manualmente tu membresía.
+            </p>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO -->
     <section class="resources-section">
         <div class="container">
-            <div class="resource-toolbar" aria-label="Buscar y filtrar recursos">
-                <div class="resource-toolbar-top">
-                    <label class="resource-search-wrap" for="resourceSearch">
-                        <i class="fas fa-search" aria-hidden="true"></i>
-                        <input id="resourceSearch" class="resource-search" type="search" placeholder="Buscar por nombre, descripción o tecnología..." autocomplete="off" aria-label="Buscar recursos">
-                        <button id="clearResourceSearch" class="resource-search-clear" type="button" aria-label="Limpiar búsqueda"><i class="fas fa-times"></i></button>
-                    </label>
-                    <span class="resource-results-count" id="resourceResultsCount" aria-live="polite">Cargando recursos...</span>
-                </div>
-                <div class="resource-categories" id="resourceCategories" role="group" aria-label="Filtrar por categoría">
-                    <button class="resource-category-btn active" type="button" data-category="all" aria-pressed="true">Todos</button>
-                    <button class="resource-category-btn" type="button" data-category="landing-pages" aria-pressed="false">Landing Pages</button>
-                    <button class="resource-category-btn" type="button" data-category="components" aria-pressed="false">Components</button>
-                    <button class="resource-category-btn" type="button" data-category="icons" aria-pressed="false">Icons</button>
-                    <button class="resource-category-btn" type="button" data-category="buttons" aria-pressed="false">Buttons</button>
-                    <button class="resource-category-btn" type="button" data-category="forms" aria-pressed="false">Forms</button>
-                    <button class="resource-category-btn" type="button" data-category="loaders" aria-pressed="false">Loaders</button>
-                    <button class="resource-category-btn" type="button" data-category="animations" aria-pressed="false">Animations</button>
-                    <button class="resource-category-btn" type="button" data-category="backgrounds" aria-pressed="false">Backgrounds</button>
-                    <button class="resource-category-btn" type="button" data-category="other" aria-pressed="false">Otros</button>
-                </div>
-            </div>
-            <div class="resources-grid" id="resourcesGrid">
+            <div class="resources-grid" id="resourcesGrid" aria-live="polite">
                 <div class="empty-state">
                     <i class="fas fa-spinner fa-spin"></i>
                     <p>Cargando recursos...</p>
@@ -229,30 +778,58 @@
         </div>
     </section>
 
-    <!-- MODAL VISTA PREVIA -->
-    <div class="preview-modal" id="previewModal">
-        <div class="preview-content">
-            <div class="preview-header">
-                <h3 id="previewTitle">Vista Previa</h3>
-                <button onclick="closePreview()"><i class="fas fa-times"></i></button>
+    <!-- MODAL PREVIEW -->
+    <div class="club-modal" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+        <div class="club-modal-content">
+            <div class="club-modal-header">
+                <h3 id="previewTitle">Vista previa</h3>
+                <button type="button" class="modal-close" data-close-preview aria-label="Cerrar vista previa">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="preview-body">
-                <iframe id="previewIframe"></iframe>
+
+            <div class="preview-modal-body">
+                <iframe
+                    id="previewIframe"
+                    title="Vista previa interactiva del recurso"
+                    sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                    referrerpolicy="no-referrer"
+                    loading="eager">
+                </iframe>
             </div>
         </div>
     </div>
 
     <!-- MODAL LLAVE VIP -->
-    <div class="vip-key-modal" id="vipKeyModal">
-        <div class="vip-key-content">
-            <button class="close-modal-btn" onclick="closeVipModal()" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.05); border: none; color: #888; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;"><i class="fas fa-times"></i></button>
-            <i class="fas fa-crown" style="font-size: 2.5rem; color: var(--accent-2); margin-bottom: 15px;"></i>
-            <h3 style="font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 10px; color: #fff;">Ingresa tu Llave VIP</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">Ingresa la llave que recibiste al unirte al Club VIP para desbloquear todos los recursos premium.</p>
-            <input type="text" id="vipKeyInput" placeholder="Ej: WJ-VIP-9f3a7b" autocomplete="off">
-            <div class="key-error" id="vipKeyError"><i class="fas fa-exclamation-circle"></i> Llave inválida. Verifica e intenta de nuevo.</div>
-            <button class="btn-submit-key" onclick="validateVipKey()">Desbloquear Recursos VIP</button>
-            <span onclick="closeVipModal()" style="display: block; margin-top: 20px; color: var(--text-muted); font-size: 0.9rem; cursor: pointer; text-decoration: underline;">Cancelar</span>
+    <div class="club-modal" id="vipKeyModal" role="dialog" aria-modal="true" aria-labelledby="vipKeyTitle">
+        <div class="club-modal-content vip-key-content">
+            <button type="button" class="modal-close" data-close-vip style="position:absolute;right:17px;top:17px;" aria-label="Cerrar">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <i class="fas fa-crown" style="font-size:2.3rem;color:var(--accent-2);"></i>
+
+            <h3 id="vipKeyTitle">Ingresa tu llave VIP</h3>
+
+            <p>Introduce la llave que recibiste después de verificar tu pago.</p>
+
+            <form id="vipKeyForm">
+                <input
+                    type="text"
+                    class="vip-key-input"
+                    id="vipKeyInput"
+                    placeholder="WJVIP-..."
+                    autocomplete="off"
+                    autocapitalize="characters"
+                    spellcheck="false"
+                    required>
+
+                <div class="vip-key-error" id="vipKeyError" role="alert"></div>
+
+                <button type="submit" class="btn-submit-key" id="vipKeySubmit">
+                    Desbloquear membresía VIP
+                </button>
+            </form>
         </div>
     </div>
 
@@ -260,311 +837,928 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand"><div class="logo glass-logo">JP</div><p>Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p></div>
-                <div><h5>Navegación</h5><ul><li><a href="index.html">Inicio</a></li><li><a href="sobre-mi.html">Sobre mí</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="tienda.html">Tienda</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
-                <div><h5>Legal</h5><ul><li><a href="privacy.html">Privacidad</a></li><li><a href="terms.html">Términos</a></li><li><a href="cookies.html">Cookies</a></li><li><a href="help.html">Centro de ayuda</a></li></ul></div>
-                <div><h5>Contacto</h5><ul><li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li><li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li><li><a href="https://wa.me/18099995904" target="_blank">WhatsApp</a></li></ul></div>
+                <div class="footer-brand">
+                    <div class="logo glass-logo">JP</div>
+                    <p>Diseño web, marketing digital y productos digitales listos para hacer crecer tu marca.</p>
+                </div>
+
+                <div>
+                    <h5>Navegación</h5>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="sobre-mi.html">Sobre mí</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="tienda.html">Tienda</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="privacy.html">Privacidad</a></li>
+                        <li><a href="terms.html">Términos</a></li>
+                        <li><a href="cookies.html">Cookies</a></li>
+                        <li><a href="help.html">Centro de ayuda</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5>Contacto</h5>
+                    <ul>
+                        <li><a href="tel:+18099995904">+1 (809) 999-59-04</a></li>
+                        <li><a href="mailto:porcenatjamsle07@gmail.com">porcenatjamsle07@gmail.com</a></li>
+                        <li><a href="https://wa.me/18099995904" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-bottom"><p>© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p></div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Wilkyjams Dev · Diseño web & Marketing Digital</p>
+            </div>
         </div>
     </footer>
 
-    <!-- CARRITO LATERAL -->
+    <!-- CARRITO ORIGINAL -->
     <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
+
     <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> <span>Tu carrito</span></h3><button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button></div>
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-bag"></i> <span>Tu carrito</span></h3>
+            <button class="cart-close" onclick="Cart.closeDrawer()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
         <div class="cart-items" id="cartItemsWrap"></div>
+
         <div class="cart-footer">
-            <div class="cart-total"><span>Total</span><span id="cartTotalValue">$0.00</span></div>
-            <div style="display: flex; gap: 10px; flex-direction: column;">
-                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" class="btn-airtm"><i class="fas fa-credit-card"></i> Pagar con Airtm</a>
-                <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()"><i class="fab fa-whatsapp"></i> Coordinar por WhatsApp</button>
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotalValue">$0.00</span>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-direction:column;">
+                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer" class="btn-airtm">
+                    <i class="fas fa-credit-card"></i> Pagar con Airtm
+                </a>
+
+                <button class="btn-whatsapp-checkout" onclick="Cart.checkoutViaWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Coordinar por WhatsApp
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPTS BASE -->
+    <!-- DEPENDENCIAS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: false, mirror: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-client.js"></script>
+
     <script src="common.js"></script>
     <script src="cms-content.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <script>
-        const VIP_STORAGE_KEY = "wilkyjams_vip_unlocked";
-        let isVipUnlocked = localStorage.getItem(VIP_STORAGE_KEY) === "true";
-        let resourcesCache = [];
-        let activeResourceCategory = 'all';
-        let resourceSearchTerm = '';
+    (() => {
+        "use strict";
+
+        /* CONFIGURACIÓN ORIGINAL */
+
+        const SUPABASE_URL = "https://ymmawibvlngvektawvcu.supabase.co";
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_mqcufPzGI06YM7zWc4KK6w_zdbr8oXy";
+
+        const GATEWAY_URL = `${SUPABASE_URL}/functions/v1/vip-gateway`;
+        const AIRTM_URL = "https://airtm.me/jamsle33xsvhwc";
+        const SESSION_KEY = "wj_vip_access_key";
+
         const db = window.portfolioSupabase;
 
-        const RESOURCE_CATEGORIES = [
-            'landing-pages', 'components', 'icons', 'buttons', 'forms',
-            'loaders', 'animations', 'backgrounds', 'other'
-        ];
+        const grid = document.getElementById("resourcesGrid");
+        const plansGrid = document.getElementById("vipPlansGrid");
+        const membershipIndicator = document.getElementById("membershipIndicator");
 
-        function getResourceCategory(resource) {
-            const text = [resource.title, resource.description, resource.type, resource.category, resource.language]
-                .filter(Boolean).join(' ').toLowerCase();
-            const has = (...terms) => terms.some(term => text.includes(term));
-            if (has('landing page', 'landing-page', 'landing', 'página de aterrizaje')) return 'landing-pages';
-            if (has('icon', 'icons', 'ícono', 'icono')) return 'icons';
-            if (has('button', 'buttons', 'botón', 'botones', 'cta')) return 'buttons';
-            if (has('form', 'forms', 'formulario', 'formularios', 'input')) return 'forms';
-            if (has('loader', 'loaders', 'loading', 'cargando', 'spinner')) return 'loaders';
-            if (has('animation', 'animations', 'animación', 'animaciones', 'motion', 'transition', 'transición')) return 'animations';
-            if (has('background', 'backgrounds', 'fondo', 'fondos', 'pattern', 'patrón', 'patron')) return 'backgrounds';
-            if (has('component', 'components', 'componente', 'componentes', 'card', 'tooltip', 'navbar', 'modal')) return 'components';
-            return 'other';
+        const previewModal = document.getElementById("previewModal");
+        const previewIframe = document.getElementById("previewIframe");
+        const previewTitle = document.getElementById("previewTitle");
+
+        const vipModal = document.getElementById("vipKeyModal");
+        const vipForm = document.getElementById("vipKeyForm");
+        const vipInput = document.getElementById("vipKeyInput");
+        const vipError = document.getElementById("vipKeyError");
+        const vipSubmit = document.getElementById("vipKeySubmit");
+
+        let resources = [];
+        let freeCodeCache = new Map();
+        let vipKey = null;
+        let membershipExpiresAt = null;
+
+        const icons = {
+            eye: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>`,
+            lock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>`,
+            unlock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 9.5-2"/></svg>`,
+            copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>`,
+            download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>`,
+            crown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 8 5 4 5-8 5 8 5-4-2 12H4L2 8Z"/><path d="M4 16h16"/></svg>`,
+            sparkles: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 14 1.2 2.8L23 18l-2.8 1.2L19 22l-1.2-2.8L15 18l2.8-1.2L19 14Z"/></svg>`
+        };
+
+        function escapeHtml(value = "") {
+            return String(value).replace(/[&<>"']/g, char => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[char]);
         }
 
-        function getFilteredResources() {
-            return resourcesCache.filter(resource => {
-                const category = getResourceCategory(resource);
-                const searchable = [resource.title, resource.description, resource.type, resource.category, resource.language, category]
-                    .filter(Boolean).join(' ').toLocaleLowerCase();
-                const matchesSearch = !resourceSearchTerm || searchable.includes(resourceSearchTerm);
-                const matchesCategory = activeResourceCategory === 'all' || category === activeResourceCategory;
-                return matchesSearch && matchesCategory;
+        function safeFilename(value = "recurso") {
+            return String(value)
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^a-z0-9-_]+/gi, "-")
+                .replace(/^-+|-+$/g, "")
+                .toLowerCase() || "recurso";
+        }
+
+        function formatPrice(price, currency = "USD") {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency
+            }).format(Number(price) || 0);
+        }
+
+        function setModalState() {
+            const opened =
+                previewModal.classList.contains("open") ||
+                vipModal.classList.contains("open");
+
+            document.body.classList.toggle("modal-open", opened);
+        }
+
+        function showError(message) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>${escapeHtml(message)}</p>
+                    <button class="club-btn" type="button" data-action="retry">
+                        Reintentar
+                    </button>
+                </div>`;
+        }
+
+        function setMembershipIndicator(message, active = false) {
+            membershipIndicator.textContent = message;
+            membershipIndicator.style.color = active ? "#4ade80" : "#999";
+        }
+
+        /* VIP GATEWAY */
+
+        async function gatewayRequest(payload) {
+            const response = await fetch(GATEWAY_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey": SUPABASE_PUBLISHABLE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+                },
+                body: JSON.stringify(payload)
             });
-        }
 
-        function updateResourceFilters() {
-            const search = document.getElementById('resourceSearch');
-            const clear = document.getElementById('clearResourceSearch');
-            const count = document.getElementById('resourceResultsCount');
-            if (search) resourceSearchTerm = search.value.trim().toLocaleLowerCase();
-            if (clear) clear.classList.toggle('visible', Boolean(search && search.value));
-            document.querySelectorAll('#resourceCategories [data-category]').forEach(button => {
-                const active = button.dataset.category === activeResourceCategory;
-                button.classList.toggle('active', active);
-                button.setAttribute('aria-pressed', String(active));
-            });
-            const filtered = getFilteredResources();
-            if (count) count.textContent = `${filtered.length} ${filtered.length === 1 ? 'recurso' : 'recursos'}`;
-            renderResources();
-        }
+            let result;
 
-        function resetResourceFilters() {
-            const search = document.getElementById('resourceSearch');
-            if (search) search.value = '';
-            resourceSearchTerm = '';
-            activeResourceCategory = 'all';
-            updateResourceFilters();
-        }
-
-        document.getElementById('resourceSearch')?.addEventListener('input', updateResourceFilters);
-        document.getElementById('clearResourceSearch')?.addEventListener('click', () => {
-            const search = document.getElementById('resourceSearch');
-            if (search) search.value = '';
-            updateResourceFilters();
-            search?.focus();
-        });
-        document.getElementById('resourceCategories')?.addEventListener('click', event => {
-            const button = event.target.closest('[data-category]');
-            if (!button) return;
-            activeResourceCategory = button.dataset.category;
-            updateResourceFilters();
-        });
-
-        // ==== MODAL LLAVE VIP (VALIDACIÓN EN SUPABASE) ====
-        function openVipModal() { document.getElementById('vipKeyModal').classList.add('open'); }
-        function closeVipModal() { document.getElementById('vipKeyModal').classList.remove('open'); document.getElementById('vipKeyError').style.display = 'none'; document.getElementById('vipKeyInput').value = ''; }
-        
-        async function validateVipKey() {
-            const input = document.getElementById('vipKeyInput').value.trim();
-            if (!input) return;
-
-            const btn = document.querySelector('#vipKeyModal .btn-submit-key');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
-            btn.disabled = true;
-
-            // Consulta segura a Supabase
-            const { data, error } = await db.from('vip_keys').select('*').eq('key_code', input).single();
-
-            if (data && !error) {
-                localStorage.setItem(VIP_STORAGE_KEY, "true");
-                isVipUnlocked = true;
-                closeVipModal();
-                renderResources();
-            } else {
-                document.getElementById('vipKeyError').style.display = 'block';
-            }
-            
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-
-        document.getElementById('vipKeyModal').addEventListener('click', function(e) { if (e.target === this) closeVipModal(); });
-
-        // ==== VISTA PREVIA ====
-        function openPreview(id) {
-            const resource = resourcesCache.find(r => r.id === id);
-            if (!resource) return;
-
-            const html = resource.code_content || '';
-            const css = resource.code_css ? `<style>${resource.code_css}</style>` : '';
-            const js = resource.code_js ? `<script>${resource.code_js}<\/script>` : '';
-
-            const iframeContent = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <style>body { font-family: sans-serif; padding: 20px; }</style>
-                    ${css}
-                </head>
-                <body>
-                    ${html}
-                    ${js}
-                </body>
-                </html>
-            `;
-
-            const iframe = document.getElementById('previewIframe');
-            iframe.srcdoc = iframeContent; 
-
-            document.getElementById('previewTitle').textContent = `Vista Previa: ${resource.title}`;
-            document.getElementById('previewModal').classList.add('open');
-        }
-        function closePreview() { 
-            document.getElementById('previewModal').classList.remove('open'); 
-            document.getElementById('previewIframe').srcdoc = ''; 
-        }
-
-        // ==== FONDO 3D ====
-        if (document.querySelector('#webgl-canvas') && typeof THREE !== 'undefined') {
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 5;
-            const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#webgl-canvas'), alpha: true, antialias: false });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            const particlesGeo = new THREE.BufferGeometry();
-            const posArray = new Float32Array(400 * 3);
-            for (let i = 0; i < 400 * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
-            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            const particlesMesh = new THREE.Points(particlesGeo, new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending }));
-            scene.add(particlesMesh);
-            const clock = new THREE.Clock();
-            function animate() { requestAnimationFrame(animate); particlesMesh.rotation.y = clock.getElapsedTime() * 0.04; renderer.render(scene, camera); }
-            animate();
-            window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
-        }
-
-        // ==== CARGAR RECURSOS ====
-        async function fetchResources() {
-            const grid = document.getElementById('resourcesGrid');
-            grid.innerHTML = `<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Cargando recursos...</p></div>`;
             try {
-                const { data, error } = await db.from('resources').select('*').order('created_at', { ascending: false });
-                if (error) throw error;
-                resourcesCache = data || [];
-                renderResources();
-            } catch (err) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>No se pudieron cargar los recursos. Verifica tu conexión.</p></div>`;
-            }
-        }
-
-        // ==== RENDERIZAR TARJETAS ====
-        function renderResources() {
-            const grid = document.getElementById('resourcesGrid');
-            const count = document.getElementById('resourceResultsCount');
-            if (resourcesCache.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><p>Aún no hay recursos publicados. Vuelve pronto.</p></div>`;
-                if (count) count.textContent = '0 recursos';
-                return;
+                result = await response.json();
+            } catch {
+                throw new Error("Respuesta inválida del servidor VIP.");
             }
 
-            const filteredResources = getFilteredResources();
-            if (count) count.textContent = `${filteredResources.length} ${filteredResources.length === 1 ? 'recurso' : 'recursos'}`;
-            if (filteredResources.length === 0) {
-                grid.innerHTML = `<div class="resource-no-results"><i class="fas fa-search"></i><h3>No encontramos recursos</h3><p>Prueba con otro término o cambia la categoría seleccionada.</p><button class="resource-reset-btn" type="button" onclick="resetResourceFilters()"><i class="fas fa-undo"></i> Limpiar filtros</button></div>`;
-                return;
+            if (!response.ok) {
+                throw new Error(result.error || "No se pudo completar la solicitud VIP.");
             }
 
-            grid.innerHTML = filteredResources.map(r => {
-                const isVip = r.type === 'vip';
-                const isLocked = isVip && !isVipUnlocked;
-                
-                const htmlBtns = r.code_content ? `<button class="btn-copy-code" onclick="copyCode(this, 'html', '${r.id}')"><i class="fab fa-html5"></i> HTML</button>` : '';
-                const cssBtns = r.code_css ? `<button class="btn-copy-code" onclick="copyCode(this, 'css', '${r.id}')"><i class="fab fa-css3-alt"></i> CSS</button>` : '';
-                const jsBtns = r.code_js ? `<button class="btn-copy-code" onclick="copyCode(this, 'js', '${r.id}')"><i class="fab fa-js"></i> JS</button>` : '';
-                
-                return `
-                <div class="resource-card ${isLocked ? 'locked' : ''}" data-aos="fade-up">
-                    ${isLocked ? `
-                    <div class="locked-overlay">
-                        <div class="lock-icon-wrap"><i class="fas fa-lock"></i></div>
-                        <span style="font-weight: 600; font-size: 0.95rem; color: #fff;">Recurso Premium VIP</span>
-                        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Hazte miembro para desbloquear</p>
-                        <button onclick="openVipModal()" class="btn-secondary glass-btn" style="font-size: 0.85rem; padding: 10px 20px;"><i class="fas fa-key"></i> Desbloquear</button>
-                    </div>` : ''}
-                    
-                    <span class="resource-badge ${isVip ? 'badge-vip' : 'badge-free'}">
-                        ${isVip ? '<i class="fas fa-crown"></i> VIP' : '<i class="fas fa-unlock"></i> Gratis'}
-                    </span>
-                    <h3 class="resource-title">${r.title}</h3>
-                    <p class="resource-desc">${r.description || 'Sin descripción.'}</p>
-                    
-                    ${!isLocked ? `
-                    <div class="code-actions">
-                        <button class="btn-preview" onclick="openPreview('${r.id}')"><i class="fas fa-eye"></i> Ver Resultado (Vista Previa)</button>
-                        <div class="action-row">
-                            ${htmlBtns} ${cssBtns} ${jsBtns}
-                        </div>
-                        <button class="btn-download-zip" onclick="downloadZip('${r.id}')"><i class="fas fa-file-archive"></i> Descargar todo (.zip)</button>
-                    </div>` : ''}
-                </div>
-                `;
-            }).join('');
-            
-            if (typeof AOS !== 'undefined') AOS.refresh();
+            return result;
         }
 
-        // ==== COPIAR CÓDIGO ====
-        function copyCode(btn, type, id) {
-            const resource = resourcesCache.find(r => r.id === id);
-            if (!resource) return;
-            let codeToCopy = type === 'html' ? resource.code_content : (type === 'css' ? resource.code_css : resource.code_js);
-            if (!codeToCopy) return alert('Este código no está disponible.');
-
-            navigator.clipboard.writeText(codeToCopy).then(() => {
-                const originalHtml = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
-                btn.style.background = 'rgba(74, 222, 128, 0.2)';
-                btn.style.borderColor = '#4ade80';
-                btn.style.color = '#4ade80';
-                setTimeout(() => { btn.innerHTML = originalHtml; btn.style.background = ''; btn.style.borderColor = ''; btn.style.color = ''; }, 2000);
-            }).catch(err => alert('Error al copiar.'));
-        }
-
-        // ==== DESCARGAR ZIP ====
-        function downloadZip(id) {
-            const resource = resourcesCache.find(r => r.id === id);
-            if (!resource || typeof JSZip === 'undefined') return;
-            const zip = new JSZip();
-            let hasFiles = false;
-            if (resource.code_content) { zip.file('index.html', resource.code_content); hasFiles = true; }
-            if (resource.code_css) { zip.file('style.css', resource.code_css); hasFiles = true; }
-            if (resource.code_js) { zip.file('script.js', resource.code_js); hasFiles = true; }
-            if (!hasFiles) return alert('Este recurso no tiene archivos.');
-
-            zip.generateAsync({ type: 'blob' }).then(content => {
-                const url = URL.createObjectURL(content);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${resource.title.replace(/\s+/g, '-').toLowerCase()}.zip`;
-                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+        async function redeemVipKey(key) {
+            const result = await gatewayRequest({
+                action: "redeem",
+                key
             });
+
+            if (!result.valid) {
+                throw new Error("La llave es inválida, está vencida o fue revocada.");
+            }
+
+            return result;
         }
 
-        document.addEventListener('DOMContentLoaded', fetchResources);
+        async function restoreMembership() {
+            const savedKey = sessionStorage.getItem(SESSION_KEY);
+
+            if (!savedKey) {
+                setMembershipIndicator("Explorando como visitante.");
+                return;
+            }
+
+            try {
+                const result = await redeemVipKey(savedKey);
+
+                vipKey = savedKey;
+                membershipExpiresAt = result.expires_at || null;
+
+                setMembershipIndicator(
+                    membershipExpiresAt
+                        ? `Membresía VIP activa · Vence ${new Date(membershipExpiresAt).toLocaleDateString("es-DO")}`
+                        : "Membresía VIP activa",
+                    true
+                );
+            } catch (error) {
+                console.warn("La membresía guardada no está activa:", error);
+
+                sessionStorage.removeItem(SESSION_KEY);
+                vipKey = null;
+                membershipExpiresAt = null;
+
+                setMembershipIndicator("Tu membresía no está activa. Puedes renovar o ingresar otra llave.");
+            }
+        }
+
+        function openVipModal() {
+            vipError.classList.remove("visible");
+            vipError.textContent = "";
+            vipModal.classList.add("open");
+            setModalState();
+
+            window.setTimeout(() => vipInput.focus(), 100);
+        }
+
+        function closeVipModal() {
+            vipModal.classList.remove("open");
+            vipError.classList.remove("visible");
+            vipError.textContent = "";
+            vipInput.value = "";
+            setModalState();
+        }
+
+        vipForm.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const key = vipInput.value.trim();
+            if (!key) return;
+
+            vipSubmit.disabled = true;
+            vipSubmit.textContent = "Verificando llave...";
+            vipError.classList.remove("visible");
+
+            try {
+                const result = await redeemVipKey(key);
+
+                vipKey = key;
+                membershipExpiresAt = result.expires_at || null;
+                sessionStorage.setItem(SESSION_KEY, key);
+
+                closeVipModal();
+
+                setMembershipIndicator(
+                    membershipExpiresAt
+                        ? `Membresía VIP activa · Vence ${new Date(membershipExpiresAt).toLocaleDateString("es-DO")}`
+                        : "Membresía VIP activa",
+                    true
+                );
+            } catch (error) {
+                vipError.textContent = error.message || "No se pudo validar la llave.";
+                vipError.classList.add("visible");
+            } finally {
+                vipSubmit.disabled = false;
+                vipSubmit.textContent = "Desbloquear membresía VIP";
+            }
+        });
+
+        /* VISTA PREVIA REAL */
+
+        function createPreviewDocument(resource) {
+            const html = String(resource.preview_html || "");
+            const css = String(resource.preview_css || "");
+            const js = String(resource.preview_js || "")
+                .replace(/<\/script/gi, "<\\/script");
+
+            const title = escapeHtml(resource.title || "Vista previa");
+
+            const styleTag = `
+<style>
+*{box-sizing:border-box}
+html{min-height:100%;-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;overflow-wrap:anywhere}
+img,video,canvas,svg{max-width:100%}
+${css}
+</style>`;
+
+            const scriptTag = js ? `<script>${js}<\/script>` : "";
+
+            // Si el HTML es un documento completo, conserva su estructura.
+            if (/<(?:!doctype\s+html|html)(?:\s|>)/i.test(html)) {
+                let documentHtml = html;
+
+                if (/<head[\s>]/i.test(documentHtml)) {
+                    documentHtml = documentHtml.replace(
+                        /<head([^>]*)>/i,
+                        `<head$1><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">${styleTag}`
+                    );
+                } else {
+                    documentHtml = documentHtml.replace(
+                        /<html([^>]*)>/i,
+                        `<html$1><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">${styleTag}</head>`
+                    );
+                }
+
+                if (scriptTag) {
+                    if (/<\/body>/i.test(documentHtml)) {
+                        documentHtml = documentHtml.replace(
+                            /<\/body>/i,
+                            `${scriptTag}</body>`
+                        );
+                    } else {
+                        documentHtml += scriptTag;
+                    }
+                }
+
+                return documentHtml;
+            }
+
+            // Si el HTML es un fragmento, crea un documento completo.
+            return `<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>${title}</title>
+${styleTag}
+</head>
+<body>
+${html}
+${scriptTag}
+</body>
+</html>`;
+        }
+
+        function openPreview(resourceId) {
+            const resource = resources.find(item => item.resource_id === resourceId);
+            if (!resource) return;
+
+            previewTitle.textContent = `Vista previa: ${resource.title || "Recurso"}`;
+            previewIframe.srcdoc = createPreviewDocument(resource);
+
+            previewModal.classList.add("open");
+            setModalState();
+        }
+
+        function closePreview() {
+            previewModal.classList.remove("open");
+            previewIframe.srcdoc = "";
+            setModalState();
+        }
+
+        /* PLANES */
+
+        async function fetchPlans() {
+            if (!db) return;
+
+            try {
+                const { data, error } = await db
+                    .from("vip_plans")
+                    .select("slug,name,description,price,currency,duration_days,is_active")
+                    .eq("is_active", true)
+                    .order("sort_order", { ascending: true });
+
+                if (error) throw error;
+                if (!Array.isArray(data) || !data.length) return;
+
+                plansGrid.innerHTML = data.map(plan => {
+                    const isAnnual = plan.slug === "annual";
+                    const price = formatPrice(plan.price, plan.currency || "USD");
+                    const description = plan.description ||
+                        `Acceso VIP durante ${plan.duration_days} días.`;
+
+                    return `
+                        <article class="vip-plan-card ${isAnnual ? "featured" : ""}">
+                            <div class="vip-plan-name">${escapeHtml(plan.name)}</div>
+                            <div class="vip-plan-price">${escapeHtml(price)}</div>
+                            <div class="vip-plan-period">
+                                ${Number(plan.duration_days)} días · ${escapeHtml(plan.currency || "USD")}
+                            </div>
+                            <p class="vip-plan-description">${escapeHtml(description)}</p>
+                            <a class="vip-glass-cta vip-plan-button"
+                                href="${AIRTM_URL}" target="_blank" rel="noopener noreferrer">
+                                ${icons.crown}
+                                ${isAnnual ? "Elegir plan anual" : "Suscribirme"}
+                            </a>
+                        </article>`;
+                }).join("");
+
+            } catch (error) {
+                console.warn("No fue posible cargar los planes:", error);
+            }
+        }
+
+        /* CARGAR CATÁLOGO PÚBLICO */
+
+        async function fetchResources() {
+            if (!db) {
+                showError("Supabase no está disponible. Comprueba supabase-client.js.");
+                return;
+            }
+
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando catálogo...</p>
+                </div>`;
+
+            try {
+                const { data: previews, error } = await db
+                    .from("resource_previews")
+                    .select(`
+                        resource_id,
+                        title,
+                        description,
+                        resource_type,
+                        language,
+                        preview_image_url,
+                        preview_html,
+                        preview_css,
+                        preview_js,
+                        updated_at
+                    `)
+                    .order("updated_at", { ascending: false });
+
+                if (error) throw error;
+
+                resources = Array.isArray(previews) ? previews : [];
+
+                // El código fuente descargable solo se consulta para recursos Free.
+                const freeIds = resources
+                    .filter(item => item.resource_type === "free")
+                    .map(item => item.resource_id);
+
+                freeCodeCache.clear();
+
+                if (freeIds.length) {
+                    const { data: freeResources, error: freeError } = await db
+                        .from("resources")
+                        .select("id,title,description,type,code_content,code_css,code_js")
+                        .eq("type", "free")
+                        .in("id", freeIds);
+
+                    if (freeError) throw freeError;
+
+                    (freeResources || []).forEach(item => {
+                        freeCodeCache.set(item.id, item);
+                    });
+                }
+
+                renderResources();
+
+            } catch (error) {
+                console.error("Error cargando el catálogo:", error);
+                showError("No se pudieron cargar los recursos. Comprueba los permisos de Supabase y vuelve a intentarlo.");
+            }
+        }
+
+        /* TARJETAS */
+
+        function renderResources() {
+            if (!resources.length) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>Aún no hay recursos publicados.</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = resources.map(resource => {
+                const isVip = resource.resource_type === "vip";
+                const fileSource = isVip ? null : freeCodeCache.get(resource.resource_id);
+                const id = escapeHtml(resource.resource_id);
+
+                const description = String(
+                    resource.description || "Recurso de diseño y desarrollo web."
+                ).replace(/\s+/g, " ").trim();
+
+                const copyButton = (type, label) => `
+                    <button class="club-btn btn-copy-code"
+                        type="button"
+                        data-action="copy"
+                        data-id="${id}"
+                        data-type="${type}">
+                        ${icons.copy}
+                        ${label}
+                    </button>`;
+
+                const previewDocument = escapeHtml(createPreviewDocument(resource));
+
+                return `
+                    <article class="resource-card" data-aos="fade-up">
+
+                        <span class="resource-badge ${isVip ? "badge-vip" : "badge-free"}">
+                            ${isVip ? icons.crown + " VIP PREMIUM" : icons.unlock + " GRATIS"}
+                        </span>
+
+                        <h3 class="resource-title">
+                            ${escapeHtml(resource.title || "Recurso sin título")}
+                        </h3>
+
+                        <p class="resource-desc" title="${escapeHtml(description)}">
+                            ${escapeHtml(description)}
+                        </p>
+
+                        <div class="resource-meta">
+                            <span>${escapeHtml(resource.language || "HTML")}</span>
+                            <span>${isVip ? "Preview público" : "Acceso gratuito"}</span>
+                        </div>
+
+                        <div class="resource-preview-area">
+                            <div class="preview-label">
+                                <span>${icons.eye} Resultado interactivo real</span>
+                                <span class="preview-status">● En vivo</span>
+                            </div>
+
+                            <iframe
+                                class="resource-preview-frame"
+                                title="Vista previa de ${escapeHtml(resource.title)}"
+                                loading="lazy"
+                                sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                                referrerpolicy="no-referrer"
+                                srcdoc="${previewDocument}">
+                            </iframe>
+                        </div>
+
+                        <div class="resource-actions">
+
+                            <button type="button"
+                                class="club-btn btn-preview"
+                                data-action="preview"
+                                data-id="${id}">
+                                ${icons.eye}
+                                Abrir vista previa completa
+                            </button>
+
+                            ${isVip ? `
+                                <div class="vip-unlock-cta">
+                                    <p class="vip-unlock-description">
+                                        Prueba el resultado completo. El código fuente y la descarga ZIP están reservados para miembros VIP.
+                                    </p>
+                                    <a class="vip-glass-cta" href="#vip-plans">
+                                        ${icons.sparkles}
+                                        Ver membresías VIP
+                                    </a>
+                                    <button type="button" class="club-btn"
+                                        data-action="open-vip">
+                                        ${icons.lock}
+                                        Ya tengo una llave VIP
+                                    </button>
+                                </div>
+                            ` : `
+                                <div class="action-row">
+                                    ${fileSource?.code_content ? copyButton("html", "HTML") : ""}
+                                    ${fileSource?.code_css ? copyButton("css", "CSS") : ""}
+                                    ${fileSource?.code_js ? copyButton("js", "JS") : ""}
+                                </div>
+
+                                <button class="club-btn btn-download-zip"
+                                    type="button"
+                                    data-action="download"
+                                    data-id="${id}">
+                                    ${icons.download}
+                                    Descargar ZIP
+                                </button>
+                            `}
+
+                        </div>
+                    </article>`;
+            }).join("");
+
+            if (window.AOS) AOS.refresh();
+        }
+
+        /* OBTENER CÓDIGO FREE */
+
+        function getFreeResource(resourceId) {
+            const resource = resources.find(item => item.resource_id === resourceId);
+
+            if (!resource || resource.resource_type !== "free") {
+                throw new Error("Este recurso no está disponible para descarga gratuita.");
+            }
+
+            const freeResource = freeCodeCache.get(resourceId);
+
+            if (!freeResource) {
+                throw new Error("No se pudo obtener el código gratuito.");
+            }
+
+            return freeResource;
+        }
+
+        /* COPIAR CÓDIGO */
+
+        async function copyCode(button, resourceId, type) {
+            const original = button.innerHTML;
+
+            button.disabled = true;
+            button.textContent = "Copiando...";
+
+            try {
+                const resource = getFreeResource(resourceId);
+
+                const code = type === "html"
+                    ? resource.code_content
+                    : type === "css"
+                        ? resource.code_css
+                        : resource.code_js;
+
+                if (!code) {
+                    throw new Error("Este archivo no está disponible.");
+                }
+
+                if (!navigator.clipboard?.writeText) {
+                    throw new Error("El navegador no permite copiar automáticamente.");
+                }
+
+                await navigator.clipboard.writeText(code);
+
+                button.innerHTML = `<i class="fas fa-check"></i> ¡Copiado!`;
+                button.style.color = "#4ade80";
+
+                window.setTimeout(() => {
+                    button.innerHTML = original;
+                    button.style.color = "";
+                }, 1600);
+
+            } catch (error) {
+                console.error("Error copiando código:", error);
+                alert(error.message || "No se pudo copiar el código.");
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        /* DESCARGAR ZIP FREE */
+
+        async function downloadZip(button, resourceId) {
+            if (typeof JSZip === "undefined") {
+                alert("El módulo ZIP no está disponible. Recarga la página.");
+                return;
+            }
+
+            const original = button.innerHTML;
+
+            button.disabled = true;
+            button.textContent = "Preparando descarga...";
+
+            try {
+                const resource = getFreeResource(resourceId);
+                const zip = new JSZip();
+
+                let filesAdded = 0;
+
+                if (resource.code_content) {
+                    zip.file("index.html", resource.code_content);
+                    filesAdded++;
+                }
+
+                if (resource.code_css) {
+                    zip.file("style.css", resource.code_css);
+                    filesAdded++;
+                }
+
+                if (resource.code_js) {
+                    zip.file("script.js", resource.code_js);
+                    filesAdded++;
+                }
+
+                if (!filesAdded) {
+                    throw new Error("Este recurso no contiene archivos descargables.");
+                }
+
+                const blob = await zip.generateAsync({
+                    type: "blob",
+                    compression: "DEFLATE",
+                    compressionOptions: { level: 6 }
+                });
+
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+
+                link.href = url;
+                link.download = `${safeFilename(resource.title)}.zip`;
+
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+
+                window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+                button.innerHTML = `<i class="fas fa-check"></i> Descarga lista`;
+
+                window.setTimeout(() => {
+                    button.innerHTML = original;
+                }, 1600);
+
+            } catch (error) {
+                console.error("Error generando ZIP:", error);
+                alert(error.message || "No se pudo generar el archivo ZIP.");
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        /* EVENTOS DEL CATÁLOGO */
+
+        grid.addEventListener("click", async event => {
+            const button = event.target.closest("[data-action]");
+            if (!button) return;
+
+            const action = button.dataset.action;
+
+            if (action === "retry") {
+                fetchResources();
+                return;
+            }
+
+            if (action === "open-vip") {
+                openVipModal();
+                return;
+            }
+
+            const resourceId = button.dataset.id;
+
+            if (action === "preview") {
+                openPreview(resourceId);
+                return;
+            }
+
+            if (action === "copy") {
+                await copyCode(button, resourceId, button.dataset.type);
+                return;
+            }
+
+            if (action === "download") {
+                await downloadZip(button, resourceId);
+            }
+        });
+
+        /* EVENTOS DE MODALES */
+
+        document.querySelector("[data-close-preview]")
+            .addEventListener("click", closePreview);
+
+        document.querySelector("[data-close-vip]")
+            .addEventListener("click", closeVipModal);
+
+        previewModal.addEventListener("click", event => {
+            if (event.target === previewModal) closePreview();
+        });
+
+        vipModal.addEventListener("click", event => {
+            if (event.target === vipModal) closeVipModal();
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                closePreview();
+                closeVipModal();
+            }
+        });
+
+        /* FONDO 3D */
+
+        function initializeBackground() {
+            const canvas = document.getElementById("webgl-canvas");
+
+            if (!canvas || !window.THREE) return;
+
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                return;
+            }
+
+            try {
+                const scene = new THREE.Scene();
+
+                const camera = new THREE.PerspectiveCamera(
+                    70,
+                    window.innerWidth / window.innerHeight,
+                    0.1,
+                    1000
+                );
+
+                camera.position.z = 5;
+
+                const renderer = new THREE.WebGLRenderer({
+                    canvas,
+                    alpha: true,
+                    antialias: false
+                });
+
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array(400 * 3);
+
+                for (let i = 0; i < positions.length; i++) {
+                    positions[i] = (Math.random() - .5) * 18;
+                }
+
+                geometry.setAttribute(
+                    "position",
+                    new THREE.BufferAttribute(positions, 3)
+                );
+
+                const particles = new THREE.Points(
+                    geometry,
+                    new THREE.PointsMaterial({
+                        size: .03,
+                        color: 0xa8b9cc,
+                        transparent: true,
+                        opacity: .6,
+                        blending: THREE.AdditiveBlending
+                    })
+                );
+
+                scene.add(particles);
+
+                const clock = new THREE.Clock();
+                let frameId = null;
+
+                function animate() {
+                    frameId = requestAnimationFrame(animate);
+                    particles.rotation.y = clock.getElapsedTime() * .04;
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+
+                window.addEventListener("resize", () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                }, { passive: true });
+
+                document.addEventListener("visibilitychange", () => {
+                    if (document.hidden) {
+                        if (frameId) cancelAnimationFrame(frameId);
+                    } else if (frameId === null) {
+                        animate();
+                    }
+                });
+
+            } catch (error) {
+                console.warn("No se pudo iniciar el fondo 3D:", error);
+            }
+        }
+
+        /* INICIALIZACIÓN */
+
+        async function initializeClub() {
+            if (window.AOS) {
+                AOS.init({
+                    duration: 700,
+                    once: true,
+                    disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                });
+            }
+
+            initializeBackground();
+
+            if (!db) {
+                showError("No se pudo inicializar Supabase. Revisa supabase-client.js.");
+                return;
+            }
+
+            await Promise.all([
+                restoreMembership(),
+                fetchPlans()
+            ]);
+
+            await fetchResources();
+        }
+
+        window.openVipModal = openVipModal;
+        window.closeVipModal = closeVipModal;
+        window.closePreview = closePreview;
+
+        initializeClub();
+
+    })();
     </script>
+
 </body>
 </html>
