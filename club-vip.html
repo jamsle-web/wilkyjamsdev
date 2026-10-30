@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explora Club VIP de WilkyJamsDev: componentes, recursos gratuitos y código premium con vistas previas interactivas.">
+    <meta name="description" content="Explora Club VIP de WilkyJamsDev: componentes, interfaces y recursos de desarrollo web con vistas previas interactivas.">
     <meta name="theme-color" content="#050505">
     <title>WilkyJamsDev · Club VIP</title>
 
@@ -23,45 +23,52 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* =====================================================
-           CLUB VIP — ESTILOS LOCALES
-           Mantiene el sistema visual principal del sitio.
-        ===================================================== */
+        :root {
+            --club-bg: #050505;
+            --club-surface: #101014;
+            --club-border: rgba(255,255,255,.09);
+            --club-muted: #a1a1aa;
+            --club-accent: #c4a8cc;
+            --club-green: #4ade80;
+        }
 
         .resources-section {
             position: relative;
             z-index: 2;
-            padding: 55px 0 100px;
+            padding: 45px 0 110px;
         }
 
         .resources-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-            gap: 26px;
-            margin-top: 35px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 25px;
+            align-items: stretch;
         }
 
         .resource-card {
-            min-width: 0;
             position: relative;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            padding: 25px;
+            gap: 13px;
+            min-width: 0;
+            padding: 19px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,.09);
-            border-radius: 21px;
-            background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012));
+            border: 1px solid var(--club-border);
+            border-radius: 19px;
+            background:
+                radial-gradient(ellipse at 0 0, rgba(196,168,204,.08), transparent 55%),
+                linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012));
+            box-shadow: 0 12px 35px rgba(0,0,0,.2);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 12px 35px rgba(0,0,0,.2);
-            transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
         }
 
         .resource-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(168,185,204,.35);
-            box-shadow: 0 20px 45px rgba(0,0,0,.3);
+            transform: translateY(-4px);
+            border-color: rgba(196,168,204,.35);
+            box-shadow: 0 20px 45px rgba(0,0,0,.32);
         }
 
         .resource-card::before {
@@ -80,130 +87,137 @@
             align-items: center;
             gap: 7px;
             width: fit-content;
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 30px;
-            font-size: .7rem;
+            font-size: .66rem;
             font-weight: 800;
-            letter-spacing: .7px;
+            letter-spacing: .6px;
             text-transform: uppercase;
         }
 
         .badge-free {
-            color: #4ade80;
-            background: rgba(74,222,128,.09);
-            border: 1px solid rgba(74,222,128,.22);
+            color: var(--club-green);
+            background: rgba(74,222,128,.08);
+            border: 1px solid rgba(74,222,128,.2);
         }
 
         .badge-vip {
-            color: #d9c0e7;
-            background: rgba(196,168,204,.11);
-            border: 1px solid rgba(196,168,204,.28);
+            color: #e4c9ed;
+            background: rgba(196,168,204,.12);
+            border: 1px solid rgba(196,168,204,.27);
         }
 
         .resource-title {
             margin: 0;
             color: #fff;
             font-family: var(--font-display, 'Syne', sans-serif);
-            font-size: 1.23rem;
-            font-weight: 700;
+            font-size: 1.08rem;
+            font-weight: 800;
             line-height: 1.35;
             overflow-wrap: anywhere;
         }
 
         .resource-desc {
-            flex: 1;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            min-height: 3.9em;
             margin: 0;
-            color: var(--text-muted, #999);
-            font-size: .9rem;
-            line-height: 1.65;
+            color: var(--club-muted);
+            font-size: .81rem;
+            line-height: 1.3;
             overflow-wrap: anywhere;
-            white-space: pre-line;
+            white-space: normal;
         }
 
         .resource-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            color: #999;
-            font-size: .73rem;
+            gap: 7px;
+            color: #aaa;
+            font-size: .68rem;
         }
 
         .resource-meta span {
-            padding: 5px 9px;
+            padding: 5px 8px;
+            border: 1px solid rgba(255,255,255,.055);
             border-radius: 7px;
-            background: rgba(255,255,255,.045);
+            background: rgba(255,255,255,.04);
         }
 
         .resource-preview-area {
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,.09);
+            border: 1px solid rgba(255,255,255,.11);
             border-radius: 13px;
-            background: rgba(255,255,255,.025);
+            background: #101014;
         }
 
         .preview-label {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
+            gap: 8px;
+            padding: 10px 11px;
             color: #aaa;
-            font-size: .72rem;
-            border-bottom: 1px solid rgba(255,255,255,.07);
+            font-size: .69rem;
+            border-bottom: 1px solid rgba(255,255,255,.08);
         }
 
         .preview-label span {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
         }
 
         .preview-status {
-            color: #4ade80;
-            font-size: .68rem;
+            color: var(--club-green);
+            white-space: nowrap;
+            font-size: .65rem;
         }
 
         .resource-preview-frame {
             display: block;
             width: 100%;
-            height: 175px;
+            height: 230px;
             border: 0;
             background: #fff;
-            pointer-events: none;
+            pointer-events: auto;
         }
 
         .resource-actions {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 9px;
             margin-top: auto;
-            padding-top: 15px;
+            padding-top: 13px;
             border-top: 1px solid rgba(255,255,255,.07);
         }
 
         .action-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 7px;
         }
 
         .club-btn {
-            min-height: 43px;
+            min-height: 41px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 10px 13px;
-            border-radius: 10px;
+            padding: 9px 12px;
             border: 1px solid rgba(255,255,255,.12);
-            background: rgba(255,255,255,.045);
+            border-radius: 10px;
+            background: rgba(255,255,255,.05);
             color: #fff;
             font-family: inherit;
-            font-size: .8rem;
-            font-weight: 650;
-            cursor: pointer;
+            font-size: .77rem;
+            font-weight: 700;
+            text-align: center;
             text-decoration: none;
-            transition: background .25s ease, border-color .25s ease, transform .25s ease;
+            cursor: pointer;
+            transition: background .2s ease, border-color .2s ease, transform .2s ease;
         }
 
         .club-btn svg {
@@ -214,34 +228,29 @@
 
         .club-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            background: rgba(255,255,255,.11);
+            background: rgba(255,255,255,.12);
             border-color: rgba(255,255,255,.3);
-        }
-
-        .club-btn:active:not(:disabled) {
-            transform: scale(.98);
         }
 
         .club-btn:focus-visible,
         .vip-glass-cta:focus-visible {
-            outline: 2px solid #c4a8cc;
+            outline: 2px solid var(--club-accent);
             outline-offset: 3px;
         }
 
         .club-btn:disabled {
-            opacity: .48;
+            opacity: .5;
             cursor: not-allowed;
         }
 
         .btn-preview {
             width: 100%;
-            color: #fff;
+            min-height: 43px;
             background: rgba(255,255,255,.09);
-            border-color: rgba(255,255,255,.15);
         }
 
         .btn-copy-code {
-            flex: 1 1 70px;
+            flex: 1 1 65px;
         }
 
         .btn-download-zip {
@@ -254,25 +263,22 @@
 
         .btn-download-zip:hover:not(:disabled) {
             background: #fff;
+            color: #050505;
         }
-
-        /* =====================================================
-           CTA VIP GLASSMORPHISM
-        ===================================================== */
 
         .vip-unlock-cta {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            padding-top: 15px;
+            gap: 9px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255,255,255,.07);
         }
 
         .vip-unlock-description {
             margin: 0;
             color: #aaa;
-            font-size: .8rem;
-            line-height: 1.55;
+            font-size: .76rem;
+            line-height: 1.5;
         }
 
         .vip-glass-cta {
@@ -280,81 +286,52 @@
             isolation: isolate;
             overflow: hidden;
             width: 100%;
-            min-height: 49px;
+            min-height: 46px;
             display: inline-flex;
             justify-content: center;
             align-items: center;
             gap: 9px;
-            padding: 13px 16px;
+            padding: 12px 15px;
             border: 1px solid rgba(224,210,245,.3);
-            border-radius: 13px;
-            background: linear-gradient(135deg, rgba(196,168,204,.19), rgba(255,255,255,.055));
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(196,168,204,.2), rgba(255,255,255,.055));
             color: #f7efff;
             font-family: inherit;
-            font-size: .84rem;
+            font-size: .8rem;
             font-weight: 800;
             text-align: center;
             text-decoration: none;
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.17), 0 8px 25px rgba(0,0,0,.18);
-            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
-        }
-
-        .vip-glass-cta::before {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            inset: 0;
-            background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.24) 48%, transparent 75%);
-            transform: translateX(-130%);
-            transition: transform .7s ease;
+            transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
         }
 
         .vip-glass-cta:hover {
-            transform: translateY(-3px) scale(1.012);
+            transform: translateY(-2px);
             border-color: rgba(232,213,255,.65);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 12px 32px rgba(196,168,204,.15);
-        }
-
-        .vip-glass-cta:hover::before {
-            transform: translateX(130%);
-        }
-
-        .vip-glass-cta:active {
-            transform: scale(.985);
+            box-shadow: 0 10px 30px rgba(196,168,204,.15);
         }
 
         .vip-glass-cta svg {
-            width: 18px;
-            height: 18px;
-            flex: 0 0 auto;
+            width: 17px;
+            height: 17px;
         }
 
         .vip-member-status {
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             gap: 8px;
             padding: 11px;
             border: 1px solid rgba(74,222,128,.2);
             border-radius: 10px;
-            color: #4ade80;
+            color: var(--club-green);
             background: rgba(74,222,128,.07);
-            font-size: .8rem;
+            font-size: .78rem;
             font-weight: 700;
         }
 
-        .vip-locked-note {
-            color: #c4a8cc;
-            font-size: .76rem;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        /* =====================================================
-           PLANES
-        ===================================================== */
+        /* PLANES */
 
         .vip-plans-section {
             position: relative;
@@ -376,7 +353,7 @@
 
         .vip-plans-heading p {
             color: var(--text-muted, #999);
-            font-size: .9rem;
+            font-size: .88rem;
         }
 
         .vip-plans-grid {
@@ -389,7 +366,7 @@
 
         .vip-plan-card {
             position: relative;
-            padding: 27px;
+            padding: 25px;
             border: 1px solid rgba(255,255,255,.1);
             border-radius: 19px;
             background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012));
@@ -404,29 +381,29 @@
         .vip-plan-name {
             color: #fff;
             font-family: var(--font-display, 'Syne', sans-serif);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 800;
         }
 
         .vip-plan-price {
-            margin: 13px 0 5px;
+            margin: 12px 0 5px;
             color: #fff;
-            font-size: 2.1rem;
+            font-size: 2rem;
             font-weight: 800;
-            letter-spacing: -1.5px;
+            letter-spacing: -1px;
         }
 
         .vip-plan-period {
             color: #999;
-            font-size: .78rem;
+            font-size: .75rem;
         }
 
         .vip-plan-description {
             min-height: 38px;
-            margin: 15px 0;
+            margin: 14px 0;
             color: #aaa;
-            font-size: .82rem;
-            line-height: 1.55;
+            font-size: .8rem;
+            line-height: 1.5;
         }
 
         .vip-plan-button {
@@ -437,14 +414,12 @@
             max-width: 650px;
             margin: 20px auto 0;
             color: #999;
-            font-size: .76rem;
+            font-size: .75rem;
             line-height: 1.6;
             text-align: center;
         }
 
-        /* =====================================================
-           MODALES
-        ===================================================== */
+        /* MODALES */
 
         .club-modal {
             position: fixed;
@@ -454,7 +429,7 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
-            background: rgba(4,5,10,.88);
+            background: rgba(4,5,10,.9);
             backdrop-filter: blur(13px);
             -webkit-backdrop-filter: blur(13px);
             opacity: 0;
@@ -474,11 +449,11 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            max-width: 920px;
-            max-height: 90dvh;
+            max-width: 1100px;
+            max-height: 92dvh;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,.13);
-            border-radius: 19px;
+            border-radius: 18px;
             background: #101014;
             box-shadow: 0 30px 100px rgba(0,0,0,.7);
             transform: translateY(12px) scale(.99);
@@ -490,12 +465,12 @@
         }
 
         .club-modal-header {
-            min-height: 58px;
+            min-height: 57px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 15px;
-            padding: 12px 18px;
+            padding: 12px 17px;
             border-bottom: 1px solid rgba(255,255,255,.09);
             background: #0a0a0d;
         }
@@ -504,7 +479,7 @@
             margin: 0;
             color: #fff;
             font-family: var(--font-display, 'Syne', sans-serif);
-            font-size: 1rem;
+            font-size: .98rem;
         }
 
         .modal-close {
@@ -518,7 +493,6 @@
             background: rgba(255,255,255,.05);
             color: #fff;
             cursor: pointer;
-            transition: .2s;
         }
 
         .modal-close:hover {
@@ -535,7 +509,7 @@
         .preview-modal-body iframe {
             display: block;
             width: 100%;
-            height: min(75dvh, 700px);
+            height: min(82dvh, 850px);
             border: 0;
             background: #fff;
         }
@@ -550,19 +524,19 @@
             margin: 12px 0 9px;
             color: #fff;
             font-family: var(--font-display, 'Syne', sans-serif);
-            font-size: 1.5rem;
+            font-size: 1.45rem;
         }
 
         .vip-key-content > p {
             margin: 0 0 22px;
             color: #aaa;
-            font-size: .87rem;
+            font-size: .85rem;
             line-height: 1.6;
         }
 
         .vip-key-input {
             width: 100%;
-            min-height: 51px;
+            min-height: 50px;
             margin-bottom: 13px;
             padding: 13px;
             border: 1px solid rgba(255,255,255,.15);
@@ -602,12 +576,6 @@
             font-size: .9rem;
             font-weight: 800;
             cursor: pointer;
-            transition: .2s;
-        }
-
-        .btn-submit-key:hover:not(:disabled) {
-            background: #fff;
-            transform: translateY(-2px);
         }
 
         .btn-submit-key:disabled {
@@ -627,22 +595,33 @@
         .empty-state i {
             display: block;
             margin-bottom: 15px;
-            color: rgba(255,255,255,.2);
-            font-size: 2.3rem;
+            color: rgba(255,255,255,.25);
+            font-size: 2.2rem;
         }
 
         body.modal-open {
             overflow: hidden;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+            .resources-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 17px;
+            }
+        }
+
+        @media (max-width: 680px) {
             .resources-grid {
                 grid-template-columns: minmax(0, 1fr);
-                gap: 17px;
+                gap: 15px;
             }
 
             .resource-card {
-                padding: 21px;
+                padding: 17px;
+            }
+
+            .resource-preview-frame {
+                height: 245px;
             }
 
             .vip-plans-grid {
@@ -650,11 +629,11 @@
             }
 
             .vip-plan-card {
-                padding: 23px;
+                padding: 22px;
             }
 
             .club-modal-content {
-                max-height: 92dvh;
+                max-height: 94dvh;
             }
 
             .vip-key-content {
@@ -663,20 +642,12 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .resource-card,
-            .club-btn,
-            .vip-glass-cta,
-            .vip-glass-cta::before,
-            .club-modal,
-            .club-modal-content {
-                transition: none !important;
-                animation: none !important;
-            }
-
-            .resource-card:hover,
-            .club-btn:hover,
-            .vip-glass-cta:hover {
-                transform: none !important;
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
             }
         }
     </style>
@@ -686,7 +657,7 @@
 
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- NAVEGACIÓN ORIGINAL -->
+    <!-- NAVEGACIÓN -->
     <nav>
         <div class="container">
             <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
@@ -731,29 +702,29 @@
     <!-- HERO -->
     <section class="page-hero">
         <div class="container" style="text-align:center;">
-            <span class="label" style="color:var(--accent-2);">Biblioteca de Recursos</span>
+            <span class="label" style="color:var(--accent-2);">Biblioteca de recursos</span>
 
-            <h1 style="font-family:var(--font-display);font-weight:800;text-transform:uppercase;margin-bottom:20px;">
+            <h1 style="font-family:var(--font-display);font-weight:800;text-transform:uppercase;margin-bottom:18px;">
                 Explora el <span class="highlight">Club VIP</span>
             </h1>
 
-            <p style="color:var(--text-muted);max-width:700px;margin:0 auto 28px;font-size:1.05rem;">
-                Componentes, interfaces y recursos de desarrollo web. Explora las vistas previas antes de descargar el código.
+            <p style="color:var(--text-muted);max-width:680px;margin:0 auto 27px;font-size:1rem;">
+                Explora componentes, interfaces y experiencias web. Prueba cada recurso antes de acceder a su código.
             </p>
 
             <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-                <a href="#vip-plans" class="btn-primary" style="display:inline-flex;align-items:center;gap:9px;padding:14px 25px;text-decoration:none;">
+                <a href="#vip-plans" class="btn-primary" style="display:inline-flex;align-items:center;gap:9px;padding:14px 24px;text-decoration:none;">
                     <i class="fas fa-crown"></i>
                     Ver planes VIP
                 </a>
 
-                <button type="button" onclick="openVipModal()" class="btn-secondary glass-btn" style="display:inline-flex;align-items:center;gap:9px;padding:14px 25px;">
+                <button type="button" onclick="openVipModal()" class="btn-secondary glass-btn" style="display:inline-flex;align-items:center;gap:9px;padding:14px 24px;">
                     <i class="fas fa-key"></i>
                     Ya soy VIP
                 </button>
             </div>
 
-            <div id="membershipIndicator" style="margin-top:18px;color:#999;font-size:.8rem;" aria-live="polite"></div>
+            <div id="membershipIndicator" style="margin-top:17px;color:#999;font-size:.8rem;" aria-live="polite"></div>
         </div>
     </section>
 
@@ -763,7 +734,7 @@
             <div class="vip-plans-heading">
                 <span class="label" style="color:var(--accent-2);">Acceso exclusivo</span>
                 <h2>Elige tu membresía</h2>
-                <p>Desbloquea el código fuente y las descargas de los recursos VIP.</p>
+                <p>Explora todas las vistas previas. La membresía desbloquea el acceso al código fuente.</p>
             </div>
 
             <div class="vip-plans-grid" id="vipPlansGrid">
@@ -791,12 +762,12 @@
             </div>
 
             <p class="vip-payment-note">
-                El pago se realiza mediante Airtm. Después de pagar, envía tu referencia de pago para que el administrador pueda verificarla y activar manualmente tu membresía. La activación no es automática.
+                El pago se realiza mediante Airtm. Después de pagar, envía tu referencia para que el administrador pueda verificarla y activar manualmente tu membresía.
             </p>
         </div>
     </section>
 
-    <!-- RECURSOS -->
+    <!-- CATÁLOGO -->
     <section class="resources-section">
         <div class="container">
             <div class="resources-grid" id="resourcesGrid" aria-live="polite">
@@ -808,7 +779,7 @@
         </div>
     </section>
 
-    <!-- MODAL DE PREVIEW -->
+    <!-- MODAL PREVIEW -->
     <div class="club-modal" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
         <div class="club-modal-content">
             <div class="club-modal-header">
@@ -822,7 +793,7 @@
                 <iframe
                     id="previewIframe"
                     title="Vista previa interactiva del recurso"
-                    sandbox="allow-scripts allow-forms"
+                    sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
                     referrerpolicy="no-referrer"
                     loading="eager">
                 </iframe>
@@ -830,7 +801,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE LLAVE -->
+    <!-- MODAL LLAVE VIP -->
     <div class="club-modal" id="vipKeyModal" role="dialog" aria-modal="true" aria-labelledby="vipKeyTitle">
         <div class="club-modal-content vip-key-content">
             <button type="button" class="modal-close" data-close-vip style="position:absolute;right:17px;top:17px;" aria-label="Cerrar">
@@ -841,9 +812,7 @@
 
             <h3 id="vipKeyTitle">Ingresa tu llave VIP</h3>
 
-            <p>
-                Introduce la llave de acceso que recibiste después de que se verificara tu pago.
-            </p>
+            <p>Introduce la llave que recibiste después de verificar tu pago.</p>
 
             <form id="vipKeyForm">
                 <input
@@ -859,13 +828,13 @@
                 <div class="vip-key-error" id="vipKeyError" role="alert"></div>
 
                 <button type="submit" class="btn-submit-key" id="vipKeySubmit">
-                    Desbloquear recursos VIP
+                    Desbloquear membresía VIP
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- FOOTER ORIGINAL -->
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -958,23 +927,15 @@
     (() => {
         "use strict";
 
-        /* =====================================================
-           CONFIGURACIÓN
-        ===================================================== */
+        /* CONFIGURACIÓN ORIGINAL */
 
         const SUPABASE_URL = "https://ymmawibvlngvektawvcu.supabase.co";
 
-        // Publishable key pública del proyecto.
-        // Nunca colocar aquí service_role ni claves secretas.
         const SUPABASE_PUBLISHABLE_KEY =
             "sb_publishable_mqcufPzGI06YM7zWc4KK6w_zdbr8oXy";
 
         const GATEWAY_URL = `${SUPABASE_URL}/functions/v1/vip-gateway`;
-
         const AIRTM_URL = "https://airtm.me/jamsle33xsvhwc";
-
-        const WHATSAPP_NUMBER = "18099995904";
-
         const SESSION_KEY = "wj_vip_access_key";
 
         const db = window.portfolioSupabase;
@@ -995,34 +956,18 @@
 
         let resources = [];
         let freeCodeCache = new Map();
-        let authorizedVipCache = new Map();
-
         let vipKey = null;
         let membershipExpiresAt = null;
 
-        /* =====================================================
-           ICONOS SVG
-        ===================================================== */
-
         const icons = {
             eye: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>`,
-
             lock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>`,
-
             unlock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 9.5-2"/></svg>`,
-
             copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>`,
-
             download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>`,
-
             crown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 8 5 4 5-8 5 8 5-4-2 12H4L2 8Z"/><path d="M4 16h16"/></svg>`,
-
             sparkles: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 14 1.2 2.8L23 18l-2.8 1.2L19 22l-1.2-2.8L15 18l2.8-1.2L19 14Z"/></svg>`
         };
-
-        /* =====================================================
-           UTILIDADES
-        ===================================================== */
 
         function escapeHtml(value = "") {
             return String(value).replace(/[&<>"']/g, char => ({
@@ -1066,8 +1011,7 @@
                     <button class="club-btn" type="button" data-action="retry">
                         Reintentar
                     </button>
-                </div>
-            `;
+                </div>`;
         }
 
         function setMembershipIndicator(message, active = false) {
@@ -1075,9 +1019,7 @@
             membershipIndicator.style.color = active ? "#4ade80" : "#999";
         }
 
-        /* =====================================================
-           LLAMADAS AL VIP GATEWAY
-        ===================================================== */
+        /* VIP GATEWAY */
 
         async function gatewayRequest(payload) {
             const response = await fetch(GATEWAY_URL, {
@@ -1118,34 +1060,6 @@
             return result;
         }
 
-        async function getAuthorizedVipResource(resourceId) {
-            if (!vipKey) {
-                throw new Error("Necesitas una membresía VIP activa.");
-            }
-
-            const cached = authorizedVipCache.get(resourceId);
-
-            if (cached) return cached;
-
-            const result = await gatewayRequest({
-                action: "get-vip-resource",
-                key: vipKey,
-                resource_id: resourceId
-            });
-
-            if (!result.resource) {
-                throw new Error("El recurso VIP no está disponible.");
-            }
-
-            authorizedVipCache.set(resourceId, result.resource);
-
-            return result.resource;
-        }
-
-        /* =====================================================
-           MEMBRESÍA
-        ===================================================== */
-
         async function restoreMembership() {
             const savedKey = sessionStorage.getItem(SESSION_KEY);
 
@@ -1170,11 +1084,8 @@
                 console.warn("La membresía guardada no está activa:", error);
 
                 sessionStorage.removeItem(SESSION_KEY);
-
                 vipKey = null;
                 membershipExpiresAt = null;
-
-                authorizedVipCache.clear();
 
                 setMembershipIndicator("Tu membresía no está activa. Puedes renovar o ingresar otra llave.");
             }
@@ -1201,7 +1112,6 @@
             event.preventDefault();
 
             const key = vipInput.value.trim();
-
             if (!key) return;
 
             vipSubmit.disabled = true;
@@ -1213,11 +1123,7 @@
 
                 vipKey = key;
                 membershipExpiresAt = result.expires_at || null;
-
-                // La llave se mantiene solo en la sesión actual.
                 sessionStorage.setItem(SESSION_KEY, key);
-
-                authorizedVipCache.clear();
 
                 closeVipModal();
 
@@ -1227,67 +1133,88 @@
                         : "Membresía VIP activa",
                     true
                 );
-
-                renderResources();
-
             } catch (error) {
                 vipError.textContent = error.message || "No se pudo validar la llave.";
                 vipError.classList.add("visible");
             } finally {
                 vipSubmit.disabled = false;
-                vipSubmit.textContent = "Desbloquear recursos VIP";
+                vipSubmit.textContent = "Desbloquear membresía VIP";
             }
         });
 
-        /* =====================================================
-           MODAL DE VISTA PREVIA
-        ===================================================== */
+        /* VISTA PREVIA REAL */
 
         function createPreviewDocument(resource) {
-            const html = resource.preview_html || "";
-            const css = resource.preview_css || "";
-            const js = resource.preview_js || "";
+            const html = String(resource.preview_html || "");
+            const css = String(resource.preview_css || "");
+            const js = String(resource.preview_js || "")
+                .replace(/<\/script/gi, "<\\/script");
 
-            const safeTitle = escapeHtml(resource.title || "Vista previa");
+            const title = escapeHtml(resource.title || "Vista previa");
 
-            const safeJs = js.replace(/<\/script/gi, "<\\/script");
+            const styleTag = `
+<style>
+*{box-sizing:border-box}
+html{min-height:100%;-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;overflow-wrap:anywhere}
+img,video,canvas,svg{max-width:100%}
+${css}
+</style>`;
 
+            const scriptTag = js ? `<script>${js}<\/script>` : "";
+
+            // Si el HTML es un documento completo, conserva su estructura.
+            if (/<(?:!doctype\s+html|html)(?:\s|>)/i.test(html)) {
+                let documentHtml = html;
+
+                if (/<head[\s>]/i.test(documentHtml)) {
+                    documentHtml = documentHtml.replace(
+                        /<head([^>]*)>/i,
+                        `<head$1><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">${styleTag}`
+                    );
+                } else {
+                    documentHtml = documentHtml.replace(
+                        /<html([^>]*)>/i,
+                        `<html$1><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">${styleTag}</head>`
+                    );
+                }
+
+                if (scriptTag) {
+                    if (/<\/body>/i.test(documentHtml)) {
+                        documentHtml = documentHtml.replace(
+                            /<\/body>/i,
+                            `${scriptTag}</body>`
+                        );
+                    } else {
+                        documentHtml += scriptTag;
+                    }
+                }
+
+                return documentHtml;
+            }
+
+            // Si el HTML es un fragmento, crea un documento completo.
             return `<!doctype html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>${safeTitle}</title>
-<style>
-*{box-sizing:border-box}
-html{min-height:100%;-webkit-text-size-adjust:100%}
-body{margin:0;min-height:100vh;padding:18px;font-family:Inter,Arial,sans-serif;background:#fff;color:#171717;overflow-wrap:anywhere}
-img,video,canvas,svg{max-width:100%}
-${css}
-</style>
+<title>${title}</title>
+${styleTag}
 </head>
 <body>
 ${html}
-<script>
-(function(){
-    window.addEventListener("error", function(event){
-        console.error("Preview error:", event.message);
-    });
-})();
-<\/script>
-<script>${safeJs}<\/script>
+${scriptTag}
 </body>
 </html>`;
         }
 
         function openPreview(resourceId) {
             const resource = resources.find(item => item.resource_id === resourceId);
-
             if (!resource) return;
 
-            previewTitle.textContent = `Vista previa: ${resource.title}`;
-
+            previewTitle.textContent = `Vista previa: ${resource.title || "Recurso"}`;
             previewIframe.srcdoc = createPreviewDocument(resource);
 
             previewModal.classList.add("open");
@@ -1300,9 +1227,7 @@ ${html}
             setModalState();
         }
 
-        /* =====================================================
-           CARGAR PLANES
-        ===================================================== */
+        /* PLANES */
 
         async function fetchPlans() {
             if (!db) return;
@@ -1315,39 +1240,28 @@ ${html}
                     .order("sort_order", { ascending: true });
 
                 if (error) throw error;
-
                 if (!Array.isArray(data) || !data.length) return;
 
                 plansGrid.innerHTML = data.map(plan => {
                     const isAnnual = plan.slug === "annual";
-
                     const price = formatPrice(plan.price, plan.currency || "USD");
-
                     const description = plan.description ||
                         `Acceso VIP durante ${plan.duration_days} días.`;
 
                     return `
                         <article class="vip-plan-card ${isAnnual ? "featured" : ""}">
                             <div class="vip-plan-name">${escapeHtml(plan.name)}</div>
-
                             <div class="vip-plan-price">${escapeHtml(price)}</div>
-
                             <div class="vip-plan-period">
                                 ${Number(plan.duration_days)} días · ${escapeHtml(plan.currency || "USD")}
                             </div>
-
                             <p class="vip-plan-description">${escapeHtml(description)}</p>
-
-                            <a
-                                class="vip-glass-cta vip-plan-button"
-                                href="${AIRTM_URL}"
-                                target="_blank"
-                                rel="noopener noreferrer">
+                            <a class="vip-glass-cta vip-plan-button"
+                                href="${AIRTM_URL}" target="_blank" rel="noopener noreferrer">
                                 ${icons.crown}
                                 ${isAnnual ? "Elegir plan anual" : "Suscribirme"}
                             </a>
-                        </article>
-                    `;
+                        </article>`;
                 }).join("");
 
             } catch (error) {
@@ -1355,9 +1269,7 @@ ${html}
             }
         }
 
-        /* =====================================================
-           CARGAR CATÁLOGO PÚBLICO
-        ===================================================== */
+        /* CARGAR CATÁLOGO PÚBLICO */
 
         async function fetchResources() {
             if (!db) {
@@ -1369,12 +1281,9 @@ ${html}
                 <div class="empty-state">
                     <i class="fas fa-spinner fa-spin"></i>
                     <p>Cargando catálogo...</p>
-                </div>
-            `;
+                </div>`;
 
             try {
-                // Solo se consultan los datos públicos de las vistas previas.
-                // Aquí nunca se solicitan los campos de código original VIP.
                 const { data: previews, error } = await db
                     .from("resource_previews")
                     .select(`
@@ -1395,7 +1304,7 @@ ${html}
 
                 resources = Array.isArray(previews) ? previews : [];
 
-                // Los recursos gratuitos pueden ofrecer su código al público.
+                // El código fuente descargable solo se consulta para recursos Free.
                 const freeIds = resources
                     .filter(item => item.resource_type === "free")
                     .map(item => item.resource_id);
@@ -1420,16 +1329,11 @@ ${html}
 
             } catch (error) {
                 console.error("Error cargando el catálogo:", error);
-
-                showError(
-                    "No se pudieron cargar los recursos. Comprueba los permisos de Supabase y vuelve a intentarlo."
-                );
+                showError("No se pudieron cargar los recursos. Comprueba los permisos de Supabase y vuelve a intentarlo.");
             }
         }
 
-        /* =====================================================
-           TARJETAS DE RECURSOS
-        ===================================================== */
+        /* TARJETAS */
 
         function renderResources() {
             if (!resources.length) {
@@ -1437,179 +1341,122 @@ ${html}
                     <div class="empty-state">
                         <i class="fas fa-box-open"></i>
                         <p>Aún no hay recursos publicados.</p>
-                    </div>
-                `;
+                    </div>`;
                 return;
             }
 
             grid.innerHTML = resources.map(resource => {
                 const isVip = resource.resource_type === "vip";
-                const isUnlocked = isVip && Boolean(vipKey);
+                const fileSource = isVip ? null : freeCodeCache.get(resource.resource_id);
+                const id = escapeHtml(resource.resource_id);
 
-                const badge = isVip
-                    ? `<span class="resource-badge badge-vip">${icons.crown} VIP PREMIUM</span>`
-                    : `<span class="resource-badge badge-free">${icons.unlock} GRATIS</span>`;
-
-                const fileSource = isVip
-                    ? null
-                    : freeCodeCache.get(resource.resource_id);
-
-                const hasHtml = isVip
-                    ? true
-                    : Boolean(fileSource?.code_content);
-
-                const hasCss = isVip
-                    ? true
-                    : Boolean(fileSource?.code_css);
-
-                const hasJs = isVip
-                    ? true
-                    : Boolean(fileSource?.code_js);
-
-                const disabled = isVip && !isUnlocked;
+                const description = String(
+                    resource.description || "Recurso de diseño y desarrollo web."
+                ).replace(/\s+/g, " ").trim();
 
                 const copyButton = (type, label) => `
-                    <button
-                        class="club-btn btn-copy-code"
+                    <button class="club-btn btn-copy-code"
                         type="button"
                         data-action="copy"
-                        data-id="${escapeHtml(resource.resource_id)}"
-                        data-type="${type}"
-                        ${disabled ? "disabled" : ""}>
+                        data-id="${id}"
+                        data-type="${type}">
                         ${icons.copy}
                         ${label}
-                        ${disabled ? icons.lock : ""}
-                    </button>
-                `;
+                    </button>`;
+
+                const previewDocument = escapeHtml(createPreviewDocument(resource));
 
                 return `
                     <article class="resource-card" data-aos="fade-up">
 
-                        ${badge}
+                        <span class="resource-badge ${isVip ? "badge-vip" : "badge-free"}">
+                            ${isVip ? icons.crown + " VIP PREMIUM" : icons.unlock + " GRATIS"}
+                        </span>
 
                         <h3 class="resource-title">
                             ${escapeHtml(resource.title || "Recurso sin título")}
                         </h3>
 
-                        <p class="resource-desc">
-                            ${escapeHtml(resource.description || "Recurso de diseño y desarrollo web.")}
+                        <p class="resource-desc" title="${escapeHtml(description)}">
+                            ${escapeHtml(description)}
                         </p>
 
                         <div class="resource-meta">
                             <span>${escapeHtml(resource.language || "HTML")}</span>
-                            <span>${isVip ? "Acceso Premium" : "Acceso gratuito"}</span>
+                            <span>${isVip ? "Preview público" : "Acceso gratuito"}</span>
                         </div>
 
                         <div class="resource-preview-area">
                             <div class="preview-label">
-                                <span>${icons.eye} Vista previa interactiva</span>
-                                <span class="preview-status">● Disponible</span>
+                                <span>${icons.eye} Resultado interactivo real</span>
+                                <span class="preview-status">● En vivo</span>
                             </div>
 
                             <iframe
                                 class="resource-preview-frame"
                                 title="Vista previa de ${escapeHtml(resource.title)}"
                                 loading="lazy"
-                                sandbox="allow-scripts allow-forms"
+                                sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
                                 referrerpolicy="no-referrer"
-                                srcdoc="${escapeHtml(createPreviewDocument(resource))}">
+                                srcdoc="${previewDocument}">
                             </iframe>
                         </div>
 
                         <div class="resource-actions">
 
-                            <button
-                                type="button"
+                            <button type="button"
                                 class="club-btn btn-preview"
                                 data-action="preview"
-                                data-id="${escapeHtml(resource.resource_id)}">
+                                data-id="${id}">
                                 ${icons.eye}
                                 Abrir vista previa completa
                             </button>
 
-                            <div class="action-row">
-                                ${hasHtml ? copyButton("html", "HTML") : ""}
-                                ${hasCss ? copyButton("css", "CSS") : ""}
-                                ${hasJs ? copyButton("js", "JS") : ""}
-                            </div>
-
-                            <button
-                                type="button"
-                                class="club-btn btn-download-zip"
-                                data-action="download"
-                                data-id="${escapeHtml(resource.resource_id)}"
-                                ${disabled ? "disabled" : ""}>
-                                ${icons.download}
-                                Descargar ZIP
-                                ${disabled ? icons.lock : ""}
-                            </button>
-
                             ${isVip ? `
                                 <div class="vip-unlock-cta">
-
                                     <p class="vip-unlock-description">
-                                        ${isUnlocked
-                                            ? "Tu membresía está activa. Ya puedes acceder al código fuente y descargar este recurso."
-                                            : "La vista previa está disponible para todos. El código HTML, CSS, JS y la descarga ZIP requieren una membresía activa."
-                                        }
+                                        Prueba el resultado completo. El código fuente y la descarga ZIP están reservados para miembros VIP.
                                     </p>
-
-                                    ${isUnlocked
-                                        ? `
-                                            <div class="vip-member-status">
-                                                ${icons.unlock}
-                                                Membresía VIP activa
-                                            </div>
-                                        `
-                                        : `
-                                            <a
-                                                class="vip-glass-cta"
-                                                href="#vip-plans">
-                                                ${icons.sparkles}
-                                                Suscribirse para desbloquear
-                                            </a>
-
-                                            <button
-                                                type="button"
-                                                class="club-btn"
-                                                data-action="open-vip">
-                                                ${icons.lock}
-                                                Ya tengo una llave VIP
-                                            </button>
-                                        `
-                                    }
-
+                                    <a class="vip-glass-cta" href="#vip-plans">
+                                        ${icons.sparkles}
+                                        Ver membresías VIP
+                                    </a>
+                                    <button type="button" class="club-btn"
+                                        data-action="open-vip">
+                                        ${icons.lock}
+                                        Ya tengo una llave VIP
+                                    </button>
                                 </div>
-                            ` : ""}
+                            ` : `
+                                <div class="action-row">
+                                    ${fileSource?.code_content ? copyButton("html", "HTML") : ""}
+                                    ${fileSource?.code_css ? copyButton("css", "CSS") : ""}
+                                    ${fileSource?.code_js ? copyButton("js", "JS") : ""}
+                                </div>
+
+                                <button class="club-btn btn-download-zip"
+                                    type="button"
+                                    data-action="download"
+                                    data-id="${id}">
+                                    ${icons.download}
+                                    Descargar ZIP
+                                </button>
+                            `}
 
                         </div>
-                    </article>
-                `;
+                    </article>`;
             }).join("");
 
             if (window.AOS) AOS.refresh();
         }
 
-        /* =====================================================
-           OBTENER CÓDIGO AUTORIZADO
-        ===================================================== */
+        /* OBTENER CÓDIGO FREE */
 
-        async function getResourceCode(resourceId) {
-            const metadata = resources.find(item => item.resource_id === resourceId);
+        function getFreeResource(resourceId) {
+            const resource = resources.find(item => item.resource_id === resourceId);
 
-            if (!metadata) {
-                throw new Error("No se encontró el recurso.");
-            }
-
-            if (metadata.resource_type === "vip") {
-                if (!vipKey) {
-                    openVipModal();
-                    throw new Error("Necesitas una membresía VIP activa.");
-                }
-
-                // El código VIP se solicita al servidor únicamente
-                // después de validar la llave.
-                return await getAuthorizedVipResource(resourceId);
+            if (!resource || resource.resource_type !== "free") {
+                throw new Error("Este recurso no está disponible para descarga gratuita.");
             }
 
             const freeResource = freeCodeCache.get(resourceId);
@@ -1621,18 +1468,16 @@ ${html}
             return freeResource;
         }
 
-        /* =====================================================
-           COPIAR CÓDIGO
-        ===================================================== */
+        /* COPIAR CÓDIGO */
 
         async function copyCode(button, resourceId, type) {
             const original = button.innerHTML;
 
             button.disabled = true;
-            button.textContent = "Obteniendo código...";
+            button.textContent = "Copiando...";
 
             try {
-                const resource = await getResourceCode(resourceId);
+                const resource = getFreeResource(resourceId);
 
                 const code = type === "html"
                     ? resource.code_content
@@ -1651,15 +1496,12 @@ ${html}
                 await navigator.clipboard.writeText(code);
 
                 button.innerHTML = `<i class="fas fa-check"></i> ¡Copiado!`;
-
                 button.style.color = "#4ade80";
-                button.style.borderColor = "rgba(74,222,128,.4)";
 
                 window.setTimeout(() => {
                     button.innerHTML = original;
                     button.style.color = "";
-                    button.style.borderColor = "";
-                }, 1700);
+                }, 1600);
 
             } catch (error) {
                 console.error("Error copiando código:", error);
@@ -1669,9 +1511,7 @@ ${html}
             }
         }
 
-        /* =====================================================
-           DESCARGAR ZIP
-        ===================================================== */
+        /* DESCARGAR ZIP FREE */
 
         async function downloadZip(button, resourceId) {
             if (typeof JSZip === "undefined") {
@@ -1685,8 +1525,7 @@ ${html}
             button.textContent = "Preparando descarga...";
 
             try {
-                const resource = await getResourceCode(resourceId);
-
+                const resource = getFreeResource(resourceId);
                 const zip = new JSZip();
 
                 let filesAdded = 0;
@@ -1717,7 +1556,6 @@ ${html}
                 });
 
                 const url = URL.createObjectURL(blob);
-
                 const link = document.createElement("a");
 
                 link.href = url;
@@ -1733,7 +1571,7 @@ ${html}
 
                 window.setTimeout(() => {
                     button.innerHTML = original;
-                }, 1700);
+                }, 1600);
 
             } catch (error) {
                 console.error("Error generando ZIP:", error);
@@ -1743,13 +1581,10 @@ ${html}
             }
         }
 
-        /* =====================================================
-           EVENTOS DEL CATÁLOGO
-        ===================================================== */
+        /* EVENTOS DEL CATÁLOGO */
 
         grid.addEventListener("click", async event => {
             const button = event.target.closest("[data-action]");
-
             if (!button) return;
 
             const action = button.dataset.action;
@@ -1781,9 +1616,7 @@ ${html}
             }
         });
 
-        /* =====================================================
-           EVENTOS DE MODALES
-        ===================================================== */
+        /* EVENTOS DE MODALES */
 
         document.querySelector("[data-close-preview]")
             .addEventListener("click", closePreview);
@@ -1806,9 +1639,7 @@ ${html}
             }
         });
 
-        /* =====================================================
-           FONDO 3D ORIGINAL
-        ===================================================== */
+        /* FONDO 3D */
 
         function initializeBackground() {
             const canvas = document.getElementById("webgl-canvas");
@@ -1866,14 +1697,11 @@ ${html}
                 scene.add(particles);
 
                 const clock = new THREE.Clock();
-
                 let frameId = null;
 
                 function animate() {
                     frameId = requestAnimationFrame(animate);
-
                     particles.rotation.y = clock.getElapsedTime() * .04;
-
                     renderer.render(scene, camera);
                 }
 
@@ -1882,14 +1710,13 @@ ${html}
                 window.addEventListener("resize", () => {
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
-
                     renderer.setSize(window.innerWidth, window.innerHeight);
                 }, { passive: true });
 
                 document.addEventListener("visibilitychange", () => {
                     if (document.hidden) {
                         if (frameId) cancelAnimationFrame(frameId);
-                    } else {
+                    } else if (frameId === null) {
                         animate();
                     }
                 });
@@ -1899,14 +1726,12 @@ ${html}
             }
         }
 
-        /* =====================================================
-           INICIALIZACIÓN
-        ===================================================== */
+        /* INICIALIZACIÓN */
 
         async function initializeClub() {
             if (window.AOS) {
                 AOS.init({
-                    duration: 750,
+                    duration: 700,
                     once: true,
                     disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches
                 });
@@ -1915,7 +1740,7 @@ ${html}
             initializeBackground();
 
             if (!db) {
-                showError("No se pudo inicializar Supabase. Revisa la configuración del cliente.");
+                showError("No se pudo inicializar Supabase. Revisa supabase-client.js.");
                 return;
             }
 
@@ -1927,12 +1752,11 @@ ${html}
             await fetchResources();
         }
 
-        initializeClub();
-
-        // Funciones públicas para los botones del HTML.
         window.openVipModal = openVipModal;
         window.closeVipModal = closeVipModal;
         window.closePreview = closePreview;
+
+        initializeClub();
 
     })();
     </script>
