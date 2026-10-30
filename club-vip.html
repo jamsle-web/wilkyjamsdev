@@ -21,213 +21,78 @@
     <link rel="stylesheet" href="style.css" />
     
     <style>
-        /* ==== ESTILOS PROFESIONALES PARA LA GALERÍA DE RECURSOS ==== */
-        .resources-section {
-            padding: 60px 0 100px;
-            position: relative;
-            z-index: 2;
-        }
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
+        /* ==== ESTILOS PROFESIONALES DE LA GALERÍA ==== */
+        .resources-section { padding: 60px 0 100px; position: relative; z-index: 2; }
+        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; margin-top: 50px; }
+        
         .resource-card {
             background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 28px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px;
+            position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; gap: 16px; backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .resource-card:hover:not(.locked) {
-            transform: translateY(-8px);
-            border-color: var(--accent-1, #a8b9cc);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(168, 185, 204, 0.1);
-        }
-        .resource-card.locked {
-            cursor: default;
-            border-color: rgba(196, 168, 204, 0.2);
+        .resource-card:hover:not(.locked) { 
+            transform: translateY(-8px); 
+            border-color: var(--accent-1, #a8b9cc); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(168, 185, 204, 0.1); 
         }
         
-        /* Overlay de Bloqueo VIP */
+        /* Candado de Bloqueo VIP */
         .locked-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(5,6,10,0.85);
-            backdrop-filter: blur(8px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            gap: 12px;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
+            position: absolute; inset: 0; background: rgba(5,6,10,0.85); backdrop-filter: blur(8px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10; gap: 12px; border-radius: 20px; padding: 20px; text-align: center;
         }
-        .locked-overlay .lock-icon-wrap {
-            width: 60px; height: 60px;
-            background: rgba(196, 168, 204, 0.1);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 8px;
-            border: 1px solid rgba(196, 168, 204, 0.3);
+        .lock-icon-wrap { 
+            width: 60px; height: 60px; background: rgba(196, 168, 204, 0.1); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            border: 1px solid rgba(196, 168, 204, 0.3); margin-bottom: 8px;
         }
-        .locked-overlay .lock-icon-wrap i {
-            font-size: 1.8rem;
-            color: var(--accent-2, #c4a8cc);
-        }
-        .locked-overlay span {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #fff;
-            margin-bottom: 8px;
-        }
+        .lock-icon-wrap i { font-size: 1.8rem; color: var(--accent-2, #c4a8cc); }
         
-        /* Badges */
-        .resource-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            width: fit-content;
-        }
-        .badge-free {
-            background: rgba(74, 222, 128, 0.1);
-            color: #4ade80;
-            border: 1px solid rgba(74, 222, 128, 0.25);
-        }
-        .badge-vip {
-            background: rgba(196, 168, 204, 0.1);
-            color: var(--accent-2, #c4a8cc);
-            border: 1px solid rgba(196, 168, 204, 0.25);
-        }
+        .resource-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; width: fit-content; }
+        .badge-free { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.25); }
+        .badge-vip { background: rgba(196, 168, 204, 0.1); color: var(--accent-2, #c4a8cc); border: 1px solid rgba(196, 168, 204, 0.25); }
         
-        /* Contenido de la tarjeta */
-        .resource-title {
-            font-family: var(--font-display, 'Syne', sans-serif);
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 0;
-            line-height: 1.3;
-        }
-        .resource-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted, #888);
-            line-height: 1.6;
-            margin: 0;
-            flex-grow: 1;
-        }
+        .resource-title { font-family: var(--font-display, 'Syne', sans-serif); font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0; line-height: 1.3; }
+        .resource-desc { font-size: 0.9rem; color: var(--text-muted, #888); line-height: 1.6; margin: 0; flex-grow: 1; }
+        
+        .code-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 18px; }
+        .action-row { display: flex; gap: 10px; }
         
         /* Botones de acción */
-        .code-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: auto;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            padding-top: 18px;
-        }
-        .action-group {
-            display: flex;
-            gap: 10px;
-        }
-        .btn-copy-code, .btn-download-zip {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-            text-decoration: none;
-            flex: 1;
-        }
-        .btn-copy-code:hover, .btn-download-zip:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: var(--accent-1, #a8b9cc);
-            transform: translateY(-2px);
-        }
-        .btn-download-zip {
-            background: var(--accent-1, #a8b9cc);
-            color: #000;
-            border: none;
-            font-weight: 700;
-        }
-        .btn-download-zip:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
-        }
+        .btn-preview { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 12px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+        .btn-preview:hover { background: #fff; color: #000; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.1); }
 
-        /* Modal de llave VIP */
-        .vip-key-modal {
-            position: fixed; inset: 0; z-index: 3000;
-            background: rgba(5,6,10,0.9); backdrop-filter: blur(12px);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
-        }
+        .btn-copy-code, .btn-download-zip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; flex: 1; }
+        .btn-copy-code:hover { background: rgba(255,255,255,0.12); border-color: var(--accent-1, #a8b9cc); transform: translateY(-2px); }
+        .btn-download-zip { background: var(--accent-1, #a8b9cc); color: #000; border: none; font-weight: 700; }
+        .btn-download-zip:hover { background: #fff; box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
+
+        /* Modal de Vista Previa */
+        .preview-modal { position: fixed; inset: 0; z-index: 4000; background: rgba(5,6,10,0.9); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
+        .preview-modal.open { opacity: 1; pointer-events: all; }
+        .preview-content { background: #111; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; width: 100%; max-width: 900px; height: 80vh; display: flex; flex-direction: column; overflow: hidden; position: relative; box-shadow: 0 30px 100px rgba(0,0,0,0.8); }
+        .preview-header { padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; background: #0a0a0a; }
+        .preview-header h3 { margin: 0; font-size: 1.1rem; color: #fff; font-family: var(--font-display); }
+        .preview-header button { background: rgba(255,255,255,0.05); border: none; color: #888; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .preview-header button:hover { background: rgba(255,255,255,0.1); color: #fff; transform: rotate(90deg); }
+        .preview-body { flex: 1; background: #fff; position: relative; }
+        .preview-body iframe { width: 100%; height: 100%; border: none; background: #fff; }
+
+        /* Modal de Llave VIP */
+        .vip-key-modal { position: fixed; inset: 0; z-index: 3000; background: rgba(5,6,10,0.9); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
         .vip-key-modal.open { opacity: 1; pointer-events: all; }
-        .vip-key-content {
-            background: #0f0f13; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px; width: 100%; max-width: 460px; padding: 45px;
-            position: relative; box-shadow: 0 30px 100px rgba(0,0,0,0.8);
-            text-align: center;
-        }
-        .vip-key-content .close-modal-btn {
-            position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.05); 
-            border: none; color: #888; width: 36px; height: 36px; border-radius: 50%; 
-            cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;
-        }
-        .vip-key-content .close-modal-btn:hover { background: rgba(255,255,255,0.1); color: #fff; transform: rotate(90deg); }
-        .vip-key-content h3 { font-family: var(--font-display, 'Syne', sans-serif); font-size: 1.6rem; margin-bottom: 10px; color: #fff; }
-        .vip-key-content p { color: var(--text-muted, #888); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
-        .vip-key-content input {
-            width: 100%; padding: 16px; background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px; color: #fff; font-family: inherit;
-            font-size: 1.1rem; text-align: center; letter-spacing: 3px; margin-bottom: 20px;
-            transition: border-color 0.3s;
-        }
-        .vip-key-content input:focus { outline: none; border-color: var(--accent-1, #a8b9cc); }
-        .vip-key-content .key-error { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; }
-        .vip-key-content .btn-submit-key {
-            width: 100%; padding: 16px; background: var(--accent-1, #a8b9cc);
-            color: #000; border: none; border-radius: 12px;
-            font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s;
-        }
+        .vip-key-content { background: #0f0f13; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; width: 100%; max-width: 460px; padding: 45px; position: relative; text-align: center; box-shadow: 0 30px 100px rgba(0,0,0,0.8); }
+        .vip-key-content input { width: 100%; padding: 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: #fff; text-align: center; letter-spacing: 3px; margin-bottom: 20px; font-size: 1.1rem; transition: border-color 0.3s; }
+        .vip-key-content input:focus { outline: none; border-color: var(--accent-1); }
+        .vip-key-content .btn-submit-key { width: 100%; padding: 16px; background: var(--accent-1); color: #000; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; }
         .vip-key-content .btn-submit-key:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
-        .vip-key-content .cancel-link {
-            display: block; margin-top: 20px; color: var(--text-muted, #888);
-            font-size: 0.9rem; cursor: pointer; text-decoration: underline;
-        }
+        .key-error { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; }
         
-        .empty-state {
-            text-align: center; padding: 80px 20px; color: var(--text-muted, #888);
-            grid-column: 1 / -1; background: rgba(255,255,255,0.02); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.1);
-        }
+        .empty-state { text-align: center; padding: 80px 20px; color: var(--text-muted); grid-column: 1 / -1; background: rgba(255,255,255,0.02); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.1); }
         .empty-state i { font-size: 3.5rem; margin-bottom: 20px; color: rgba(255,255,255,0.1); }
-        .empty-state p { font-size: 1.1rem; }
         
         @media (max-width: 768px) {
             .resources-grid { grid-template-columns: 1fr; }
@@ -239,7 +104,7 @@
 
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- ===== NAVEGACIÓN ===== -->
+    <!-- NAVEGACIÓN -->
     <nav>
         <div class="container">
             <a href="index.html" class="logo" data-jp-owner-access aria-label="Wilkyjams Dev — Inicio">
@@ -277,7 +142,7 @@
         </div>
     </nav>
 
-    <!-- ===== HERO DE PÁGINA ===== -->
+    <!-- HERO DE PÁGINA -->
     <section class="page-hero">
         <div class="container" style="text-align: center;">
             <span class="label" style="color: var(--accent-2);">Biblioteca de Recursos</span>
@@ -285,17 +150,22 @@
                 Explora el <span class="highlight">Club VIP</span>
             </h1>
             <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem;">
-                Descarga plantillas y códigos exclusivos. Los recursos marcados como VIP requieren una llave de acceso.
+                Descarga plantillas y códigos exclusivos. Los recursos VIP requieren una llave de acceso.
             </p>
             
-            <!-- Botón para abrir el modal de la llave -->
-            <button onclick="openVipModal()" class="btn-secondary glass-btn" style="justify-content:center; display: inline-flex; gap: 8px; padding: 14px 28px; font-weight: 600;">
-                <i class="fas fa-key"></i> Ya soy VIP, ingresar llave
-            </button>
+            <!-- BOTONES DE ACCIÓN -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://airtm.me/jamsle33xsvhwc" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-weight: 700; text-decoration: none;">
+                    <i class="fas fa-crown"></i> Suscribirme al Premium ($15/mes)
+                </a>
+                <button onclick="openVipModal()" class="btn-secondary glass-btn" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-weight: 600;">
+                    <i class="fas fa-key"></i> Ya soy VIP, ingresar llave
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- ===== GALERÍA DE RECURSOS ===== -->
+    <!-- GALERÍA DE RECURSOS -->
     <section class="resources-section">
         <div class="container">
             <div class="resources-grid" id="resourcesGrid">
@@ -307,21 +177,34 @@
         </div>
     </section>
 
-    <!-- ===== MODAL DE LLAVE VIP ===== -->
-    <div class="vip-key-modal" id="vipKeyModal">
-        <div class="vip-key-content">
-            <button class="close-modal-btn" onclick="closeVipModal()"><i class="fas fa-times"></i></button>
-            <i class="fas fa-crown" style="font-size: 2.5rem; color: var(--accent-2); margin-bottom: 15px;"></i>
-            <h3>Ingresa tu Llave VIP</h3>
-            <p>Ingresa la llave que recibiste al unirte al Club VIP para desbloquear todos los recursos premium.</p>
-            <input type="text" id="vipKeyInput" placeholder="Ej: WJ-VIP-9f3a7b" autocomplete="off">
-            <div class="key-error" id="vipKeyError"><i class="fas fa-exclamation-circle"></i> Llave inválida. Verifica e intenta de nuevo.</div>
-            <button class="btn-submit-key" onclick="validateVipKey()">Desbloquear Recursos VIP</button>
-            <span class="cancel-link" onclick="closeVipModal()">Cancelar</span>
+    <!-- MODAL VISTA PREVIA -->
+    <div class="preview-modal" id="previewModal">
+        <div class="preview-content">
+            <div class="preview-header">
+                <h3 id="previewTitle">Vista Previa</h3>
+                <button onclick="closePreview()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="preview-body">
+                <iframe id="previewIframe"></iframe>
+            </div>
         </div>
     </div>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- MODAL LLAVE VIP -->
+    <div class="vip-key-modal" id="vipKeyModal">
+        <div class="vip-key-content">
+            <button class="close-modal-btn" onclick="closeVipModal()" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.05); border: none; color: #888; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;"><i class="fas fa-times"></i></button>
+            <i class="fas fa-crown" style="font-size: 2.5rem; color: var(--accent-2); margin-bottom: 15px;"></i>
+            <h3 style="font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 10px; color: #fff;">Ingresa tu Llave VIP</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">Ingresa la llave que recibiste al unirte al Club VIP para desbloquear todos los recursos premium.</p>
+            <input type="text" id="vipKeyInput" placeholder="Ej: WJ-VIP-9f3a7b" autocomplete="off">
+            <div class="key-error" id="vipKeyError"><i class="fas fa-exclamation-circle"></i> Llave inválida. Verifica e intenta de nuevo.</div>
+            <button class="btn-submit-key" onclick="validateVipKey()">Desbloquear Recursos VIP</button>
+            <span onclick="closeVipModal()" style="display: block; margin-top: 20px; color: var(--text-muted); font-size: 0.9rem; cursor: pointer; text-decoration: underline;">Cancelar</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -334,7 +217,7 @@
         </div>
     </footer>
 
-    <!-- ===== CARRITO LATERAL ===== -->
+    <!-- CARRITO LATERAL -->
     <div class="cart-overlay" id="cartOverlay" onclick="Cart.closeDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> <span>Tu carrito</span></h3><button class="cart-close" onclick="Cart.closeDrawer()"><i class="fas fa-times"></i></button></div>
@@ -348,7 +231,7 @@
         </div>
     </div>
 
-    <!-- ===== SCRIPTS BASE (INTEGRADOS Y VERIFICADOS) ===== -->
+    <!-- SCRIPTS BASE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>AOS.init({ duration: 800, once: false, mirror: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -357,95 +240,110 @@
     <script src="supabase-client.js"></script>
     <script src="common.js"></script>
     <script src="cms-content.js"></script>
-    <!-- JSZip para generar el .ZIP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <script>
-        // ==== CONFIGURACIÓN DE LLAVE VIP ====
-        const VIP_KEY = "WJ-VIP-9f3a7b"; 
         const VIP_STORAGE_KEY = "wilkyjams_vip_unlocked";
         let isVipUnlocked = localStorage.getItem(VIP_STORAGE_KEY) === "true";
-        let resourcesCache = []; // Caché global para copiar y descargar
+        let resourcesCache = []; 
+        const db = window.portfolioSupabase;
 
-        // ==== MODAL DE LLAVE VIP ====
+        // ==== MODAL LLAVE VIP (VALIDACIÓN EN SUPABASE) ====
         function openVipModal() { document.getElementById('vipKeyModal').classList.add('open'); }
-        function closeVipModal() { 
-            document.getElementById('vipKeyModal').classList.remove('open'); 
-            document.getElementById('vipKeyError').style.display = 'none';
-            document.getElementById('vipKeyInput').value = '';
-        }
+        function closeVipModal() { document.getElementById('vipKeyModal').classList.remove('open'); document.getElementById('vipKeyError').style.display = 'none'; document.getElementById('vipKeyInput').value = ''; }
         
-        function validateVipKey() {
+        async function validateVipKey() {
             const input = document.getElementById('vipKeyInput').value.trim();
-            if (input === VIP_KEY) {
+            if (!input) return;
+
+            const btn = document.querySelector('#vipKeyModal .btn-submit-key');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+            btn.disabled = true;
+
+            // Consulta segura a Supabase
+            const { data, error } = await db.from('vip_keys').select('*').eq('key_code', input).single();
+
+            if (data && !error) {
                 localStorage.setItem(VIP_STORAGE_KEY, "true");
                 isVipUnlocked = true;
                 closeVipModal();
-                renderResources(); // Re-renderizar sin recargar la página
+                renderResources();
             } else {
                 document.getElementById('vipKeyError').style.display = 'block';
             }
+            
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         }
 
         document.getElementById('vipKeyModal').addEventListener('click', function(e) { if (e.target === this) closeVipModal(); });
 
+        // ==== VISTA PREVIA ====
+        function openPreview(id) {
+            const resource = resourcesCache.find(r => r.id === id);
+            if (!resource) return;
+
+            const html = resource.code_content || '';
+            const css = resource.code_css ? `<style>${resource.code_css}</style>` : '';
+            const js = resource.code_js ? `<script>${resource.code_js}<\/script>` : '';
+
+            const iframeContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>body { font-family: sans-serif; padding: 20px; }</style>
+                    ${css}
+                </head>
+                <body>
+                    ${html}
+                    ${js}
+                </body>
+                </html>
+            `;
+
+            const iframe = document.getElementById('previewIframe');
+            iframe.srcdoc = iframeContent; 
+
+            document.getElementById('previewTitle').textContent = `Vista Previa: ${resource.title}`;
+            document.getElementById('previewModal').classList.add('open');
+        }
+        function closePreview() { 
+            document.getElementById('previewModal').classList.remove('open'); 
+            document.getElementById('previewIframe').srcdoc = ''; 
+        }
+
         // ==== FONDO 3D ====
-        const canvas = document.querySelector('#webgl-canvas');
-        if (canvas && typeof THREE !== 'undefined') {
+        if (document.querySelector('#webgl-canvas') && typeof THREE !== 'undefined') {
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.z = 5;
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+            const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#webgl-canvas'), alpha: true, antialias: false });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
             const particlesGeo = new THREE.BufferGeometry();
-            const particlesCount = 400;
-            const posArray = new Float32Array(particlesCount * 3);
-            for (let i = 0; i < particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
+            const posArray = new Float32Array(400 * 3);
+            for (let i = 0; i < 400 * 3; i++) posArray[i] = (Math.random() - 0.5) * 18;
             particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
-            const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+            const particlesMesh = new THREE.Points(particlesGeo, new THREE.PointsMaterial({ size: 0.03, color: 0xa8b9cc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending }));
             scene.add(particlesMesh);
-            const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), new THREE.MeshBasicMaterial({ color: 0xa8b9cc, wireframe: true, transparent: true, opacity: 0.15 }));
-            sphere.position.set(2.5, 0, -2);
-            scene.add(sphere);
             const clock = new THREE.Clock();
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = clock.getElapsedTime();
-                particlesMesh.rotation.y = t * 0.04;
-                sphere.rotation.y = t * 0.12;
-                renderer.render(scene, camera);
-            }
+            function animate() { requestAnimationFrame(animate); particlesMesh.rotation.y = clock.getElapsedTime() * 0.04; renderer.render(scene, camera); }
             animate();
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+            window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
         }
 
-        // ==== CARGAR RECURSOS DE SUPABASE ====
+        // ==== CARGAR RECURSOS ====
         async function fetchResources() {
             const grid = document.getElementById('resourcesGrid');
             grid.innerHTML = `<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Cargando recursos...</p></div>`;
-            
-            const db = window.portfolioSupabase;
-            if (!db) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error de conexión con el servidor.</p></div>`;
-                return;
-            }
-
             try {
                 const { data, error } = await db.from('resources').select('*').order('created_at', { ascending: false });
-                
                 if (error) throw error;
-                
                 resourcesCache = data || [];
                 renderResources();
-
             } catch (err) {
-                console.error("Error cargando recursos:", err);
                 grid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>No se pudieron cargar los recursos. Verifica tu conexión.</p></div>`;
             }
         }
@@ -453,7 +351,6 @@
         // ==== RENDERIZAR TARJETAS ====
         function renderResources() {
             const grid = document.getElementById('resourcesGrid');
-            
             if (resourcesCache.length === 0) {
                 grid.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><p>Aún no hay recursos publicados. Vuelve pronto.</p></div>`;
                 return;
@@ -463,7 +360,6 @@
                 const isVip = r.type === 'vip';
                 const isLocked = isVip && !isVipUnlocked;
                 
-                // Botones de código (solo si no está bloqueado)
                 const htmlBtns = r.code_content ? `<button class="btn-copy-code" onclick="copyCode(this, 'html', '${r.id}')"><i class="fab fa-html5"></i> HTML</button>` : '';
                 const cssBtns = r.code_css ? `<button class="btn-copy-code" onclick="copyCode(this, 'css', '${r.id}')"><i class="fab fa-css3-alt"></i> CSS</button>` : '';
                 const jsBtns = r.code_js ? `<button class="btn-copy-code" onclick="copyCode(this, 'js', '${r.id}')"><i class="fab fa-js"></i> JS</button>` : '';
@@ -473,7 +369,7 @@
                     ${isLocked ? `
                     <div class="locked-overlay">
                         <div class="lock-icon-wrap"><i class="fas fa-lock"></i></div>
-                        <span>Recurso Premium VIP</span>
+                        <span style="font-weight: 600; font-size: 0.95rem; color: #fff;">Recurso Premium VIP</span>
                         <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Hazte miembro para desbloquear</p>
                         <button onclick="openVipModal()" class="btn-secondary glass-btn" style="font-size: 0.85rem; padding: 10px 20px;"><i class="fas fa-key"></i> Desbloquear</button>
                     </div>` : ''}
@@ -482,16 +378,15 @@
                         ${isVip ? '<i class="fas fa-crown"></i> VIP' : '<i class="fas fa-unlock"></i> Gratis'}
                     </span>
                     <h3 class="resource-title">${r.title}</h3>
-                    <p class="resource-desc">${r.description || 'Sin descripción disponible.'}</p>
+                    <p class="resource-desc">${r.description || 'Sin descripción.'}</p>
                     
                     ${!isLocked ? `
                     <div class="code-actions">
-                        <div class="action-group">
+                        <button class="btn-preview" onclick="openPreview('${r.id}')"><i class="fas fa-eye"></i> Ver Resultado (Vista Previa)</button>
+                        <div class="action-row">
                             ${htmlBtns} ${cssBtns} ${jsBtns}
                         </div>
-                        <button class="btn-download-zip" onclick="downloadZip('${r.id}')">
-                            <i class="fas fa-file-archive"></i> Descargar todo (.zip)
-                        </button>
+                        <button class="btn-download-zip" onclick="downloadZip('${r.id}')"><i class="fas fa-file-archive"></i> Descargar todo (.zip)</button>
                     </div>` : ''}
                 </div>
                 `;
@@ -500,20 +395,12 @@
             if (typeof AOS !== 'undefined') AOS.refresh();
         }
 
-        // ==== FUNCIÓN COPIAR CÓDIGO ====
+        // ==== COPIAR CÓDIGO ====
         function copyCode(btn, type, id) {
             const resource = resourcesCache.find(r => r.id === id);
             if (!resource) return;
-
-            let codeToCopy = '';
-            if (type === 'html') codeToCopy = resource.code_content;
-            if (type === 'css') codeToCopy = resource.code_css;
-            if (type === 'js') codeToCopy = resource.code_js;
-
-            if (!codeToCopy) {
-                alert('Este código no está disponible.');
-                return;
-            }
+            let codeToCopy = type === 'html' ? resource.code_content : (type === 'css' ? resource.code_css : resource.code_js);
+            if (!codeToCopy) return alert('Este código no está disponible.');
 
             navigator.clipboard.writeText(codeToCopy).then(() => {
                 const originalHtml = btn.innerHTML;
@@ -521,55 +408,31 @@
                 btn.style.background = 'rgba(74, 222, 128, 0.2)';
                 btn.style.borderColor = '#4ade80';
                 btn.style.color = '#4ade80';
-                setTimeout(() => {
-                    btn.innerHTML = originalHtml;
-                    btn.style.background = '';
-                    btn.style.borderColor = '';
-                    btn.style.color = '';
-                }, 2000);
-            }).catch(err => {
-                alert('Error al copiar. Tu navegador puede no soportar esta función.');
-            });
+                setTimeout(() => { btn.innerHTML = originalHtml; btn.style.background = ''; btn.style.borderColor = ''; btn.style.color = ''; }, 2000);
+            }).catch(err => alert('Error al copiar.'));
         }
 
-        // ==== FUNCIÓN DESCARGAR .ZIP ====
+        // ==== DESCARGAR ZIP ====
         function downloadZip(id) {
             const resource = resourcesCache.find(r => r.id === id);
-            if (!resource) return;
-
-            if (typeof JSZip === 'undefined') {
-                alert('Error: La librería ZIP no se cargó correctamente.');
-                return;
-            }
-
+            if (!resource || typeof JSZip === 'undefined') return;
             const zip = new JSZip();
             let hasFiles = false;
-
             if (resource.code_content) { zip.file('index.html', resource.code_content); hasFiles = true; }
             if (resource.code_css) { zip.file('style.css', resource.code_css); hasFiles = true; }
             if (resource.code_js) { zip.file('script.js', resource.code_js); hasFiles = true; }
-
-            if (!hasFiles) {
-                alert('Este recurso no tiene archivos para descargar.');
-                return;
-            }
+            if (!hasFiles) return alert('Este recurso no tiene archivos.');
 
             zip.generateAsync({ type: 'blob' }).then(content => {
                 const url = URL.createObjectURL(content);
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = `${resource.title.replace(/\s+/g, '-').toLowerCase()}.zip`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             });
         }
 
-        // ==== INICIALIZACIÓN ====
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchResources();
-        });
+        document.addEventListener('DOMContentLoaded', fetchResources);
     </script>
 </body>
 </html>
